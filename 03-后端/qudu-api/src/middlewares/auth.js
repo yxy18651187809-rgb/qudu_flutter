@@ -31,4 +31,27 @@ function authMiddleware(req, res, next) {
   }
 }
 
+/**
+ * 可选认证中间件
+ * 有Token则解析，无Token也放行（用于公开接口，如绘本列表）
+ */
+function optionalAuth(req, res, next) {
+  const authHeader = req.headers.authorization;
+  
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    const token = authHeader.split(' ')[1];
+    try {
+      const decoded = verifyToken(token);
+      if (decoded.type === 'access') {
+        req.userId = decoded.userId;
+      }
+    } catch (err) {
+      // Token无效，但公开接口允许继续访问
+    }
+  }
+  
+  next();
+}
+
 module.exports = authMiddleware;
+module.exports.optionalAuth = optionalAuth;

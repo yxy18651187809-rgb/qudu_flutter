@@ -12,7 +12,8 @@ class AppColors {
   static const Color warning = Color(0xFFFF7043);        // 橙红 - 警示、新字文字色
 
   // 背景色
-  static const Color bg = Color(0xFFF5F5DC);             // 温暖米白 - 全局背景（护眼）
+  static const Color background = Color(0xFFF5F5DC);     // 温暖米白 - 全局背景（护眼）
+  static const Color bg = background;                     // 别名
   static const Color surface = Color(0xFFFFFFFF);         // 纯白 - 卡片/页面白底
 
   // 文字色

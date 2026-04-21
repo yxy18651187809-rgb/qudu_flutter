@@ -8,6 +8,7 @@ const config = require('./config');
 // 路由
 const authRoutes = require('./routes/auth');
 const childRoutes = require('./routes/children');
+const bookRoutes = require('./routes/books');
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.get('/health', (req, res) => {
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/user', authRoutes);  // profile 复用 auth 路由
 app.use('/api/v1/children', childRoutes);
+app.use('/api/v1/books', bookRoutes);
 
 // ===== 404 处理 =====
 app.use((req, res) => {
