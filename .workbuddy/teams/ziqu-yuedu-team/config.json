@@ -1,0 +1,43 @@
+{
+  "name": "ziqu-yuedu-team",
+  "leadAgentId": "8c27e421df25417bb5896c00ffc7bb00",
+  "workspacePath": "/Users/yangxiaoyan/WorkBuddy/20260420213331",
+  "createdAt": "2026-04-20T14:20:27.335Z",
+  "options": {
+    "workspacePath": "/Users/yangxiaoyan/WorkBuddy/20260420213331",
+    "isAutoTeam": false
+  },
+  "members": [
+    {
+      "memberId": "team-lead@ziqu-yuedu-team",
+      "name": "team-lead",
+      "role": "Team Lead - 统筹协调团队，对接用户需求，把控项目节奏"
+    },
+    {
+      "memberId": "教研员@ziqu-yuedu-team",
+      "name": "教研员",
+      "role": "负责绘本内容审核、字库分级体系维护、学习路径设计"
+    },
+    {
+      "memberId": "前端负责人@ziqu-yuedu-team",
+      "name": "前端负责人",
+      "role": "负责Flutter跨端开发、UI/UX实现、家长端与儿童端功能"
+    },
+    {
+      "memberId": "后端负责人@ziqu-yuedu-team",
+      "name": "后端负责人",
+      "role": "负责API设计、数据库建模、服务架构、支付与认证系统"
+    },
+    {
+      "memberId": "插画师@ziqu-yuedu-team",
+      "name": "插画师",
+      "role": "负责绘本插画、UI视觉、品牌素材、动画资源"
+    },
+    {
+      "memberId": "运营@ziqu-yuedu-team",
+      "name": "运营",
+      "role": "负责用户增长、内容运营、数据分析、社群运营、上线推广"
+    }
+  ],
+  "isAutoTeam": false
+}

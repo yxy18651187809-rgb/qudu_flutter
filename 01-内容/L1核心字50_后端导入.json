@@ -1,0 +1,1302 @@
+[
+  {
+    "character": "一",
+    "pinyin": "yī",
+    "tone": 1,
+    "strokeCount": 1,
+    "radical": "一",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "指事",
+      "story": "一横代表数字一，是最简单的汉字。"
+    },
+    "meanings": [
+      {
+        "wordClass": "数词",
+        "meaning": "数字一",
+        "examples": [
+          { "word": "一个", "sentence": "我有一个苹果。" },
+          { "word": "一起", "sentence": "我们一起玩。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "二",
+    "pinyin": "èr",
+    "tone": 4,
+    "strokeCount": 2,
+    "radical": "二",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "指事",
+      "story": "两横表示数字二，上面一横代表天，下面一横代表地。"
+    },
+    "meanings": [
+      {
+        "wordClass": "数词",
+        "meaning": "数字二",
+        "examples": [
+          { "word": "两个", "sentence": "我有两个好朋友。" },
+          { "word": "二月", "sentence": "二月春天来了。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "三",
+    "pinyin": "sān",
+    "tone": 1,
+    "strokeCount": 3,
+    "radical": "一",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "指事",
+      "story": "三横表示数字三，古人用横线来数数。"
+    },
+    "meanings": [
+      {
+        "wordClass": "数词",
+        "meaning": "数字三",
+        "examples": [
+          { "word": "三个", "sentence": "桌子上有三个杯子。" },
+          { "word": "三月", "sentence": "三月花儿开了。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "大",
+    "pinyin": "dà",
+    "tone": 4,
+    "strokeCount": 3,
+    "radical": "大",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "象形",
+      "story": "像一个张开双臂、双腿站立的人，表示很大。"
+    },
+    "meanings": [
+      {
+        "wordClass": "形容词",
+        "meaning": "形容体积或面积大",
+        "examples": [
+          { "word": "大人", "sentence": "爸爸妈妈是大人。" },
+          { "word": "大象", "sentence": "大象好大呀！" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "小",
+    "pinyin": "xiǎo",
+    "tone": 3,
+    "strokeCount": 3,
+    "radical": "小",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "象形",
+      "story": "像三粒沙子，表示很小很小。"
+    },
+    "meanings": [
+      {
+        "wordClass": "形容词",
+        "meaning": "形容体积或面积小",
+        "examples": [
+          { "word": "小鸟", "sentence": "树上有一只小鸟。" },
+          { "word": "小心", "sentence": "过马路要小心。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "人",
+    "pinyin": "rén",
+    "tone": 2,
+    "strokeCount": 2,
+    "radical": "人",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "象形",
+      "story": "像一个侧身站立的人，弯着腰在走路。"
+    },
+    "meanings": [
+      {
+        "wordClass": "名词",
+        "meaning": "人",
+        "examples": [
+          { "word": "大人", "sentence": "家里有很多人。" },
+          { "word": "人们", "sentence": "人们很高兴。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "口",
+    "pinyin": "kǒu",
+    "tone": 3,
+    "strokeCount": 3,
+    "radical": "口",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "象形",
+      "story": "像一个张开的嘴巴，用来吃饭和说话。"
+    },
+    "meanings": [
+      {
+        "wordClass": "名词",
+        "meaning": "嘴巴",
+        "examples": [
+          { "word": "口水", "sentence": "看到好吃的流口水。" },
+          { "word": "门口", "sentence": "他站在门口。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "手",
+    "pinyin": "shǒu",
+    "tone": 3,
+    "strokeCount": 4,
+    "radical": "手",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "象形",
+      "story": "像一只伸开五指的手，表示手和手臂。"
+    },
+    "meanings": [
+      {
+        "wordClass": "名词",
+        "meaning": "手",
+        "examples": [
+          { "word": "小手", "sentence": "洗洗小手。" },
+          { "word": "举手", "sentence": "有问题请举手。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "足",
+    "pinyin": "zú",
+    "tone": 2,
+    "strokeCount": 7,
+    "radical": "足",
+    "structure": "上下",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "象形",
+      "story": "上面是膝盖，下面是脚趾，合起来就是一只脚。"
+    },
+    "meanings": [
+      {
+        "wordClass": "名词",
+        "meaning": "脚",
+        "examples": [
+          { "word": "双足", "sentence": "人有双足。" },
+          { "word": "足球", "sentence": "我们踢足球。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "头",
+    "pinyin": "tóu",
+    "tone": 2,
+    "strokeCount": 5,
+    "radical": "大",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "象形",
+      "story": "上面两点像头发和眼睛，下面是大，合起来表示人头。"
+    },
+    "meanings": [
+      {
+        "wordClass": "名词",
+        "meaning": "头",
+        "examples": [
+          { "word": "点头", "sentence": "小明点头说好。" },
+          { "word": "回头", "sentence": "回头见！" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "耳",
+    "pinyin": "ěr",
+    "tone": 3,
+    "strokeCount": 6,
+    "radical": "耳",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "象形",
+      "story": "像一只竖起来的耳朵，有耳廓和耳垂。"
+    },
+    "meanings": [
+      {
+        "wordClass": "名词",
+        "meaning": "耳朵",
+        "examples": [
+          { "word": "耳朵", "sentence": "小兔子有长长的耳朵。" },
+          { "word": "木耳", "sentence": "妈妈做了木耳汤。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "心",
+    "pinyin": "xīn",
+    "tone": 1,
+    "strokeCount": 4,
+    "radical": "心",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "象形",
+      "story": "像一颗跳动的心脏，表示心脏和心情。"
+    },
+    "meanings": [
+      {
+        "wordClass": "名词",
+        "meaning": "心脏",
+        "examples": [
+          { "word": "开心", "sentence": "今天真开心！" },
+          { "word": "心里", "sentence": "我心里很高兴。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "目",
+    "pinyin": "mù",
+    "tone": 4,
+    "strokeCount": 5,
+    "radical": "目",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "象形",
+      "story": "像一只横着的眼睛，外面是眼眶，中间是眼珠。"
+    },
+    "meanings": [
+      {
+        "wordClass": "名词",
+        "meaning": "眼睛（古称）",
+        "examples": [
+          { "word": "目光", "sentence": "小猫的目光很温柔。" },
+          { "word": "目的", "sentence": "我们的目的是学好汉字。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "我",
+    "pinyin": "wǒ",
+    "tone": 3,
+    "strokeCount": 7,
+    "radical": "戈",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "象形",
+      "story": "古代像一把兵器，后来用来表示自己。"
+    },
+    "meanings": [
+      {
+        "wordClass": "代词",
+        "meaning": "自己",
+        "examples": [
+          { "word": "我们", "sentence": "我们一起上学。" },
+          { "word": "我家", "sentence": "我家有一只小猫。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "你",
+    "pinyin": "nǐ",
+    "tone": 3,
+    "strokeCount": 7,
+    "radical": "人",
+    "structure": "左右",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "会意",
+      "story": "左边是人，右边是尔，合起来表示'你这个人'。"
+    },
+    "meanings": [
+      {
+        "wordClass": "代词",
+        "meaning": "对方",
+        "examples": [
+          { "word": "你好", "sentence": "你好，小明！" },
+          { "word": "你的", "sentence": "你的书在哪里？" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "他",
+    "pinyin": "tā",
+    "tone": 1,
+    "strokeCount": 5,
+    "radical": "人",
+    "structure": "左右",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "形声",
+      "story": "左边是人，右边也表示'另外'，合起来表示另外一个人。"
+    },
+    "meanings": [
+      {
+        "wordClass": "代词",
+        "meaning": "指男性或泛指其他人",
+        "examples": [
+          { "word": "他们", "sentence": "他们在操场上玩。" },
+          { "word": "他的", "sentence": "他的书包是蓝色的。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "她",
+    "pinyin": "tā",
+    "tone": 1,
+    "strokeCount": 6,
+    "radical": "女",
+    "structure": "左右",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "形声",
+      "story": "左边是女，右边也，专门用来指女性。"
+    },
+    "meanings": [
+      {
+        "wordClass": "代词",
+        "meaning": "指女性",
+        "examples": [
+          { "word": "她们", "sentence": "她们是好朋友。" },
+          { "word": "她的", "sentence": "她的头发很长。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "是",
+    "pinyin": "shì",
+    "tone": 4,
+    "strokeCount": 9,
+    "radical": "日",
+    "structure": "上下",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "会意",
+      "story": "上面是日（太阳），下面是正（正确），太阳在正当中的时候，一切是对的。"
+    },
+    "meanings": [
+      {
+        "wordClass": "动词",
+        "meaning": "表示判断、等于",
+        "examples": [
+          { "word": "是的", "sentence": "是的，我来了。" },
+          { "word": "不是", "sentence": "这不是我的。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "的",
+    "pinyin": "de",
+    "tone": 5,
+    "strokeCount": 8,
+    "radical": "白",
+    "structure": "左右",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "形声",
+      "story": "左边白表示明亮、清楚，右边勺表示目标，合起来表示'清楚的归属'。"
+    },
+    "meanings": [
+      {
+        "wordClass": "助词",
+        "meaning": "表示所属关系",
+        "examples": [
+          { "word": "我的", "sentence": "这是我的书。" },
+          { "word": "你的", "sentence": "你的画真好看。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "了",
+    "pinyin": "le",
+    "tone": 5,
+    "strokeCount": 2,
+    "radical": "乙",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "象形",
+      "story": "像小孩子弯曲的手臂，表示事情已经做完。"
+    },
+    "meanings": [
+      {
+        "wordClass": "助词",
+        "meaning": "表示动作完成",
+        "examples": [
+          { "word": "好了", "sentence": "我吃完饭了。" },
+          { "word": "大了", "sentence": "小明长大了。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "会",
+    "pinyin": "huì",
+    "tone": 4,
+    "strokeCount": 6,
+    "radical": "人",
+    "structure": "上下",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "会意",
+      "story": "上面是人，下面是云，人在云上聚集，表示'会合、能够'。"
+    },
+    "meanings": [
+      {
+        "wordClass": "动词",
+        "meaning": "能够、懂得",
+        "examples": [
+          { "word": "会说", "sentence": "小明会说自己名字了。" },
+          { "word": "会走", "sentence": "宝宝会走路了。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "好",
+    "pinyin": "hǎo",
+    "tone": 3,
+    "strokeCount": 6,
+    "radical": "女",
+    "structure": "左右",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "会意",
+      "story": "左边是女，右边是子，妈妈抱着孩子，就是'好'。"
+    },
+    "meanings": [
+      {
+        "wordClass": "形容词",
+        "meaning": "好的、令人满意的",
+        "examples": [
+          { "word": "你好", "sentence": "早上好！" },
+          { "word": "好人", "sentence": "小明是个好孩子。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "不",
+    "pinyin": "bù",
+    "tone": 4,
+    "strokeCount": 4,
+    "radical": "一",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "指事",
+      "story": "一横上面加一撇，表示鸟飞上天不回来了，引申为'不'。"
+    },
+    "meanings": [
+      {
+        "wordClass": "副词",
+        "meaning": "表示否定",
+        "examples": [
+          { "word": "不好", "sentence": "今天天气不好。" },
+          { "word": "不要", "sentence": "不要跑太快。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "在",
+    "pinyin": "zài",
+    "tone": 4,
+    "strokeCount": 6,
+    "radical": "土",
+    "structure": "左右",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "象形",
+      "story": "像一棵小草从土里长出来，表示'存在、在某个地方'。"
+    },
+    "meanings": [
+      {
+        "wordClass": "动词",
+        "meaning": "存在、在某处",
+        "examples": [
+          { "word": "在家", "sentence": "我在家里。" },
+          { "word": "在学校", "sentence": "小明在学校。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "有",
+    "pinyin": "yǒu",
+    "tone": 3,
+    "strokeCount": 6,
+    "radical": "月",
+    "structure": "上下",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "会意",
+      "story": "下面是月（肉），上面是手，手里拿着肉，表示'拥有'。"
+    },
+    "meanings": [
+      {
+        "wordClass": "动词",
+        "meaning": "拥有、存在",
+        "examples": [
+          { "word": "没有", "sentence": "我没有铅笔。" },
+          { "word": "有的", "sentence": "有的花是红色的。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "日",
+    "pinyin": "rì",
+    "tone": 4,
+    "strokeCount": 4,
+    "radical": "日",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "象形",
+      "story": "像一个圆圆的太阳，中间一横是太阳的光芒。"
+    },
+    "meanings": [
+      {
+        "wordClass": "名词",
+        "meaning": "太阳、白天",
+        "examples": [
+          { "word": "日子", "sentence": "今天是个好日子。" },
+          { "word": "日出", "sentence": "太阳从东边升起。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "月",
+    "pinyin": "yuè",
+    "tone": 4,
+    "strokeCount": 4,
+    "radical": "月",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "象形",
+      "story": "像一弯月牙，中间两笔像月光。"
+    },
+    "meanings": [
+      {
+        "wordClass": "名词",
+        "meaning": "月亮",
+        "examples": [
+          { "word": "月亮", "sentence": "天上有一轮月亮。" },
+          { "word": "正月", "sentence": "正月是新年。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "天",
+    "pinyin": "tiān",
+    "tone": 1,
+    "strokeCount": 4,
+    "radical": "大",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "指事",
+      "story": "上面一横代表天空，下面是'大'（人），人头顶上就是天。"
+    },
+    "meanings": [
+      {
+        "wordClass": "名词",
+        "meaning": "天空",
+        "examples": [
+          { "word": "今天", "sentence": "今天天气真好。" },
+          { "word": "天上", "sentence": "天上有白云。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "上",
+    "pinyin": "shàng",
+    "tone": 4,
+    "strokeCount": 3,
+    "radical": "一",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "指事",
+      "story": "下面一横是地面，上面一短横指向上方，表示'上面'。"
+    },
+    "meanings": [
+      {
+        "wordClass": "方位词",
+        "meaning": "上面、高处",
+        "examples": [
+          { "word": "上面", "sentence": "书在桌子上面。" },
+          { "word": "上学", "sentence": "小明去上学了。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "下",
+    "pinyin": "xià",
+    "tone": 4,
+    "strokeCount": 3,
+    "radical": "一",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "指事",
+      "story": "上面一横是地面，下面一点指向下方，表示'下面'。"
+    },
+    "meanings": [
+      {
+        "wordClass": "方位词",
+        "meaning": "下面、低处",
+        "examples": [
+          { "word": "下面", "sentence": "小猫在桌子下面。" },
+          { "word": "下雨", "sentence": "今天下雨了。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "山",
+    "pinyin": "shān",
+    "tone": 1,
+    "strokeCount": 3,
+    "radical": "山",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "象形",
+      "story": "三座山峰并排，中间最高，两边稍矮，就是山的形状。"
+    },
+    "meanings": [
+      {
+        "wordClass": "名词",
+        "meaning": "山",
+        "examples": [
+          { "word": "上山", "sentence": "我们上山玩。" },
+          { "word": "高山", "sentence": "远处有高山。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "水",
+    "pinyin": "shuǐ",
+    "tone": 3,
+    "strokeCount": 4,
+    "radical": "水",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "象形",
+      "story": "中间一笔像水流，两边的小笔画像水花飞溅。"
+    },
+    "meanings": [
+      {
+        "wordClass": "名词",
+        "meaning": "水",
+        "examples": [
+          { "word": "喝水", "sentence": "口渴了要喝水。" },
+          { "word": "河水", "sentence": "河水清清的。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "火",
+    "pinyin": "huǒ",
+    "tone": 3,
+    "strokeCount": 4,
+    "radical": "火",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "象形",
+      "story": "中间是火苗，两边是飞溅的火星，像一团燃烧的火。"
+    },
+    "meanings": [
+      {
+        "wordClass": "名词",
+        "meaning": "火",
+        "examples": [
+          { "word": "火车", "sentence": "火车来了。" },
+          { "word": "火山", "sentence": "火山喷火了。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "木",
+    "pinyin": "mù",
+    "tone": 4,
+    "strokeCount": 4,
+    "radical": "木",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "象形",
+      "story": "上面一横是树枝，中间一竖是树干，下面两撇是树根。"
+    },
+    "meanings": [
+      {
+        "wordClass": "名词",
+        "meaning": "树木",
+        "examples": [
+          { "word": "大树", "sentence": "院子里有一棵大树。" },
+          { "word": "木头", "sentence": "桌子是木头做的。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "土",
+    "pinyin": "tǔ",
+    "tone": 3,
+    "strokeCount": 3,
+    "radical": "土",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "象形",
+      "story": "上面一横是地面，下面一横和一竖像泥土堆起来的样子。"
+    },
+    "meanings": [
+      {
+        "wordClass": "名词",
+        "meaning": "泥土、土地",
+        "examples": [
+          { "word": "泥土", "sentence": "小种子埋在泥土里。" },
+          { "word": "土地", "sentence": "土地很肥沃。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "田",
+    "pinyin": "tián",
+    "tone": 2,
+    "strokeCount": 5,
+    "radical": "田",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "象形",
+      "story": "像一块田地被分成四格，古人种地的田就是这个样子。"
+    },
+    "meanings": [
+      {
+        "wordClass": "名词",
+        "meaning": "田地",
+        "examples": [
+          { "word": "田地", "sentence": "农民伯伯在田里种菜。" },
+          { "word": "水田", "sentence": "水田里有稻子。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "爸",
+    "pinyin": "bà",
+    "tone": 4,
+    "strokeCount": 8,
+    "radical": "父",
+    "structure": "上下",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "形声",
+      "story": "上面是父（表示爸爸），下面是巴表示读音，合起来就是爸爸。"
+    },
+    "meanings": [
+      {
+        "wordClass": "名词",
+        "meaning": "爸爸",
+        "examples": [
+          { "word": "爸爸", "sentence": "爸爸，早上好！" },
+          { "word": "爸妈", "sentence": "我爱爸妈。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "妈",
+    "pinyin": "mā",
+    "tone": 1,
+    "strokeCount": 6,
+    "radical": "女",
+    "structure": "左右",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "形声",
+      "story": "左边是女，右边马表示读音，合起来就是妈妈。"
+    },
+    "meanings": [
+      {
+        "wordClass": "名词",
+        "meaning": "妈妈",
+        "examples": [
+          { "word": "妈妈", "sentence": "妈妈，早上好！" },
+          { "word": "大妈", "sentence": "隔壁大妈很热心。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "爷",
+    "pinyin": "yé",
+    "tone": 2,
+    "strokeCount": 6,
+    "radical": "父",
+    "structure": "上下",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "形声",
+      "story": "上面是父（表示长辈），下面是耶的省写表示读音。"
+    },
+    "meanings": [
+      {
+        "wordClass": "名词",
+        "meaning": "爷爷",
+        "examples": [
+          { "word": "爷爷", "sentence": "爷爷，早上好！" },
+          { "word": "大爷", "sentence": "大爷帮我指路。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "奶",
+    "pinyin": "nǎi",
+    "tone": 3,
+    "strokeCount": 5,
+    "radical": "女",
+    "structure": "左右",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "形声",
+      "story": "左边是女，右边乃表示读音，合起来表示奶奶或乳汁。"
+    },
+    "meanings": [
+      {
+        "wordClass": "名词",
+        "meaning": "奶奶",
+        "examples": [
+          { "word": "奶奶", "sentence": "奶奶，早上好！" },
+          { "word": "牛奶", "sentence": "我每天喝牛奶。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "早",
+    "pinyin": "zǎo",
+    "tone": 3,
+    "strokeCount": 6,
+    "radical": "日",
+    "structure": "上下",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "会意",
+      "story": "上面是日（太阳），下面是十（像草木），太阳升到草木上，就是早晨。"
+    },
+    "meanings": [
+      {
+        "wordClass": "名词",
+        "meaning": "早晨",
+        "examples": [
+          { "word": "早上", "sentence": "早上好！" },
+          { "word": "早晨", "sentence": "早晨空气真好。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "明",
+    "pinyin": "míng",
+    "tone": 2,
+    "strokeCount": 8,
+    "radical": "日",
+    "structure": "左右",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "会意",
+      "story": "左边是日（太阳），右边是月（月亮），日月一起发光，就是明亮。"
+    },
+    "meanings": [
+      {
+        "wordClass": "形容词",
+        "meaning": "明亮",
+        "examples": [
+          { "word": "明天", "sentence": "明天见！" },
+          { "word": "明亮", "sentence": "教室很明亮。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "亮",
+    "pinyin": "liàng",
+    "tone": 4,
+    "strokeCount": 9,
+    "radical": "亠",
+    "structure": "上下",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "会意",
+      "story": "上面像高处的灯光，下面是儿，灯光照到人身上，就是'亮'。"
+    },
+    "meanings": [
+      {
+        "wordClass": "形容词",
+        "meaning": "明亮、光线充足",
+        "examples": [
+          { "word": "天亮", "sentence": "天亮了，该起床了。" },
+          { "word": "明亮", "sentence": "太阳很明亮。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "起",
+    "pinyin": "qǐ",
+    "tone": 3,
+    "strokeCount": 10,
+    "radical": "走",
+    "structure": "左右",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "会意",
+      "story": "左边是走，右边是己，自己迈步走出去，就是'起来'。"
+    },
+    "meanings": [
+      {
+        "wordClass": "动词",
+        "meaning": "起身、起来",
+        "examples": [
+          { "word": "起床", "sentence": "小明起床了。" },
+          { "word": "起来", "sentence": "太阳升起来了。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "洗",
+    "pinyin": "xǐ",
+    "tone": 3,
+    "strokeCount": 9,
+    "radical": "氵",
+    "structure": "左右",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "形声",
+      "story": "左边是水，右边先表示读音，用水来清洁，就是'洗'。"
+    },
+    "meanings": [
+      {
+        "wordClass": "动词",
+        "meaning": "用水清洁",
+        "examples": [
+          { "word": "洗手", "sentence": "饭前要洗手。" },
+          { "word": "洗脸", "sentence": "早上洗脸。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "吃",
+    "pinyin": "chī",
+    "tone": 1,
+    "strokeCount": 6,
+    "radical": "口",
+    "structure": "左右",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "形声",
+      "story": "左边是口（嘴巴），右边乞表示读音，用嘴吃东西。"
+    },
+    "meanings": [
+      {
+        "wordClass": "动词",
+        "meaning": "进食",
+        "examples": [
+          { "word": "吃饭", "sentence": "该吃饭了。" },
+          { "word": "好吃", "sentence": "这个苹果真好吃。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "来",
+    "pinyin": "lái",
+    "tone": 2,
+    "strokeCount": 7,
+    "radical": "木",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "象形",
+      "story": "像一个人从远处走来，中间一横是地面，上面像人在走动。"
+    },
+    "meanings": [
+      {
+        "wordClass": "动词",
+        "meaning": "从别处到此处",
+        "examples": [
+          { "word": "过来", "sentence": "小明跑过来了。" },
+          { "word": "回来", "sentence": "妈妈回来了。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "去",
+    "pinyin": "qù",
+    "tone": 4,
+    "strokeCount": 5,
+    "radical": "厶",
+    "structure": "上下",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "会意",
+      "story": "上面是大（人），下面是厶，人离开这里走向远方，就是'去'。"
+    },
+    "meanings": [
+      {
+        "wordClass": "动词",
+        "meaning": "离开、前往",
+        "examples": [
+          { "word": "出去", "sentence": "我们出去玩。" },
+          { "word": "回去", "sentence": "天黑了，我们回去吧。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "出",
+    "pinyin": "chū",
+    "tone": 1,
+    "strokeCount": 5,
+    "radical": "凵",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "会意",
+      "story": "上面是止（脚），下面是凵（坑），脚从坑里迈出来，就是'出去'。"
+    },
+    "meanings": [
+      {
+        "wordClass": "动词",
+        "meaning": "从里面到外面",
+        "examples": [
+          { "word": "出来", "sentence": "太阳出来了。" },
+          { "word": "出去", "sentence": "我们出去走走。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "刷",
+    "pinyin": "shuā",
+    "tone": 1,
+    "strokeCount": 8,
+    "radical": "刂",
+    "structure": "左右",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "扩展",
+    "etymology": {
+      "type": "形声",
+      "story": "左边是'尸'表示房屋，右边是'刂'（刀），在屋里用刀清理，就是刷的意思。"
+    },
+    "meanings": [
+      {
+        "wordClass": "动词",
+        "meaning": "用刷子清理",
+        "examples": [
+          { "word": "刷牙", "sentence": "我每天早上刷牙。" },
+          { "word": "刷鞋", "sentence": "妈妈帮我刷鞋。" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "太",
+    "pinyin": "tài",
+    "tone": 4,
+    "strokeCount": 4,
+    "radical": "大",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "指事",
+      "story": "'大'字下面加一点，表示比'大'还要大，就是'太'的意思。"
+    },
+    "meanings": [
+      {
+        "wordClass": "副词",
+        "meaning": "表示程度很深",
+        "examples": [
+          { "word": "太阳", "sentence": "太阳好大好亮。" },
+          { "word": "太好", "sentence": "今天的天气太好了！" }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "阳",
+    "pinyin": "yáng",
+    "tone": 2,
+    "strokeCount": 6,
+    "radical": "阝",
+    "structure": "左右",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "形声",
+      "story": "左边'阝'（阜）表示山，右边'日'表示太阳，山对着太阳的那一面就是阳面，充满阳光。"
+    },
+    "meanings": [
+      {
+        "wordClass": "名词",
+        "meaning": "太阳，阳光",
+        "examples": [
+          { "word": "太阳", "sentence": "太阳从东方升起。" },
+          { "word": "阳光", "sentence": "阳光照在小明的脸上。" }
+        ]
+      }
+    ]
+  }
+]

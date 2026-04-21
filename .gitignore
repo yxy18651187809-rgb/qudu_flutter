@@ -1,0 +1,51 @@
+# Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+*.iml
+.idea/
+*.metagen
+
+# iOS
+qudu_flutter/ios/Pods/
+qudu_flutter/ios/.symlinks/
+qudu_flutter/ios/Flutter/Flutter.framework
+qudu_flutter/ios/Flutter/Flutter.podspec
+qudu_flutter/ios/Flutter/Generated.xcconfig
+qudu_flutter/ios/Flutter/app.flx
+qudu_flutter/ios/Flutter/flutter_assets/
+qudu_flutter/ios/ServiceDefinitions.json
+qudu_flutter/ios/Runner/GeneratedPluginRegistrant.*
+
+# Android
+qudu_flutter/android/.gradle/
+qudu_flutter/android/captures/
+qudu_flutter/android/gradlew
+qudu_flutter/android/gradlew.bat
+qudu_flutter/android/local.properties
+qudu_flutter/android/**/GeneratedPluginRegistrant.*
+
+# macOS
+qudu_flutter/macos/Pods/
+qudu_flutter/macos/.symlinks/
+qudu_flutter/macos/Flutter/GeneratedPluginRegistrant.swift
+
+# Node.js (backend)
+03-后端/node_modules/
+03-后端/qudu-api/node_modules/
+03-后端/qudu-api/dist/
+03-后端/qudu-api/.env
+
+# General
+.DS_Store
+*.log
+*.tmp
+.env
+.env.local
+
+# IDE
+.vscode/
+*.swp
+*.swo

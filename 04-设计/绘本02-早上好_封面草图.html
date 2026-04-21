@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>《早上好》封面草图 - 字趣阅读</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #FFFDE7;
+    font-family: '微软雅黑', 'PingFang SC', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    gap: 32px;
+  }
+  h1 {
+    color: #F57F17;
+    font-size: 22px;
+    font-weight: 700;
+    opacity: 0.85;
+  }
+
+  .book-container {
+    position: relative;
+    width: 480px;
+  }
+  .book-shadow {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 480px;
+    height: 340px;
+    background: rgba(0,0,0,0.12);
+    border-radius: 4px 20px 20px 4px;
+    filter: blur(8px);
+  }
+  .book {
+    position: relative;
+    width: 480px;
+    height: 340px;
+    border-radius: 4px 20px 20px 4px;
+    overflow: hidden;
+    box-shadow: -4px 0 0 #F9A825, 0 2px 16px rgba(0,0,0,0.2);
+  }
+
+  .title-area {
+    position: absolute;
+    top: 16px;
+    left: 0; right: 0;
+    text-align: center;
+    z-index: 10;
+  }
+  .book-title {
+    font-size: 38px;
+    font-weight: 900;
+    color: #E65100;
+    text-shadow: 2px 3px 0 rgba(255,255,255,0.8), 0 1px 8px rgba(0,0,0,0.1);
+    letter-spacing: 6px;
+    font-family: 'STXingkai', '华文行楷', '微软雅黑', sans-serif;
+  }
+  .book-subtitle {
+    font-size: 13px;
+    color: #F57F17;
+    margin-top: 4px;
+    letter-spacing: 2px;
+    font-weight: 500;
+  }
+  .level-badge {
+    position: absolute;
+    top: 14px;
+    right: 20px;
+    background: #FFCA28;
+    color: #E65100;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 12px;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(255,202,40,0.5);
+  }
+
+  .book-info {
+    background: white;
+    border-radius: 16px;
+    padding: 24px 32px;
+    width: 480px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .info-title { font-size: 16px; color: #F57F17; font-weight: 700; margin-bottom: 16px; }
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .info-item { display: flex; gap: 8px; align-items: flex-start; }
+  .info-label { font-size: 12px; color: #999; white-space: nowrap; }
+  .info-value { font-size: 13px; color: #333; font-weight: 500; }
+  .new-words {
+    margin-top: 16px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .word-chip {
+    background: #FFFDE7;
+    border: 1.5px solid #FFD54F;
+    color: #E65100;
+    font-size: 18px;
+    font-weight: 700;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+  }
+
+  .storyboard {
+    background: white;
+    border-radius: 16px;
+    padding: 24px 32px;
+    width: 480px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .story-title { font-size: 15px; color: #5D4037; font-weight: 700; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #EEE; }
+  .story-row { display: flex; gap: 12px; margin-bottom: 10px; align-items: flex-start; }
+  .story-page { font-size: 11px; color: white; background: #FFCA28; padding: 2px 8px; border-radius: 10px; white-space: nowrap; font-weight: 600; margin-top: 2px; }
+  .story-desc { font-size: 13px; color: #555; line-height: 1.6; }
+  .story-new-word { display: inline-block; background: #FFFDE7; color: #E65100; font-weight: 700; padding: 0 4px; border-radius: 4px; font-size: 13px; }
+
+  .watermark { font-size: 11px; color: #999; margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<h1>📖 《早上好》封面草图 · L1启蒙级</h1>
+
+<div class="book-container">
+  <div class="book-shadow"></div>
+  <div class="book">
+    <svg width="480" height="340" viewBox="0 0 480 340" style="position:absolute;top:0;left:0;">
+      <!-- 背景：清晨天空 -->
+      <rect x="0" y="0" width="480" height="340" fill="#FFFDE7"/>
+      <!-- 天空渐变 -->
+      <rect x="0" y="0" width="480" height="200" fill="url(#skyGrad)"/>
+      <defs>
+        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#FFF8E1"/>
+          <stop offset="50%" stop-color="#FFECB3"/>
+          <stop offset="100%" stop-color="#FFE082"/>
+        </linearGradient>
+      </defs>
+
+      <!-- 太阳（刚升起） -->
+      <circle cx="400" cy="80" r="45" fill="#FFD54F" opacity="0.3"/>
+      <circle cx="400" cy="80" r="35" fill="#FFCA28" opacity="0.5"/>
+      <circle cx="400" cy="80" r="25" fill="#FFC107"/>
+      <!-- 太阳光芒 -->
+      <g stroke="#FFD54F" stroke-width="2.5" opacity="0.6">
+        <line x1="400" y1="30" x2="400" y2="10"/>
+        <line x1="400" y1="130" x2="400" y2="150"/>
+        <line x1="350" y1="80" x2="330" y2="80"/>
+        <line x1="450" y1="80" x2="470" y2="80"/>
+        <line x1="365" y1="45" x2="350" y2="30"/>
+        <line x1="435" y1="45" x2="450" y2="30"/>
+        <line x1="365" y1="115" x2="350" y2="130"/>
+        <line x1="435" y1="115" x2="450" y2="130"/>
+      </g>
+      <!-- 太阳光晕 -->
+      <circle cx="400" cy="80" r="55" fill="none" stroke="#FFD54F" stroke-width="1" opacity="0.3" stroke-dasharray="8,6"/>
+
+      <!-- 云朵（晨云） -->
+      <g opacity="0.85">
+        <ellipse cx="100" cy="60" rx="50" ry="22" fill="white"/>
+        <ellipse cx="70" cy="62" rx="30" ry="20" fill="white"/>
+        <ellipse cx="130" cy="62" rx="32" ry="18" fill="white"/>
+        <ellipse cx="100" cy="48" rx="32" ry="22" fill="white"/>
+      </g>
+      <g opacity="0.7">
+        <ellipse cx="260" cy="40" rx="35" ry="15" fill="white"/>
+        <ellipse cx="240" cy="42" rx="22" ry="14" fill="white"/>
+        <ellipse cx="280" cy="42" rx="24" ry="12" fill="white"/>
+      </g>
+
+      <!-- 远处的房子轮廓 -->
+      <rect x="30" y="160" width="60" height="50" rx="4" fill="#FFCC80" opacity="0.5"/>
+      <polygon points="30,160 60,130 90,160" fill="#FFAB91" opacity="0.5"/>
+      <rect x="110" y="170" width="50" height="40" rx="4" fill="#FFCC80" opacity="0.4"/>
+      <polygon points="110,170 135,148 160,170" fill="#FFAB91" opacity="0.4"/>
+
+      <!-- 地面/草地 -->
+      <path d="M0 220 Q60 210 120 220 Q180 230 240 220 Q300 210 360 220 Q420 230 480 220 L480 340 L0 340 Z" fill="#C5E1A5"/>
+      <path d="M0 235 Q60 225 120 235 Q180 245 240 235 Q300 225 360 235 Q420 245 480 235 L480 340 L0 340 Z" fill="#AED581" opacity="0.6"/>
+
+      <!-- 小路 -->
+      <ellipse cx="240" cy="310" rx="50" ry="10" fill="#D7CCC8" opacity="0.5"/>
+      <ellipse cx="240" cy="290" rx="35" ry="7" fill="#D7CCC8" opacity="0.4"/>
+
+      <!-- 主角：小女孩小明（站在门口挥手） -->
+      <g transform="translate(240, 240)">
+        <!-- 身体 -->
+        <ellipse cx="0" cy="20" rx="26" ry="32" fill="#FFCC80"/>
+        <!-- 衣服（粉色睡衣） -->
+        <path d="M-24 12 Q0 4 24 12 L24 42 Q0 48 -24 42 Z" fill="#F48FB1"/>
+        <!-- 领口 -->
+        <path d="M-10 6 Q0 12 10 6" stroke="#EC407A" stroke-width="1.5" fill="none"/>
+        <!-- 头 -->
+        <circle cx="0" cy="-22" r="28" fill="#FFCC80"/>
+        <!-- 头发（双马尾） -->
+        <ellipse cx="0" cy="-42" rx="24" ry="14" fill="#5D4037"/>
+        <ellipse cx="-28" cy="-32" rx="10" ry="14" fill="#5D4037"/>
+        <ellipse cx="28" cy="-32" rx="10" ry="14" fill="#5D4037"/>
+        <!-- 眼睛 -->
+        <circle cx="-9" cy="-23" r="4.5" fill="#212121"/>
+        <circle cx="-7" cy="-25" r="1.8" fill="white"/>
+        <circle cx="9" cy="-23" r="4.5" fill="#212121"/>
+        <circle cx="11" cy="-25" r="1.8" fill="white"/>
+        <!-- 眉毛 -->
+        <path d="M-14 -30 Q-9 -33 -4 -30" stroke="#5D4037" stroke-width="1.5" fill="none"/>
+        <path d="M4 -30 Q9 -33 14 -30" stroke="#5D4037" stroke-width="1.5" fill="none"/>
+        <!-- 嘴巴（微笑） -->
+        <path d="M-7 -12 Q0 -6 7 -12" stroke="#D84315" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <!-- 腮红 -->
+        <ellipse cx="-18" cy="-16" rx="6" ry="4" fill="#FF8A80" opacity="0.4"/>
+        <ellipse cx="18" cy="-16" rx="6" ry="4" fill="#FF8A80" opacity="0.4"/>
+        <!-- 左手（挥手） -->
+        <ellipse cx="-32" cy="-5" rx="8" ry="6" fill="#FFCC80" transform="rotate(-30 -32 -5)"/>
+        <!-- 右手 -->
+        <ellipse cx="32" cy="8" rx="8" ry="6" fill="#FFCC80"/>
+        <!-- 腿 -->
+        <rect x="-14" y="48" width="11" height="22" rx="5" fill="#FFCC80"/>
+        <rect x="3" y="48" width="11" height="22" rx="5" fill="#FFCC80"/>
+        <!-- 拖鞋 -->
+        <ellipse cx="-9" cy="72" rx="9" ry="5" fill="#90CAF9"/>
+        <ellipse cx="9" cy="72" rx="9" ry="5" fill="#90CAF9"/>
+      </g>
+
+      <!-- 门口/门框（暗示从家出来） -->
+      <rect x="180" y="140" width="120" height="120" rx="4" fill="none" stroke="#D7CCC8" stroke-width="3" opacity="0.4"/>
+      <rect x="190" y="150" width="100" height="110" rx="2" fill="#FFF8E1" opacity="0.3"/>
+      <!-- 门把手 -->
+      <circle cx="280" cy="205" r="4" fill="#BCAAA4"/>
+
+      <!-- 小鸟（清晨元素） -->
+      <g transform="translate(80, 100)">
+        <ellipse cx="0" cy="0" rx="12" ry="9" fill="#90CAF9"/>
+        <circle cx="-5" cy="-2" r="5" fill="white"/>
+        <circle cx="-5" cy="-2" r="3" fill="#212121"/>
+        <polygon points="-12,-2 -18,-5 -12,-6" fill="#FF8A65"/>
+        <path d="M8 2 Q14 8 18 2" stroke="#90CAF9" stroke-width="2" fill="none"/>
+        <line x1="-2" y1="8" x2="-2" y2="16" stroke="#FFCC80" stroke-width="1.5"/>
+        <line x1="2" y1="8" x2="2" y2="16" stroke="#FFCC80" stroke-width="1.5"/>
+      </g>
+
+      <!-- 另一小鸟 -->
+      <g transform="translate(340, 120)">
+        <ellipse cx="0" cy="0" rx="10" ry="7" fill="#FFAB91"/>
+        <circle cx="-4" cy="-1" r="4" fill="white"/>
+        <circle cx="-4" cy="-1" r="2.5" fill="#212121"/>
+        <polygon points="-10,-1 -15,-3 -10,-4" fill="#FF8A65"/>
+        <path d="M6 1 Q11 6 15 1" stroke="#FFAB91" stroke-width="1.5" fill="none"/>
+      </g>
+
+      <!-- 小花（草地） -->
+      <g transform="translate(60, 260)">
+        <line x1="0" y1="0" x2="0" y2="-18" stroke="#7CB342" stroke-width="2"/>
+        <circle cx="-6" cy="-20" r="5" fill="#FF8A80" opacity="0.9"/>
+        <circle cx="6" cy="-20" r="5" fill="#FF8A80" opacity="0.9"/>
+        <circle cx="0" cy="-14" r="5" fill="#FF8A80" opacity="0.9"/>
+        <circle cx="0" cy="-26" r="5" fill="#FF8A80" opacity="0.9"/>
+        <circle cx="0" cy="-20" r="5" fill="#FFD54F"/>
+      </g>
+      <g transform="translate(400, 270)">
+        <line x1="0" y1="0" x2="0" y2="-15" stroke="#7CB342" stroke-width="2"/>
+        <circle cx="-5" cy="-17" r="4" fill="#CE93D8" opacity="0.9"/>
+        <circle cx="5" cy="-17" r="4" fill="#CE93D8" opacity="0.9"/>
+        <circle cx="0" cy="-12" r="4" fill="#CE93D8" opacity="0.9"/>
+        <circle cx="0" cy="-22" r="4" fill="#CE93D8" opacity="0.9"/>
+        <circle cx="0" cy="-17" r="4" fill="#FFF176"/>
+      </g>
+
+      <!-- 露珠（清晨特色） -->
+      <circle cx="120" cy="245" r="3" fill="#B3E5FC" opacity="0.7"/>
+      <circle cx="180" cy="255" r="2.5" fill="#B3E5FC" opacity="0.6"/>
+      <circle cx="320" cy="250" r="3" fill="#B3E5FC" opacity="0.7"/>
+      <circle cx="380" cy="260" r="2" fill="#B3E5FC" opacity="0.5"/>
+
+      <!-- 底部装饰 -->
+      <text x="20" y="325" font-size="12" opacity="0.3">🌅</text>
+      <text x="445" y="320" font-size="11" opacity="0.3">☀️</text>
+
+    </svg>
+
+    <div class="title-area">
+      <div class="book-title">早上好</div>
+      <div class="book-subtitle">字趣阅读 · L1 启蒙级绘本</div>
+    </div>
+    <div class="level-badge">L1 · 新字20个</div>
+  </div>
+</div>
+
+<!-- 绘本信息卡 -->
+<div class="book-info">
+  <div class="info-title">📋 绘本基本信息</div>
+  <div class="info-grid">
+    <div class="info-item"><span class="info-label">书名</span><span class="info-value">《早上好》</span></div>
+    <div class="info-item"><span class="info-label">级别</span><span class="info-value">L1 启蒙级（5-6岁）</span></div>
+    <div class="info-item"><span class="info-label">字数</span><span class="info-value">约130字</span></div>
+    <div class="info-item"><span class="info-label">页数</span><span class="info-value">10页（含封面）</span></div>
+    <div class="info-item"><span class="info-label">主题</span><span class="info-value">日常作息·时间认知</span></div>
+    <div class="info-item"><span class="info-label">主角</span><span class="info-value">小女孩"小明"</span></div>
+  </div>
+  <div style="margin-top:16px;">
+    <span style="font-size:13px;color:#888;">本册新字（核心10字）：</span>
+    <div class="new-words">
+      <div class="word-chip">日</div><div class="word-chip">早</div><div class="word-chip">上</div>
+      <div class="word-chip">天</div><div class="word-chip">明</div><div class="word-chip">亮</div>
+      <div class="word-chip">起</div><div class="word-chip">洗</div><div class="word-chip">刷</div>
+      <div class="word-chip">吃</div>
+    </div>
+  </div>
+</div>
+
+<!-- 分镜简述 -->
+<div class="storyboard">
+  <div class="story-title">🎬 分镜概览（10页）</div>
+  <div class="story-row"><span class="story-page">封面</span><span class="story-desc">清晨，小明站在门口向太阳挥手，小鸟歌唱</span></div>
+  <div class="story-row"><span class="story-page">P1</span><span class="story-desc">太阳从山后升起来，天亮了 · 引入 <span class="story-new-word">日、早、天</span></span></div>
+  <div class="story-row"><span class="story-page">P2</span><span class="story-desc">小明睁开眼睛，窗外明亮 · 引入 <span class="story-new-word">明、亮</span></span></div>
+  <div class="story-row"><span class="story-page">P3</span><span class="story-desc">小明起床，叠好被子 · 引入 <span class="story-new-word">起、来</span></span></div>
+  <div class="story-row"><span class="story-page">P4</span><span class="story-desc">走到洗手间，开始洗漱 · 引入 <span class="story-new-word">洗、刷</span></span></div>
+  <div class="story-row"><span class="story-page">P5</span><span class="story-desc">对着镜子刷牙，泡沫白白 · 引入 <span class="story-new-word">牙、白</span></span></div>
+  <div class="story-row"><span class="story-page">P6</span><span class="story-desc">洗完脸，擦擦干 · 引入 <span class="story-new-word">脸、干</span></span></div>
+  <div class="story-row"><span class="story-page">P7</span><span class="story-desc">来到餐桌前，早餐香喷喷 · 引入 <span class="story-new-word">吃、饭</span></span></div>
+  <div class="story-row"><span class="story-page">P8</span><span class="story-desc">对爸爸妈妈说"早上好" · 引入 <span class="story-new-word">爸、妈、好</span></span></div>
+  <div class="story-row"><span class="story-page">P9</span><span class="story-desc">背上小书包，出门上学去</span></div>
+  <div class="story-row"><span class="story-page">P10</span><span class="story-desc">太阳公公笑着说："小明，早上好！"</span></div>
+</div>
+
+<p class="watermark">📐 字趣阅读 · 《早上好》封面草图 v1.0 · 2026-04-21</p>
+
+</body>
+</html>
