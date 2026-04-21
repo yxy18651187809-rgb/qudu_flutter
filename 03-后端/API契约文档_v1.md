@@ -660,6 +660,511 @@ class AuthInterceptor extends Interceptor {
 
 ---
 
-*文档版本：v1.0*  
+## 六、绘本模块
+
+### 6.1 获取绘本列表
+
+```
+GET /books
+```
+
+**Query 参数：**
+
+| 参数 | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| level | string | 否 | 级别筛选，逗号分隔（如 "1,2"） |
+| theme | string | 否 | 主题筛选 |
+| isFree | boolean | 否 | 是否免费 |
+| sort | string | 否 | 排序：sortOrder(默认)/popular/newest/rating |
+| page | number | 否 | 页码，默认1 |
+| pageSize | number | 否 | 每页条数，默认20 |
+
+**响应示例：**
+
+```json
+{
+  "code": 0,
+  "data": {
+    "list": [
+      {
+        "_id": "6800...",
+        "title": "我的身体",
+        "cover": "",
+        "description": "认识身体、学会爱护自己",
+        "level": 1,
+        "theme": "身体认知",
+        "tags": ["身体", "认知", "自我"],
+        "protagonist": {
+          "name": "小明",
+          "description": "小女孩，扎两个小辫子"
+        },
+        "newWordCount": 15,
+        "pageCount": 10,
+        "totalCharacters": 100,
+        "estimatedMinutes": 5,
+        "isFree": true,
+        "readCount": 0,
+        "favoriteCount": 0,
+        "rating": 5,
+        "sortOrder": 1,
+        "status": "online"
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "pageSize": 20,
+      "total": 2,
+      "totalPages": 1
+    }
+  },
+  "message": "success"
+}
+```
+
+---
+
+### 6.2 获取绘本详情（含页面）
+
+```
+GET /books/:id
+```
+
+**Query 参数：**
+
+| 参数 | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| childId | string | 否 | 儿童ID，传入后返回新字掌握进度 |
+
+**响应示例：**
+
+```json
+{
+  "code": 0,
+  "data": {
+    "_id": "6800...",
+    "title": "我的身体",
+    "level": 1,
+    "theme": "身体认知",
+    "newWords": ["6800...", "6800..."],
+    "newWordCount": 15,
+    "reviewWords": ["6800..."],
+    "pageCount": 10,
+    "exercises": [
+      {
+        "type": "image_match",
+        "question": "看看图片，选出正确的汉字",
+        "instruction": "手的图片→手、头的图片→头、嘴巴的图片→口"
+      }
+    ],
+    "pages": [
+      {
+        "_id": "6800...",
+        "pageNumber": 1,
+        "text": "我是小明。",
+        "pinyin": "[wǒ shì xiǎo míng]",
+        "image": "",
+        "imageDescription": "小主人公小明对着镜子，开心地指着自己",
+        "wordAnnotations": [
+          {
+            "characterId": "6800...",
+            "character": "我",
+            "isNewWord": true,
+            "highlightStyle": "both"
+          },
+          {
+            "characterId": "6800...",
+            "character": "小",
+            "isNewWord": true,
+            "highlightStyle": "both"
+          }
+        ],
+        "teachingNote": "认识"我"是自己的称呼，"小"表示可爱的意思"
+      }
+    ],
+    "newWordProgress": [
+      { "characterId": "6800...", "mastered": false },
+      { "characterId": "6800...", "mastered": true }
+    ],
+    "masteredCount": 3
+  },
+  "message": "success"
+}
+```
+
+---
+
+### 6.3 智能推荐绘本
+
+```
+GET /books/recommended
+```
+
+**Query 参数：**
+
+| 参数 | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| childId | string | 否 | 儿童ID，传入后个性化推荐 |
+| limit | number | 否 | 返回数量，默认6 |
+
+**推荐逻辑：**
+- 无childId → 返回热门绘本
+- 有childId → 基于当前级别和新字掌握率推荐
+  - 优先：覆盖率30%-70%（有挑战但不太难）
+  - 其次：覆盖率<30%（全新挑战）
+  - 最后：覆盖率>70%（复习巩固）
+- 不足时补充相邻级别
+
+**响应示例：**
+
+```json
+{
+  "code": 0,
+  "data": {
+    "list": [
+      {
+        "_id": "6800...",
+        "title": "我的身体",
+        "level": 1,
+        "newWordCount": 15,
+        "newWordMasteryRate": 0.2,
+        "masteredNewWords": 3,
+        "totalNewWords": 15,
+        "isFree": true
+      }
+    ],
+    "childLevel": 1,
+    "reason": "基于L1级别推荐"
+  },
+  "message": "success"
+}
+```
+
+---
+
+### 6.4 获取免费绘本
+
+```
+GET /books/free
+```
+
+**Query 参数：**
+
+| 参数 | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| level | number | 否 | 级别筛选 |
+| page | number | 否 | 页码，默认1 |
+| pageSize | number | 否 | 每页条数，默认20 |
+
+---
+
+### 6.5 获取主题列表
+
+```
+GET /books/themes
+```
+
+**响应示例：**
+
+```json
+{
+  "code": 0,
+  "data": [
+    { "theme": "身体认知", "count": 1 },
+    { "theme": "日常作息", "count": 1 }
+  ],
+  "message": "success"
+}
+```
+
+---
+
+*文档版本：v1.2*  
 *更新日期：2026-04-21*  
+*v1.1 新增：第六章 绘本模块 API（6.1-6.5）*  
+*v1.2 新增：第七章 识字测评 API、第八章 学习记录 API*  
+*全量接口：认证(3) + 儿童档案(5) + 绘本(5) + 测评(4) + 学习(3) = 20个*  
 *前端可按此文档先行开发，Swagger文档将随代码同步生成*
+
+---
+
+## 七、识字测评模块
+
+### 7.1 开始测评
+
+```
+POST /assessments/start
+```
+
+**请求体：**
+
+```json
+{
+  "childId": "6800...",
+  "type": "initial",
+  "targetLevel": 1,
+  "questionCount": 20
+}
+```
+
+| 字段 | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| childId | string | 是 | 儿童ID |
+| type | string | 否 | initial(默认)/review/level_test |
+| targetLevel | number | 否 | 目标级别，默认取儿童当前级别 |
+| questionCount | number | 否 | 题目数量，默认20 |
+
+**响应示例：**
+
+```json
+{
+  "code": 0,
+  "data": {
+    "assessmentId": "6800...",
+    "type": "initial",
+    "status": "in_progress",
+    "questions": [
+      {
+        "characterId": "6800...",
+        "character": "人",
+        "questionType": "recognize",
+        "options": ["rén", "bā", "dà", "xiǎo"]
+      },
+      {
+        "characterId": "6800...",
+        "character": "口",
+        "questionType": "pinyin_match",
+        "options": ["口", "大", "小", "人"]
+      }
+    ],
+    "startedAt": "2026-04-22T10:00:00.000Z"
+  },
+  "message": "success"
+}
+```
+
+**说明：**
+- 如有进行中测评，直接返回已有测评
+- `questionType` 三种：recognize(看字选拼音)、pinyin_match(看拼音选字)、meaning_select(选意思)
+- 响应不包含 `correctAnswer`，防作弊
+
+---
+
+### 7.2 提交测评答案
+
+```
+POST /assessments/:id/submit
+```
+
+**请求体：**
+
+```json
+{
+  "answers": [
+    { "characterId": "6800...", "userAnswer": "rén", "responseTime": 2300 },
+    { "characterId": "6800...", "userAnswer": "口", "responseTime": 1800 }
+  ],
+  "duration": 180
+}
+```
+
+| 字段 | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| answers | array | 是 | 答案列表 |
+| answers[].characterId | string | 是 | 汉字ID |
+| answers[].userAnswer | string | 是 | 用户答案 |
+| answers[].responseTime | number | 否 | 响应时间(ms) |
+| duration | number | 否 | 测评总时长(秒) |
+
+**响应示例：**
+
+```json
+{
+  "code": 0,
+  "data": {
+    "assessmentId": "6800...",
+    "status": "completed",
+    "correctCount": 15,
+    "totalCount": 20,
+    "accuracy": 75,
+    "estimatedWordCount": 120,
+    "recommendedLevel": 1,
+    "levelResults": [
+      { "level": 1, "testedCount": 20, "correctCount": 15, "accuracy": 75 }
+    ],
+    "starsEarned": 10,
+    "coinsEarned": 30,
+    "duration": 180
+  },
+  "message": "success"
+}
+```
+
+**说明：**
+- 提交后自动更新儿童级别、汉字掌握度（遗忘曲线）、学习记录
+- 识字量估算基于各级别正确率加权计算
+- 奖励：每题正确1星（最多10星），每题3币（最多30币）
+
+---
+
+### 7.3 获取测评结果
+
+```
+GET /assessments/:id
+```
+
+**响应：** 返回完整测评记录（含题目详情和正确答案）
+
+---
+
+### 7.4 获取测评历史
+
+```
+GET /assessments/history/:childId
+```
+
+**Query 参数：** page, pageSize
+
+**响应示例：**
+
+```json
+{
+  "code": 0,
+  "data": {
+    "list": [
+      {
+        "id": "6800...",
+        "type": "initial",
+        "status": "completed",
+        "correctCount": 15,
+        "totalCount": 20,
+        "accuracy": 75,
+        "estimatedWordCount": 120,
+        "recommendedLevel": 1,
+        "startedAt": "2026-04-22T10:00:00.000Z",
+        "completedAt": "2026-04-22T10:03:00.000Z",
+        "duration": 180
+      }
+    ],
+    "pagination": { "page": 1, "pageSize": 10, "total": 3, "totalPages": 1 }
+  }
+}
+```
+
+---
+
+## 八、学习记录模块
+
+### 8.1 记录学习数据
+
+```
+POST /learning/record
+```
+
+**请求体：**
+
+```json
+{
+  "childId": "6800...",
+  "type": "reading",
+  "subtype": "book_complete",
+  "bookId": "6800...",
+  "characters": [
+    { "characterId": "6800...", "character": "人", "result": "correct", "responseTime": 1500 },
+    { "characterId": "6800...", "character": "口", "result": "wrong", "responseTime": 3000 }
+  ],
+  "duration": 300,
+  "startTime": "2026-04-22T10:00:00.000Z",
+  "endTime": "2026-04-22T10:05:00.000Z"
+}
+```
+
+| 字段 | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| childId | string | 是 | 儿童ID |
+| type | string | 是 | assessment/reading/word_study/review/game |
+| subtype | string | 否 | 细分类型 |
+| bookId | string | 否 | 绘本ID（阅读类型时） |
+| characters | array | 否 | 汉字学习结果 |
+| duration | number | 否 | 学习时长(秒) |
+| startTime | string | 否 | 开始时间 |
+| endTime | string | 否 | 结束时间 |
+
+**响应示例：**
+
+```json
+{
+  "code": 0,
+  "data": {
+    "recordId": "6800...",
+    "starsEarned": 2,
+    "coinsEarned": 5,
+    "correctCount": 1,
+    "totalCount": 2,
+    "accuracy": 50
+  }
+}
+```
+
+**奖励规则：**
+- reading: 2星5币（完整阅读绘本）
+- word_study: 每对1字1星，最多5星；每字2币
+- review: 每对1字1星，最多3星；每字1币
+- game: 1星2币
+
+---
+
+### 8.2 获取学习历史
+
+```
+GET /learning/history/:childId
+```
+
+**Query 参数：** type, page, pageSize
+
+---
+
+### 8.3 获取学习统计
+
+```
+GET /learning/stats/:childId
+```
+
+**响应示例：**
+
+```json
+{
+  "code": 0,
+  "data": {
+    "overview": {
+      "totalRecords": 25,
+      "totalMinutes": 120,
+      "totalStars": 45,
+      "streakDays": 3,
+      "currentLevel": 1
+    },
+    "today": {
+      "records": 2,
+      "minutes": 15,
+      "stars": 5
+    },
+    "mastery": {
+      "new": 200,
+      "learning": 30,
+      "reviewing": 15,
+      "mastered": 5,
+      "dueReview": 8
+    },
+    "weeklyTrend": [
+      { "_id": "2026-04-16", "count": 3, "minutes": 15, "stars": 8 },
+      { "_id": "2026-04-17", "count": 5, "minutes": 25, "stars": 12 }
+    ]
+  }
+}
+```
+
+**mastery 字段说明：**
+- new: 未学过的字
+- learning: 正在学习（掌握度<40%）
+- reviewing: 复习中（掌握度40%-80%）
+- mastered: 已掌握（掌握度>80%且间隔≥6天）
+- dueReview: 今日待复习（下次复习时间已到）

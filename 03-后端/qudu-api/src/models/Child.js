@@ -93,4 +93,15 @@ childSchema.virtual('age').get(function() {
 childSchema.set('toJSON', { virtuals: true });
 childSchema.set('toObject', { virtuals: true });
 
+// 统一 toJSON：_id → id
+childSchema.set('toJSON', {
+  virtuals: true,
+  transform: (doc, ret) => {
+    ret.id = ret._id.toString();
+    delete ret._id;
+    delete ret.__v;
+    return ret;
+  }
+});
+
 module.exports = mongoose.model('Child', childSchema);

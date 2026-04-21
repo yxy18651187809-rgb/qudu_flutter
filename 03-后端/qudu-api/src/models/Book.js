@@ -158,4 +158,15 @@ bookSchema.index({ publishedAt: -1 });
 // 文本搜索索引
 bookSchema.index({ title: 'text', description: 'text' });
 
+// 统一 toJSON：_id → id
+bookSchema.set('toJSON', {
+  virtuals: true,
+  transform: (doc, ret) => {
+    ret.id = ret._id.toString();
+    delete ret._id;
+    delete ret.__v;
+    return ret;
+  }
+});
+
 module.exports = mongoose.model('Book', bookSchema);

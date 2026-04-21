@@ -37,6 +37,16 @@ qudu_flutter/macos/Flutter/GeneratedPluginRegistrant.swift
 03-后端/qudu-api/node_modules/
 03-后端/qudu-api/dist/
 03-后端/qudu-api/.env
+03-后端/qudu-api/package-lock.json
+
+# WorkBuddy 工作区数据（含团队邮箱、记忆等，不纳入版本控制）
+.workbuddy/
+
+# AI 生成的图片（临时产物）
+generated-images/
+
+# Python 脚本（教研工具脚本，非项目代码）
+01-内容/*.py
 
 # General
 .DS_Store

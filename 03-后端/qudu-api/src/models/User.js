@@ -57,4 +57,15 @@ userSchema.virtual('maskedPhone').get(function() {
 userSchema.set('toJSON', { virtuals: true });
 userSchema.set('toObject', { virtuals: true });
 
+// 统一 toJSON：_id → id
+userSchema.set('toJSON', {
+  virtuals: true,
+  transform: (doc, ret) => {
+    ret.id = ret._id.toString();
+    delete ret._id;
+    delete ret.__v;
+    return ret;
+  }
+});
+
 module.exports = mongoose.model('User', userSchema);

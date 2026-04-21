@@ -90,4 +90,15 @@ const bookPageSchema = new mongoose.Schema({
 // 唯一索引：同一绘本的页码唯一
 bookPageSchema.index({ bookId: 1, pageNumber: 1 }, { unique: true });
 
+// 统一 toJSON：_id → id
+bookPageSchema.set('toJSON', {
+  virtuals: true,
+  transform: (doc, ret) => {
+    ret.id = ret._id.toString();
+    delete ret._id;
+    delete ret.__v;
+    return ret;
+  }
+});
+
 module.exports = mongoose.model('BookPage', bookPageSchema);

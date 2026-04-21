@@ -103,4 +103,15 @@ characterSchema.index({ pinyin: 1 });
 characterSchema.index({ strokeCount: 1 });
 characterSchema.index({ character: 'text' });
 
+// 统一 toJSON：_id → id
+characterSchema.set('toJSON', {
+  virtuals: true,
+  transform: (doc, ret) => {
+    ret.id = ret._id.toString();
+    delete ret._id;
+    delete ret.__v;
+    return ret;
+  }
+});
+
 module.exports = mongoose.model('Character', characterSchema);
