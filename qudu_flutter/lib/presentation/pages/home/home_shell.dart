@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_radius.dart';
+import '../wordbook/word_learning_page.dart';
 
 /// 首页TabBar壳 — 包含4个底部导航Tab
 class HomeShell extends StatefulWidget {
@@ -27,12 +28,15 @@ class _HomeShellState extends State<HomeShell> {
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
-        children: const [
-          // TODO: 替换为实际页面
-          _PlaceholderPage(title: '首页', icon: Icons.home_rounded, color: AppColors.primary),
-          _PlaceholderPage(title: '识字', icon: Icons.auto_stories_rounded, color: AppColors.accent),
-          _PlaceholderPage(title: '书架', icon: Icons.menu_book_rounded, color: AppColors.secondary),
-          _PlaceholderPage(title: '我的', icon: Icons.person_rounded, color: AppColors.primary),
+        children: [
+          // Tab 0: 首页占位（后续接入推荐内容）
+          const _PlaceholderPage(title: '首页', icon: Icons.home_rounded, color: AppColors.primary),
+          // Tab 1: 识字首页 ✅ 真实页面已接入
+          const WordLearningPage(),
+          // Tab 2: 书架占位（后续接入绘本列表）
+          const _PlaceholderPage(title: '书架', icon: Icons.menu_book_rounded, color: AppColors.secondary),
+          // Tab 3: 我的占位（后续接入个人中心）
+          const _PlaceholderPage(title: '我的', icon: Icons.person_rounded, color: AppColors.primary),
         ],
       ),
       bottomNavigationBar: Container(

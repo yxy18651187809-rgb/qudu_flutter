@@ -403,6 +403,37 @@
     ]
   },
   {
+    "character": "个",
+    "pinyin": "gè",
+    "tone": 4,
+    "strokeCount": 3,
+    "radical": "人",
+    "structure": "独体",
+    "level": 1,
+    "grade": 0,
+    "coreLevel": "核心",
+    "etymology": {
+      "type": "会意",
+      "story": "上面是人，下面是竖线，表示一个人站着，引申为通用量词。"
+    },
+    "meanings": [
+      {
+        "wordClass": "量词",
+        "meaning": "通用量词",
+        "examples": [
+          {
+            "word": "一个",
+            "sentence": "我有一个好朋友。"
+          },
+          {
+            "word": "个人",
+            "sentence": "每个人都有自己的名字。"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "character": "只",
     "pinyin": "zhī",
     "tone": 1,

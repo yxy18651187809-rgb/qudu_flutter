@@ -68,7 +68,7 @@ async function seed() {
       }));
       
       await Character.insertMany(characters);
-      console.log(`[Seed] 已导入 ${characters.length} 个汉字 (来源: L1完整字300_后端导入.json)`);
+      console.log(`[Seed] 已导入 ${characters.length} 个汉字 (来源: L1完整字300_后端导入.json, 含补入的"个"字共301字)`);
     } else {
       console.log(`[Seed] 未找到汉字数据文件: ${jsonPath}`);
       console.log('[Seed] 使用内置示例数据...');
