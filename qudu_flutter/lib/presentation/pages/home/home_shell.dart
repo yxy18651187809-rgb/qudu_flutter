@@ -3,6 +3,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_radius.dart';
 import '../wordbook/word_learning_page.dart';
+import '../bookshelf/bookshelf_page.dart';
 
 /// 首页TabBar壳 — 包含4个底部导航Tab
 class HomeShell extends StatefulWidget {
@@ -33,8 +34,8 @@ class _HomeShellState extends State<HomeShell> {
           const _PlaceholderPage(title: '首页', icon: Icons.home_rounded, color: AppColors.primary),
           // Tab 1: 识字首页 ✅ 真实页面已接入
           const WordLearningPage(),
-          // Tab 2: 书架占位（后续接入绘本列表）
-          const _PlaceholderPage(title: '书架', icon: Icons.menu_book_rounded, color: AppColors.secondary),
+          // Tab 2: 书架 ✅ 真实页面已接入（等插画师封面图素材替换图标placeholder）
+          const BookshelfPage(),
           // Tab 3: 我的占位（后续接入个人中心）
           const _PlaceholderPage(title: '我的', icon: Icons.person_rounded, color: AppColors.primary),
         ],

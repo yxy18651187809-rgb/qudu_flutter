@@ -115,9 +115,9 @@ async function seed() {
     const allChars = await Character.find({}).lean();
     allChars.forEach(c => { charMap[c.character] = c._id; });
 
-    // 绘本01《我的身体》— 20个新字
-    const book1NewWords = ['人', '口', '手', '足', '头', '脸', '眼', '耳', '鼻', '心', '十', '只', '个', '会', '能', '爱', '我', '你', '他', '她'];
-    const book1ReviewWords = ['大', '小', '上', '下', '天', '地', '一', '二', '三', '四'];
+    // 绘本01《我的身体》— v2修正版15个新字（教研员2026-04-21修正）
+    const book1NewWords = ['人', '口', '手', '足', '头', '耳', '心', '大', '小', '我', '你', '会', '是', '的', '了'];
+    const book1ReviewWords = ['一', '二', '三', '上', '下', '天'];
     
     const book1 = await Book.create({
       title: '我的身体',
@@ -134,16 +134,16 @@ async function seed() {
       newWordCount: book1NewWords.length,
       reviewWords: book1ReviewWords.map(c => charMap[c]).filter(Boolean),
       pageCount: 10,
-      totalCharacters: 120,
+      totalCharacters: 100,
       estimatedMinutes: 5,
       vocabularyComplexity: 1,
       sentenceLength: 1,
       exercises: [
         { type: 'image_match', question: '看看图片，选出正确的身体部位名称', instruction: '手的图片→手、头的图片→头、嘴巴的图片→口' },
-        { type: 'listen_select', question: '听老师读，选择正确的字', instruction: '老师读"耳朵"，选"耳"' },
+        { type: 'size_compare', question: '看图选出"大"和"小"', instruction: '大西瓜→大、小蚂蚁→小' },
         { type: 'point_identify', question: '指指你的头在哪里？口在哪里？手在哪里？', instruction: '引导孩子认识身体部位' },
         { type: 'count', question: '数一数你有多少只手？多少只足？', instruction: '用图片辅助理解数量' },
-        { type: 'emotion_match', question: '把表情和对应的感受连起来', instruction: '笑脸→开心 哭脸→伤心' }
+        { type: 'emotion', question: '指着自己的心，说：我爱我自己！', instruction: '情感引导，不涉及识字考核' }
       ],
       isFree: true,
       price: 0,
@@ -153,18 +153,18 @@ async function seed() {
     });
     console.log(`[Seed] 已创建绘本: ${book1.title} (ID: ${book1._id})`);
 
-    // 绘本01页面（基于教研员v1文案）
+    // 绘本01页面（基于教研员v2修正版文案）
     const book1Pages = [
-      { pageNumber: 1, text: '我是小明。', pinyin: '[wǒ shì xiǎo míng]', imageDescription: '清晨，小主人公在床上醒来，揉揉眼睛，窗外有阳光', teachingNote: '认识"我"是每个人独特的称呼', wordAnnotations: [{ character: '我', isNewWord: true }] },
-      { pageNumber: 2, text: '这是我的头。', pinyin: '[zhè shì wǒ de tóu]', imageDescription: '小主人公指着镜子里的自己，数着身体部位', teachingNote: '认识"头"是身体的最高部位', wordAnnotations: [{ character: '头', isNewWord: true }] },
-      { pageNumber: 3, text: '这是我的脸。我的脸会笑。', pinyin: '[zhè shì wǒ de liǎn] [wǒ de liǎn huì xiào]', imageDescription: '小主人公用手指着自己的脸，镜子里有笑脸', teachingNote: '认识"脸"能表达情绪', wordAnnotations: [{ character: '脸', isNewWord: true }, { character: '会', isNewWord: true }] },
-      { pageNumber: 4, text: '我的眼睛会看。我看见花。', pinyin: '[wǒ de yǎn jīng huì kàn] [wǒ kàn jiàn huā]', imageDescription: '小主人公用手指着自己的眼睛，再指着花朵', teachingNote: '眼睛的用处是看东西', wordAnnotations: [{ character: '眼', isNewWord: true }] },
-      { pageNumber: 5, text: '我的耳朵会听。小鸟唱歌，我听见了。', pinyin: '[wǒ de ěr duo huì tīng] [xiǎo niǎo chàng gē wǒ tīng jiàn le]', imageDescription: '小主人公的耳朵旁边有一只小鸟在唱歌', teachingNote: '耳朵的用处是听声音', wordAnnotations: [{ character: '耳', isNewWord: true }] },
-      { pageNumber: 6, text: '我的鼻子会闻。我闻见花香。', pinyin: '[wǒ de bí zi huì wén] [wǒ wén jiàn huā xiāng]', imageDescription: '小主人公用手指着自己的鼻子，旁边有花朵和饼干', teachingNote: '鼻子的用处是闻气味', wordAnnotations: [{ character: '鼻', isNewWord: true }] },
-      { pageNumber: 7, text: '我的口会说话。啊——啊——', pinyin: '[wǒ de kǒu huì shuō huà] [ā——ā——]', imageDescription: '小主人公张大嘴巴，嘴里有白白健康的牙齿', teachingNote: '嘴巴的用处是说话和吃东西', wordAnnotations: [{ character: '口', isNewWord: true }] },
-      { pageNumber: 8, text: '我有两只手。我有两只足。', pinyin: '[wǒ yǒu liǎng zhī shǒu] [wǒ yǒu liǎng zhī zú]', imageDescription: '小主人公伸出双手，十根手指张开，旁边还有两只脚', teachingNote: '认识"手"和"足"，理解"两只"的数量', wordAnnotations: [{ character: '手', isNewWord: true }, { character: '只', isNewWord: true }, { character: '足', isNewWord: true }] },
-      { pageNumber: 9, text: '我的心在跳。我爱爸爸妈妈。', pinyin: '[wǒ de xīn zài tiào] [wǒ ài bà ba mā ma]', imageDescription: '小主人公用手摸着心口，脸上是开心的表情', teachingNote: '心代表爱和情感', wordAnnotations: [{ character: '心', isNewWord: true }, { character: '爱', isNewWord: true }] },
-      { pageNumber: 10, text: '我有一个身体。我能跑、能跳、能长大。我爱我自己。', pinyin: '[wǒ yǒu yī gè shēn tǐ] [wǒ néng pǎo néng tiào néng zhǎng dà] [wǒ ài wǒ zì jǐ]', imageDescription: '小主人公张开双臂拥抱自己，背景是温暖的阳光', teachingNote: '每个人都有独一无二的身体，要学会爱护自己', wordAnnotations: [{ character: '个', isNewWord: true }, { character: '能', isNewWord: true }] }
+      { pageNumber: 1, text: '我是小明。', pinyin: '[wǒ shì xiǎo míng]', imageDescription: '小主人公对着镜子，开心地指着自己', teachingNote: '认识"我"是自己的称呼，"小"表示可爱的意思', wordAnnotations: [{ character: '我', isNewWord: true }, { character: '小', isNewWord: false }] },
+      { pageNumber: 2, text: '这是我的头。', pinyin: '[zhè shì wǒ de tóu]', imageDescription: '小明用手指着头，旁边有一个大大的箭头指向头部', teachingNote: '认识"头"在身体最上面', wordAnnotations: [{ character: '是', isNewWord: true }, { character: '的', isNewWord: true }, { character: '头', isNewWord: true }] },
+      { pageNumber: 3, text: '我的人脸。大大的口。', pinyin: '[wǒ de rén liǎn] [dà dà de kǒu]', imageDescription: '小明用手指着脸（笑），旁边画一个笑脸图标', teachingNote: '认识脸上有嘴巴（口）', wordAnnotations: [{ character: '人', isNewWord: true }, { character: '口', isNewWord: true }, { character: '大', isNewWord: true }] },
+      { pageNumber: 4, text: '我有两只眼。', pinyin: '[wǒ yǒu liǎng zhī yǎn]', imageDescription: '小明用手指着眼睛，旁边画一只大眼睛的特写图标', teachingNote: '眼睛用来看东西（图片辅助理解，不强制识字）', wordAnnotations: [] },
+      { pageNumber: 5, text: '这是耳。', pinyin: '[zhè shì ěr]', imageDescription: '小明用手指着耳朵，旁边有一只小鸟的简笔画', teachingNote: '耳朵用来听声音', wordAnnotations: [{ character: '耳', isNewWord: true }] },
+      { pageNumber: 6, text: '这是鼻。', pinyin: '[zhè shì bí]', imageDescription: '小明用手指着鼻子，旁边画一朵花', teachingNote: '鼻子用来闻东西（图片辅助认知，不强制识字）', wordAnnotations: [] },
+      { pageNumber: 7, text: '口，大！小，小。', pinyin: '[kǒu dà] [xiǎo xiǎo]', imageDescription: '小明张大嘴巴，画面用大嘴巴特写，再闭嘴变小', teachingNote: '通过大小对比巩固"大""小"', wordAnnotations: [{ character: '小', isNewWord: true }] },
+      { pageNumber: 8, text: '我有一双手。', pinyin: '[wǒ yǒu yī shuāng shǒu]', imageDescription: '小明伸出双手，十根手指张开，旁边有数字10的图标', teachingNote: '认识"手"，一双手有十根手指', wordAnnotations: [{ character: '手', isNewWord: true }] },
+      { pageNumber: 9, text: '我有两只足。', pinyin: '[wǒ yǒu liǎng zhī zú]', imageDescription: '小明用手指着脚，旁边有一双小鞋子的图标', teachingNote: '认识"足"就是脚，用来走路', wordAnnotations: [{ character: '足', isNewWord: true }] },
+      { pageNumber: 10, text: '我的心。我会长大。', pinyin: '[wǒ de xīn] [wǒ huì zhǎng dà]', imageDescription: '小明张开双臂拥抱自己，背景是温暖的阳光，画面充满安全感', teachingNote: '心代表爱和情感，"会"表示将来能做到', wordAnnotations: [{ character: '心', isNewWord: true }, { character: '会', isNewWord: true }, { character: '了', isNewWord: true }] }
     ];
 
     for (const page of book1Pages) {
