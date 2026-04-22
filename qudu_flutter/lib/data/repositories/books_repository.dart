@@ -1,107 +1,106 @@
 // 绘本书架 Repository
-// 对应后端 API：GET /books（列表）、GET /books/:id（详情）、GET /books/:id/content（章节内容）
-// 当前阶段：本地 Mock 数据 + 等后端 API 就绪后接入真实接口
+// 对接API契约第六章：绘本列表/详情/推荐
+import '../../core/network/api_client.dart';
+import '../../core/network/api_response.dart';
+import '../../core/di/service_locator.dart';
 import '../models/book_model.dart';
 
-/// 绘本 Repository — 提供本地缓存 + API 双模式
+/// 绘本 Repository
+/// 所有方法使用真实后端API
 class BooksRepository {
+  ApiClient get _api => ServiceLocator.instance.apiClient;
+
   /// 获取绘本列表（按级别筛选）
-  /// TODO: 后端 API 就绪后替换为真实接口
+  /// GET /api/v1/books?level=L1&childId=xxx
   Future<List<BookModel>> getBooks({String? level, String? childId}) async {
-    // 阶段一：返回 Mock 数据
-    await Future.delayed(const Duration(milliseconds: 300));
+    final queryParams = <String, dynamic>{};
+    if (level != null && level.isNotEmpty) queryParams['level'] = level;
+    if (childId != null && childId.isNotEmpty) queryParams['childId'] = childId;
 
-    var books = _mockBooks;
+    final response = await _api.get<Map<String, dynamic>>(
+      '/books',
+      queryParams: queryParams,
+    );
 
-    // 按级别筛选
-    if (level != null && level.isNotEmpty) {
-      books = books.where((b) => b.level == level).toList();
+    if (!response.isSuccess || response.data == null) {
+      throw ApiException(
+        code: response.code,
+        message: response.message,
+      );
     }
 
-    return books;
+    // 响应格式：{ list: [...] }
+    final list = response.data!['list'] as List<dynamic>? ?? [];
+    return list
+        .map((e) => BookModel.fromJson(e as Map<String, dynamic>))
+        .toList();
   }
 
   /// 获取单个绘本详情
-  Future<BookModel?> getBookDetail(String bookId) async {
-    await Future.delayed(const Duration(milliseconds: 200));
-    try {
-      return _mockBooks.firstWhere((b) => b.id == bookId);
-    } catch (_) {
+  /// GET /api/v1/books/:id?childId=xxx
+  Future<BookModel?> getBookDetail(String bookId, {String? childId}) async {
+    final queryParams = <String, dynamic>{};
+    if (childId != null && childId.isNotEmpty) {
+      queryParams['childId'] = childId;
+    }
+
+    final response = await _api.get<Map<String, dynamic>>(
+      '/books/$bookId',
+      queryParams: queryParams.isNotEmpty ? queryParams : null,
+    );
+
+    if (!response.isSuccess || response.data == null) {
       return null;
     }
+    return BookModel.fromJson(response.data!);
   }
 
-  /// 获取推荐绘本（3本）
-  /// 策略：优先推荐新字覆盖率 30%-70% 的绘本
+  /// 获取推荐绘本
+  /// GET /api/v1/books/recommended?childId=xxx
   Future<List<BookModel>> getRecommendedBooks({String? childId}) async {
-    await Future.delayed(const Duration(milliseconds: 200));
-    // Mock: 返回前3本绘本作为推荐
-    return _mockBooks.take(3).toList();
+    final queryParams = <String, dynamic>{};
+    if (childId != null && childId.isNotEmpty) queryParams['childId'] = childId;
+
+    final response = await _api.get<Map<String, dynamic>>(
+      '/books/recommended',
+      queryParams: queryParams.isNotEmpty ? queryParams : null,
+    );
+
+    if (!response.isSuccess || response.data == null) {
+      return [];
+    }
+
+    final list = response.data!['list'] as List<dynamic>? ?? [];
+    return list
+        .map((e) => BookModel.fromJson(e as Map<String, dynamic>))
+        .toList();
   }
 
-  // ===========================================================================
-  // Mock 数据 — 阶段一占位，等后端 seed 数据接入后替换
-  // ===========================================================================
-  static final List<BookModel> _mockBooks = [
-    BookModel(
-      id: 'book_001',
-      title: '我的身体',
-      cover: 'assets/images/books/book_cover_01.png',
-      level: 'L1',
-      newWords: ['我', '的', '头', '眼', '耳', '口', '手', '足', '心', '身'],
-      totalPages: 10,
-      readCount: 0,
-      isCompleted: false,
-    ),
-    BookModel(
-      id: 'book_002',
-      title: '早上好',
-      cover: 'assets/images/books/book_cover_02.png',
-      level: 'L1',
-      newWords: ['早', '上', '好', '太', '阳', '月', '亮', '星', '天', '起'],
-      totalPages: 10,
-      readCount: 2,
-      isCompleted: false,
-    ),
-    BookModel(
-      id: 'book_003',
-      title: '小兔子找妈妈',
-      cover: 'assets/images/books/book_cover_03.png',
-      level: 'L1',
-      newWords: ['小', '兔', '子', '找', '妈', '爸', '家', '走', '跑', '跳'],
-      totalPages: 10,
-      readCount: 0,
-      isCompleted: false,
-    ),
-    BookModel(
-      id: 'book_004',
-      title: '一二三上学去',
-      cover: 'assets/images/books/book_cover_04.png',
-      level: 'L1',
-      newWords: ['一', '二', '三', '上', '学', '去', '来', '回', '大', '小'],
-      totalPages: 10,
-      readCount: 0,
-      isCompleted: false,
-    ),
-    BookModel(
-      id: 'book_005',
-      title: '红红的太阳',
-      cover: 'assets/images/books/book_cover_05.png',
-      level: 'L1',
-      newWords: ['红', '火', '水', '风', '雨', '雪', '花', '草', '树', '叶'],
-      totalPages: 10,
-      readCount: 0,
-      isCompleted: false,
-    ),
-    BookModel(
-      id: 'book_006',
-      title: '趣趣找春天',
-      cover: 'assets/images/books/book_cover_06.png',
-      level: 'L1',
-      newWords: ['春', '夏', '秋', '冬', '季', '节', '候', '气', '温', '暖'],
-      totalPages: 10,
-      readCount: 0,
-      isCompleted: false,
-    ),
-  ];
+  /// 获取免费绘本
+  /// GET /api/v1/books/free
+  Future<List<BookModel>> getFreeBooks() async {
+    final response = await _api.get<Map<String, dynamic>>('/books/free');
+
+    if (!response.isSuccess || response.data == null) {
+      return [];
+    }
+
+    final list = response.data!['list'] as List<dynamic>? ?? [];
+    return list
+        .map((e) => BookModel.fromJson(e as Map<String, dynamic>))
+        .toList();
+  }
+
+  /// 获取主题列表
+  /// GET /api/v1/books/themes
+  Future<List<String>> getThemes() async {
+    final response = await _api.get<Map<String, dynamic>>('/books/themes');
+
+    if (!response.isSuccess || response.data == null) {
+      return [];
+    }
+
+    final list = response.data!['list'] as List<dynamic>? ?? [];
+    return list.map((e) => e.toString()).toList();
+  }
 }

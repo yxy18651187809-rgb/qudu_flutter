@@ -3,11 +3,13 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_radius.dart';
 import '../../../core/theme/app_typography.dart';
+import '../../../core/services/storage_service.dart';
 import '../../../data/models/character_model.dart';
 import '../../../data/repositories/character_repository.dart';
 
 /// 识字首页
 /// 功能：级别选择 + 字卡列表 + 今日复习提醒
+/// API: GET /characters（列表）, GET /learning/stats/:childId（统计）
 class WordLearningPage extends StatefulWidget {
   final int? initialLevel;
   final String? childId;
@@ -30,12 +32,22 @@ class _WordLearningPageState extends State<WordLearningPage> {
   bool _isLoading = true;
   String? _error;
   int _reviewCount = 0; // 今日待复习数
+  String? _currentChildId;
 
   @override
   void initState() {
     super.initState();
     _selectedLevel = widget.initialLevel ?? 1;
-    _loadCharacters();
+    _initChildId();
+  }
+
+  Future<void> _initChildId() async {
+    // 优先用传入的childId，否则从本地存储获取
+    final childId = widget.childId ?? await StorageService.getCurrentChildId();
+    if (mounted) {
+      setState(() => _currentChildId = childId);
+      _loadCharacters();
+    }
   }
 
   Future<void> _loadCharacters() async {
@@ -45,28 +57,24 @@ class _WordLearningPageState extends State<WordLearningPage> {
     });
 
     try {
-      final chars = await _repository.getCharactersByLevel(
-        _selectedLevel,
-        childId: widget.childId,
-      );
-      // Mock: 随机标记部分字为待复习
-      final charsWithReview = chars.asMap().entries.map((entry) {
-        final idx = entry.key;
-        double mastery = 0.0;
-        if (idx < 3) {
-          mastery = 0.5; // 前3个待复习
-          _reviewCount = 3;
-        } else if (idx < 6) {
-          mastery = 0.0; // 新字
-        } else {
-          mastery = 1.0; // 已掌握
-        }
-        return entry.value.copyWith(mastery: mastery);
-      }).toList();
+      // 并行加载：汉字列表 + 学习统计
+      final results = await Future.wait([
+        _repository.getCharactersByLevel(
+          _selectedLevel,
+          childId: _currentChildId,
+        ),
+        _currentChildId != null
+            ? _repository.getLearningStats(_currentChildId!)
+            : Future.value(null),
+      ]);
+
+      final chars = results[0] as List<CharacterModel>;
+      final stats = results[1] as LearningStats?;
 
       if (mounted) {
         setState(() {
-          _characters = charsWithReview;
+          _characters = chars;
+          _reviewCount = stats?.dueReview ?? 0;
           _isLoading = false;
         });
       }
