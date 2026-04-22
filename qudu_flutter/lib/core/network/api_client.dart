@@ -202,6 +202,26 @@ class ApiClient {
     }
   }
 
+  /// DELETE请求
+  Future<ApiResponse<T>> delete<T>(
+    String path, {
+    T Function(dynamic)? fromJson,
+    CancelToken? cancelToken,
+  }) async {
+    try {
+      final response = await _dio.delete(
+        path,
+        cancelToken: cancelToken,
+      );
+      return ApiResponse.fromJson(
+        response.data as Map<String, dynamic>,
+        fromJson,
+      );
+    } on DioException catch (e) {
+      throw _handleError(e);
+    }
+  }
+
   /// 处理错误
   ApiException _handleError(DioException e) {
     switch (e.type) {

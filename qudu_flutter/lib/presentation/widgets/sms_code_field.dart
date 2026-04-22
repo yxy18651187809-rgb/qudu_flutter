@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../core/theme/app_colors.dart';
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_radius.dart';
 
 /// 验证码输入框 + 获取验证码按钮组合
+/// 设计稿规范：输入框flex:1 + 按钮96dp宽 + 间距12dp
 class SmsCodeField extends StatefulWidget {
   final TextEditingController codeController;
   final TextEditingController phoneController;
@@ -67,6 +69,7 @@ class _SmsCodeFieldState extends State<SmsCodeField> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // 验证码输入框 flex:1
         Expanded(
           child: TextFormField(
             controller: widget.codeController,
@@ -75,30 +78,70 @@ class _SmsCodeFieldState extends State<SmsCodeField> {
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
             ],
-            decoration: const InputDecoration(
-              hintText: '验证码',
-              prefixIcon: Icon(Icons.lock_outline),
+            decoration: InputDecoration(
+              hintText: '请输入验证码',
+              hintStyle: const TextStyle(
+                fontSize: 16,
+                color: AppColors.textHint,
+              ),
+              prefixIcon: const Icon(Icons.lock_outline, size: 20),
+              prefixIconConstraints: const BoxConstraints(minWidth: 40),
               counterText: '',
+              filled: true,
+              fillColor: AppColors.surface,
+              border: OutlineInputBorder(
+                borderRadius: AppRadius.mediumBorder,
+                borderSide: const BorderSide(color: AppColors.border, width: 1.5),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: AppRadius.mediumBorder,
+                borderSide: const BorderSide(color: AppColors.border, width: 1.5),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: AppRadius.mediumBorder,
+                borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: AppRadius.mediumBorder,
+                borderSide: const BorderSide(color: AppColors.error, width: 1.5),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: AppRadius.mediumBorder,
+                borderSide: const BorderSide(color: AppColors.error, width: 1.5),
+              ),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            ),
+            style: const TextStyle(
+              fontSize: 16,
+              color: AppColors.textPrimary,
             ),
             validator: widget.validator ??
                 (value) {
-                  if (value == null || value.isEmpty) return '请输入验证码';
-                  if (value.length != 6) return '请输入6位验证码';
+                  if (value == null || value.isEmpty) return '验证码错误，请重新输入';
+                  if (value.length != 6) return '验证码错误，请重新输入';
                   return null;
                 },
             textInputAction: TextInputAction.done,
           ),
         ),
         const SizedBox(width: 12),
+        // 获取验证码按钮 96dp宽
         SizedBox(
+          width: 96,
           height: 48,
           child: _countdown > 0
               ? OutlinedButton(
                   onPressed: null,
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: AppColors.border),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: AppRadius.mediumBorder,
+                    ),
+                  ),
                   child: Text(
-                    '${_countdown}s',
+                    '$_countdown秒',
                     style: const TextStyle(
-                      color: AppColors.textHint,
+                      color: AppColors.textSecondary,
                       fontSize: 14,
                     ),
                   ),
@@ -106,8 +149,14 @@ class _SmsCodeFieldState extends State<SmsCodeField> {
               : ElevatedButton(
                   onPressed: _isLoading ? null : _sendCode,
                   style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(110, 48),
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    minimumSize: Size.zero,
+                    padding: EdgeInsets.zero,
+                    backgroundColor: AppColors.primaryLight,
+                    foregroundColor: AppColors.primary,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: AppRadius.mediumBorder,
+                    ),
+                    elevation: 0,
                   ),
                   child: _isLoading
                       ? const SizedBox(
@@ -115,12 +164,12 @@ class _SmsCodeFieldState extends State<SmsCodeField> {
                           height: 20,
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
-                            color: Colors.white,
+                            color: AppColors.primary,
                           ),
                         )
-                      : Text(
+                      : const Text(
                           '获取验证码',
-                          style: const TextStyle(fontSize: 14),
+                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                         ),
                 ),
         ),

@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../core/theme/app_radius.dart';
+import '../../../core/di/service_locator.dart';
+import '../../../core/services/storage_service.dart';
 import '../../../data/models/child_model.dart';
 
 /// 儿童档案管理页
 /// PRD 4.2: 创建/管理儿童档案，最多3个
+/// API契约：第三章 儿童档案模块
 class ChildrenPage extends StatefulWidget {
   const ChildrenPage({super.key});
 
@@ -17,8 +21,9 @@ class ChildrenPage extends StatefulWidget {
 class _ChildrenPageState extends State<ChildrenPage> {
   final List<ChildModel> _children = [];
   bool _isLoading = true;
+  bool _isCreating = false;
 
-  // 预设头像列表（12个）
+  // 预设头像颜色列表（12个）
   final List<Color> _avatarColors = [
     AppColors.primary, AppColors.secondary, AppColors.accent,
     const Color(0xFFB3E5FC), const Color(0xFFF8BBD0),
@@ -27,6 +32,7 @@ class _ChildrenPageState extends State<ChildrenPage> {
     const Color(0xFF80DEEA), const Color(0xFFA5D6A7),
     const Color(0xFFEF9A9A),
   ];
+  int _selectedAvatarIndex = 0;
 
   // 创建档案表单
   final _nameController = TextEditingController();
@@ -46,15 +52,25 @@ class _ChildrenPageState extends State<ChildrenPage> {
     super.dispose();
   }
 
+  /// 加载儿童列表
+  /// GET /api/v1/children
   Future<void> _loadChildren() async {
-    // TODO: 调用API GET /api/v1/children
-    // Mock数据用于UI展示
-    await Future.delayed(const Duration(milliseconds: 500));
-    if (mounted) {
-      setState(() {
-        _children.clear();
-        _isLoading = false;
-      });
+    try {
+      final children = await ServiceLocator.instance.childrenRepository.getChildren();
+      if (mounted) {
+        setState(() {
+          _children.clear();
+          _children.addAll(children);
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() => _isLoading = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('加载失败，请重试'), backgroundColor: AppColors.error),
+        );
+      }
     }
   }
 
@@ -70,6 +86,7 @@ class _ChildrenPageState extends State<ChildrenPage> {
     _selectedGender = 'male';
     _selectedBirthDate = '';
     _selectedGrade = 1;
+    _selectedAvatarIndex = 0;
 
     showModalBottomSheet(
       context: context,
@@ -81,10 +98,12 @@ class _ChildrenPageState extends State<ChildrenPage> {
     );
   }
 
+  /// 创建儿童档案
+  /// POST /api/v1/children
   Future<void> _onCreateChild() async {
-    if (_nameController.text.isEmpty) {
+    if (_nameController.text.isEmpty || _nameController.text.length < 2) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('请输入昵称')),
+        const SnackBar(content: Text('请输入昵称（2-8个字符）')),
       );
       return;
     }
@@ -96,16 +115,57 @@ class _ChildrenPageState extends State<ChildrenPage> {
       return;
     }
 
-    // TODO: 调用API POST /api/v1/children
-    // body: { name, gender, birthDate, grade }
-    Navigator.pop(context);
+    setState(() => _isCreating = true);
+    try {
+      final child = ChildModel(
+        id: '',
+        name: _nameController.text.trim(),
+        avatar: '',
+        gender: _selectedGender == 'secret' ? 'unknown' : _selectedGender,
+        birthDate: _selectedBirthDate,
+        grade: _selectedGrade,
+        currentLevel: 1,
+        knownCharacterCount: 0,
+        streakDays: 0,
+        totalStars: 0,
+        totalReadingMinutes: 0,
+        isVip: false,
+      );
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('档案创建成功！'),
-        backgroundColor: AppColors.primary,
-      ),
-    );
+      final created = await ServiceLocator.instance.childrenRepository.createChild(child);
+
+      if (mounted) {
+        Navigator.pop(context); // 关闭底部弹窗
+        setState(() => _children.add(created));
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('档案创建成功！'),
+            backgroundColor: AppColors.primary,
+          ),
+        );
+
+        // 如果是第一个孩子，直接进入首页
+        if (_children.length == 1) {
+          await StorageService.saveCurrentChildId(created.id);
+          if (mounted) context.go('/home');
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('创建失败：$e'), backgroundColor: AppColors.error),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _isCreating = false);
+    }
+  }
+
+  /// 选择儿童进入首页
+  Future<void> _onSelectChild(ChildModel child) async {
+    await StorageService.saveCurrentChildId(child.id);
+    if (mounted) context.go('/home');
   }
 
   Widget _buildCreateSheet(BuildContext context) {
@@ -120,7 +180,6 @@ class _ChildrenPageState extends State<ChildrenPage> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // 标题
           Row(
             children: [
               Text('添加宝贝', style: AppTypography.h2),
@@ -131,15 +190,9 @@ class _ChildrenPageState extends State<ChildrenPage> {
               ),
             ],
           ),
-
           const SizedBox(height: AppSpacing.lg),
-
-          // 头像选择
           _buildAvatarPicker(),
-
           const SizedBox(height: AppSpacing.lg),
-
-          // 昵称
           TextField(
             controller: _nameController,
             decoration: const InputDecoration(
@@ -148,31 +201,31 @@ class _ChildrenPageState extends State<ChildrenPage> {
             ),
             maxLength: 8,
           ),
-
           const SizedBox(height: AppSpacing.md),
-
-          // 性别选择
           _buildGenderPicker(),
-
           const SizedBox(height: AppSpacing.md),
-
-          // 出生年月
           _buildBirthDateField(),
-
           const SizedBox(height: AppSpacing.md),
-
-          // 年级（自动推荐，可调整）
           _buildGradePicker(),
-
           const SizedBox(height: AppSpacing.xl),
-
-          // 确认按钮
           SizedBox(
             width: double.infinity,
             height: 48,
             child: ElevatedButton(
-              onPressed: _onCreateChild,
-              child: const Text('创建档案', style: AppTypography.button),
+              onPressed: _isCreating ? null : _onCreateChild,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primary,
+                shape: RoundedRectangleBorder(
+                  borderRadius: AppRadius.mediumBorder,
+                ),
+                elevation: 0,
+              ),
+              child: _isCreating
+                  ? const SizedBox(
+                      width: 24, height: 24,
+                      child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                    )
+                  : const Text('创建档案', style: AppTypography.button),
             ),
           ),
         ],
@@ -193,10 +246,9 @@ class _ChildrenPageState extends State<ChildrenPage> {
             itemCount: 12,
             separatorBuilder: (_, __) => const SizedBox(width: 8),
             itemBuilder: (context, index) {
+              final isSelected = index == _selectedAvatarIndex;
               return GestureDetector(
-                onTap: () {
-                  debugPrint('选择头像: $index');
-                },
+                onTap: () => setState(() => _selectedAvatarIndex = index),
                 child: Container(
                   width: 56,
                   height: 56,
@@ -204,8 +256,8 @@ class _ChildrenPageState extends State<ChildrenPage> {
                     color: _avatarColors[index % _avatarColors.length],
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: AppColors.primary,
-                      width: 2,
+                      color: isSelected ? AppColors.primaryDark : AppColors.primary,
+                      width: isSelected ? 3 : 2,
                     ),
                   ),
                   child: const Icon(
@@ -285,7 +337,8 @@ class _ChildrenPageState extends State<ChildrenPage> {
             );
             if (date != null) {
               setState(() {
-                _selectedBirthDate = '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+                _selectedBirthDate =
+                    '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
                 // 自动计算年级
                 final age = DateTime.now().year - date.year;
                 if (age <= 6) {
@@ -359,12 +412,14 @@ class _ChildrenPageState extends State<ChildrenPage> {
           : _children.isEmpty
               ? _buildEmptyState()
               : _buildChildrenList(),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _showCreateDialog,
-        backgroundColor: AppColors.primary,
-        icon: const Icon(Icons.add, color: Colors.white),
-        label: const Text('添加宝贝', style: TextStyle(color: Colors.white)),
-      ),
+      floatingActionButton: _children.length < 3
+          ? FloatingActionButton.extended(
+              onPressed: _showCreateDialog,
+              backgroundColor: AppColors.primary,
+              icon: const Icon(Icons.add, color: Colors.white),
+              label: const Text('添加宝贝', style: TextStyle(color: Colors.white)),
+            )
+          : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
@@ -383,20 +438,14 @@ class _ChildrenPageState extends State<ChildrenPage> {
                 color: AppColors.primaryLight.withOpacity(0.3),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(
-                Icons.child_care,
-                size: 56,
-                color: AppColors.primary,
-              ),
+              child: const Icon(Icons.child_care, size: 56, color: AppColors.primary),
             ),
             const SizedBox(height: AppSpacing.lg),
             Text('还没有宝贝档案', style: AppTypography.h3),
             const SizedBox(height: AppSpacing.sm),
             Text(
               '点击下方按钮添加宝贝信息，\nAI将为ta推荐最适合的绘本',
-              style: AppTypography.bodySmall.copyWith(
-                color: AppColors.textSecondary,
-              ),
+              style: AppTypography.bodySmall.copyWith(color: AppColors.textSecondary),
               textAlign: TextAlign.center,
             ),
           ],
@@ -437,13 +486,11 @@ class _ChildrenPageState extends State<ChildrenPage> {
         ),
         title: Text(child.name, style: AppTypography.h3),
         subtitle: Text(
-          '${child.levelName} · 已学${child.knownCharacterCount}字 · 连续${child.streakDays}天',
+          '${child.levelLabel} · 已学${child.knownCharacterCount}字 · 连续${child.streakDays}天',
           style: AppTypography.caption,
         ),
         trailing: const Icon(Icons.chevron_right),
-        onTap: () {
-          debugPrint('选择儿童: ${child.name}');
-        },
+        onTap: () => _onSelectChild(child),
       ),
     );
   }
@@ -479,11 +526,7 @@ class _GenderOption extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              icon,
-              size: 18,
-              color: isSelected ? AppColors.primaryDark : AppColors.textHint,
-            ),
+            Icon(icon, size: 18, color: isSelected ? AppColors.primaryDark : AppColors.textHint),
             const SizedBox(width: 6),
             Text(
               label,
