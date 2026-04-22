@@ -26,11 +26,11 @@ class AuthRepository {
   /// POST /api/v1/auth/login
   Future<LoginResponse> login({
     required String phone,
-    required String smsCode,
+    required String code,
   }) async {
     final response = await _apiClient.post<Map<String, dynamic>>(
       '/auth/login',
-      data: {'phone': phone, 'smsCode': smsCode},
+      data: {'phone': phone, 'code': code},
     );
     if (!response.isSuccess || response.data == null) {
       throw ApiException(code: response.code, message: response.message);

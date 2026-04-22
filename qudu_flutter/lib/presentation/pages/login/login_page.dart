@@ -87,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
 
       final loginResponse = await ServiceLocator.instance.authRepository.login(
         phone: phone,
-        smsCode: code,
+        code: code,
       );
 
       // 保存Token到安全存储
