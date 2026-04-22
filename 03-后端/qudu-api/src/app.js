@@ -11,8 +11,10 @@ const config = require('./config');
 const authRoutes = require('./routes/auth');
 const childRoutes = require('./routes/children');
 const bookRoutes = require('./routes/books');
+const characterRoutes = require('./routes/characters');
 const assessmentRoutes = require('./routes/assessments');
 const learningRoutes = require('./routes/learning');
+const requestLogger = require('./middlewares/requestLogger');
 
 const app = express();
 
@@ -81,6 +83,7 @@ app.get('/api-docs.json', (req, res) => {
 app.use(helmet());
 app.use(cors());
 app.use(morgan('dev'));
+app.use(requestLogger);  // 自定义请求日志（响应时间、慢请求告警）
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
@@ -99,6 +102,7 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/user', authRoutes);  // profile 复用 auth 路由
 app.use('/api/v1/children', childRoutes);
 app.use('/api/v1/books', bookRoutes);
+app.use('/api/v1/characters', characterRoutes);
 app.use('/api/v1/assessments', assessmentRoutes);
 app.use('/api/v1/learning', learningRoutes);
 
@@ -113,11 +117,43 @@ app.use((req, res) => {
 
 // ===== 全局错误处理 =====
 app.use((err, req, res, next) => {
-  console.error('[Global Error]', err);
+  // Mongoose 验证错误
+  if (err.name === 'ValidationError') {
+    const messages = Object.values(err.errors).map(e => e.message);
+    console.warn(`[Validation] ${req.method} ${req.originalUrl}: ${messages.join('; ')}`);
+    return res.status(400).json({
+      code: 40010,
+      data: null,
+      message: `参数校验失败: ${messages.join('; ')}`
+    });
+  }
+  
+  // Mongoose CastError（无效ID等）
+  if (err.name === 'CastError') {
+    console.warn(`[CastError] ${req.method} ${req.originalUrl}: ${err.path}=${err.value}`);
+    return res.status(400).json({
+      code: 40010,
+      data: null,
+      message: `无效的${err.path}: ${err.value}`
+    });
+  }
+  
+  // JSON 解析错误
+  if (err.type === 'entity.parse.failed') {
+    console.warn(`[ParseError] ${req.method} ${req.originalUrl}: 无效的JSON`);
+    return res.status(400).json({
+      code: 40010,
+      data: null,
+      message: '请求体JSON格式错误'
+    });
+  }
+  
+  // 未知错误
+  console.error(`[Global Error] ${req.method} ${req.originalUrl} requestId=${req.requestId || 'unknown'}`, err);
   res.status(500).json({
     code: 50001,
     data: null,
-    message: '服务端内部错误'
+    message: process.env.NODE_ENV === 'production' ? '服务端内部错误' : `服务端内部错误: ${err.message}`
   });
 });
 

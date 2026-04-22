@@ -3,7 +3,7 @@ const Character = require('../models/Character');
 const Child = require('../models/Child');
 const WordMastery = require('../models/WordMastery');
 const LearningRecord = require('../models/LearningRecord');
-const { success, fail } = require('../utils/response');
+const { success, error } = require('../utils/response');
 const {
   calculateNextReview,
   estimateWordCount,
@@ -23,7 +23,7 @@ exports.startAssessment = async (req, res) => {
     // 校验儿童归属
     const child = await Child.findOne({ _id: childId, userId, status: 'active' });
     if (!child) {
-      return res.status(404).json(fail(404, '儿童档案不存在'));
+      return error(res, 40410, '儿童档案不存在', 404);
     }
 
     // 检查是否有进行中的测评
@@ -34,7 +34,7 @@ exports.startAssessment = async (req, res) => {
 
     if (existingAssessment) {
       // 返回已有的进行中测评
-      return res.json(success({
+      return success(res, {
         assessmentId: existingAssessment._id,
         type: existingAssessment.type,
         status: 'in_progress',
@@ -46,7 +46,7 @@ exports.startAssessment = async (req, res) => {
           // 不返回 correctAnswer
         })),
         startedAt: existingAssessment.startedAt
-      }));
+      });
     }
 
     // 生成测评题目
@@ -75,7 +75,7 @@ exports.startAssessment = async (req, res) => {
       startedAt: new Date()
     });
 
-    res.json(success({
+    success(res, {
       assessmentId: assessment._id,
       type,
       status: 'in_progress',
@@ -86,10 +86,10 @@ exports.startAssessment = async (req, res) => {
         options: q.options
       })),
       startedAt: assessment.startedAt
-    }));
+    });
   } catch (err) {
     console.error('开始测评失败:', err);
-    res.status(500).json(fail(500, '开始测评失败'));
+    error(res, 50001, '开始测评失败', 500);
   }
 };
 
@@ -106,7 +106,7 @@ exports.submitAssessment = async (req, res) => {
 
     const assessment = await Assessment.findById(id);
     if (!assessment) {
-      return res.status(404).json(fail(404, '测评不存在'));
+      return error(res, 40401, '测评不存在', 404);
     }
 
     // 校验归属
@@ -116,11 +116,11 @@ exports.submitAssessment = async (req, res) => {
       status: 'active'
     });
     if (!child) {
-      return res.status(403).json(fail(403, '无权操作此测评'));
+      return error(res, 40301, '无权操作此测评', 403);
     }
 
     if (assessment.status !== 'in_progress') {
-      return res.status(400).json(fail(400, '测评已结束'));
+      return error(res, 40010, '测评已结束', 400);
     }
 
     // 批量更新答案
@@ -257,7 +257,7 @@ exports.submitAssessment = async (req, res) => {
       coinsEarned
     });
 
-    res.json(success({
+    success(res, {
       assessmentId: assessment._id,
       status: 'completed',
       correctCount,
@@ -269,10 +269,10 @@ exports.submitAssessment = async (req, res) => {
       starsEarned,
       coinsEarned,
       duration: duration || 0
-    }));
+    });
   } catch (err) {
     console.error('提交测评失败:', err);
-    res.status(500).json(fail(500, '提交测评失败'));
+    error(res, 50001, '提交测评失败', 500);
   }
 };
 
@@ -290,7 +290,7 @@ exports.getAssessmentResult = async (req, res) => {
       .lean();
 
     if (!assessment) {
-      return res.status(404).json(fail(404, '测评不存在'));
+      return error(res, 40401, '测评不存在', 404);
     }
 
     // 校验归属
@@ -299,13 +299,13 @@ exports.getAssessmentResult = async (req, res) => {
       userId
     });
     if (!child) {
-      return res.status(403).json(fail(403, '无权查看此测评'));
+      return error(res, 40301, '无权查看此测评', 403);
     }
 
-    res.json(success(assessment));
+    success(res, assessment);
   } catch (err) {
     console.error('获取测评结果失败:', err);
-    res.status(500).json(fail(500, '获取测评结果失败'));
+    error(res, 50001, '获取测评结果失败', 500);
   }
 };
 
@@ -322,7 +322,7 @@ exports.getAssessmentHistory = async (req, res) => {
     // 校验归属
     const child = await Child.findOne({ _id: childId, userId });
     if (!child) {
-      return res.status(404).json(fail(404, '儿童档案不存在'));
+      return error(res, 40410, '儿童档案不存在', 404);
     }
 
     const total = await Assessment.countDocuments({ childId });
@@ -333,7 +333,7 @@ exports.getAssessmentHistory = async (req, res) => {
       .limit(Number(pageSize))
       .lean();
 
-    res.json(success({
+    success(res, {
       list: assessments,
       pagination: {
         page: Number(page),
@@ -341,9 +341,9 @@ exports.getAssessmentHistory = async (req, res) => {
         total,
         totalPages: Math.ceil(total / pageSize)
       }
-    }));
+    });
   } catch (err) {
     console.error('获取测评历史失败:', err);
-    res.status(500).json(fail(500, '获取测评历史失败'));
+    error(res, 50001, '获取测评历史失败', 500);
   }
 };

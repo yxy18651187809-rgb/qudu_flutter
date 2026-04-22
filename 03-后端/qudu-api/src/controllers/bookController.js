@@ -52,13 +52,13 @@ exports.getBooks = async (req, res) => {
       .limit(Number(pageSize))
       .lean();
 
-    res.json(success({
+    success(res, {
       list: books,
       pagination: paginate(page, pageSize, total)
-    }));
+    });
   } catch (err) {
     console.error('获取绘本列表失败:', err);
-    res.status(500).json(fail(500, '获取绘本列表失败'));
+    error(res, 50001, '获取绘本列表失败', 500);
   }
 };
 
@@ -74,7 +74,7 @@ exports.getBookDetail = async (req, res) => {
 
     const book = await Book.findById(id).lean();
     if (!book) {
-      return res.status(404).json(fail(404, '绘本不存在'));
+      return error(res, 40401, '绘本不存在', 404);
     }
 
     // 获取绘本页面
@@ -99,10 +99,10 @@ exports.getBookDetail = async (req, res) => {
       }
     }
 
-    res.json(success(book));
+    success(res, book);
   } catch (err) {
     console.error('获取绘本详情失败:', err);
-    res.status(500).json(fail(500, '获取绘本详情失败'));
+    error(res, 50001, '获取绘本详情失败', 500);
   }
 };
 
@@ -128,15 +128,15 @@ exports.getRecommendedBooks = async (req, res) => {
         .select('-exercises')
         .lean();
 
-      return res.json(success({
+      return success(res, {
         list: hotBooks,
         reason: '热门推荐'
-      }));
+      });
     }
 
     const child = await Child.findById(childId).lean();
     if (!child) {
-      return res.status(404).json(fail(404, '儿童档案不存在'));
+      return error(res, 40410, '儿童档案不存在', 404);
     }
 
     const currentLevel = child.currentLevel || 1;
@@ -204,14 +204,14 @@ exports.getRecommendedBooks = async (req, res) => {
     // 截取指定数量
     recommended = recommended.slice(0, Number(limit));
 
-    res.json(success({
+    success(res, {
       list: recommended,
       childLevel: currentLevel,
       reason: `基于L${currentLevel}级别推荐`
-    }));
+    });
   } catch (err) {
     console.error('获取推荐绘本失败:', err);
-    res.status(500).json(fail(500, '获取推荐绘本失败'));
+    error(res, 50001, '获取推荐绘本失败', 500);
   }
 };
 
@@ -234,13 +234,13 @@ exports.getFreeBooks = async (req, res) => {
       .limit(Number(pageSize))
       .lean();
 
-    res.json(success({
+    success(res, {
       list: books,
       pagination: paginate(page, pageSize, total)
-    }));
+    });
   } catch (err) {
     console.error('获取免费绘本失败:', err);
-    res.status(500).json(fail(500, '获取免费绘本失败'));
+    error(res, 50001, '获取免费绘本失败', 500);
   }
 };
 
@@ -257,9 +257,9 @@ exports.getThemes = async (req, res) => {
       { $project: { theme: '$_id', count: 1, _id: 0 } }
     ]);
 
-    res.json(success(themes));
+    success(res, themes);
   } catch (err) {
     console.error('获取主题列表失败:', err);
-    res.status(500).json(fail(500, '获取主题列表失败'));
+    error(res, 50001, '获取主题列表失败', 500);
   }
 };

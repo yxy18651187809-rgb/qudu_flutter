@@ -40,9 +40,9 @@ async function sendSmsCode(req, res) {
       ? config.sms.mockCode 
       : String(Math.floor(100000 + Math.random() * 900000));
     
-    // 存储验证码
+    // 存储验证码（统一为字符串）
     smsCodeStore.set(phone, {
-      code,
+      code: String(code),
       timestamp: Date.now(),
       attempts: 0
     });
@@ -69,7 +69,7 @@ async function sendSmsCode(req, res) {
  */
 async function login(req, res) {
   try {
-    const { phone, smsCode } = req.body;
+    const { phone, code: smsCode } = req.body;
     
     // 校验手机号
     if (!/^1[3-9]\d{9}$/.test(phone)) {
@@ -88,8 +88,8 @@ async function login(req, res) {
       return error(res, ErrorCodes.SMS_CODE_EXPIRED, '验证码已过期，请重新获取');
     }
     
-    // 验证码错误检查
-    if (storedCode.code !== smsCode) {
+    // 验证码错误检查（统一为字符串比较，防止类型不一致）
+    if (String(storedCode.code) !== String(smsCode)) {
       storedCode.attempts += 1;
       if (storedCode.attempts >= 5) {
         smsCodeStore.delete(phone);

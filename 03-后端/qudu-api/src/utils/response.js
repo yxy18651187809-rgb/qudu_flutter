@@ -34,6 +34,29 @@ function error(res, code, message, statusCode = 400) {
   });
 }
 
+/**
+ * 失败响应（兼容写法）
+ */
+function fail(statusCode, message) {
+  return {
+    code: statusCode,
+    data: null,
+    message
+  };
+}
+
+/**
+ * 分页信息
+ */
+function paginate(page, pageSize, total) {
+  return {
+    page: Number(page),
+    pageSize: Number(pageSize),
+    total,
+    totalPages: Math.ceil(total / pageSize)
+  };
+}
+
 // 预定义错误码
 const ErrorCodes = {
   // 参数校验 40001-40099
@@ -71,5 +94,7 @@ module.exports = {
   success,
   created,
   error,
+  fail,
+  paginate,
   ErrorCodes
 };

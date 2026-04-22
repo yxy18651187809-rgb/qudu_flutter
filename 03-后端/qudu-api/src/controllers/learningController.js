@@ -1,7 +1,7 @@
 const LearningRecord = require('../models/LearningRecord');
 const WordMastery = require('../models/WordMastery');
 const Child = require('../models/Child');
-const { success, fail, paginate } = require('../utils/response');
+const { success, error, paginate } = require('../utils/response');
 
 /**
  * 记录学习数据
@@ -24,7 +24,7 @@ exports.recordLearning = async (req, res) => {
     // 校验儿童归属
     const child = await Child.findOne({ _id: childId, userId, status: 'active' });
     if (!child) {
-      return res.status(404).json(fail(404, '儿童档案不存在'));
+      return error(res, 40401, '儿童档案不存在');
     }
 
     // 统计结果
@@ -117,17 +117,17 @@ exports.recordLearning = async (req, res) => {
       }
     }
 
-    res.json(success({
+    success(res, {
       recordId: record._id,
       starsEarned,
       coinsEarned,
       correctCount,
       totalCount,
       accuracy
-    }));
+    });
   } catch (err) {
     console.error('记录学习数据失败:', err);
-    res.status(500).json(fail(500, '记录学习数据失败'));
+    error(res, 50001, '记录学习数据失败');
   }
 };
 
@@ -144,7 +144,7 @@ exports.getLearningHistory = async (req, res) => {
     // 校验归属
     const child = await Child.findOne({ _id: childId, userId });
     if (!child) {
-      return res.status(404).json(fail(404, '儿童档案不存在'));
+      return error(res, 40401, '儿童档案不存在');
     }
 
     const filter = { childId };
@@ -157,13 +157,13 @@ exports.getLearningHistory = async (req, res) => {
       .limit(Number(pageSize))
       .lean();
 
-    res.json(success({
+    success(res, {
       list: records,
       pagination: paginate(page, pageSize, total)
-    }));
+    });
   } catch (err) {
     console.error('获取学习历史失败:', err);
-    res.status(500).json(fail(500, '获取学习历史失败'));
+    error(res, 50001, '获取学习历史失败');
   }
 };
 
@@ -179,7 +179,7 @@ exports.getLearningStats = async (req, res) => {
     // 校验归属
     const child = await Child.findOne({ _id: childId, userId });
     if (!child) {
-      return res.status(404).json(fail(404, '儿童档案不存在'));
+      return error(res, 40401, '儿童档案不存在');
     }
 
     // 总体统计
@@ -236,7 +236,7 @@ exports.getLearningStats = async (req, res) => {
       { $sort: { _id: 1 } }
     ]);
 
-    res.json(success({
+    success(res, {
       overview: {
         totalRecords,
         totalMinutes,
@@ -257,9 +257,9 @@ exports.getLearningStats = async (req, res) => {
         dueReview: dueReviewCount
       },
       weeklyTrend
-    }));
+    });
   } catch (err) {
     console.error('获取学习统计失败:', err);
-    res.status(500).json(fail(500, '获取学习统计失败'));
+    error(res, 50001, '获取学习统计失败');
   }
 };
