@@ -2,7 +2,7 @@ const Book = require('../models/Book');
 const BookPage = require('../models/BookPage');
 const Character = require('../models/Character');
 const Child = require('../models/Child');
-const { success, fail, paginate } = require('../utils/response');
+const { success, fail, paginate, error } = require('../utils/response');
 
 /**
  * 获取绘本列表

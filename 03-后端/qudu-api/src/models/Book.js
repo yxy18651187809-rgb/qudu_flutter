@@ -90,7 +90,7 @@ const bookSchema = new mongoose.Schema({
   exercises: [{
     type: {
       type: String,
-      enum: ['image_match', 'size_compare', 'point_identify', 'count', 'emotion', 'listen_select', 'emotion_match', 'find_match'],
+      enum: ['image_match', 'size_compare', 'point_identify', 'count', 'emotion', 'listen_select', 'emotion_match', 'find_match', 'number_match', 'story_retell', 'role_play'],
       required: true
     },
     question: String,

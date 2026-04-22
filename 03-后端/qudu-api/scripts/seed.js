@@ -40,7 +40,7 @@ async function seed() {
     console.log('[Seed] MongoDB 已连接');
 
     // ===== 导入汉字数据 =====
-    const jsonPath = path.join(__dirname, '../../01-内容/L1完整字300_后端导入.json');
+    const jsonPath = path.join(__dirname, '../../../01-内容/L1完整字300_后端导入.json');
     
     if (fs.existsSync(jsonPath)) {
       // 清理旧数据
@@ -328,7 +328,427 @@ async function seed() {
     }
     console.log(`[Seed] 已创建绘本03的 ${book3Pages.length} 个页面`);
 
-    console.log('[Seed] 种子数据导入完成!');
+    // ===== 绘本04《一二三上学去》— v2修正版15个新字 =====
+    const book4NewWords = ['一', '二', '三', '四', '五', '上', '学', '校', '友', '师', '看', '你', '好', '人', '坐'];
+    const book4ReviewWords = ['口', '手', '头', '日', '早', '天', '来', '去', '大', '小', '我', '是', '的', '了', '会'];
+    
+    const book4 = await Book.create({
+      title: '一二三上学去',
+      cover: '',
+      description: '数字认知、学校期待、友谊',
+      level: 1,
+      theme: '数字认知',
+      tags: ['数字', '学校', '友谊', '礼貌'],
+      protagonist: {
+        name: '小明',
+        description: '小女孩，扎两个小辫子，亚洲面孔，活泼可爱'
+      },
+      newWords: book4NewWords.map(c => charMap[c]).filter(Boolean),
+      newWordCount: book4NewWords.length,
+      reviewWords: book4ReviewWords.map(c => charMap[c]).filter(Boolean),
+      pageCount: 10,
+      totalCharacters: 140,
+      estimatedMinutes: 6,
+      vocabularyComplexity: 1,
+      sentenceLength: 1,
+      exercises: [
+        { type: 'number_match', question: '看到数字卡，说出对应的汉字', instruction: '1→一 2→二 3→三 4→四 5→五' },
+        { type: 'count', question: '数一数图片里有几个物品？', instruction: '用1-5回答' },
+        { type: 'image_match', question: '把场景和正确的礼貌用语连起来', instruction: '见到老师→你好/老师好 告别→明天见' },
+        { type: 'story_retell', question: '看图说一说：小明在学校里做了什么？', instruction: '引导孩子复述故事' },
+        { type: 'role_play', question: '和爸爸妈妈一起表演上学的故事', instruction: '情感引导，不涉及识字考核' }
+      ],
+      isFree: true,
+      price: 0,
+      sortOrder: 4,
+      status: 'online',
+      publishedAt: new Date()
+    });
+    console.log(`[Seed] 已创建绘本: ${book4.title} (ID: ${book4._id})`);
+
+    const book4Pages = [
+      { pageNumber: 1, text: '一、二、三——小明上学去。', pinyin: '[yī èr sān xiǎo míng shàng xué qù]', imageDescription: '小明背着书包，在家门口数手指', teachingNote: '认识数字1-3，学习"上学"', wordAnnotations: [{ character: '一', isNewWord: true }, { character: '二', isNewWord: true }, { character: '三', isNewWord: true }, { character: '上', isNewWord: true }] },
+      { pageNumber: 2, text: '四只小鸟。一、二、三、四——', pinyin: '[sì zhī xiǎo niǎo] [yī èr sān sì]', imageDescription: '小明在路上蹦蹦跳跳，路边的树上有4只小鸟', teachingNote: '认识数字4，复习1-4', wordAnnotations: [{ character: '四', isNewWord: true }] },
+      { pageNumber: 3, text: '小明到学校了。学校真大！', pinyin: '[xiǎo míng dào xué xiào le] [xué xiào zhēn dà]', imageDescription: '小明到了学校门口，看到"学校"两个大字', teachingNote: '认识"学校"', wordAnnotations: [{ character: '学', isNewWord: true }, { character: '校', isNewWord: true }] },
+      { pageNumber: 4, text: '小明看到新人。"你好！""你好！"', pinyin: '[xiǎo míng kàn dào xīn rén] [nǐ hǎo]', imageDescription: '小明遇到一个新同学，两人互相打招呼', teachingNote: '学习用"你好"问候新朋友', wordAnnotations: [{ character: '看', isNewWord: true }, { character: '人', isNewWord: true }, { character: '你', isNewWord: true }] },
+      { pageNumber: 5, text: '小明看到老师。"老师好！"', pinyin: '[xiǎo míng kàn dào lǎo shī] [lǎo shī hǎo]', imageDescription: '小明和新朋友一起走进教室，看到老师', teachingNote: '学习向老师问好', wordAnnotations: [{ character: '师', isNewWord: true }, { character: '好', isNewWord: true }] },
+      { pageNumber: 6, text: '小明坐好了。朋友也坐好了。"我们是好朋友！"', pinyin: '[xiǎo míng zuò hǎo le] [wǒ men shì hǎo péng you]', imageDescription: '小明和新朋友在教室里找座位坐好', teachingNote: '"好朋友"是友谊的表达', wordAnnotations: [{ character: '坐', isNewWord: true }, { character: '友', isNewWord: true }] },
+      { pageNumber: 7, text: '五个苹果。一、二、三、四、五——', pinyin: '[wǔ gè píng guǒ] [yī èr sān sì wǔ]', imageDescription: '课堂上，老师拿出5个苹果教具让同学们数', teachingNote: '认识数字5，完成1-5数字认知', wordAnnotations: [{ character: '五', isNewWord: true }] },
+      { pageNumber: 8, text: '小明举手。"老师，我想去洗手间。"', pinyin: '[xiǎo míng jǔ shǒu] [lǎo shī wǒ xiǎng qù xǐ shǒu jiān]', imageDescription: '下课了，小明向老师举手示意', teachingNote: '学习在课堂上举手表达需求', wordAnnotations: [] },
+      { pageNumber: 9, text: '放学了。"明天见！""老师好！同学好！"', pinyin: '[fàng xué le] [míng tiān jiàn] [lǎo shī hǎo tóng xué hǎo]', imageDescription: '放学了，小明和新朋友在校门口挥手告别', teachingNote: '学习告别和问候', wordAnnotations: [] },
+      { pageNumber: 10, text: '一、二、三、四、五——我学会数数了！老师好！朋友好！明天还要上学！', pinyin: '[yī èr sān sì wǔ] [wǒ xué huì shǔ shù le]', imageDescription: '小明走在回家的路上，夕阳很美，脸上是开心的笑容', teachingNote: '总结一天的收获，期待明天', wordAnnotations: [] }
+    ];
+
+    for (const page of book4Pages) {
+      const annotations = (page.wordAnnotations || []).map(a => ({
+        characterId: charMap[a.character],
+        character: a.character,
+        isNewWord: a.isNewWord,
+        highlightStyle: a.isNewWord ? 'both' : 'underline'
+      }));
+      await BookPage.create({
+        bookId: book4._id, pageNumber: page.pageNumber, text: page.text,
+        pinyin: page.pinyin, imageDescription: page.imageDescription,
+        teachingNote: page.teachingNote, wordAnnotations: annotations, interactiveElements: []
+      });
+    }
+    console.log(`[Seed] 已创建绘本04的 ${book4Pages.length} 个页面`);
+
+    // ===== 绘本05《红红的太阳》— v2修正版17个新字 =====
+    const book5NewWords = ['红', '黄', '蓝', '绿', '白', '黑', '光', '亮', '天', '云', '雨', '风', '雪', '星', '月', '看', '有'];
+    const book5ReviewWords = ['人', '口', '手', '大', '小', '我', '你', '是', '的', '了', '一', '二', '三', '上', '好'];
+    
+    const book5 = await Book.create({
+      title: '红红的太阳',
+      cover: '',
+      description: '颜色认知、自然观察、创造力',
+      level: 1,
+      theme: '颜色认知',
+      tags: ['颜色', '自然', '天气', '创造'],
+      protagonist: {
+        name: '小明',
+        description: '小女孩，扎两个小辫子，亚洲面孔，活泼可爱'
+      },
+      newWords: book5NewWords.map(c => charMap[c]).filter(Boolean),
+      newWordCount: book5NewWords.length,
+      reviewWords: book5ReviewWords.map(c => charMap[c]).filter(Boolean),
+      pageCount: 10,
+      totalCharacters: 120,
+      estimatedMinutes: 6,
+      vocabularyComplexity: 1,
+      sentenceLength: 1,
+      isFree: true,
+      price: 0,
+      sortOrder: 5,
+      status: 'online',
+      publishedAt: new Date()
+    });
+    console.log(`[Seed] 已创建绘本: ${book5.title} (ID: ${book5._id})`);
+
+    const book5Pages = [
+      { pageNumber: 1, text: '天亮了。太阳出来了。', pinyin: '[tiān liàng le] [tài yáng chū lái le]', imageDescription: '温暖的太阳升起，金色阳光洒满大地', teachingNote: '认识"天"和"亮"', wordAnnotations: [{ character: '天', isNewWord: true }, { character: '亮', isNewWord: true }] },
+      { pageNumber: 2, text: '红红的太阳。红，真好看。', pinyin: '[hóng hóng de tài yáng] [hóng zhēn hǎo kàn]', imageDescription: '红红的太阳高挂天空，小明抬头看', teachingNote: '认识"红"是颜色', wordAnnotations: [{ character: '红', isNewWord: true }] },
+      { pageNumber: 3, text: '白天有云。云是白的。', pinyin: '[bái tiān yǒu yún] [yún shì bái de]', imageDescription: '蓝天白云，小明看着白色的云朵', teachingNote: '认识"白"和"云"', wordAnnotations: [{ character: '白', isNewWord: true }, { character: '云', isNewWord: true }, { character: '有', isNewWord: true }] },
+      { pageNumber: 4, text: '风来了。风真大。', pinyin: '[fēng lái le] [fēng zhēn dà]', imageDescription: '风吹动树叶和小明的辫子', teachingNote: '认识"风"是自然现象', wordAnnotations: [{ character: '风', isNewWord: true }] },
+      { pageNumber: 5, text: '下雨了。天黑了。', pinyin: '[xià yǔ le] [tiān hēi le]', imageDescription: '下雨了，天空变暗', teachingNote: '认识"雨"和"黑"', wordAnnotations: [{ character: '雨', isNewWord: true }, { character: '黑', isNewWord: true }] },
+      { pageNumber: 6, text: '黄黄的雨衣。蓝蓝的天。', pinyin: '[huáng huáng de yǔ yī] [lán lán de tiān]', imageDescription: '小明穿着黄色雨衣，雨后天空变蓝', teachingNote: '认识"黄"和"蓝"', wordAnnotations: [{ character: '黄', isNewWord: true }, { character: '蓝', isNewWord: true }] },
+      { pageNumber: 7, text: '绿色的草。绿，真好看。', pinyin: '[lǜ sè de cǎo] [lǜ zhēn hǎo kàn]', imageDescription: '雨后绿色的草地，小明开心地踩水', teachingNote: '认识"绿"', wordAnnotations: [{ character: '绿', isNewWord: true }] },
+      { pageNumber: 8, text: '太阳又出来了。光真好。', pinyin: '[tài yáng yòu chū lái le] [guāng zhēn hǎo]', imageDescription: '太阳再次出来，阳光温暖', teachingNote: '认识"光"', wordAnnotations: [{ character: '光', isNewWord: true }, { character: '看', isNewWord: true }] },
+      { pageNumber: 9, text: '晚上有星星和月亮。', pinyin: '[wǎn shàng yǒu xīng xing hé yuè liang]', imageDescription: '夜空中有星星和弯弯的月亮', teachingNote: '认识"星"和"月"', wordAnnotations: [{ character: '星', isNewWord: true }, { character: '月', isNewWord: true }] },
+      { pageNumber: 10, text: '红黄蓝绿白黑——我看到好多颜色！', pinyin: '[hóng huáng lán lǜ bái hēi] [wǒ kàn dào hǎo duō yán sè]', imageDescription: '彩虹出现，小明开心地看着', teachingNote: '总结6种颜色，回顾全文', wordAnnotations: [] }
+    ];
+
+    for (const page of book5Pages) {
+      const annotations = (page.wordAnnotations || []).map(a => ({
+        characterId: charMap[a.character],
+        character: a.character,
+        isNewWord: a.isNewWord,
+        highlightStyle: a.isNewWord ? 'both' : 'underline'
+      }));
+      await BookPage.create({
+        bookId: book5._id, pageNumber: page.pageNumber, text: page.text,
+        pinyin: page.pinyin, imageDescription: page.imageDescription,
+        teachingNote: page.teachingNote, wordAnnotations: annotations, interactiveElements: []
+      });
+    }
+    console.log(`[Seed] 已创建绘本05的 ${book5Pages.length} 个页面`);
+
+    // ===== 绘本06《好吃的果子》— v1修正版18个新字 =====
+    const book6NewWords = ['果', '米', '菜', '瓜', '桃', '茶', '糖', '豆', '蛋', '面', '吃', '水', '肉', '多', '少', '两', '分', '唱'];
+    const book6ReviewWords = ['人', '大', '小', '我', '你', '好', '的', '了', '一', '二', '三', '上', '下', '天'];
+    
+    const book6 = await Book.create({
+      title: '好吃的果子',
+      cover: '',
+      description: '食物认知、水果名称、分享快乐',
+      level: 1,
+      theme: '食物认知',
+      tags: ['食物', '水果', '分享', '数量'],
+      protagonist: {
+        name: '小明',
+        description: '小女孩，扎两个小辫子，亚洲面孔，活泼可爱'
+      },
+      newWords: book6NewWords.map(c => charMap[c]).filter(Boolean),
+      newWordCount: book6NewWords.length,
+      reviewWords: book6ReviewWords.map(c => charMap[c]).filter(Boolean),
+      pageCount: 10,
+      totalCharacters: 130,
+      estimatedMinutes: 6,
+      vocabularyComplexity: 1,
+      sentenceLength: 1,
+      isFree: true,
+      price: 0,
+      sortOrder: 6,
+      status: 'online',
+      publishedAt: new Date()
+    });
+    console.log(`[Seed] 已创建绘本: ${book6.title} (ID: ${book6._id})`);
+
+    const book6Pages = [
+      { pageNumber: 1, text: '好多果子！红的、黄的、绿的。', pinyin: '[hǎo duō guǒ zi] [hóng de huáng de lǜ de]', imageDescription: '桌上摆满了各种水果，红的黄的绿的', teachingNote: '认识"果"是水果的总称', wordAnnotations: [{ character: '果', isNewWord: true }, { character: '多', isNewWord: true }] },
+      { pageNumber: 2, text: '大西瓜！小桃子。', pinyin: '[dà xī guā] [xiǎo táo zi]', imageDescription: '大西瓜旁边放着一个桃子', teachingNote: '认识"瓜"和"桃"，大小对比', wordAnnotations: [{ character: '瓜', isNewWord: true }, { character: '桃', isNewWord: true }] },
+      { pageNumber: 3, text: '米和菜。米饭好吃！', pinyin: '[mǐ hé cài] [mǐ fàn hǎo chī]', imageDescription: '一碗白米饭和一盘青菜', teachingNote: '认识"米"和"菜"', wordAnnotations: [{ character: '米', isNewWord: true }, { character: '菜', isNewWord: true }, { character: '吃', isNewWord: true }] },
+      { pageNumber: 4, text: '喝点水。茶也好好水。', pinyin: '[hē diǎn shuǐ] [chá yě hǎo]', imageDescription: '一杯清茶和一杯水', teachingNote: '认识"水"和"茶"', wordAnnotations: [{ character: '水', isNewWord: true }, { character: '茶', isNewWord: true }] },
+      { pageNumber: 5, text: '糖真多！红的糖，黄的糖。', pinyin: '[táng zhēn duō] [hóng de táng huáng de táng]', imageDescription: '五颜六色的糖果', teachingNote: '认识"糖"，巩固"多"', wordAnnotations: [{ character: '糖', isNewWord: true }] },
+      { pageNumber: 6, text: '豆子，一颗一颗。', pinyin: '[dòu zi yī kē yī kē]', imageDescription: '一碗豆子，旁边数着一颗一颗', teachingNote: '认识"豆"', wordAnnotations: [{ character: '豆', isNewWord: true }] },
+      { pageNumber: 7, text: '蛋！一个蛋。两个蛋。', pinyin: '[dàn] [yī gè dàn] [liǎng gè dàn]', imageDescription: '篮子里放着鸡蛋', teachingNote: '认识"蛋"和"两"', wordAnnotations: [{ character: '蛋', isNewWord: true }, { character: '两', isNewWord: true }] },
+      { pageNumber: 8, text: '面条长长的。肉也好吃。', pinyin: '[miàn tiáo cháng cháng de] [ròu yě hǎo chī]', imageDescription: '一碗面条和一盘肉', teachingNote: '认识"面"和"肉"', wordAnnotations: [{ character: '面', isNewWord: true }, { character: '肉', isNewWord: true }] },
+      { pageNumber: 9, text: '果子少了一半。分给你一半！', pinyin: '[guǒ zi shǎo le yī bàn] [fēn gěi nǐ yī bàn]', imageDescription: '小明把果子分成两半，给朋友一半', teachingNote: '认识"少"和"分"，学会分享', wordAnnotations: [{ character: '少', isNewWord: true }, { character: '分', isNewWord: true }] },
+      { pageNumber: 10, text: '一起唱！好吃好吃真好吃！', pinyin: '[yī qǐ chàng] [hǎo chī hǎo chī zhēn hǎo chī]', imageDescription: '小明和朋友们一起唱歌庆祝', teachingNote: '认识"唱"，分享的快乐', wordAnnotations: [{ character: '唱', isNewWord: true }] }
+    ];
+
+    for (const page of book6Pages) {
+      const annotations = (page.wordAnnotations || []).map(a => ({
+        characterId: charMap[a.character],
+        character: a.character,
+        isNewWord: a.isNewWord,
+        highlightStyle: a.isNewWord ? 'both' : 'underline'
+      }));
+      await BookPage.create({
+        bookId: book6._id, pageNumber: page.pageNumber, text: page.text,
+        pinyin: page.pinyin, imageDescription: page.imageDescription,
+        teachingNote: page.teachingNote, wordAnnotations: annotations, interactiveElements: []
+      });
+    }
+    console.log(`[Seed] 已创建绘本06的 ${book6Pages.length} 个页面`);
+
+    // ===== 绘本07《家的小动物》— 18个新字 =====
+    const book7NewWords = ['牛', '马', '羊', '猪', '狗', '猫', '鸡', '鸭', '鱼', '鸟', '虫', '跑', '飞', '游', '爬', '快', '慢', '笑'];
+    const book7ReviewWords = ['人', '大', '小', '我', '你', '好', '的', '了', '是', '在', '有', '不', '上', '下', '来', '去'];
+    
+    const book7 = await Book.create({
+      title: '家的小动物',
+      cover: '',
+      description: '动物认知、特征观察、生活常识',
+      level: 1,
+      theme: '动物认知',
+      tags: ['动物', '特征', '动作', '农场'],
+      protagonist: {
+        name: '小明',
+        description: '小女孩，扎两个小辫子，亚洲面孔，活泼可爱'
+      },
+      newWords: book7NewWords.map(c => charMap[c]).filter(Boolean),
+      newWordCount: book7NewWords.length,
+      reviewWords: book7ReviewWords.map(c => charMap[c]).filter(Boolean),
+      pageCount: 10,
+      totalCharacters: 130,
+      estimatedMinutes: 6,
+      vocabularyComplexity: 1,
+      sentenceLength: 1,
+      isFree: true,
+      price: 0,
+      sortOrder: 7,
+      status: 'online',
+      publishedAt: new Date()
+    });
+    console.log(`[Seed] 已创建绘本: ${book7.title} (ID: ${book7._id})`);
+
+    const book7Pages = [
+      { pageNumber: 1, text: '大牛跑得慢。牛，慢——', pinyin: '[dà niú pǎo de màn] [niú màn]', imageDescription: '一头大牛在草地上慢悠悠地走', teachingNote: '认识"牛"和"跑""慢"', wordAnnotations: [{ character: '牛', isNewWord: true }, { character: '跑', isNewWord: true }, { character: '慢', isNewWord: true }] },
+      { pageNumber: 2, text: '小马跑得快！马，快——', pinyin: '[xiǎo mǎ pǎo de kuài] [mǎ kuài]', imageDescription: '一匹小马在奔跑，速度很快', teachingNote: '认识"马"和"快"，与"慢"对比', wordAnnotations: [{ character: '马', isNewWord: true }, { character: '快', isNewWord: true }] },
+      { pageNumber: 3, text: '羊在山上。白白的羊。', pinyin: '[yáng zài shān shàng] [bái bái de yáng]', imageDescription: '白色的羊在绿色的山坡上吃草', teachingNote: '认识"羊"', wordAnnotations: [{ character: '羊', isNewWord: true }] },
+      { pageNumber: 4, text: '猪在泥里。猪好开心！', pinyin: '[zhū zài ní lǐ] [zhū hǎo kāi xīn]', imageDescription: '小猪在泥巴里打滚，很开心', teachingNote: '认识"猪"', wordAnnotations: [{ character: '猪', isNewWord: true }] },
+      { pageNumber: 5, text: '小狗跑来了。狗是好朋友。', pinyin: '[xiǎo gǒu pǎo lái le] [gǒu shì hǎo péng you]', imageDescription: '小狗跑向小明，摇尾巴', teachingNote: '认识"狗"', wordAnnotations: [{ character: '狗', isNewWord: true }] },
+      { pageNumber: 6, text: '小猫不跑，猫在睡觉。', pinyin: '[xiǎo māo bù pǎo] [māo zài shuì jiào]', imageDescription: '小猫蜷成一团在睡觉', teachingNote: '认识"猫"', wordAnnotations: [{ character: '猫', isNewWord: true }] },
+      { pageNumber: 7, text: '鸡会飞不高。鸡在地上。', pinyin: '[jī huì fēi bù gāo] [jī zài dì shàng]', imageDescription: '一只鸡扇着翅膀，飞不高', teachingNote: '认识"鸡"和"飞"', wordAnnotations: [{ character: '鸡', isNewWord: true }, { character: '飞', isNewWord: true }] },
+      { pageNumber: 8, text: '鸭子在水里游。鸭游得快！', pinyin: '[yā zi zài shuǐ lǐ yóu] [yā yóu de kuài]', imageDescription: '鸭子在水里自由自在地游', teachingNote: '认识"鸭"和"游"', wordAnnotations: [{ character: '鸭', isNewWord: true }, { character: '游', isNewWord: true }] },
+      { pageNumber: 9, text: '鱼也在水里游。小鱼好快！', pinyin: '[yú yě zài shuǐ lǐ yóu] [xiǎo yú hǎo kuài]', imageDescription: '小鱼在水里快速游动', teachingNote: '认识"鱼"', wordAnnotations: [{ character: '鱼', isNewWord: true }] },
+      { pageNumber: 10, text: '鸟在天上飞。虫在树上爬。大家都在笑！', pinyin: '[niǎo zài tiān shàng fēi] [chóng zài shù shàng pá] [dà jiā dōu zài xiào]', imageDescription: '鸟在天上飞，虫子在树上爬，小明看着大家笑', teachingNote: '认识"鸟""虫""爬""笑"', wordAnnotations: [{ character: '鸟', isNewWord: true }, { character: '虫', isNewWord: true }, { character: '爬', isNewWord: true }, { character: '笑', isNewWord: true }] }
+    ];
+
+    for (const page of book7Pages) {
+      const annotations = (page.wordAnnotations || []).map(a => ({
+        characterId: charMap[a.character],
+        character: a.character,
+        isNewWord: a.isNewWord,
+        highlightStyle: a.isNewWord ? 'both' : 'underline'
+      }));
+      await BookPage.create({
+        bookId: book7._id, pageNumber: page.pageNumber, text: page.text,
+        pinyin: page.pinyin, imageDescription: page.imageDescription,
+        teachingNote: page.teachingNote, wordAnnotations: annotations, interactiveElements: []
+      });
+    }
+    console.log(`[Seed] 已创建绘本07的 ${book7Pages.length} 个页面`);
+
+    // ===== 绘本08《四季歌》— 18个新字 =====
+    const book8NewWords = ['春', '秋', '冬', '冰', '气', '沙', '河', '泉', '洞', '浇', '湿', '种', '树', '草', '年', '先', '长', '土'];
+    const book8ReviewWords = ['人', '大', '小', '我', '你', '好', '的', '了', '是', '在', '有', '不', '上', '下', '来', '去', '天', '风', '雨'];
+    
+    const book8 = await Book.create({
+      title: '四季歌',
+      cover: '',
+      description: '季节认知、自然变化、感受四季',
+      level: 1,
+      theme: '季节认知',
+      tags: ['季节', '自然', '天气', '植物'],
+      protagonist: {
+        name: '小明',
+        description: '小女孩，扎两个小辫子，亚洲面孔，活泼可爱'
+      },
+      newWords: book8NewWords.map(c => charMap[c]).filter(Boolean),
+      newWordCount: book8NewWords.length,
+      reviewWords: book8ReviewWords.map(c => charMap[c]).filter(Boolean),
+      pageCount: 10,
+      totalCharacters: 130,
+      estimatedMinutes: 6,
+      vocabularyComplexity: 1,
+      sentenceLength: 1,
+      isFree: true,
+      price: 0,
+      sortOrder: 8,
+      status: 'online',
+      publishedAt: new Date()
+    });
+    console.log(`[Seed] 已创建绘本: ${book8.title} (ID: ${book8._id})`);
+
+    const book8Pages = [
+      { pageNumber: 1, text: '春天来了。气暖暖的。', pinyin: '[chūn tiān lái le] [qì nuǎn nuǎn de]', imageDescription: '春天来了，小草发芽，阳光温暖', teachingNote: '认识"春"和"气"', wordAnnotations: [{ character: '春', isNewWord: true }, { character: '气', isNewWord: true }] },
+      { pageNumber: 2, text: '先种树。树会长高。', pinyin: '[xiān zhòng shù] [shù huì zhǎng gāo]', imageDescription: '小明在春天种下一棵小树苗', teachingNote: '认识"先""种""树""长"', wordAnnotations: [{ character: '先', isNewWord: true }, { character: '种', isNewWord: true }, { character: '树', isNewWord: true }, { character: '长', isNewWord: true }] },
+      { pageNumber: 3, text: '草长出来了。浇浇水。', pinyin: '[cǎo zhǎng chū lái le] [jiāo jiāo shuǐ]', imageDescription: '小明给小草浇水', teachingNote: '认识"草"和"浇"', wordAnnotations: [{ character: '草', isNewWord: true }, { character: '浇', isNewWord: true }] },
+      { pageNumber: 4, text: '土湿了。泉水在土里。', pinyin: '[tǔ shī le] [quán shuǐ zài tǔ lǐ]', imageDescription: '土地被水浇湿了，地下水在流动', teachingNote: '认识"土""湿""泉"', wordAnnotations: [{ character: '土', isNewWord: true }, { character: '湿', isNewWord: true }, { character: '泉', isNewWord: true }] },
+      { pageNumber: 5, text: '河里有水。沙子在河边。', pinyin: '[hé lǐ yǒu shuǐ] [shā zi zài hé biān]', imageDescription: '清澈的河水流过，河岸边有沙子', teachingNote: '认识"河"和"沙"', wordAnnotations: [{ character: '河', isNewWord: true }, { character: '沙', isNewWord: true }] },
+      { pageNumber: 6, text: '秋来了。叶变黄了。', pinyin: '[qiū lái le] [yè biàn huáng le]', imageDescription: '秋天的树叶变黄飘落', teachingNote: '认识"秋"', wordAnnotations: [{ character: '秋', isNewWord: true }] },
+      { pageNumber: 7, text: '大雁飞走了。天气变冷了。', pinyin: '[dà yàn fēi zǒu le] [tiān qì biàn lěng le]', imageDescription: '大雁排队飞走，天气变冷', teachingNote: '复习"气"', wordAnnotations: [] },
+      { pageNumber: 8, text: '冬来了。下雪了。冰好冷！', pinyin: '[dōng lái le] [xià xuě le] [bīng hǎo lěng]', imageDescription: '冬天来了，结冰了', teachingNote: '认识"冬"和"冰"', wordAnnotations: [{ character: '冬', isNewWord: true }, { character: '冰', isNewWord: true }] },
+      { pageNumber: 9, text: '小动物在洞里。好暖和。', pinyin: '[xiǎo dòng wù zài dòng lǐ] [hǎo nuǎn huo]', imageDescription: '小动物在洞穴里冬眠，温暖安全', teachingNote: '认识"洞"', wordAnnotations: [{ character: '洞', isNewWord: true }] },
+      { pageNumber: 10, text: '一年有四季。春夏秋冬，年年有好日子！', pinyin: '[yī nián yǒu sì jì] [chūn xià qiū dōng] [nián nián yǒu hǎo rì zi]', imageDescription: '四季轮转的美丽画面', teachingNote: '认识"年"，总结四季', wordAnnotations: [{ character: '年', isNewWord: true }] }
+    ];
+
+    for (const page of book8Pages) {
+      const annotations = (page.wordAnnotations || []).map(a => ({
+        characterId: charMap[a.character],
+        character: a.character,
+        isNewWord: a.isNewWord,
+        highlightStyle: a.isNewWord ? 'both' : 'underline'
+      }));
+      await BookPage.create({
+        bookId: book8._id, pageNumber: page.pageNumber, text: page.text,
+        pinyin: page.pinyin, imageDescription: page.imageDescription,
+        teachingNote: page.teachingNote, wordAnnotations: annotations, interactiveElements: []
+      });
+    }
+    console.log(`[Seed] 已创建绘本08的 ${book8Pages.length} 个页面`);
+
+    // ===== 绘本09《小明的家》— 18个新字 =====
+    const book9NewWords = ['爸', '妈', '爷', '奶', '哥', '弟', '叔', '男', '女', '老', '安', '家', '字', '故', '事', '衣', '桌', '椅'];
+    const book9ReviewWords = ['人', '大', '小', '我', '你', '好', '的', '了', '是', '在', '有', '不', '来', '去', '一', '二', '三', '上'];
+    
+    const book9 = await Book.create({
+      title: '小明的家',
+      cover: '',
+      description: '家庭成员、亲情表达、家居物品',
+      level: 1,
+      theme: '家庭成员',
+      tags: ['家庭', '亲情', '称谓', '家居'],
+      protagonist: {
+        name: '小明',
+        description: '小女孩，扎两个小辫子，亚洲面孔，活泼可爱'
+      },
+      newWords: book9NewWords.map(c => charMap[c]).filter(Boolean),
+      newWordCount: book9NewWords.length,
+      reviewWords: book9ReviewWords.map(c => charMap[c]).filter(Boolean),
+      pageCount: 10,
+      totalCharacters: 130,
+      estimatedMinutes: 6,
+      vocabularyComplexity: 1,
+      sentenceLength: 1,
+      isFree: true,
+      price: 0,
+      sortOrder: 9,
+      status: 'online',
+      publishedAt: new Date()
+    });
+    console.log(`[Seed] 已创建绘本: ${book9.title} (ID: ${book9._id})`);
+
+    const book9Pages = [
+      { pageNumber: 1, text: '这是我的家。家好大！', pinyin: '[zhè shì wǒ de jiā] [jiā hǎo dà]', imageDescription: '小明站在家门口，开心地指着自己的家', teachingNote: '认识"家"', wordAnnotations: [{ character: '家', isNewWord: true }] },
+      { pageNumber: 2, text: '爸是男的。妈是女的。', pinyin: '[bà shì nán de] [mā shì nǚ de]', imageDescription: '爸爸和妈妈站在客厅', teachingNote: '认识"爸""妈""男""女"', wordAnnotations: [{ character: '爸', isNewWord: true }, { character: '妈', isNewWord: true }, { character: '男', isNewWord: true }, { character: '女', isNewWord: true }] },
+      { pageNumber: 3, text: '爷爷是老人。爷爷好！', pinyin: '[yé ye shì lǎo rén] [yé ye hǎo]', imageDescription: '爷爷坐在椅子上，小明给他捶背', teachingNote: '认识"爷"和"老"', wordAnnotations: [{ character: '爷', isNewWord: true }, { character: '老', isNewWord: true }] },
+      { pageNumber: 4, text: '奶奶也是老人。奶奶好！', pinyin: '[nǎi nai yě shì lǎo rén] [nǎi nai hǎo]', imageDescription: '奶奶在织毛衣，小明在旁边', teachingNote: '认识"奶"', wordAnnotations: [{ character: '奶', isNewWord: true }] },
+      { pageNumber: 5, text: '哥哥是男的。弟弟是男的。', pinyin: '[gē ge shì nán de] [dì di shì nán de]', imageDescription: '哥哥和弟弟在玩球', teachingNote: '认识"哥"和"弟"', wordAnnotations: [{ character: '哥', isNewWord: true }, { character: '弟', isNewWord: true }] },
+      { pageNumber: 6, text: '叔叔来了。叔叔也是男的。', pinyin: '[shū shu lái le] [shū shu yě shì nán de]', imageDescription: '叔叔来家里做客，小明迎接', teachingNote: '认识"叔"', wordAnnotations: [{ character: '叔', isNewWord: true }] },
+      { pageNumber: 7, text: '桌上好多菜。椅子也好多。', pinyin: '[zhuō shàng hǎo duō cài] [yǐ zi yě hǎo duō]', imageDescription: '餐桌上摆满了菜，很多椅子', teachingNote: '认识"桌"和"椅"', wordAnnotations: [{ character: '桌', isNewWord: true }, { character: '椅', isNewWord: true }] },
+      { pageNumber: 8, text: '我穿新衣。衣上有一个字。', pinyin: '[wǒ chuān xīn yī] [yī shàng yǒu yī gè zì]', imageDescription: '小明穿着新衣服，上面有个字', teachingNote: '认识"衣"和"字"', wordAnnotations: [{ character: '衣', isNewWord: true }, { character: '字', isNewWord: true }] },
+      { pageNumber: 9, text: '爸爸讲故事。故事真有趣！', pinyin: '[bà ba jiǎng gù shì] [gù shì zhēn yǒu qù]', imageDescription: '爸爸在给小明讲故事', teachingNote: '认识"故"和"事"', wordAnnotations: [{ character: '故', isNewWord: true }, { character: '事', isNewWord: true }] },
+      { pageNumber: 10, text: '家好安。我爱我的家！', pinyin: '[jiā hǎo ān] [wǒ ài wǒ de jiā]', imageDescription: '全家人在客厅，温馨幸福的画面', teachingNote: '认识"安"，家的温暖', wordAnnotations: [{ character: '安', isNewWord: true }] }
+    ];
+
+    for (const page of book9Pages) {
+      const annotations = (page.wordAnnotations || []).map(a => ({
+        characterId: charMap[a.character],
+        character: a.character,
+        isNewWord: a.isNewWord,
+        highlightStyle: a.isNewWord ? 'both' : 'underline'
+      }));
+      await BookPage.create({
+        bookId: book9._id, pageNumber: page.pageNumber, text: page.text,
+        pinyin: page.pinyin, imageDescription: page.imageDescription,
+        teachingNote: page.teachingNote, wordAnnotations: annotations, interactiveElements: []
+      });
+    }
+    console.log(`[Seed] 已创建绘本09的 ${book9Pages.length} 个页面`);
+
+    // ===== 绘本10《去公园玩》— 18个新字 =====
+    const book10NewWords = ['车', '远', '方', '左', '前', '外', '东', '西', '北', '海', '画', '说', '读', '纸', '笔', '站', '想', '拿'];
+    const book10ReviewWords = ['人', '大', '小', '我', '你', '好', '的', '了', '是', '在', '有', '不', '来', '去', '一', '二', '三', '上', '看', '水'];
+    
+    const book10 = await Book.create({
+      title: '去公园玩',
+      cover: '',
+      description: '方向认知、户外探索、创意表达',
+      level: 1,
+      theme: '方向认知',
+      tags: ['方向', '户外', '公园', '交通', '创意'],
+      protagonist: {
+        name: '小明',
+        description: '小女孩，扎两个小辫子，亚洲面孔，活泼可爱'
+      },
+      newWords: book10NewWords.map(c => charMap[c]).filter(Boolean),
+      newWordCount: book10NewWords.length,
+      reviewWords: book10ReviewWords.map(c => charMap[c]).filter(Boolean),
+      pageCount: 10,
+      totalCharacters: 130,
+      estimatedMinutes: 6,
+      vocabularyComplexity: 1,
+      sentenceLength: 1,
+      isFree: true,
+      price: 0,
+      sortOrder: 10,
+      status: 'online',
+      publishedAt: new Date()
+    });
+    console.log(`[Seed] 已创建绘本: ${book10.title} (ID: ${book10._id})`);
+
+    const book10Pages = [
+      { pageNumber: 1, text: '今天去公园！坐车去。', pinyin: '[jīn tiān qù gōng yuán] [zuò chē qù]', imageDescription: '小明站在公交车站等车，要去公园', teachingNote: '认识"车"', wordAnnotations: [{ character: '车', isNewWord: true }] },
+      { pageNumber: 2, text: '车站在前面。站上好多人。', pinyin: '[chē zhàn zài qián miàn] [zhàn shàng hǎo duō rén]', imageDescription: '公交车站很多人在等车', teachingNote: '认识"站"和"前"', wordAnnotations: [{ character: '站', isNewWord: true }, { character: '前', isNewWord: true }] },
+      { pageNumber: 3, text: '前方左转。左边有树。', pinyin: '[qián fāng zuǒ zhuǎn] [zuǒ biān yǒu shù]', imageDescription: '走到路口左转，左边是大树', teachingNote: '认识"方"和"左"', wordAnnotations: [{ character: '方', isNewWord: true }, { character: '左', isNewWord: true }] },
+      { pageNumber: 4, text: '公园在外面。外面好大！', pinyin: '[gōng yuán zài wài miàn] [wài miàn hǎo dà]', imageDescription: '到了公园外面，公园很大', teachingNote: '认识"外"', wordAnnotations: [{ character: '外', isNewWord: true }] },
+      { pageNumber: 5, text: '东边是太阳。西边有山。', pinyin: '[dōng biān shì tài yáng] [xī biān yǒu shān]', imageDescription: '东边太阳升起，西边有山', teachingNote: '认识"东"和"西"', wordAnnotations: [{ character: '东', isNewWord: true }, { character: '西', isNewWord: true }] },
+      { pageNumber: 6, text: '北边好远。远处有大海。', pinyin: '[běi biān hǎo yuǎn] [yuǎn chù yǒu dà hǎi]', imageDescription: '北方远处有大海', teachingNote: '认识"北""远""海"', wordAnnotations: [{ character: '北', isNewWord: true }, { character: '远', isNewWord: true }, { character: '海', isNewWord: true }] },
+      { pageNumber: 7, text: '我拿纸和笔。画一幅画！', pinyin: '[wǒ ná zhǐ hé bǐ] [huà yī fú huà]', imageDescription: '小明拿出纸和笔画画', teachingNote: '认识"拿""纸""笔""画"', wordAnnotations: [{ character: '拿', isNewWord: true }, { character: '纸', isNewWord: true }, { character: '笔', isNewWord: true }, { character: '画', isNewWord: true }] },
+      { pageNumber: 8, text: '我画了太阳和花。说说你的画。', pinyin: '[wǒ huà le tài yáng hé huā] [shuō shuō nǐ de huà]', imageDescription: '小明画了太阳和花，和小伙伴分享', teachingNote: '认识"说"', wordAnnotations: [{ character: '说', isNewWord: true }] },
+      { pageNumber: 9, text: '我还想读书。书里有好多字。', pinyin: '[wǒ hái xiǎng dú shū] [shū lǐ yǒu hǎo duō zì]', imageDescription: '小明在公园长椅上读书', teachingNote: '认识"想"和"读"', wordAnnotations: [{ character: '想', isNewWord: true }, { character: '读', isNewWord: true }] },
+      { pageNumber: 10, text: '公园真好玩！东西南北，我都知道！', pinyin: '[gōng yuán zhēn hǎo wán] [dōng xī nán běi] [wǒ dōu zhī dào]', imageDescription: '小明在公园里开心地奔跑，背景是四个方向指示', teachingNote: '总结方向认知', wordAnnotations: [] }
+    ];
+
+    for (const page of book10Pages) {
+      const annotations = (page.wordAnnotations || []).map(a => ({
+        characterId: charMap[a.character],
+        character: a.character,
+        isNewWord: a.isNewWord,
+        highlightStyle: a.isNewWord ? 'both' : 'underline'
+      }));
+      await BookPage.create({
+        bookId: book10._id, pageNumber: page.pageNumber, text: page.text,
+        pinyin: page.pinyin, imageDescription: page.imageDescription,
+        teachingNote: page.teachingNote, wordAnnotations: annotations, interactiveElements: []
+      });
+    }
+    console.log(`[Seed] 已创建绘本10的 ${book10Pages.length} 个页面`);
+
+    console.log('[Seed] 种子数据导入完成! (共10本绘本)');
     process.exit(0);
   } catch (err) {
     console.error('[Seed] 导入失败:', err);

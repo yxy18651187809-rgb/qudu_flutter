@@ -147,14 +147,14 @@ POST /api/v1/auth/login
 ```json
 {
   "phone": "13800138000",
-  "smsCode": "123456"
+  "code": "123456"
 }
 ```
 
 | 字段 | 类型 | 必填 | 说明 |
 |------|------|------|------|
 | phone | String | 是 | 手机号 |
-| smsCode | String | 是 | 6位验证码 |
+| code | String | 是 | 6位验证码（body参数名，非smsCode） |
 
 **Response 200（已注册用户）:**
 
