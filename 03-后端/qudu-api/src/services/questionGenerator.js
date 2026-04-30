@@ -441,7 +441,8 @@ function buildQuestion(charDoc, questionType, distractors, charMap = {}) {
     character: charDoc.character,
     questionType,
     options: [],
-    correctAnswer: ''
+    correctAnswer: '',
+    audioUrl: `/audio/${charDoc.character}.mp3`  // 前端直接使用的音频URL
   };
 
   switch (questionType) {

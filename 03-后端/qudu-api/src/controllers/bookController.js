@@ -52,8 +52,16 @@ exports.getBooks = async (req, res) => {
       .limit(Number(pageSize))
       .lean();
 
+    // 为每本绘本添加封面图URL
+    const booksWithCovers = books.map(b => ({
+      ...b,
+      coverImageUrl: `/uploads/covers/${b._id}.png`
+    }));
+
+
+    
     success(res, {
-      list: books,
+      list: booksWithCovers,
       pagination: paginate(page, pageSize, total)
     });
   } catch (err) {
@@ -99,7 +107,9 @@ exports.getBookDetail = async (req, res) => {
       }
     }
 
-    success(res, book);
+        book.coverImageUrl = `/uploads/covers/${book._id}.png`;
+
+success(res, book);
   } catch (err) {
     console.error('获取绘本详情失败:', err);
     error(res, 50001, '获取绘本详情失败', 500);
