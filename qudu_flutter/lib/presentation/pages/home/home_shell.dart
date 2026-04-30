@@ -4,17 +4,25 @@ import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_radius.dart';
 import '../wordbook/word_learning_page.dart';
 import '../bookshelf/bookshelf_page.dart';
+import 'home_page.dart';
+import '../profile/profile_page.dart';
 
 /// 首页TabBar壳 — 包含4个底部导航Tab
 class HomeShell extends StatefulWidget {
   const HomeShell({super.key});
 
   @override
-  State<HomeShell> createState() => _HomeShellState();
+  State<HomeShell> createState() => HomeShellState();
 }
 
-class _HomeShellState extends State<HomeShell> {
+class HomeShellState extends State<HomeShell> {
   int _currentIndex = 0;
+
+  /// 切换Tab
+  void switchToTab(int index) {
+    if (index < 0 || index > 3) return;
+    setState(() => _currentIndex = index);
+  }
 
   /// 4个Tab页面
   static const List<_TabItem> _tabs = [
@@ -30,14 +38,14 @@ class _HomeShellState extends State<HomeShell> {
       body: IndexedStack(
         index: _currentIndex,
         children: [
-          // Tab 0: 首页占位（后续接入推荐内容）
-          const _PlaceholderPage(title: '首页', icon: Icons.home_rounded, color: AppColors.primary),
+          // Tab 0: 首页 ✅ 真实页面已接入
+          const HomePage(),
           // Tab 1: 识字首页 ✅ 真实页面已接入
           const WordLearningPage(),
           // Tab 2: 书架 ✅ 真实页面已接入（等插画师封面图素材替换图标placeholder）
           const BookshelfPage(),
-          // Tab 3: 我的占位（后续接入个人中心）
-          const _PlaceholderPage(title: '我的', icon: Icons.person_rounded, color: AppColors.primary),
+          // Tab 3: 我的 ✅ 真实页面已接入
+          const ProfilePage(),
         ],
       ),
       bottomNavigationBar: Container(
@@ -108,7 +116,7 @@ class _HomeShellState extends State<HomeShell> {
   }
 }
 
-/// Tab项数据模型
+/// 占位页面数据模型
 class _TabItem {
   final IconData icon;
   final IconData activeIcon;
@@ -119,54 +127,4 @@ class _TabItem {
     required this.activeIcon,
     required this.label,
   });
-}
-
-/// 占位页面 — 后续替换为实际业务页面
-class _PlaceholderPage extends StatelessWidget {
-  final String title;
-  final IconData icon;
-  final Color color;
-
-  const _PlaceholderPage({
-    required this.title,
-    required this.icon,
-    required this.color,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.background,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Icon(icon, size: 40, color: color),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              title,
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    color: AppColors.textPrimary,
-                  ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              '页面开发中...',
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: AppColors.textSecondary,
-                  ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }
