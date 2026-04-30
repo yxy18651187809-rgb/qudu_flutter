@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>趣趣表情库 - 生气表情预览</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #FAFAF5;
+    font-family: 'PingFang SC', '微软雅黑', sans-serif;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+  h1 { color: #5D4037; font-size: 24px; }
+  .preview-box {
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    padding: 48px;
+    display: flex;
+    gap: 48px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .label { font-size: 14px; color: #795548; text-align: center; margin-top: 12px; }
+  .svg-container {
+    filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.10));
+  }
+  .png-container img {
+    width: 256px; height: 256px;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  }
+  .info {
+    background: white;
+    border-radius: 16px;
+    padding: 24px 32px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    max-width: 600px;
+  }
+  .info h3 { color: #5D4037; margin-bottom: 12px; }
+  .info p { color: #666; font-size: 13px; line-height: 1.8; }
+  .info .tag {
+    display: inline-block;
+    background: #FFEBEE;
+    color: #C62828;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    margin: 2px;
+  }
+</style>
+</head>
+<body>
+
+<h1>😤 趣趣表情库 · 生气表情</h1>
+
+<div class="preview-box">
+  <div>
+    <div class="svg-container">
+      <svg width="256" height="256" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+        <!-- 背景 -->
+        <rect width="512" height="512" rx="64" fill="#FFF8E1"/>
+        
+        <!-- 蒸汽效果 -->
+        <g opacity="0.6">
+          <ellipse cx="215" cy="62" rx="10" ry="8" fill="#B0BEC5"/>
+          <ellipse cx="220" cy="45" rx="8" ry="6" fill="#B0BEC5"/>
+          <ellipse cx="265" cy="52" rx="12" ry="9" fill="#B0BEC5"/>
+          <ellipse cx="260" cy="35" rx="9" ry="7" fill="#B0BEC5"/>
+          <ellipse cx="305" cy="68" rx="8" ry="6" fill="#B0BEC5"/>
+          <ellipse cx="310" cy="52" rx="7" ry="5" fill="#B0BEC5"/>
+        </g>
+
+        <!-- 身体节3 -->
+        <ellipse cx="256" cy="380" rx="60" ry="48" fill="#C5E1A5" stroke="#A5C487" stroke-width="3"/>
+        <!-- 身体节2 -->
+        <ellipse cx="256" cy="310" rx="70" ry="55" fill="#C5E1A5" stroke="#A5C487" stroke-width="3"/>
+        <!-- 尾巴 -->
+        <path d="M256 425 Q275 450 256 470 Q237 450 256 425" fill="#A5C487"/>
+        <!-- 腹部纹理节3 -->
+        <ellipse cx="256" cy="380" rx="34" ry="24" fill="#FFF8E1" opacity="0.8"/>
+        <!-- 腹部纹理节2 -->
+        <ellipse cx="256" cy="310" rx="42" ry="30" fill="#FFF8E1" opacity="0.8"/>
+
+        <!-- 叉腰的手左 -->
+        <circle cx="178" cy="290" r="20" fill="#C5E1A5" stroke="#A5C487" stroke-width="3"/>
+        <path d="M188 300 Q175 280 168 258" stroke="#A5C487" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <!-- 叉腰的手右 -->
+        <circle cx="334" cy="290" r="20" fill="#C5E1A5" stroke="#A5C487" stroke-width="3"/>
+        <path d="M324 300 Q337 280 344 258" stroke="#A5C487" stroke-width="5" fill="none" stroke-linecap="round"/>
+
+        <!-- 头部 -->
+        <ellipse cx="256" cy="190" rx="88" ry="80" fill="#C5E1A5" stroke="#A5C487" stroke-width="3" transform="rotate(-3 256 190)"/>
+        
+        <!-- 叶子 -->
+        <ellipse cx="256" cy="105" rx="26" ry="42" fill="#8BC34A" stroke="#689F38" stroke-width="2" transform="rotate(5 256 105)"/>
+        <line x1="256" y1="118" x2="256" y2="148" stroke="#689F38" stroke-width="3"/>
+        <line x1="248" y1="128" x2="260" y2="115" stroke="#689F38" stroke-width="1.5" opacity="0.6"/>
+        
+        <!-- 腮红（红色） -->
+        <ellipse cx="194" cy="215" rx="26" ry="18" fill="#FF7043" opacity="0.65"/>
+        <ellipse cx="318" cy="215" rx="26" ry="18" fill="#FF7043" opacity="0.65"/>
+        
+        <!-- 眼睛左 - 怒目 -->
+        <circle cx="224" cy="185" r="28" fill="white" stroke="#E0E0E0" stroke-width="1.5"/>
+        <circle cx="224" cy="188" r="18" fill="#212121"/>
+        <circle cx="230" cy="180" r="6" fill="white"/>
+        <circle cx="218" cy="192" r="3" fill="white" opacity="0.5"/>
+        
+        <!-- 眼睛右 - 怒目 -->
+        <circle cx="288" cy="185" r="28" fill="white" stroke="#E0E0E0" stroke-width="1.5"/>
+        <circle cx="288" cy="188" r="18" fill="#212121"/>
+        <circle cx="294" cy="180" r="6" fill="white"/>
+        <circle cx="282" cy="192" r="3" fill="white" opacity="0.5"/>
+        
+        <!-- 眉毛 - 倒八字怒眉 -->
+        <path d="M196 155 Q220 148 248 158" stroke="#689F38" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <path d="M316 155 Q292 148 264 158" stroke="#689F38" stroke-width="5" fill="none" stroke-linecap="round"/>
+        
+        <!-- 嘴巴 - 撅嘴 -->
+        <path d="M232 232 Q244 222 256 228 Q268 222 280 232" stroke="#795548" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="256" cy="226" rx="14" ry="6" fill="#E57373" opacity="0.5"/>
+        
+        <!-- 怒气十字纹 -->
+        <g transform="translate(340, 140)" opacity="0.7">
+          <line x1="0" y1="0" x2="14" y2="14" stroke="#FF5722" stroke-width="3" stroke-linecap="round"/>
+          <line x1="14" y1="0" x2="0" y2="14" stroke="#FF5722" stroke-width="3" stroke-linecap="round"/>
+        </g>
+        <g transform="translate(155, 145)" opacity="0.5">
+          <line x1="0" y1="0" x2="10" y2="10" stroke="#FF5722" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="10" y1="0" x2="0" y2="10" stroke="#FF5722" stroke-width="2.5" stroke-linecap="round"/>
+        </g>
+      </svg>
+    </div>
+    <div class="label">SVG 矢量版（256px预览）</div>
+  </div>
+  
+  <div>
+    <div class="png-container">
+      <img src="趣趣-生气.png" alt="趣趣生气表情">
+    </div>
+    <div class="label">PNG 位图版（512×512）</div>
+  </div>
+</div>
+
+<div class="info">
+  <h3>😤 生气表情设计说明</h3>
+  <p>
+    <strong>使用场景</strong>：多次失败、挫折感、答题错误提醒<br>
+    <strong>视觉特征</strong>：<br>
+    • 眉毛：倒八字怒眉（V形下压），绿色 #689F38<br>
+    • 眼睛：怒目圆睁，大瞳孔+高光<br>
+    • 嘴巴：撅嘴下弯，粉红撅嘴效果<br>
+    • 腮红：红色 #FF7043（区别于正常粉红 #FFAB91）<br>
+    • 动作：双手叉腰，身体微倾<br>
+    • 特殊元素：头顶蒸汽+怒气十字纹<br>
+    <br>
+    <strong>设计原则</strong>：生气但仍保持可爱感，不吓到小朋友<br>
+    <strong>情绪关键词</strong>：
+    <span class="tag">挫折</span>
+    <span class="tag">叉腰</span>
+    <span class="tag">撅嘴</span>
+    <span class="tag">蒸汽</span>
+    <span class="tag">怒眉</span>
+  </p>
+</div>
+
+</body>
+</html>

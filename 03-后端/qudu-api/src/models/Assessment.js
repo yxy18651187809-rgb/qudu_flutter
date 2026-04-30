@@ -14,6 +14,11 @@ const assessmentSchema = new mongoose.Schema({
     enum: ['initial', 'review', 'level_test'],
     default: 'initial'
   },
+  bookId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Book'
+    // 可选字段，type=review 时必须传入，标识绘本测评来源
+  },
   targetLevel: {
     type: Number,
     min: 1,
@@ -114,6 +119,7 @@ const assessmentSchema = new mongoose.Schema({
 assessmentSchema.index({ childId: 1, status: 1 });
 assessmentSchema.index({ childId: 1, createdAt: -1 });
 assessmentSchema.index({ childId: 1, type: 1, createdAt: -1 });
+assessmentSchema.index({ childId: 1, bookId: 1, status: 1 });
 
 // 统一 toJSON：_id → id
 assessmentSchema.set('toJSON', {

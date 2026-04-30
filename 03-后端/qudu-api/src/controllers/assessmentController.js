@@ -3,22 +3,32 @@ const Character = require('../models/Character');
 const Child = require('../models/Child');
 const WordMastery = require('../models/WordMastery');
 const LearningRecord = require('../models/LearningRecord');
+const Book = require('../models/Book');
 const { success, error } = require('../utils/response');
 const {
   calculateNextReview,
   estimateWordCount,
-  recommendLevel,
-  generateAssessmentQuestions
+  recommendLevel
 } = require('../services/reviewAlgorithm');
+const {
+  generateBookQuestions,
+  generateLevelQuestions,
+  ASSESSMENT_CONFIG
+} = require('../services/questionGenerator');
 
 /**
  * 开始识字测评
  * POST /api/v1/assessments/start
+ *
+ * v1.1 更新：
+ * - 新增 bookId 可选参数（type=review 时必须传入）
+ * - 按测评类型配置题目数量和题型分布
+ * - 绘本测评从 Book.newWords 取字出题
  */
 exports.startAssessment = async (req, res) => {
   try {
     const userId = req.userId;
-    const { childId, type = 'initial', targetLevel, questionCount = 20 } = req.body;
+    const { childId, type = 'initial', targetLevel, questionCount, bookId } = req.body;
 
     // 校验儿童归属
     const child = await Child.findOne({ _id: childId, userId, status: 'active' });
@@ -26,17 +36,31 @@ exports.startAssessment = async (req, res) => {
       return error(res, 40410, '儿童档案不存在', 404);
     }
 
-    // 检查是否有进行中的测评
-    const existingAssessment = await Assessment.findOne({
-      childId,
-      status: 'in_progress'
-    });
+    // 校验 bookId：type=review 时必须传入
+    if (type === 'review' && !bookId) {
+      return error(res, 40011, '绘本测评必须传入 bookId', 400);
+    }
+
+    // 校验 bookId 有效性
+    if (bookId) {
+      const bookExists = await Book.findById(bookId);
+      if (!bookExists) {
+        return error(res, 40412, '绘本不存在', 404);
+      }
+    }
+
+    // 检查是否有进行中的测评（同类型+同绘本）
+    const queryFilter = { childId, status: 'in_progress' };
+    if (bookId) queryFilter.bookId = bookId;
+
+    const existingAssessment = await Assessment.findOne(queryFilter);
 
     if (existingAssessment) {
       // 返回已有的进行中测评
       return success(res, {
         assessmentId: existingAssessment._id,
         type: existingAssessment.type,
+        bookId: existingAssessment.bookId,
         status: 'in_progress',
         questions: existingAssessment.questions.map(q => ({
           characterId: q.characterId,
@@ -49,20 +73,40 @@ exports.startAssessment = async (req, res) => {
       });
     }
 
-    // 生成测评题目
+    // 生成测评题目（按类型选择生成策略）
     const level = targetLevel || child.currentLevel || 1;
     const knownCharacterIds = (child.knownCharacters || []).map(id => id.toString());
 
-    const questions = await generateAssessmentQuestions({
-      targetLevel: level,
-      questionCount,
-      knownCharacters: knownCharacterIds
-    }, Character);
+    let questions;
+
+    if (type === 'review' && bookId) {
+      // 绘本测评：从绘本新字出题
+      const config = ASSESSMENT_CONFIG.review;
+      questions = await generateBookQuestions(bookId, {
+        questionCount: questionCount || config.totalQuestions,
+        CharacterModel: Character,
+        BookModel: Book
+      });
+    } else {
+      // 初始测评 / 级别测评：按级别出题
+      questions = await generateLevelQuestions({
+        type,
+        targetLevel: level,
+        questionCount,
+        knownCharacters: knownCharacterIds,
+        CharacterModel: Character
+      });
+    }
+
+    if (!questions || questions.length === 0) {
+      return error(res, 50002, '题目生成失败，请稍后重试', 500);
+    }
 
     // 创建测评记录
     const assessment = await Assessment.create({
       childId,
       type,
+      bookId: bookId || undefined,
       targetLevel: level,
       questionCount: questions.length,
       questions: questions.map(q => ({
@@ -78,6 +122,7 @@ exports.startAssessment = async (req, res) => {
     success(res, {
       assessmentId: assessment._id,
       type,
+      bookId: bookId || undefined,
       status: 'in_progress',
       questions: questions.map(q => ({
         characterId: q.characterId,

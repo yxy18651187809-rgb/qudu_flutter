@@ -1,0 +1,79 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="512" height="512" rx="64" fill="#FFF8E1"/>
+  
+  <!-- 蒸汽效果 -->
+  <g opacity="0.6">
+    <path d="M220 80 Q215 60 225 45 Q220 30 230 20" stroke="#B0BEC5" stroke-width="3" fill="none" stroke-linecap="round">
+      <animate attributeName="d" values="M220 80 Q215 60 225 45 Q220 30 230 20;M220 80 Q210 55 225 40 Q215 25 230 10;M220 80 Q215 60 225 45 Q220 30 230 20" dur="2s" repeatCount="indefinite"/>
+    </path>
+    <path d="M260 75 Q265 50 255 35 Q260 20 250 8" stroke="#B0BEC5" stroke-width="3" fill="none" stroke-linecap="round">
+      <animate attributeName="d" values="M260 75 Q265 50 255 35 Q260 20 250 8;M260 75 Q270 45 255 30 Q265 15 250 0;M260 75 Q265 50 255 35 Q260 20 250 8" dur="2.5s" repeatCount="indefinite"/>
+    </path>
+    <path d="M295 85 Q290 65 300 50 Q295 35 305 25" stroke="#B0BEC5" stroke-width="2.5" fill="none" stroke-linecap="round">
+      <animate attributeName="d" values="M295 85 Q290 65 300 50 Q295 35 305 25;M295 85 Q285 60 300 45 Q290 30 305 15;M295 85 Q290 65 300 50 Q295 35 305 25" dur="1.8s" repeatCount="indefinite"/>
+    </path>
+  </g>
+
+  <!-- 身体节3 -->
+  <ellipse cx="256" cy="380" rx="60" ry="48" fill="#C5E1A5" stroke="#A5C487" stroke-width="3"/>
+  <!-- 身体节2 -->
+  <ellipse cx="256" cy="310" rx="70" ry="55" fill="#C5E1A5" stroke="#A5C487" stroke-width="3"/>
+  <!-- 尾巴（怒气时竖起） -->
+  <path d="M256 425 Q275 450 256 470 Q237 450 256 425" fill="#A5C487"/>
+  <!-- 腹部纹理节3 -->
+  <ellipse cx="256" cy="380" rx="34" ry="24" fill="#FFF8E1" opacity="0.8"/>
+  <!-- 腹部纹理节2 -->
+  <ellipse cx="256" cy="310" rx="42" ry="30" fill="#FFF8E1" opacity="0.8"/>
+
+  <!-- 叉腰的手（左）- 叉腰姿势 -->
+  <circle cx="178" cy="290" r="20" fill="#C5E1A5" stroke="#A5C487" stroke-width="3"/>
+  <path d="M188 300 Q175 280 168 260" stroke="#A5C487" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <!-- 叉腰的手（右）- 叉腰姿势 -->
+  <circle cx="334" cy="290" r="20" fill="#C5E1A5" stroke="#A5C487" stroke-width="3"/>
+  <path d="M324 300 Q337 280 344 260" stroke="#A5C487" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+  <!-- 头部（微微倾斜表现怒气） -->
+  <ellipse cx="256" cy="190" rx="88" ry="80" fill="#C5E1A5" stroke="#A5C487" stroke-width="3" transform="rotate(-5 256 190)"/>
+  
+  <!-- 叶子（竖起/僵硬表现怒气） -->
+  <ellipse cx="256" cy="105" rx="26" ry="42" fill="#8BC34A" stroke="#689F38" stroke-width="2" transform="rotate(5 256 105)"/>
+  <line x1="256" y1="118" x2="256" y2="148" stroke="#689F38" stroke-width="3"/>
+  <line x1="248" y1="128" x2="260" y2="115" stroke="#689F38" stroke-width="1.5" opacity="0.6"/>
+  <line x1="250" y1="138" x2="262" y2="125" stroke="#689F38" stroke-width="1.5" opacity="0.4"/>
+  
+  <!-- 腮红（红色！生气时腮红变红） -->
+  <ellipse cx="194" cy="215" rx="26" ry="18" fill="#FF7043" opacity="0.65"/>
+  <ellipse cx="318" cy="215" rx="26" ry="18" fill="#FF7043" opacity="0.65"/>
+  
+  <!-- 眼睛左 - 怒目圆睁 -->
+  <circle cx="224" cy="185" r="28" fill="white" stroke="#E0E0E0" stroke-width="1.5"/>
+  <circle cx="224" cy="188" r="18" fill="#212121"/>
+  <circle cx="230" cy="180" r="6" fill="white"/>
+  <circle cx="218" cy="192" r="3" fill="white" opacity="0.5"/>
+  
+  <!-- 眼睛右 - 怒目圆睁 -->
+  <circle cx="288" cy="185" r="28" fill="white" stroke="#E0E0E0" stroke-width="1.5"/>
+  <circle cx="288" cy="188" r="18" fill="#212121"/>
+  <circle cx="294" cy="180" r="6" fill="white"/>
+  <circle cx="282" cy="192" r="3" fill="white" opacity="0.5"/>
+  
+  <!-- 眉毛 - 倒八字怒眉（关键生气特征） -->
+  <path d="M196 155 Q212 145 248 158" stroke="#689F38" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M316 155 Q300 145 264 158" stroke="#689F38" stroke-width="5" fill="none" stroke-linecap="round"/>
+  
+  <!-- 嘴巴 - 撅嘴生气（向下弯） -->
+  <path d="M232 232 Q244 222 256 228 Q268 222 280 232" stroke="#795548" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <!-- 撅嘴效果 -->
+  <ellipse cx="256" cy="226" rx="14" ry="6" fill="#E57373" opacity="0.5"/>
+  
+  <!-- 怒气十字纹 -->
+  <g transform="translate(340, 140)" opacity="0.7">
+    <line x1="0" y1="0" x2="14" y2="14" stroke="#FF5722" stroke-width="3" stroke-linecap="round"/>
+    <line x1="14" y1="0" x2="0" y2="14" stroke="#FF5722" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(155, 145)" opacity="0.5">
+    <line x1="0" y1="0" x2="10" y2="10" stroke="#FF5722" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="10" y1="0" x2="0" y2="10" stroke="#FF5722" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+</svg>
