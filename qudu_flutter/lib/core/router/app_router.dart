@@ -4,12 +4,15 @@ import '../../core/services/storage_service.dart';
 import '../../presentation/pages/login/login_page.dart';
 import '../../presentation/pages/children/children_page.dart';
 import '../../presentation/pages/home/home_shell.dart';
+import '../../presentation/pages/book_reader/book_reader_page.dart';
 
 /// 路由路径常量
 class AppRoutes {
   static const String login = '/login';
   static const String home = '/home';
   static const String children = '/children';
+  static const String bookReader = '/book-reader/:bookId';
+  static const String assessment = '/assessment/:assessmentId';
 }
 
 /// 路由刷新监听器 — 监听登录状态变化自动跳转
@@ -74,6 +77,16 @@ GoRouter createRouter(AuthNotifier authNotifier) {
         path: AppRoutes.children,
         name: 'children',
         builder: (context, state) => const ChildrenPage(),
+      ),
+      // 绘本阅读器
+      GoRoute(
+        path: '/book-reader/:bookId',
+        name: 'bookReader',
+        builder: (context, state) {
+          final bookId = state.pathParameters['bookId'] ?? '';
+          final childId = state.uri.queryParameters['childId'];
+          return BookReaderPage(bookId: bookId, childId: childId);
+        },
       ),
     ],
     errorBuilder: (context, state) => Scaffold(

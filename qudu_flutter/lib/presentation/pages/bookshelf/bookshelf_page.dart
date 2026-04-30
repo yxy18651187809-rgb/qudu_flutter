@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_radius.dart';
@@ -75,14 +76,7 @@ class _BookshelfPageState extends State<BookshelfPage> {
 
   /// 点击绘本卡片 — 跳转阅读器
   void _onBookTap(BookModel book) {
-    // TODO: 接入插画师设计稿后替换为真实阅读器页面
-    // 临时：显示绘本信息 SnackBar
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('《${book.title}》— 绘本阅读器开发中...'),
-        backgroundColor: AppColors.primary,
-      ),
-    );
+    context.push('/book-reader/${book.id}');
   }
 
   // ===========================================================================
