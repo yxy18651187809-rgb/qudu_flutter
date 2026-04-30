@@ -1,7 +1,7 @@
 # 字趣阅读 · 团队进度看板
 
-> **更新时间**：2026-04-30 23:35
-> **更新人**：后端负责人（questionGenerator.js + Assessment API v1.1 对齐完成）
+> **更新时间**：2026-04-30 23:55
+> **更新人**：team-lead（紧急进度会 + Tab0/Tab3开发完成）
 > **说明**：本文档为团队共享进度文件，所有成员更新进展后同步至此，降低消息丢失风险。
 
 ---
@@ -82,13 +82,15 @@
 | **登录+儿童档案CRUD联调** | ✅ **已完成** | 100% | AuthRepository + ChildrenRepository + Token刷新 + ServiceLocator DI |
 | **识字首页UI** | ✅ **已完成** | 100% | L1-L5级别选择器+字卡网格+复习Banner+汉字详情弹窗（commit d64dc31已push）|
 | 书架页骨架 | ✅ 已完成 | 100% | BookModel + BooksRepository + BookshelfPage（L1-L5筛选+2列绘本网格）|
-| HomeShell Tab接入 | ✅ 2/4完成 | 50% | Tab1识字 ✅ / Tab2书架 ✅ / Tab0/Tab3占位 |
+| HomeShell Tab接入 | ✅ **4/4完成** | 100% | Tab0首页 ✅ / Tab1识字 ✅ / Tab2书架 ✅ / Tab3我的 ✅ |
 | flutter analyze | ✅ 0 error | — | `flutter analyze` 无错误，commit d64dc31已push |
 | GitHub仓库 | ✅ 已连通 | 100% | https://github.com/yxy18651187809-rgb/qudu_flutter |
 | Swagger文档 | ✅ 已阅读 | 100% | 前端已完整阅读API契约v1.2，22个接口 |
 | **阻塞项** | 🟢 **P0解除** | — | ✅ Docker Desktop 已安装，后端可启动 |
 | **依赖项** | 🟡 等插画师 | — | 等绘本封面图（book_cover_01~06.png）+ 绘本阅读器UI设计稿 |
 | **绘本阅读器页面** | ✅ **v1通用方案完成** | 100% | commit 77f26d3已push，翻页+新字高亮+完成弹窗 |
+| **Tab0首页** | ✅ **已完成** | 100% | commit 70e1d6c，学习概览+统计+快速入口+打卡+动态 |
+| **Tab3我的** | ✅ **已完成** | 100% | commit 70e1d6c，个人信息+设置+孩子切换+退出登录 |
 
 **三天建议（4/23-4/25）**：
 - 4/23：P0接入后端真实API（等MongoDB就绪）/ P1绘本阅读器页面（等设计稿）/ P2首页+我的骨架
@@ -306,8 +308,9 @@
 | 任务 | 负责人 | 截止 | 依赖项 | 状态 |
 |------|--------|------|--------|------|
 | 绘本阅读器通用方案开发 | 前端负责人 | 5/2 | 无（绕过设计稿） | ✅ **已完成 commit 77f26d3** |
-| questionGenerator.js开发 | 后端负责人 | 5/3 | 无 | 🔶 进行中 |
-| 绘本阅读器UI设计稿（UI替换用） | 插画师 | 5/3 | 无 | 🔶 催单中 |
+| questionGenerator.js开发 | 后端负责人 | 5/3 | 无 | ✅ **已完成 commit 67904ab** |
+| Tab0首页 + Tab3我的 | 前端负责人 | 5/4 | 无 | ✅ **已完成 commit 70e1d6c** |
+| 绘本封面图（book_cover_01/02） | 插画师 | 5/1 12:00 | 无 | 🔴 inbox已催单 |
 
 ### P1 重要（本周完成）
 
