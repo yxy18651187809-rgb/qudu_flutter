@@ -5,6 +5,10 @@ import '../../presentation/pages/login/login_page.dart';
 import '../../presentation/pages/children/children_page.dart';
 import '../../presentation/pages/home/home_shell.dart';
 import '../../presentation/pages/book_reader/book_reader_page.dart';
+import '../../data/models/assessment_model.dart';
+import '../../presentation/pages/assessment/assessment_start_page.dart';
+import '../../presentation/pages/assessment/assessment_question_page.dart';
+import '../../presentation/pages/assessment/assessment_result_page.dart';
 
 /// 路由路径常量
 class AppRoutes {
@@ -86,6 +90,58 @@ GoRouter createRouter(AuthNotifier authNotifier) {
           final bookId = state.pathParameters['bookId'] ?? '';
           final childId = state.uri.queryParameters['childId'];
           return BookReaderPage(bookId: bookId, childId: childId);
+        },
+      ),
+      // 测评首页
+      GoRoute(
+        path: '/assessment/start',
+        name: 'assessmentStart',
+        builder: (context, state) {
+          final childId = state.uri.queryParameters['childId'] ?? '';
+          final typeParam = state.uri.queryParameters['type'] ?? 'initial';
+          final type = AssessmentType.values.firstWhere(
+            (e) => e.apiValue == typeParam,
+            orElse: () => AssessmentType.initial,
+          );
+          return AssessmentStartPage(childId: childId, assessmentType: type);
+        },
+      ),
+      // 答题页面
+      GoRoute(
+        path: '/assessment/question',
+        name: 'assessmentQuestion',
+        builder: (context, state) {
+          final childId = state.uri.queryParameters['childId'] ?? '';
+          final assessment = state.extra as AssessmentModel?;
+          return AssessmentQuestionPage(
+            childId: childId,
+            assessment: assessment ?? AssessmentModel(
+              assessmentId: '',
+              type: AssessmentType.initial,
+              status: AssessmentStatus.inProgress,
+              questions: [],
+              startedAt: DateTime.now(),
+            ),
+          );
+        },
+      ),
+      // 结果页面
+      GoRoute(
+        path: '/assessment/result',
+        name: 'assessmentResult',
+        builder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>?;
+          return AssessmentResultPage(
+            assessment: extra?['assessment'] as AssessmentModel? ??
+                AssessmentModel(
+                  assessmentId: '',
+                  type: AssessmentType.initial,
+                  status: AssessmentStatus.completed,
+                  questions: [],
+                  startedAt: DateTime.now(),
+                ),
+            result: extra?['result'] as AssessmentResult?,
+          );
         },
       ),
     ],
