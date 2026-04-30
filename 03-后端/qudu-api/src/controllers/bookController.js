@@ -214,8 +214,14 @@ exports.getRecommendedBooks = async (req, res) => {
     // 截取指定数量
     recommended = recommended.slice(0, Number(limit));
 
+    // 为每本绘本添加封面图URL
+    const recommendedWithCovers = recommended.map(b => ({
+      ...b,
+      coverImageUrl: `/uploads/covers/${b._id}.png`
+    }));
+
     success(res, {
-      list: recommended,
+      list: recommendedWithCovers,
       childLevel: currentLevel,
       reason: `基于L${currentLevel}级别推荐`
     });
@@ -244,8 +250,14 @@ exports.getFreeBooks = async (req, res) => {
       .limit(Number(pageSize))
       .lean();
 
+    // 为每本绘本添加封面图URL
+    const booksWithCovers = books.map(b => ({
+      ...b,
+      coverImageUrl: `/uploads/covers/${b._id}.png`
+    }));
+
     success(res, {
-      list: books,
+      list: booksWithCovers,
       pagination: paginate(page, pageSize, total)
     });
   } catch (err) {
