@@ -282,34 +282,36 @@ class _BookCard extends StatelessWidget {
             // --- 封面区（占高度65%）---
             Expanded(
               flex: 65,
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: _getLevelColor(book.level).withOpacity(0.15),
-                  borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(12),
-                  ),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(12),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // 绘本图标（封面图placeholder）
-                    Icon(
-                      Icons.auto_stories_rounded,
-                      size: 48,
-                      color: _getLevelColor(book.level),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      book.levelLabel,
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600,
-                        color: _getLevelColor(book.level),
-                      ),
-                    ),
-                  ],
-                ),
+                child: book.cover.isNotEmpty
+                    ? Image.network(
+                        'http://localhost:3000${book.cover}',
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: double.infinity,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Center(
+                            child: CircularProgressIndicator(
+                              value:
+                                  loadingProgress.expectedTotalBytes != null
+                                      ? loadingProgress
+                                              .cumulativeBytesLoaded /
+                                          loadingProgress
+                                              .expectedTotalBytes!
+                                      : null,
+                              color: _getLevelColor(book.level),
+                            ),
+                          );
+                        },
+                        errorBuilder: (context, error, stackTrace) {
+                          return _buildCoverPlaceholder(book);
+                        },
+                      )
+                    : _buildCoverPlaceholder(book),
               ),
             ),
 
@@ -397,6 +399,36 @@ class _BookCard extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  /// 封面占位符（封面图加载失败时用）
+  Widget _buildCoverPlaceholder(BookModel book) {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      decoration: BoxDecoration(
+        color: _getLevelColor(book.level).withOpacity(0.15),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.auto_stories_rounded,
+            size: 48,
+            color: _getLevelColor(book.level),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            book.levelLabel,
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+              color: _getLevelColor(book.level),
+            ),
+          ),
+        ],
       ),
     );
   }
