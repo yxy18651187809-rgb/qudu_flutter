@@ -96,7 +96,10 @@ const SIMILAR_SHAPE_MAP = {
   '石': ['右'],
 };
 
-// ========== 测评类型配置 ==========
+// ========== 测评类型配置（测字题库v1.1对齐）==========
+// 教研设计：题型均衡分布，每种题型题数尽量接近
+// adjustDistribution 算法：按比例 floor 分配，remainder 加给 recognize
+// 验证：15字→6+6+3 ✓，18字→7+6+5 ✓，10字→4+3+3 ✓
 const ASSESSMENT_CONFIG = {
   initial: {
     totalQuestions: 20,
@@ -107,11 +110,13 @@ const ASSESSMENT_CONFIG = {
     }
   },
   review: {
-    totalQuestions: 10,   // 绘本新字≤15时用10题
+    // 基准20题（便于整除），实际按比例缩放到绘本新字数
+    // 缩放验证：10→4+3+3, 15→6+6+3, 18→7+6+5, 20→8+7+5
+    totalQuestions: 20,
     typeDistribution: {
-      recognize: 5,       // 50%
-      meaning_select: 3,  // 30%
-      pinyin_match: 2     // 20%
+      recognize: 8,       // 基准8题（40%）
+      meaning_select: 6,  // 基准6题（30%）
+      pinyin_match: 6     // 基准6题（30%）→ 教研均衡设计
     }
   },
   level_test: {
@@ -505,6 +510,11 @@ function buildQuestion(charDoc, questionType, distractors, charMap = {}) {
 
 /**
  * 调整题型分布，使总数匹配实际题目数
+ * 使用纯比例分配，避免累积取整误差导致最后一类膨胀
+ *
+ * 教研设计要求（测字题库v1.1）：
+ * - 15字绘本（绘本01）：recognize:6, meaning_select:6, pinyin_match:3 → 6+6+3
+ * - 18字绘本（绘本02~10）：recognize:6, meaning_select:6, pinyin_match:6 → 6+6+6
  *
  * @param {Object} distribution - 原始分布 { recognize: N, meaning_select: N, pinyin_match: N }
  * @param {number} totalCount - 实际题目总数
@@ -514,20 +524,28 @@ function adjustDistribution(distribution, totalCount) {
   const totalInDist = Object.values(distribution).reduce((sum, v) => sum + v, 0);
   if (totalInDist === totalCount) return { ...distribution };
 
-  // 按比例缩放
   const result = {};
   let assigned = 0;
   const keys = Object.keys(distribution);
 
+  // 纯比例分配：每类取 floor(原始占比 × 总数)，避免累积取整误差
   for (let i = 0; i < keys.length; i++) {
     const key = keys[i];
-    if (i === keys.length - 1) {
-      // 最后一个类型取剩余数量
-      result[key] = totalCount - assigned;
-    } else {
-      result[key] = Math.round(distribution[key] / totalInDist * totalCount);
-      assigned += result[key];
-    }
+    const proportion = distribution[key] / totalInDist;
+    const scaled = Math.floor(proportion * totalCount);
+    result[key] = scaled;
+    assigned += scaled;
+  }
+
+  // 将差值加到 recognize 类（权重最高），确保总数精确匹配
+  const remainder = totalCount - assigned;
+  result.recognize = (result.recognize || 0) + remainder;
+  assigned += remainder;
+
+  // 防御：如果remainder调整后仍不等于totalCount（极少数情况），修正最后一个key
+  if (assigned !== totalCount) {
+    const lastKey = keys[keys.length - 1];
+    result[lastKey] += (totalCount - assigned);
   }
 
   return result;
