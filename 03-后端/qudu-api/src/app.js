@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const path = require('path');
 const config = require('./config');
 
 // 路由
@@ -86,6 +87,9 @@ app.use(morgan('dev'));
 app.use(requestLogger);  // 自定义请求日志（响应时间、慢请求告警）
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
+
+// ===== 静态文件服务 =====
+app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
 // ===== 健康检查 =====
 app.get('/health', (req, res) => {
