@@ -320,8 +320,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// 最近动态
+  /// 最近动态（基于weeklyTrend数据）
   Widget _buildRecentActivity() {
+    final trend = _stats?.weeklyTrend ?? [];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -335,34 +336,45 @@ class _HomePageState extends State<HomePage> {
             borderRadius: AppRadius.mediumBorder,
             border: Border.all(color: AppColors.border, width: 0.5),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _ActivityRow(
-                icon: Icons.menu_book,
-                iconColor: AppColors.primary,
-                text: '阅读了《${_totalBooks == 3 ? "早上好" : "我的身体"}》',
-                time: '2小时前',
-              ),
-              const Divider(height: AppSpacing.md),
-              _ActivityRow(
-                icon: Icons.emoji_objects,
-                iconColor: AppColors.accent,
-                text: '学会了「大」「小」「人」「口」',
-                time: '3小时前',
-              ),
-              const Divider(height: AppSpacing.md),
-              _ActivityRow(
-                icon: Icons.star,
-                iconColor: AppColors.secondary,
-                text: '完成识字挑战：L1级别',
-                time: '昨天',
-              ),
-            ],
-          ),
+          child: trend.isEmpty
+              ? const Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(AppSpacing.lg),
+                    child: Text('暂无学习记录，快去学习吧！', style: AppTypography.bodySmall),
+                  ),
+                )
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    for (int i = 0; i < trend.length; i++) ...[
+                      if (i > 0) const Divider(height: AppSpacing.md),
+                      _ActivityRow(
+                        icon: Icons.auto_stories,
+                        iconColor: AppColors.primary,
+                        text: '${trend[i].date} 学习了${trend[i].count}个字，获得${trend[i].stars}颗星',
+                        time: _formatDate(trend[i].date),
+                      ),
+                    ],
+                  ],
+                ),
         ),
       ],
     );
+  }
+
+  /// 格式化日期为友好文本
+  String _formatDate(String dateStr) {
+    try {
+      final date = DateTime.parse(dateStr);
+      final now = DateTime.now();
+      final diff = now.difference(date).inDays;
+      if (diff == 0) return '今天';
+      if (diff == 1) return '昨天';
+      if (diff < 7) return '$diff天前';
+      return dateStr;
+    } catch (_) {
+      return dateStr;
+    }
   }
 
   String _getGreeting() {

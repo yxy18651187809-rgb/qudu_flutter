@@ -260,7 +260,7 @@ class _AssessmentQuestionPageState extends State<AssessmentQuestionPage> {
     // 获取题目图片URL，转为完整URL
     final rawImageUrl = question.imageUrl;
     final imageUrl = (rawImageUrl != null && rawImageUrl.isNotEmpty)
-        ? (rawImageUrl.startsWith('http') ? rawImageUrl : 'http://localhost:3000$rawImageUrl')
+        ? _resolveUrl(rawImageUrl)
         : null;
 
     return Column(
@@ -336,10 +336,9 @@ class _AssessmentQuestionPageState extends State<AssessmentQuestionPage> {
     );
   }
 
-  /// 将相对音频URL转为完整URL
-  String _resolveAudioUrl(String url) {
+  /// 将相对URL转为完整URL
+  String _resolveUrl(String url) {
     if (url.startsWith('http')) return url;
-    // 后端返回 /audio/上.mp3 格式，需拼接服务器地址
     const serverBase = String.fromEnvironment(
       'API_SERVER',
       defaultValue: 'http://localhost:3000',
@@ -360,7 +359,7 @@ class _AssessmentQuestionPageState extends State<AssessmentQuestionPage> {
     }
 
     try {
-      await _audioPlayer.play(UrlSource(_resolveAudioUrl(rawUrl)));
+      await _audioPlayer.play(UrlSource(_resolveUrl(rawUrl)));
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -383,7 +382,7 @@ class _AssessmentQuestionPageState extends State<AssessmentQuestionPage> {
     }
 
     try {
-      await _audioPlayer.play(UrlSource(_resolveAudioUrl(rawUrl)));
+      await _audioPlayer.play(UrlSource(_resolveUrl(rawUrl)));
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -646,7 +645,7 @@ class _OptionButton extends StatelessWidget {
   // 构建图片内容
   Widget _buildImageContent(String content) {
     // 处理 image:// 协议，转换为实际URL
-    final imageUrl = content.replaceAll('image://', 'http://localhost:3000/uploads/');
+    final imageUrl = _resolveUrl(content.replaceAll('image://', '/uploads/'));
 
     return SizedBox(
       height: 60,

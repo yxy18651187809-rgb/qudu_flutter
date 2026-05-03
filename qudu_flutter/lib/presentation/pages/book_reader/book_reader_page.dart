@@ -462,11 +462,16 @@ class _BookReaderPageState extends State<BookReaderPage>
               icon: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 16),
               label: const Text('上一页', style: TextStyle(color: Colors.white)),
             ),
-            // 圆点指示器
-            Row(
+            // 页码指示器
+            totalPages > 10
+                ? Text(
+                    '${_currentPageIndex + 1} / $totalPages',
+                    style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),
+                  )
+                : Row(
               mainAxisSize: MainAxisSize.min,
               children: List.generate(
-                totalPages > 10 ? 0 : totalPages,
+                totalPages,
                 (index) => Container(
                   margin: const EdgeInsets.symmetric(horizontal: 3),
                   width: index == _currentPageIndex ? 8 : 6,
