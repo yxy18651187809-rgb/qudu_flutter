@@ -288,7 +288,9 @@ class _BookCard extends StatelessWidget {
                 ),
                 child: book.cover.isNotEmpty
                     ? Image.network(
-                        'http://localhost:3000${book.cover}',
+                        book.cover.startsWith('http')
+                            ? book.cover
+                            : 'http://localhost:3000${book.cover}',
                         fit: BoxFit.cover,
                         width: double.infinity,
                         height: double.infinity,

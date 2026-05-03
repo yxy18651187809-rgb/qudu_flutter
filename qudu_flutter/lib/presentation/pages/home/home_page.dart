@@ -29,9 +29,9 @@ class _HomePageState extends State<HomePage> {
 
   /// 学习数据（从API获取）
   int get _todayWords => _stats?.today.records ?? 0;
-  int get _totalWords => _stats?.overview.totalRecords ?? 0;
-  int get _todayBooks => _stats?.today.minutes ?? 0;
-  int get _totalBooks => 0;
+  int get _totalWords => (_stats?.mastery.newCount ?? 0) + (_stats?.mastery.mastered ?? 0);
+  int get _todayBooks => _stats?.today.stars ?? 0;
+  int get _totalBooks => _stats?.overview.totalStars ?? 0;
   int get _streakDays => _stats?.overview.streakDays ?? 0;
 
   @override
@@ -177,7 +177,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               _StatItem(value: '$_todayWords', label: '今日新字', color: AppColors.accent),
               _StatItem(value: '$_totalWords', label: '累计识字', color: AppColors.primary),
-              _StatItem(value: '$_todayBooks', label: '今日绘本', color: AppColors.secondary),
+              _StatItem(value: '$_totalBooks', label: '获得星星', color: AppColors.secondary),
               _StatItem(value: '$_streakDays', label: '连续学习', color: const Color(0xFF8B5CF6)),
             ],
           ),
