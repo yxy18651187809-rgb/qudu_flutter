@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <!-- Tab 2: 识字 (Book) -->
+  <g id="tab-book">
+    <!-- 书本 -->
+    <path d="M8 8h14v32H8z" fill="none" stroke="#9E9E9E" stroke-width="2"/>
+    <path d="M22 8h14v32H22z" fill="none" stroke="#9E9E9E" stroke-width="2"/>
+    <!-- 书脊 -->
+    <line x1="22" y1="8" x2="22" y2="40" stroke="#9E9E9E" stroke-width="2"/>
+    <!-- 文字行 -->
+    <line x1="10" y1="14" x2="18" y2="14" stroke="#9E9E9E" stroke-width="2"/>
+    <line x1="10" y1="20" x2="18" y2="20" stroke="#9E9E9E" stroke-width="2"/>
+    <line x1="26" y1="14" x2="34" y2="14" stroke="#9E9E9E" stroke-width="2"/>
+    <line x1="26" y1="20" x2="34" y2="20" stroke="#9E9E9E" stroke-width="2"/>
+  </g>
+</svg>

@@ -1,14 +1,16 @@
 /// 首页 — 学习进度总览 + 快捷入口
 /// Tab 0 of HomeShell
-/// TODO：接入真实学习统计数据后替换Mock数据
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_radius.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../core/di/service_locator.dart';
 import '../../../data/models/child_model.dart';
+import '../../../data/models/learning_stats_model.dart';
 import '../../../data/repositories/children_repository.dart';
+import '../../../data/repositories/learning_repository.dart';
 import 'home_shell.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,27 +22,36 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final ChildrenRepository _childrenRepository = ServiceLocator.instance.childrenRepository;
+  final LearningRepository _learningRepository = ServiceLocator.instance.learningRepository;
   List<ChildModel> _children = [];
+  LearningStatsModel? _stats;
   bool _isLoading = true;
 
-  /// Mock学习数据（待接入真实API后替换）
-  int _todayWords = 8;
-  int _totalWords = 47;
-  int _todayBooks = 1;
-  int _totalBooks = 3;
-  int _streakDays = 5;
+  /// 学习数据（从API获取）
+  int get _todayWords => _stats?.today.records ?? 0;
+  int get _totalWords => _stats?.overview.totalRecords ?? 0;
+  int get _todayBooks => _stats?.today.minutes ?? 0;
+  int get _totalBooks => 0;
+  int get _streakDays => _stats?.overview.streakDays ?? 0;
 
   @override
   void initState() {
     super.initState();
-    _loadChildren();
+    _loadData();
   }
 
-  Future<void> _loadChildren() async {
+  Future<void> _loadData() async {
     setState(() => _isLoading = true);
     try {
       final children = await _childrenRepository.getChildren();
-      if (mounted) {
+      if (mounted && children.isNotEmpty) {
+        final stats = await _learningRepository.getStats(children.first.id);
+        setState(() {
+          _children = children;
+          _stats = stats;
+          _isLoading = false;
+        });
+      } else {
         setState(() {
           _children = children;
           _isLoading = false;
@@ -61,7 +72,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: AppColors.background,
       body: SafeArea(
         child: RefreshIndicator(
-          onRefresh: _loadChildren,
+          onRefresh: _loadData,
           color: AppColors.primary,
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
@@ -217,7 +228,18 @@ class _HomePageState extends State<HomePage> {
                 label: '汉字测评',
                 subtitle: '检验学习成果',
                 color: AppColors.secondary,
-                onTap: () {},
+                onTap: () {
+                  final childId = _activeChild?.id;
+                  if (childId == null || childId.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('请先添加孩子档案')),
+                    );
+                    return;
+                  }
+                  context.go(
+                    '/assessment/start?childId=$childId&type=initial',
+                  );
+                },
               ),
             ),
             const SizedBox(width: AppSpacing.sm),

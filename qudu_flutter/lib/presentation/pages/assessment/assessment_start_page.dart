@@ -12,11 +12,14 @@ import 'assessment_question_page.dart';
 class AssessmentStartPage extends StatefulWidget {
   final String childId;
   final AssessmentType assessmentType;
+  /// 绘本ID（type=review 时必须传入）
+  final String? bookId;
 
   const AssessmentStartPage({
     super.key,
     required this.childId,
     this.assessmentType = AssessmentType.initial,
+    this.bookId,
   });
 
   @override
@@ -79,9 +82,9 @@ class _AssessmentStartPageState extends State<AssessmentStartPage> {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(AppSpacing.lg),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: AppColors.primary,
-        borderRadius: const BorderRadius.only(
+        borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(24),
           bottomRight: Radius.circular(24),
         ),
@@ -247,6 +250,7 @@ class _AssessmentStartPageState extends State<AssessmentStartPage> {
         type: widget.assessmentType,
         targetLevel: _selectedLevel,
         questionCount: _questionCount,
+        bookId: widget.bookId,
       );
 
       if (mounted) {

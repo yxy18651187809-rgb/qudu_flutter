@@ -103,7 +103,7 @@ class _AssessmentQuestionPageState extends State<AssessmentQuestionPage> {
           LinearProgressIndicator(
             value: progress,
             backgroundColor: AppColors.surface,
-            valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
+            valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
             minHeight: 6,
             borderRadius: BorderRadius.circular(3),
           ),
@@ -257,6 +257,12 @@ class _AssessmentQuestionPageState extends State<AssessmentQuestionPage> {
 
   // 题型3：看图选字 - 显示图片，选择对应汉字
   Widget _buildMeaningSelectBody(AssessmentQuestion question) {
+    // 获取题目图片URL，转为完整URL
+    final rawImageUrl = question.imageUrl;
+    final imageUrl = (rawImageUrl != null && rawImageUrl.isNotEmpty)
+        ? (rawImageUrl.startsWith('http') ? rawImageUrl : 'http://localhost:3000$rawImageUrl')
+        : null;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -267,13 +273,18 @@ class _AssessmentQuestionPageState extends State<AssessmentQuestionPage> {
           decoration: BoxDecoration(
             color: AppColors.surface,
             borderRadius: AppRadius.largeBorder,
+            border: Border.all(color: AppColors.border),
           ),
-          child: Center(
-            child: Icon(
-              Icons.image_rounded,
-              size: 80,
-              color: AppColors.textHint.withOpacity(0.5),
-            ),
+          child: ClipRRect(
+            borderRadius: AppRadius.largeBorder,
+            child: imageUrl != null
+                ? Image.network(
+                    imageUrl,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) =>
+                        _buildImagePlaceholder(),
+                  )
+                : _buildImagePlaceholder(),
           ),
         ),
         const SizedBox(height: AppSpacing.md),
@@ -285,13 +296,32 @@ class _AssessmentQuestionPageState extends State<AssessmentQuestionPage> {
     );
   }
 
+  // 图片占位符
+  Widget _buildImagePlaceholder() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          Icons.image_rounded,
+          size: 64,
+          color: AppColors.textHint.withOpacity(0.5),
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        Text(
+          '图片加载中...',
+          style: AppTypography.caption.copyWith(color: AppColors.textHint),
+        ),
+      ],
+    );
+  }
+
   Widget _buildOptions(AssessmentQuestion question) {
     return Wrap(
       spacing: AppSpacing.md,
       runSpacing: AppSpacing.md,
       alignment: WrapAlignment.center,
-            children: question.options.map((option) {
-        final isSelected = question.userAnswer == option;
+      children: question.options.map((option) {
+        final isSelected = question.userAnswer == option.key;
         final showResult = _lastAnswerCorrect != null;
 
         return _OptionButton(
@@ -300,16 +330,27 @@ class _AssessmentQuestionPageState extends State<AssessmentQuestionPage> {
           showResult: showResult,
           isCorrect: showResult && _lastAnswerCorrect == true && isSelected,
           isWrong: showResult && _lastAnswerCorrect == false && isSelected,
-          onTap: _isAnswering ? null : () => _selectAnswer(option),
+          onTap: _isAnswering ? null : () => _selectAnswer(option.key),
         );
       }).toList(),
     );
   }
 
+  /// 将相对音频URL转为完整URL
+  String _resolveAudioUrl(String url) {
+    if (url.startsWith('http')) return url;
+    // 后端返回 /audio/上.mp3 格式，需拼接服务器地址
+    const serverBase = String.fromEnvironment(
+      'API_SERVER',
+      defaultValue: 'http://localhost:3000',
+    );
+    return '$serverBase$url';
+  }
+
   // 播放汉字发音
   Future<void> _playCharacterAudio(AssessmentQuestion question) async {
-    final url = question.audioUrl;
-    if (url == null || url.isEmpty) {
+    final rawUrl = question.audioUrl;
+    if (rawUrl == null || rawUrl.isEmpty) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('音频暂未配置')),
@@ -319,7 +360,7 @@ class _AssessmentQuestionPageState extends State<AssessmentQuestionPage> {
     }
 
     try {
-      await _audioPlayer.play(UrlSource(url));
+      await _audioPlayer.play(UrlSource(_resolveAudioUrl(rawUrl)));
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -331,8 +372,8 @@ class _AssessmentQuestionPageState extends State<AssessmentQuestionPage> {
 
   // 播放题目音频（用于听音选字题型）
   Future<void> _playQuestionAudio(AssessmentQuestion question) async {
-    final url = question.audioUrl;
-    if (url == null || url.isEmpty) {
+    final rawUrl = question.audioUrl;
+    if (rawUrl == null || rawUrl.isEmpty) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('音频暂未配置')),
@@ -342,7 +383,7 @@ class _AssessmentQuestionPageState extends State<AssessmentQuestionPage> {
     }
 
     try {
-      await _audioPlayer.play(UrlSource(url));
+      await _audioPlayer.play(UrlSource(_resolveAudioUrl(rawUrl)));
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -529,7 +570,7 @@ class _AssessmentQuestionPageState extends State<AssessmentQuestionPage> {
 }
 
 class _OptionButton extends StatelessWidget {
-  final String option;
+  final AssessmentOption option; // 修改为AssessmentOption对象
   final bool isSelected;
   final bool showResult;
   final bool isCorrect;
@@ -549,53 +590,109 @@ class _OptionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Color? bgColor;
     Color borderColor = AppColors.border;
-    Widget? trailing;
+    Widget? trailingIcon;
 
     if (showResult) {
       if (isCorrect) {
         bgColor = AppColors.success.withOpacity(0.2);
         borderColor = AppColors.success;
-        trailing = const Icon(Icons.check_circle, color: AppColors.success, size: 20);
+        trailingIcon = const Icon(Icons.check_circle, color: AppColors.success, size: 20);
       } else if (isWrong) {
         bgColor = AppColors.error.withOpacity(0.2);
         borderColor = AppColors.error;
-        trailing = const Icon(Icons.close, color: AppColors.error, size: 20);
+        trailingIcon = const Icon(Icons.close, color: AppColors.error, size: 20);
       }
     } else if (isSelected) {
       bgColor = AppColors.primary.withOpacity(0.2);
       borderColor = AppColors.primary;
     }
 
+    // 判断选项内容是图片还是文本
+    final isImage = option.content.startsWith('http') ||
+        option.content.startsWith('image://') ||
+        option.content.endsWith('.png') ||
+        option.content.endsWith('.jpg');
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
         width: 140,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         decoration: BoxDecoration(
           color: bgColor ?? AppColors.surface,
           borderRadius: AppRadius.mediumBorder,
-          border: Border.all(color: borderColor, width: isSelected || showResult ? 2 : 1),
+          border: Border.all(
+            color: borderColor,
+            width: isSelected || showResult ? 2 : 1,
+          ),
         ),
-        child: Row(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-              child: Text(
-                option,
-                style: AppTypography.body.copyWith(
-                  color: isSelected || showResult ? AppColors.primary : AppColors.textPrimary,
-                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                ),
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            if (trailing != null) ...[
-              const SizedBox(width: 4),
-              trailing,
+            if (isImage)
+              _buildImageContent(option.content)
+            else
+              _buildTextContent(option.label.isNotEmpty ? option.label : option.content),
+            if (trailingIcon != null) ...[
+              const SizedBox(height: 4),
+              trailingIcon,
             ],
           ],
         ),
+      ),
+    );
+  }
+
+  // 构建图片内容
+  Widget _buildImageContent(String content) {
+    // 处理 image:// 协议，转换为实际URL
+    final imageUrl = content.replaceAll('image://', 'http://localhost:3000/uploads/');
+
+    return SizedBox(
+      height: 60,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: imageUrl.startsWith('http')
+            ? Image.network(
+                imageUrl,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => _buildImageError(),
+              )
+            : Image.asset(
+                imageUrl,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => _buildImageError(),
+              ),
+      ),
+    );
+  }
+
+  // 构建文本内容
+  Widget _buildTextContent(String text) {
+    return SizedBox(
+      height: 60,
+      child: Center(
+        child: Text(
+          text,
+          style: AppTypography.body.copyWith(
+            color: isSelected || showResult ? AppColors.primary : AppColors.textPrimary,
+            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+          ),
+          textAlign: TextAlign.center,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 2,
+        ),
+      ),
+    );
+  }
+
+  // 图片加载错误占位符
+  Widget _buildImageError() {
+    return Container(
+      color: AppColors.surface,
+      child: Icon(
+        Icons.broken_image,
+        color: AppColors.textHint.withOpacity(0.5),
       ),
     );
   }

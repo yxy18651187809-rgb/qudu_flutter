@@ -441,13 +441,31 @@ async function generateLevelQuestions(options = {}) {
  * @returns {Object} 题目对象
  */
 function buildQuestion(charDoc, questionType, distractors, charMap = {}) {
+  // imageUrl 生成规则：
+  // - meaning_select 题型：返回汉字示意图片URL
+  // - 其他题型：返回 null（前端不展示图片）
+  const imageUrl = questionType === 'meaning_select'
+    ? `/images/characters/${charDoc.character}.png`
+    : null;
+
   const question = {
     characterId: charDoc._id,
     character: charDoc.character,
     questionType,
     options: [],
     correctAnswer: '',
-    audioUrl: `/audio/${charDoc.character}.mp3`  // 前端直接使用的音频URL
+    audioUrl: `/audio/${charDoc.character}.mp3`,
+    imageUrl: imageUrl
+  };
+
+  // 辅助函数：将选项字符串数组转换为选项对象数组（带 key A/B/C/D）
+  const toOptionObjects = (strArray) => {
+    const keys = ['A', 'B', 'C', 'D'];
+    return strArray.map((content, index) => ({
+      key: keys[index] || String(index + 1),
+      content: content,
+      label: content  // label 用于语音播报，默认与 content 相同
+    }));
   };
 
   switch (questionType) {
@@ -458,8 +476,6 @@ function buildQuestion(charDoc, questionType, distractors, charMap = {}) {
       const pinyinOptions = distractors.map(d => {
         const dDoc = charMap[d];
         if (dDoc && dDoc.pinyin) return dDoc.pinyin;
-        // 如果 charMap 中没有该干扰项，说明是数据库查不到的异常值
-        // 跳过，后续补位
         return null;
       }).filter(p => p !== null);
       // 如果干扰项不足3个拼音，用通用拼音补位
@@ -472,13 +488,15 @@ function buildQuestion(charDoc, questionType, distractors, charMap = {}) {
           usedPinyins.add(fp);
         }
       }
-      question.options = shuffleArray([charDoc.pinyin, ...pinyinOptions.slice(0, 3)]);
+      const recognizeOptions = shuffleArray([charDoc.pinyin, ...pinyinOptions.slice(0, 3)]);
+      question.options = toOptionObjects(recognizeOptions);
       break;
 
     case 'pinyin_match':
       // 看拼音选字：正确答案是汉字，选项是汉字列表
       question.correctAnswer = charDoc.character;
-      question.options = shuffleArray([charDoc.character, ...distractors]);
+      const pinyinMatchOptions = shuffleArray([charDoc.character, ...distractors]);
+      question.options = toOptionObjects(pinyinMatchOptions);
       break;
 
     case 'meaning_select':
@@ -501,7 +519,8 @@ function buildQuestion(charDoc, questionType, distractors, charMap = {}) {
           usedMeanings.add(fm);
         }
       }
-      question.options = shuffleArray([meaning, ...meaningOptions.slice(0, 3)]);
+      const meaningSelectOptions = shuffleArray([meaning, ...meaningOptions.slice(0, 3)]);
+      question.options = toOptionObjects(meaningSelectOptions);
       break;
   }
 

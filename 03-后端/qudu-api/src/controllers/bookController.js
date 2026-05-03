@@ -55,7 +55,7 @@ exports.getBooks = async (req, res) => {
     // 为每本绘本添加封面图URL
     const booksWithCovers = books.map(b => ({
       ...b,
-      coverImageUrl: `/uploads/covers/${b._id}.png`
+      cover: b.cover || `/uploads/covers/${b._id}.png`
     }));
 
 
@@ -107,7 +107,7 @@ exports.getBookDetail = async (req, res) => {
       }
     }
 
-        book.coverImageUrl = `/uploads/covers/${book._id}.png`;
+        book.cover = book.cover || `/uploads/covers/${book._id}.png`;
 
 success(res, book);
   } catch (err) {
@@ -217,7 +217,7 @@ exports.getRecommendedBooks = async (req, res) => {
     // 为每本绘本添加封面图URL
     const recommendedWithCovers = recommended.map(b => ({
       ...b,
-      coverImageUrl: `/uploads/covers/${b._id}.png`
+      cover: b.cover || `/uploads/covers/${b._id}.png`
     }));
 
     success(res, {
@@ -253,7 +253,7 @@ exports.getFreeBooks = async (req, res) => {
     // 为每本绘本添加封面图URL
     const booksWithCovers = books.map(b => ({
       ...b,
-      coverImageUrl: `/uploads/covers/${b._id}.png`
+      cover: b.cover || `/uploads/covers/${b._id}.png`
     }));
 
     success(res, {

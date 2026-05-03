@@ -64,6 +64,8 @@ async function seed() {
         frequency: item.frequency || 0,
         etymology: item.etymology || undefined,
         meanings: item.meanings || [],
+        imageUrl: item.imageUrl || '',
+        animationUrl: item.animationUrl || '',
         status: 'active'
       }));
       
@@ -121,7 +123,7 @@ async function seed() {
     
     const book1 = await Book.create({
       title: '我的身体',
-      cover: '',
+      cover: '/uploads/covers/book_cover_01.png',
       description: '认识身体、学会爱护自己',
       level: 1,
       theme: '身体认知',
@@ -195,7 +197,7 @@ async function seed() {
     
     const book2 = await Book.create({
       title: '早上好',
-      cover: '',
+      cover: '/uploads/covers/book_cover_02.png',
       description: '早安时光，和绘本01的小明一起迎接新的一天',
       level: 1,
       theme: '日常作息',
@@ -261,7 +263,7 @@ async function seed() {
     
     const book3 = await Book.create({
       title: '小兔子找妈妈',
-      cover: '',
+      cover: '/uploads/covers/book_cover_03.png',
       description: '小兔子白白找妈妈的故事，认识自然、感受母爱',
       level: 1,
       theme: '方位认知、母爱亲情、乐于助人',
@@ -334,7 +336,7 @@ async function seed() {
     
     const book4 = await Book.create({
       title: '一二三上学去',
-      cover: '',
+      cover: '/uploads/covers/book_cover_04.png',
       description: '数字认知、学校期待、友谊',
       level: 1,
       theme: '数字认知',
@@ -400,7 +402,7 @@ async function seed() {
     
     const book5 = await Book.create({
       title: '红红的太阳',
-      cover: '',
+      cover: '/uploads/covers/book_cover_05.png',
       description: '颜色认知、自然观察、创造力',
       level: 1,
       theme: '颜色认知',
@@ -459,7 +461,7 @@ async function seed() {
     
     const book6 = await Book.create({
       title: '好吃的果子',
-      cover: '',
+      cover: '/uploads/covers/book_cover_06.png',
       description: '食物认知、水果名称、分享快乐',
       level: 1,
       theme: '食物认知',

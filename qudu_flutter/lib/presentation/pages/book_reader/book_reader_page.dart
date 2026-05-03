@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_radius.dart';
 import '../../../core/theme/app_typography.dart';
+import '../../../data/models/assessment_model.dart';
 import '../../../data/repositories/book_reader_repository.dart';
+import '../assessment/assessment_start_page.dart';
 
 /// 绘本阅读器主页面
 /// 功能：全屏翻页 + 文字标注 + 新字高亮 + 阅读进度 + 阅读完成记录
@@ -156,12 +157,15 @@ class _BookReaderPageState extends State<BookReaderPage>
         pagesRead: _bookDetail!.pages.length,
       );
     }
-    // 跳转到测评页（如果有）
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('📝 测评功能开发中，敬请期待！'),
-          backgroundColor: AppColors.primary,
+    // 跳转到测评页
+    if (mounted && widget.childId != null) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => AssessmentStartPage(
+            childId: widget.childId!,
+            assessmentType: AssessmentType.review,
+            bookId: widget.bookId,
+          ),
         ),
       );
     }

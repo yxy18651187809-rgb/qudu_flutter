@@ -56,14 +56,36 @@ enum AssessmentStatus {
   }
 }
 
+/// 测评题目选项模型
+class AssessmentOption {
+  final String key; // 选项键：A/B/C/D
+  final String content; // 选项内容：图片URL或文本
+  final String label; // 选项标签：用于语音播报或提示
+
+  AssessmentOption({
+    required this.key,
+    required this.content,
+    required this.label,
+  });
+
+  factory AssessmentOption.fromJson(Map<String, dynamic> json) {
+    return AssessmentOption(
+      key: json['key'] ?? '',
+      content: json['content'] ?? '',
+      label: json['label'] ?? '',
+    );
+  }
+}
+
 /// 测评题目模型
 class AssessmentQuestion {
   final String characterId;
   final String character;
   final QuestionType questionType;
-  final List<String> options;
+  final List<AssessmentOption> options; // 修改为Option对象数组
   final String? correctAnswer; // 正确答案，由后端返回
   final String? audioUrl; // 音频URL，由后端返回
+  final String? imageUrl; // 题目图片URL，用于meaningSelect题型
   // 前端本地状态，非API返回
   String? userAnswer;
   bool? isCorrect;
@@ -76,19 +98,47 @@ class AssessmentQuestion {
     required this.options,
     this.correctAnswer,
     this.audioUrl,
+    this.imageUrl,
     this.userAnswer,
     this.isCorrect,
     this.responseTime,
   });
 
   factory AssessmentQuestion.fromJson(Map<String, dynamic> json) {
+    // 解析options：后端可能返回字符串数组或对象数组
+    List<AssessmentOption> parseOptions(dynamic optionsData) {
+      if (optionsData == null || optionsData is! List) return [];
+      
+      final keys = ['A', 'B', 'C', 'D'];
+      return optionsData.asMap().entries.map((entry) {
+        final index = entry.key;
+        final value = entry.value;
+        final key = index < keys.length ? keys[index] : String.fromCharCode(65 + index);
+        
+        if (value is String) {
+          // 后端返回字符串数组，自动转换为Option对象
+          return AssessmentOption(
+            key: key,
+            content: value,
+            label: value,
+          );
+        } else if (value is Map<String, dynamic>) {
+          // 后端返回对象数组（标准格式）
+          return AssessmentOption.fromJson(value);
+        } else {
+          return AssessmentOption(key: key, content: '', label: '');
+        }
+      }).toList();
+    }
+
     return AssessmentQuestion(
       characterId: json['characterId'] ?? '',
       character: json['character'] ?? '',
       questionType: QuestionType.fromString(json['questionType'] ?? 'recognize'),
-      options: List<String>.from(json['options'] ?? []),
+      options: parseOptions(json['options']),
       correctAnswer: json['correctAnswer'],
-      audioUrl: json['audioUrl'], // 解析音频URL
+      audioUrl: json['audioUrl'],
+      imageUrl: json['imageUrl'],
     );
   }
 }

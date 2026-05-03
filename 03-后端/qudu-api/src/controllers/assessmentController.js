@@ -66,7 +66,9 @@ exports.startAssessment = async (req, res) => {
           characterId: q.characterId,
           character: q.character,
           questionType: q.questionType,
-          options: q.options
+          options: q.options,
+          imageUrl: q.imageUrl || null,    // 新增：题目图片（meaning_select题型使用）
+          audioUrl: q.audioUrl || null     // 新增：题目音频
           // 不返回 correctAnswer
         })),
         startedAt: existingAssessment.startedAt
@@ -128,7 +130,9 @@ exports.startAssessment = async (req, res) => {
         characterId: q.characterId,
         character: q.character,
         questionType: q.questionType,
-        options: q.options
+        options: q.options,
+        imageUrl: q.imageUrl || null,    // 新增：题目图片（meaning_select题型使用）
+        audioUrl: q.audioUrl || null     // 新增：题目音频
       })),
       startedAt: assessment.startedAt
     });

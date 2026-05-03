@@ -41,11 +41,17 @@ const assessmentSchema = new mongoose.Schema({
       enum: ['recognize', 'pinyin_match', 'meaning_select'],
       required: true
     },
-    options: [String],      // 题目选项（含正确答案）
+    options: [{
+      key: String,      // 选项键：A/B/C/D
+      content: String,   // 选项内容：图片URL或文本
+      label: String      // 选项标签：用于语音播报或提示
+    }],
     correctAnswer: String,
     userAnswer: String,
     isCorrect: Boolean,
-    responseTime: Number    // 响应时间（毫秒）
+    responseTime: Number,    // 响应时间（毫秒）
+    audioUrl: String,        // 音频URL
+    imageUrl: String         // 题目图片URL（meaning_select题型使用）
   }],
 
   // ========== 测评结果 ==========
