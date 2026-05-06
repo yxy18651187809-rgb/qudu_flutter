@@ -11,10 +11,14 @@ class BooksRepository {
   ApiClient get _api => ServiceLocator.instance.apiClient;
 
   /// 获取绘本列表（按级别筛选）
-  /// GET /api/v1/books?level=L1&childId=xxx
+  /// GET /api/v1/books?level=1&childId=xxx
   Future<List<BookModel>> getBooks({String? level, String? childId}) async {
     final queryParams = <String, dynamic>{};
-    if (level != null && level.isNotEmpty) queryParams['level'] = level;
+    if (level != null && level.isNotEmpty) {
+      // 转换 "L1" → "1"（后端期望数字字符串）
+      final levelNum = level.startsWith('L') ? level.substring(1) : level;
+      queryParams['level'] = levelNum;
+    }
     if (childId != null && childId.isNotEmpty) queryParams['childId'] = childId;
 
     final response = await _api.get<Map<String, dynamic>>(

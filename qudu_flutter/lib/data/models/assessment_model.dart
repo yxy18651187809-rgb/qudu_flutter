@@ -86,6 +86,8 @@ class AssessmentQuestion {
   final String? correctAnswer; // 正确答案，由后端返回
   final String? audioUrl; // 音频URL，由后端返回
   final String? imageUrl; // 题目图片URL，用于meaningSelect题型
+  /// 是否为复习字题目（P1-002）
+  final bool isReview;
   // 前端本地状态，非API返回
   String? userAnswer;
   bool? isCorrect;
@@ -99,6 +101,7 @@ class AssessmentQuestion {
     this.correctAnswer,
     this.audioUrl,
     this.imageUrl,
+    this.isReview = false,
     this.userAnswer,
     this.isCorrect,
     this.responseTime,
@@ -139,6 +142,7 @@ class AssessmentQuestion {
       correctAnswer: json['correctAnswer'],
       audioUrl: json['audioUrl'],
       imageUrl: json['imageUrl'],
+      isReview: json['isReview'] as bool? ?? false,
     );
   }
 }
@@ -199,6 +203,11 @@ class AssessmentResult {
   final int starsEarned;
   final int coinsEarned;
   final int duration;
+  // P1-002：新字/复习字分别统计
+  final int newWordsCorrect;
+  final int newWordsTotal;
+  final int reviewWordsCorrect;
+  final int reviewWordsTotal;
 
   AssessmentResult({
     required this.assessmentId,
@@ -212,6 +221,10 @@ class AssessmentResult {
     required this.starsEarned,
     required this.coinsEarned,
     required this.duration,
+    this.newWordsCorrect = 0,
+    this.newWordsTotal = 0,
+    this.reviewWordsCorrect = 0,
+    this.reviewWordsTotal = 0,
   });
 
   factory AssessmentResult.fromJson(Map<String, dynamic> json) {
@@ -230,6 +243,10 @@ class AssessmentResult {
       starsEarned: json['starsEarned'] ?? 0,
       coinsEarned: json['coinsEarned'] ?? 0,
       duration: json['duration'] ?? 0,
+      newWordsCorrect: json['newWordsCorrect'] ?? 0,
+      newWordsTotal: json['newWordsTotal'] ?? 0,
+      reviewWordsCorrect: json['reviewWordsCorrect'] ?? 0,
+      reviewWordsTotal: json['reviewWordsTotal'] ?? 0,
     );
   }
 }

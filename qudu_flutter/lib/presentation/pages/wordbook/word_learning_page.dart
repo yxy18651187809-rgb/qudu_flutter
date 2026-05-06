@@ -6,6 +6,7 @@ import '../../../core/theme/app_typography.dart';
 import '../../../core/services/storage_service.dart';
 import '../../../data/models/character_model.dart';
 import '../../../data/repositories/character_repository.dart';
+import 'review_page.dart';
 
 /// 识字首页
 /// 功能：级别选择 + 字卡列表 + 今日复习提醒
@@ -190,10 +191,25 @@ class _WordLearningPageState extends State<WordLearningPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
       child: GestureDetector(
-        onTap: () {
-          // TODO: 跳转复习流程
-          _showToast('复习功能开发中...');
-        },
+        onTap: _reviewCount > 0
+            ? () async {
+                // 获取待复习汉字，跳转复习流程
+                final reviewChars = await _repository.getReviewQueue(
+                  _currentChildId!,
+                );
+                if (mounted && reviewChars.isNotEmpty) {
+                  await Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ReviewPage(
+                        childId: _currentChildId!,
+                        reviewCharacters: reviewChars,
+                      ),
+                    ),
+                  );
+                  _loadCharacters(); // 复习完成，刷新列表
+                }
+              }
+            : null,
         child: Container(
           width: double.infinity,
           padding: const EdgeInsets.all(AppSpacing.md),

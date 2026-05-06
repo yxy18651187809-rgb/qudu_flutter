@@ -331,6 +331,7 @@ class _AssessmentQuestionPageState extends State<AssessmentQuestionPage> {
           isCorrect: showResult && _lastAnswerCorrect == true && isSelected,
           isWrong: showResult && _lastAnswerCorrect == false && isSelected,
           onTap: _isAnswering ? null : () => _selectAnswer(option.key),
+          resolveUrl: _resolveUrl,
         );
       }).toList(),
     );
@@ -575,6 +576,7 @@ class _OptionButton extends StatelessWidget {
   final bool isCorrect;
   final bool isWrong;
   final VoidCallback? onTap;
+  final String Function(String) resolveUrl;
 
   const _OptionButton({
     required this.option,
@@ -583,6 +585,7 @@ class _OptionButton extends StatelessWidget {
     this.isCorrect = false,
     this.isWrong = false,
     this.onTap,
+    required this.resolveUrl,
   });
 
   @override
@@ -645,7 +648,7 @@ class _OptionButton extends StatelessWidget {
   // 构建图片内容
   Widget _buildImageContent(String content) {
     // 处理 image:// 协议，转换为实际URL
-    final imageUrl = _resolveUrl(content.replaceAll('image://', '/uploads/'));
+    final imageUrl = resolveUrl(content.replaceAll('image://', '/uploads/'));
 
     return SizedBox(
       height: 60,

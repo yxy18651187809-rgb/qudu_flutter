@@ -15,6 +15,8 @@ const bookRoutes = require('./routes/books');
 const characterRoutes = require('./routes/characters');
 const assessmentRoutes = require('./routes/assessments');
 const learningRoutes = require('./routes/learning');
+const learningReportRoutes = require('./routes/learningReport');
+const parentMonitoringRoutes = require('./routes/parentMonitoring');
 const requestLogger = require('./middlewares/requestLogger');
 
 const app = express();
@@ -109,6 +111,8 @@ app.use('/api/v1/books', bookRoutes);
 app.use('/api/v1/characters', characterRoutes);
 app.use('/api/v1/assessments', assessmentRoutes);
 app.use('/api/v1/learning', learningRoutes);
+app.use('/api/v1/learning-report', learningReportRoutes);
+app.use('/api/v1/parent-monitoring', parentMonitoringRoutes);
 
 // ===== 404 处理 =====
 app.use((req, res) => {

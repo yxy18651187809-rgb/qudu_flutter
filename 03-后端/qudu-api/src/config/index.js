@@ -17,6 +17,11 @@ module.exports = {
     provider: process.env.SMS_PROVIDER || 'mock',
     mockCode: process.env.SMS_MOCK_CODE || '123456'
   },
+  // 微信登录配置
+  wechat: {
+    appId: process.env.WECHAT_APPID || '',
+    appSecret: process.env.WECHAT_SECRET || ''
+  },
   // 业务限制
   limits: {
     maxChildrenPerUser: 3,

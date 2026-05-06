@@ -1,6 +1,9 @@
+import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'api_response.dart';
+import 'network_interceptor.dart';
+import 'offline_cache.dart';
 
 /// Token管理接口
 abstract class TokenStorage {
@@ -15,6 +18,8 @@ class ApiClient {
   late final Dio _dio;
   final TokenStorage _tokenStorage;
   final String _baseUrl;
+  final NetworkInterceptor _networkInterceptor = NetworkInterceptor();
+  final OfflineCache _offlineCache = OfflineCache();
 
   // Token刷新回调
   Future<bool> Function(String refreshToken)? onTokenExpired;
@@ -24,6 +29,10 @@ class ApiClient {
 
   // 等待Token刷新的请求队列
   final List<Future<void> Function()> _pendingRequests = [];
+
+  // 网络状态
+  Stream<NetworkStatus> get networkStatus => _networkInterceptor.statusStream;
+  NetworkStatus get currentNetworkStatus => _networkInterceptor.currentStatus;
 
   ApiClient({
     required String baseUrl,
@@ -43,6 +52,9 @@ class ApiClient {
   }
 
   void _setupInterceptors() {
+    // 网络状态拦截器（放在最前面）
+    _dio.interceptors.add(_networkInterceptor);
+
     // 请求拦截器：自动添加Token
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
@@ -76,6 +88,21 @@ class ApiClient {
           }
         }
         handler.next(error);
+      },
+    ));
+
+    // 响应拦截器：缓存GET请求响应
+    _dio.interceptors.add(InterceptorsWrapper(
+      onResponse: (response, handler) {
+        // 缓存GET请求的成功响应
+        if (response.requestOptions.method == 'GET') {
+          final path = response.requestOptions.path;
+          final data = response.data;
+          if (data is Map<String, dynamic>) {
+            _offlineCache.cacheResponse(key: path, data: data);
+          }
+        }
+        handler.next(response);
       },
     ));
 
@@ -143,6 +170,19 @@ class ApiClient {
     T Function(dynamic)? fromJson,
     CancelToken? cancelToken,
   }) async {
+    // 离线状态：尝试返回缓存数据
+    if (_networkInterceptor.currentStatus == NetworkStatus.offline) {
+      final cachedData = await _offlineCache.getCachedResponse(path);
+      if (cachedData != null) {
+        return ApiResponse<T>.fromJson(cachedData, fromJson);
+      } else {
+        throw ApiException(
+          code: -3,
+          message: '当前处于离线状态，且无缓存数据',
+        );
+      }
+    }
+
     try {
       final response = await _dio.get(
         path,
@@ -246,29 +286,5 @@ class ApiClient {
       default:
         return ApiException(code: -1, message: '请求失败，请重试');
     }
-  }
-}
-
-/// 简单的Completer占位（Dart内置）
-class Completer<T> {
-  final _completer = <void Function(T)>[];
-  bool _isCompleted = false;
-  T? _result;
-
-  bool get isCompleted => _isCompleted;
-  T get result => _result as T;
-
-  void complete(T value) {
-    if (_isCompleted) return;
-    _isCompleted = true;
-    _result = value;
-    for (final callback in _completer) {
-      callback(value);
-    }
-  }
-
-  Future<T> get future {
-    if (_isCompleted) return Future.value(_result);
-    return Future.value(_result);
   }
 }

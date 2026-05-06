@@ -26,6 +26,12 @@ class CharacterModel {
   /// 是否待复习
   bool get needsReview => mastery > 0 && mastery < 0.8;
 
+  /// 是否为复习字（P1-002）
+  final bool isReview;
+
+  /// 复习来源（如：绘本ID或测评ID，P1-002）
+  final String? reviewFrom;
+
   const CharacterModel({
     required this.id,
     required this.character,
@@ -39,6 +45,8 @@ class CharacterModel {
     required this.words,
     required this.sentences,
     this.mastery = 0.0,
+    this.isReview = false,
+    this.reviewFrom,
   });
 
   factory CharacterModel.fromJson(Map<String, dynamic> json) {
@@ -61,11 +69,13 @@ class CharacterModel {
               .toList() ??
           [],
       mastery: (json['mastery'] as num?)?.toDouble() ?? 0.0,
+      isReview: json['isReview'] as bool? ?? false,
+      reviewFrom: json['reviewFrom'] as String?,
     );
   }
 
-  /// 复制并更新掌握度
-  CharacterModel copyWith({double? mastery}) {
+  /// 复制并更新掌握度（保留 isReview / reviewFrom）
+  CharacterModel copyWith({double? mastery, bool? isReview, String? reviewFrom}) {
     return CharacterModel(
       id: id,
       character: character,
@@ -79,6 +89,8 @@ class CharacterModel {
       words: words,
       sentences: sentences,
       mastery: mastery ?? this.mastery,
+      isReview: isReview ?? this.isReview,
+      reviewFrom: reviewFrom ?? this.reviewFrom,
     );
   }
 

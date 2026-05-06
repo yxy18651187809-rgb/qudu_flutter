@@ -3,6 +3,7 @@ const Child = require('../models/Child');
 const { generateTokenPair, verifyToken, getAccessTokenExpiresIn } = require('../utils/token');
 const { success, created, error, ErrorCodes } = require('../utils/response');
 const config = require('../config');
+const wechatService = require('../services/wechatService');
 
 // ===== 验证码存储（MVP 用内存，生产环境用 Redis） =====
 const smsCodeStore = new Map();
@@ -249,10 +250,95 @@ async function updateProfile(req, res) {
   }
 }
 
+/**
+ * 微信登录
+ * POST /api/v1/auth/wechat-login
+ */
+async function wechatLogin(req, res) {
+  try {
+    const { code } = req.body;
+    
+    if (!code) {
+      return error(res, ErrorCodes.INVALID_PARAM, '缺少code参数', 400);
+    }
+    
+    // 1. 用code换access_token
+    const tokenData = await wechatService.getAccessToken(code);
+    
+    // 2. 获取用户信息
+    const userInfo = await wechatService.getUserInfo(
+      tokenData.access_token,
+      tokenData.openid
+    );
+    
+    // 3. 查找或创建用户
+    let user = null;
+    
+    // 优先用unionid查找（跨应用统一）
+    if (userInfo.unionid) {
+      user = await User.findOne({ wechatUnionId: userInfo.unionid });
+    }
+    
+    // 如果没找到，用openid查找
+    if (!user) {
+      user = await User.findOne({ wechatOpenId: userInfo.openid });
+    }
+    
+    // 如果还没找到，创建新用户
+    if (!user) {
+      user = await User.create({
+        wechatOpenId: userInfo.openid,
+        wechatUnionId: userInfo.unionid || null,
+        nickname: userInfo.nickname || '',
+        avatar: userInfo.headimgurl || '',
+        privacyAccepted: true,
+        privacyAcceptedAt: new Date()
+      });
+      console.log(`[WechatAuth] 新用户注册: ${userInfo.nickname}`);
+    } else {
+      // 更新昵称和头像
+      user.wechatOpenId = userInfo.openid;
+      user.wechatUnionId = userInfo.unionid || user.wechatUnionId;
+      user.nickname = userInfo.nickname || user.nickname;
+      user.avatar = userInfo.headimgurl || user.avatar;
+      await user.save();
+    }
+    
+    // 4. 生成Token
+    const tokens = generateTokenPair(user._id.toString());
+    
+    // 5. 获取用户儿童数量
+    const childrenCount = await Child.countDocuments({
+      userId: user._id,
+      status: 'active'
+    });
+    
+    return success(res, {
+      isNewUser: !user.phone,
+      needBindPhone: !user.phone,
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
+      expiresIn: getAccessTokenExpiresIn(),
+      user: {
+        id: user._id,
+        phone: user.maskedPhone,
+        nickname: user.nickname,
+        avatar: user.avatar,
+        hasChildren: childrenCount > 0,
+        childrenCount
+      }
+    });
+  } catch (err) {
+    console.error('[WechatAuth] 微信登录失败:', err.message);
+    return error(res, ErrorCodes.WECHAT_AUTH_FAILED, '微信授权失败，请重试', 401);
+  }
+}
+
 module.exports = {
   sendSmsCode,
   login,
   refreshToken,
   getProfile,
-  updateProfile
+  updateProfile,
+  wechatLogin
 };

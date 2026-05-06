@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
@@ -6,6 +7,9 @@ import '../../../core/theme/app_radius.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../data/models/book_model.dart';
 import '../../../data/repositories/books_repository.dart';
+import '../../../core/di/service_locator.dart';
+import '../../../core/network/network_ui_helper.dart';
+import '../../../core/network/network_interceptor.dart';
 
 /// 绘本书架页
 /// Tab 2 — 显示当前级别绘本列表，支持按级别筛选
@@ -24,6 +28,8 @@ class _BookshelfPageState extends State<BookshelfPage> {
   List<BookModel> _recommendedBooks = [];
   bool _isLoading = true;
   String _selectedLevel = 'L1'; // 默认显示 L1
+  bool _isOffline = false;
+  StreamSubscription<NetworkStatus>? _networkSubscription;
 
   /// 级别选项（从 L1 到 L5）
   static const List<String> _levels = ['L1', 'L2', 'L3', 'L4', 'L5'];
@@ -40,7 +46,21 @@ class _BookshelfPageState extends State<BookshelfPage> {
   @override
   void initState() {
     super.initState();
+    // 监听网络状态
+    _networkSubscription = ServiceLocator.instance.apiClient.networkStatus.listen((status) {
+      if (mounted) {
+        setState(() {
+          _isOffline = status == NetworkStatus.offline;
+        });
+      }
+    });
     _loadBooks();
+  }
+
+  @override
+  void dispose() {
+    _networkSubscription?.cancel();
+    super.dispose();
   }
 
   /// 加载绘本列表
@@ -90,6 +110,7 @@ class _BookshelfPageState extends State<BookshelfPage> {
       body: SafeArea(
         child: Column(
           children: [
+            if (_isOffline) NetworkUIHelper.buildOfflineBanner(),
             // --- 顶部标题 + 推荐 Banner ---
             _buildHeader(),
 

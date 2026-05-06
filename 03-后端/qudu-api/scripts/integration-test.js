@@ -19,7 +19,7 @@
 
 const BASE_URL = process.argv[2] || 'http://localhost:3000/api/v1';
 const TEST_PHONE = '13800138000';
-const MOCK_CODE = '888888';  // config.sms.mockCode
+const MOCK_CODE = '123456';  // config.sms.mockCode
 
 let accessToken = '';
 let refreshToken = '';

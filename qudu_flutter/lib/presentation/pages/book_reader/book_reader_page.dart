@@ -517,12 +517,14 @@ class _BookReaderPageState extends State<BookReaderPage>
 class _ReaderPageView extends StatelessWidget {
   final BookPage page;
   final Set<String> newWordSet;
+  final Set<String> reviewWordSet; // P1-002
   final bool isLastPage;
 
   const _ReaderPageView({
     required this.page,
     required this.newWordSet,
     required this.isLastPage,
+    this.reviewWordSet = const {}, // P1-002
   });
 
   @override
@@ -734,9 +736,22 @@ class _ReaderPageView extends StatelessWidget {
       );
 
       final isNewWord = annotation?.isNewWord ?? false;
+      final isReviewWord = annotation?.isReviewWord ?? false; // P1-002
       final style = annotation?.highlightStyle ?? 'color';
 
-      if (isNewWord) {
+      if (isReviewWord) {
+        // 复习字：蓝色背景（#E3F2FD）+ 蓝色文字
+        spans.add(TextSpan(
+          text: char,
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: AppColors.primary,
+            backgroundColor: const Color(0xFFE3F2FD),
+            height: 1.6,
+          ),
+        ));
+      } else if (isNewWord) {
         // 新字：黄色背景 + 橙色文字
         spans.add(TextSpan(
           text: char,

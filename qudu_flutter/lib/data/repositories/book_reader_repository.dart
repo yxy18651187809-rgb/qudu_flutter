@@ -119,12 +119,15 @@ class WordAnnotation {
   final String character;
   final bool isNewWord;
   final String highlightStyle; // underline / color / both
+  // P1-002：是否为复习字
+  final bool isReviewWord;
 
   const WordAnnotation({
     required this.characterId,
     required this.character,
     required this.isNewWord,
     required this.highlightStyle,
+    this.isReviewWord = false,
   });
 
   factory WordAnnotation.fromJson(Map<String, dynamic> json) {
@@ -133,6 +136,7 @@ class WordAnnotation {
       character: json['character'] ?? '',
       isNewWord: json['isNewWord'] ?? false,
       highlightStyle: json['highlightStyle'] ?? 'color',
+      isReviewWord: json['isReviewWord'] ?? false,
     );
   }
 }

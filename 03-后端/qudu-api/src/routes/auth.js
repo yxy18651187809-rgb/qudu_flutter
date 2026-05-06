@@ -137,6 +137,53 @@ router.post('/login', authCtrl.login);
  */
 router.post('/refresh', authCtrl.refreshToken);
 
+/**
+ * @openapi
+ * /auth/wechat-login:
+ *   post:
+ *     tags: [认证模块]
+ *     summary: 微信登录
+ *     description: 使用微信授权码登录，新用户自动注册
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [code]
+ *             properties:
+ *               code:
+ *                 type: string
+ *                 description: 微信授权码
+ *                 example: "081Mxk200FJZaK1w6a200FxutbMxk2w"
+ *     responses:
+ *       200:
+ *         description: 登录成功
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code: { type: integer, example: 0 }
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     isNewUser: { type: boolean, example: true }
+ *                     needBindPhone: { type: boolean, example: true }
+ *                     accessToken: { type: string, description: 访问令牌(2h有效) }
+ *                     refreshToken: { type: string, description: 刷新令牌(7d有效) }
+ *                     user:
+ *                       type: object
+ *                       properties:
+ *                         id: { type: string }
+ *                         nickname: { type: string, example: "微信用户" }
+ *                         avatar: { type: string }
+ *                 message: { type: string, example: "success" }
+ *       401:
+ *         description: 微信授权失败
+ */
+router.post('/wechat-login', authCtrl.wechatLogin);
+
 // ===== 需认证接口 =====
 
 /**

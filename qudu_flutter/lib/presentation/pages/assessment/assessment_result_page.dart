@@ -80,6 +80,7 @@ class _AssessmentResultPageState extends State<AssessmentResultPage>
                     const SizedBox(height: AppSpacing.xl),
                     _buildScoreCard(correctCount, totalCount, accuracy),
                     const SizedBox(height: AppSpacing.lg),
+                    if (result != null) _buildWordStats(result), // P1-002 分色统计
                     if (result != null) _buildRewardCard(result),
                     const SizedBox(height: AppSpacing.lg),
                     if (result != null) _buildLevelInfo(result),
@@ -191,6 +192,124 @@ class _AssessmentResultPageState extends State<AssessmentResultPage>
                 ),
               ],
             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // P1-002：新字/复习字分色统计
+  Widget _buildWordStats(AssessmentResult result) {
+    final newCorrect = result.newWordsCorrect;
+    final newTotal = result.newWordsTotal;
+    final reviewCorrect = result.reviewWordsCorrect;
+    final reviewTotal = result.reviewWordsTotal;
+
+    return FadeTransition(
+      opacity: _fadeAnimation,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(AppSpacing.lg),
+        decoration: BoxDecoration(
+          color: AppColors.surface,
+          borderRadius: AppRadius.largeBorder,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '识字统计',
+              style: AppTypography.h3.copyWith(color: AppColors.textPrimary),
+            ),
+            const SizedBox(height: AppSpacing.md),
+            // 新字统计（橙色）
+            if (newTotal > 0) ...[
+              Row(
+                children: [
+                  Container(
+                    width: 8,
+                    height: 8,
+                    decoration: BoxDecoration(
+                      color: AppColors.accent,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  const SizedBox(width: 6),
+                  Text(
+                    '新字',
+                    style: AppTypography.bodySmall.copyWith(
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _ScoreItem(
+                    label: '答对',
+                    value: '$newCorrect',
+                    unit: '题',
+                    color: AppColors.accent,
+                  ),
+                  _ScoreItem(
+                    label: '总题数',
+                    value: '$newTotal',
+                    unit: '题',
+                    color: AppColors.textSecondary,
+                  ),
+                ],
+              ),
+              const SizedBox(height: AppSpacing.md),
+            ],
+            // 复习字统计（蓝色）
+            if (reviewTotal > 0) ...[
+              Row(
+                children: [
+                  Container(
+                    width: 8,
+                    height: 8,
+                    decoration: BoxDecoration(
+                      color: AppColors.primary,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  const SizedBox(width: 6),
+                  Text(
+                    '复习字',
+                    style: AppTypography.bodySmall.copyWith(
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _ScoreItem(
+                    label: '答对',
+                    value: '$reviewCorrect',
+                    unit: '题',
+                    color: AppColors.primary,
+                  ),
+                  _ScoreItem(
+                    label: '总题数',
+                    value: '$reviewTotal',
+                    unit: '题',
+                    color: AppColors.textSecondary,
+                  ),
+                ],
+              ),
+            ],
           ],
         ),
       ),

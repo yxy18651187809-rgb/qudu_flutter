@@ -225,6 +225,25 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  Widget _buildWechatLoginButton() {
+    return SizedBox(
+      width: double.infinity,
+      height: 48,
+      child: OutlinedButton.icon(
+        onPressed: _isLoading ? null : _onWechatLogin,
+        style: OutlinedButton.styleFrom(
+          side: const BorderSide(color: AppColors.border),
+          shape: RoundedRectangleBorder(
+            borderRadius: AppRadius.mediumBorder,
+          ),
+          foregroundColor: AppColors.textPrimary,
+        ),
+        icon: const Icon(Icons.wechat, color: Color(0xFF07C160)),
+        label: const Text('微信登录', style: AppTypography.button),
+      ),
+    );
+  }
+
   Widget _buildAgreementSection() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,

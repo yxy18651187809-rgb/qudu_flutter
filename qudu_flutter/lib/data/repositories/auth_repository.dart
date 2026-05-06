@@ -38,6 +38,22 @@ class AuthRepository {
     return LoginResponse.fromJson(response.data!);
   }
 
+  /// 微信登录
+  /// POST /api/v1/auth/wechat/login
+  /// [code] 微信授权返回的code
+  Future<LoginResponse> wechatLogin({
+    required String code,
+  }) async {
+    final response = await _apiClient.post<Map<String, dynamic>>(
+      '/auth/wechat/login',
+      data: {'code': code},
+    );
+    if (!response.isSuccess || response.data == null) {
+      throw ApiException(code: response.code, message: response.message);
+    }
+    return LoginResponse.fromJson(response.data!);
+  }
+
   /// 获取用户信息
   /// GET /api/v1/user/profile
   Future<UserModel> getUserProfile() async {

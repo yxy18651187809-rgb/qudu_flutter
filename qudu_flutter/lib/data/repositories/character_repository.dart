@@ -85,6 +85,32 @@ class CharacterRepository {
       return [];
     }
   }
+
+  /// 更新汉字掌握度（复习完成后调用）
+  /// PUT /api/v1/characters/:id/mastery
+  Future<CharacterModel> updateCharacterMastery({
+    required String childId,
+    required String characterId,
+    required double mastery,
+    bool isReview = false,
+  }) async {
+    final response = await _api.put<Map<String, dynamic>>(
+      '/characters/$characterId/mastery',
+      data: {
+        'childId': childId,
+        'mastery': mastery,
+        'isReview': isReview,
+      },
+    );
+
+    if (!response.isSuccess || response.data == null) {
+      throw ApiException(
+        code: response.code,
+        message: response.message,
+      );
+    }
+    return CharacterModel.fromJson(response.data!);
+  }
 }
 
 /// 学习统计数据模型

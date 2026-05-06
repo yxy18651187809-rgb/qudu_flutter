@@ -71,6 +71,11 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    if (_isLoading && _children.isEmpty) {
+      return const Center(
+        child: CircularProgressIndicator(color: AppColors.primary),
+      );
+    }
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(

@@ -1,5 +1,6 @@
 /// 首页 — 学习进度总览 + 快捷入口
 /// Tab 0 of HomeShell
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
@@ -12,6 +13,8 @@ import '../../../data/models/learning_stats_model.dart';
 import '../../../data/repositories/children_repository.dart';
 import '../../../data/repositories/learning_repository.dart';
 import 'home_shell.dart';
+import '../../../core/network/network_ui_helper.dart';
+import '../../../core/network/network_interceptor.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -26,18 +29,33 @@ class _HomePageState extends State<HomePage> {
   List<ChildModel> _children = [];
   LearningStatsModel? _stats;
   bool _isLoading = true;
+  bool _isOffline = false;
+  StreamSubscription<NetworkStatus>? _networkSubscription;
 
   /// 学习数据（从API获取）
   int get _todayWords => _stats?.today.records ?? 0;
   int get _totalWords => (_stats?.mastery.newCount ?? 0) + (_stats?.mastery.mastered ?? 0);
-  int get _todayBooks => _stats?.today.stars ?? 0;
   int get _totalBooks => _stats?.overview.totalStars ?? 0;
   int get _streakDays => _stats?.overview.streakDays ?? 0;
 
   @override
   void initState() {
     super.initState();
+    // 监听网络状态
+    _networkSubscription = ServiceLocator.instance.apiClient.networkStatus.listen((status) {
+      if (mounted) {
+        setState(() {
+          _isOffline = status == NetworkStatus.offline;
+        });
+      }
+    });
     _loadData();
+  }
+
+  @override
+  void dispose() {
+    _networkSubscription?.cancel();
+    super.dispose();
   }
 
   Future<void> _loadData() async {
@@ -68,6 +86,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    if (_isLoading && _stats == null) {
+      return const Center(
+        child: CircularProgressIndicator(color: AppColors.primary),
+      );
+    }
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
@@ -80,6 +103,7 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                if (_isOffline) NetworkUIHelper.buildOfflineBanner(),
                 _buildHeader(),
                 const SizedBox(height: AppSpacing.lg),
                 _buildStatsGrid(),
