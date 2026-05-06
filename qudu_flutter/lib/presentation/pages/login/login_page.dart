@@ -124,6 +124,80 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  // TODO(P1): 微信登录方法待 wechat_auth_service.dart 修复后启用
+  // Future<void> _onWechatLogin() async {
+  //   setState(() => _isLoading = true);
+  //   try {
+  //     // 检查微信是否安装
+  //     final isInstalled = await ServiceLocator.instance.wechatAuthService.isWechatInstalled();
+  //     if (!isInstalled) {
+  //       if (mounted) {
+  //         ScaffoldMessenger.of(context).showSnackBar(
+  //           const SnackBar(
+  //             content: Text('未安装微信，请使用手机号登录'),
+  //             backgroundColor: AppColors.error,
+  //           ),
+  //         );
+  //       }
+  //       return;
+  //     }
+  //
+  //     // 发起微信授权
+  //     final result = await ServiceLocator.instance.wechatAuthService.login();
+  //
+  //     if (result.success && result.code != null) {
+  //       // 调用后端微信登录接口
+  //       final loginResponse = await ServiceLocator.instance.authRepository.wechatLogin(
+  //         code: result.code!,
+  //       );
+  //
+  //       // 保存Token到安全存储
+  //       await StorageService.saveTokens(
+  //         accessToken: loginResponse.accessToken,
+  //         refreshToken: loginResponse.refreshToken,
+  //         expiresIn: loginResponse.expiresIn,
+  //       );
+  //
+  //       // 保存用户ID
+  //       await StorageService.saveUserId(loginResponse.user.id);
+  //
+  //       debugPrint('微信登录成功: userId=${loginResponse.user.id}, isNewUser=${loginResponse.isNewUser}');
+  //
+  //       if (mounted) {
+  //         // 新用户引导到儿童档案创建页，老用户直接进首页
+  //         if (loginResponse.isNewUser || !loginResponse.user.hasChildren) {
+  //           context.go('/children');
+  //         } else {
+  //           context.go('/home');
+  //         }
+  //       }
+  //     } else if (result.isCancelled) {
+  //       debugPrint('用户取消微信授权');
+  //     } else {
+  //       if (mounted) {
+  //         ScaffoldMessenger.of(context).showSnackBar(
+  //           SnackBar(
+  //             content: Text(result.error ?? '微信登录失败'),
+  //             backgroundColor: AppColors.error,
+  //           ),
+  //         );
+  //       }
+  //     }
+  //   } catch (e) {
+  //     debugPrint('微信登录异常: $e');
+  //     if (mounted) {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(
+  //           content: Text('微信登录失败: $e'),
+  //           backgroundColor: AppColors.error,
+  //         ),
+  //       );
+  //     }
+  //   } finally {
+  //     if (mounted) setState(() => _isLoading = false);
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -155,6 +229,9 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     _buildLoginButton(),
+                    const SizedBox(height: 16),
+                    // TODO(P1): 微信登录按钮待 wechat_auth_service.dart 修复后启用
+                    // _buildWechatLoginButton(),
                     const SizedBox(height: 16),
                     _buildAgreementSection(),
                   ],
@@ -225,24 +302,25 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildWechatLoginButton() {
-    return SizedBox(
-      width: double.infinity,
-      height: 48,
-      child: OutlinedButton.icon(
-        onPressed: _isLoading ? null : _onWechatLogin,
-        style: OutlinedButton.styleFrom(
-          side: const BorderSide(color: AppColors.border),
-          shape: RoundedRectangleBorder(
-            borderRadius: AppRadius.mediumBorder,
-          ),
-          foregroundColor: AppColors.textPrimary,
-        ),
-        icon: const Icon(Icons.wechat, color: Color(0xFF07C160)),
-        label: const Text('微信登录', style: AppTypography.button),
-      ),
-    );
-  }
+  // TODO(P1): 微信登录按钮待 wechat_auth_service.dart 修复后启用
+  // Widget _buildWechatLoginButton() {
+  //   return SizedBox(
+  //     width: double.infinity,
+  //     height: 48,
+  //     child: OutlinedButton.icon(
+  //       onPressed: _isLoading ? null : _onWechatLogin,
+  //       style: OutlinedButton.styleFrom(
+  //         side: const BorderSide(color: AppColors.border),
+  //         shape: RoundedRectangleBorder(
+  //           borderRadius: AppRadius.mediumBorder,
+  //         ),
+  //         foregroundColor: AppColors.textPrimary,
+  //       ),
+  //       icon: const Icon(Icons.wechat, color: Color(0xFF07C160)),
+  //       label: const Text('微信登录', style: AppTypography.button),
+  //     ),
+  //   );
+  // }
 
   Widget _buildAgreementSection() {
     return Row(
@@ -295,9 +373,9 @@ class _LoginPageState extends State<LoginPage> {
       padding: const EdgeInsets.only(bottom: 16),
       child: Column(
         children: [
-          FractionallySizedBox(
+          const FractionallySizedBox(
             widthFactor: 0.6,
-            child: const Divider(color: AppColors.border, thickness: 1),
+            child: Divider(color: AppColors.border, thickness: 1),
           ),
           const SizedBox(height: 8),
           Text(

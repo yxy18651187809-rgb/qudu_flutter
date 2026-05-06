@@ -320,7 +320,7 @@ async function generateReportInternal(childId, date, period) {
     startDate.setHours(0, 0, 0, 0);
     endDate.setHours(23, 59, 59, 999);
 
-    // 查询学习记录
+    // 查询学习记录（包含duration和newWords）
     const learningRecords = await LearningRecord.find({
       childId,
       createdAt: { $gte: startDate, $lte: endDate }
@@ -332,13 +332,13 @@ async function generateReportInternal(childId, date, period) {
       createdAt: { $gte: startDate, $lte: endDate }
     });
 
-    // 查询识字量
+    // 查询识字量（真实统计）
     const totalCharacters = await WordMastery.countDocuments({
       childId,
       status: 'mastered'
     });
 
-    // 计算统计数据
+    // 计算统计数据（真实计算）
     const studyTime = learningRecords.reduce((sum, r) => sum + (r.duration || 0), 0);
     const charactersLearned = learningRecords.reduce((sum, r) => sum + (r.newWords || 0), 0);
     const booksRead = learningRecords.filter(r => r.type === 'book').length;
@@ -347,7 +347,7 @@ async function generateReportInternal(childId, date, period) {
       ? Math.round(assessments.reduce((sum, a) => sum + (a.accuracy || 0), 0) / assessments.length)
       : 0;
 
-    // 计算准确率趋势（最近7天）
+    // 计算准确率趋势（最近7天，真实数据）
     const accuracyTrend = [];
     for (let i = 6; i >= 0; i--) {
       const trendDate = new Date();
@@ -370,20 +370,61 @@ async function generateReportInternal(childId, date, period) {
       });
     }
 
-    // 计算识字量趋势（最近30天）
+    // 计算识字量趋势（最近30天，基于WordMastery真实数据）
     const charactersTrend = [];
     const today = new Date();
-    for (let i = 29; i >= 0; i--) {
-      const trendDate = new Date(today);
-      trendDate.setDate(trendDate.getDate() - i);
-      trendDate.setHours(0, 0, 0, 0);
-
-      // 简化：按30天均匀分配
-      const count = Math.round(totalCharacters * (30 - i) / 30);
-      charactersTrend.push({
-        date: trendDate,
-        count
-      });
+    today.setHours(0, 0, 0, 0);
+    
+    // 获取所有已掌握的汉字，按掌握时间排序
+    const masteredWords = await WordMastery.find({
+      childId,
+      status: 'mastered'
+    }).sort({ lastReviewAt: 1 });
+    
+    if (masteredWords.length > 0) {
+      // 按日期汇总识字量
+      const dateCountMap = new Map();
+      let cumulativeCount = 0;
+      
+      for (const word of masteredWords) {
+        if (word.lastReviewAt) {
+          const dateStr = word.lastReviewAt.toISOString().split('T')[0];
+          cumulativeCount++;
+          dateCountMap.set(dateStr, cumulativeCount);
+        }
+      }
+      
+      // 填充最近30天的趋势数据
+      for (let i = 29; i >= 0; i--) {
+        const trendDate = new Date(today);
+        trendDate.setDate(trendDate.getDate() - i);
+        const dateStr = trendDate.toISOString().split('T')[0];
+        
+        // 找到该日期或之前最近的识字量
+        let count = 0;
+        for (const [d, c] of dateCountMap) {
+          if (d <= dateStr) {
+            count = c;
+          } else {
+            break;
+          }
+        }
+        
+        charactersTrend.push({
+          date: trendDate,
+          count
+        });
+      }
+    } else {
+      // 没有掌握任何汉字，填充0
+      for (let i = 29; i >= 0; i--) {
+        const trendDate = new Date(today);
+        trendDate.setDate(trendDate.getDate() - i);
+        charactersTrend.push({
+          date: trendDate,
+          count: 0
+        });
+      }
     }
 
     // 计算复习统计

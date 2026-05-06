@@ -32,6 +32,9 @@ class CharacterModel {
   /// 复习来源（如：绘本ID或测评ID，P1-002）
   final String? reviewFrom;
 
+  /// 音频URL（P1-001，对应后端Character.audioUrl）
+  final String? audioUrl;
+
   const CharacterModel({
     required this.id,
     required this.character,
@@ -47,6 +50,7 @@ class CharacterModel {
     this.mastery = 0.0,
     this.isReview = false,
     this.reviewFrom,
+    this.audioUrl = '',
   });
 
   factory CharacterModel.fromJson(Map<String, dynamic> json) {
@@ -71,6 +75,7 @@ class CharacterModel {
       mastery: (json['mastery'] as num?)?.toDouble() ?? 0.0,
       isReview: json['isReview'] as bool? ?? false,
       reviewFrom: json['reviewFrom'] as String?,
+      audioUrl: json['audioUrl'] as String? ?? '',
     );
   }
 

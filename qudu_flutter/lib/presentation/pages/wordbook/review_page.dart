@@ -118,11 +118,11 @@ class _ReviewPageState extends State<ReviewPage> {
             ),
           const SizedBox(height: AppSpacing.md),
           // 例句
-          if (char.sentences != null && char.sentences!.isNotEmpty)
+          if (char.sentences.isNotEmpty)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
               child: Text(
-                char.sentences!.first,
+                char.sentences.first,
                 style: AppTypography.body.copyWith(color: AppColors.textSecondary),
                 textAlign: TextAlign.center,
               ),
