@@ -68,8 +68,9 @@ exports.startAssessment = async (req, res) => {
           questionType: q.questionType,
           options: q.options,
           imageUrl: q.imageUrl || null,    // 新增：题目图片（meaning_select题型使用）
-          audioUrl: q.audioUrl || null     // 新增：题目音频
-          // 不返回 correctAnswer
+          audioUrl: q.audioUrl || null,     // 新增：题目音频
+          // 开发环境返回 correctAnswer（方便测试），生产环境可关闭
+          correctAnswer: process.env.NODE_ENV === 'development' ? q.correctAnswer : null
         })),
         startedAt: existingAssessment.startedAt
       });
@@ -132,7 +133,9 @@ exports.startAssessment = async (req, res) => {
         questionType: q.questionType,
         options: q.options,
         imageUrl: q.imageUrl || null,    // 新增：题目图片（meaning_select题型使用）
-        audioUrl: q.audioUrl || null     // 新增：题目音频
+        audioUrl: q.audioUrl || null,     // 新增：题目音频
+        // 开发环境返回 correctAnswer（方便测试），生产环境可关闭
+        correctAnswer: process.env.NODE_ENV === 'development' ? q.correctAnswer : null
       })),
       startedAt: assessment.startedAt
     });
