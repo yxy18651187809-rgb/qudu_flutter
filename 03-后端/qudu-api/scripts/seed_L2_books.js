@@ -53,11 +53,11 @@ async function seedL2Books() {
         vocabularyComplexity: 2,
         sentenceLength: 2,
         exercises: [
-          { type: 'choice', question: '小马最后敢过河了吗？', instruction: '选择：敢/不敢' },
+          { type: 'find_match', question: '小马最后敢过河了吗？', instruction: '选择：敢/不敢' },
           { type: 'image_match', question: '找出图中的小马', instruction: '认知动物' }
         ],
         isFree: false,
-        status: 'draft'  // 草稿状态，等教研员完成内容后改为'published'
+        status: 'draft'
       },
       {
         title: '四季的颜色',
@@ -79,7 +79,7 @@ async function seedL2Books() {
         vocabularyComplexity: 2,
         sentenceLength: 2,
         exercises: [
-          { type: 'color_match', question: '春天是什么颜色？', instruction: '选择：红色/绿色/黄色' }
+          { type: 'point_identify', question: '春天是什么颜色？', instruction: '选择：红色/绿色/黄色' }
         ],
         isFree: false,
         status: 'draft'
@@ -104,7 +104,7 @@ async function seedL2Books() {
         vocabularyComplexity: 2,
         sentenceLength: 2,
         exercises: [
-          { type: 'direction', question: '学校在家的哪一边？', instruction: '选择：东/西/南/北' }
+          { type: 'point_identify', question: '学校在家的哪一边？', instruction: '选择：东/西/南/北' }
         ],
         isFree: false,
         status: 'draft'
@@ -154,7 +154,7 @@ async function seedL2Books() {
         vocabularyComplexity: 2,
         sentenceLength: 2,
         exercises: [
-          { type: 'choice', question: '谁最聪明？', instruction: '选择正确答案' }
+          { type: 'find_match', question: '谁最聪明？', instruction: '选择正确答案' }
         ],
         isFree: false,
         status: 'draft'
@@ -204,7 +204,7 @@ async function seedL2Books() {
         vocabularyComplexity: 2,
         sentenceLength: 2,
         exercises: [
-          { type: 'sequence', question: '种树的顺序是？', instruction: '排序：挖坑→放树苗→填土→浇水' }
+          { type: 'story_retell', question: '种树的顺序是？', instruction: '排序：挖坑→放树苗→填土→浇水' }
         ],
         isFree: false,
         status: 'draft'
@@ -279,7 +279,7 @@ async function seedL2Books() {
         vocabularyComplexity: 2,
         sentenceLength: 2,
         exercises: [
-          { type: 'choice', question: '青蛙的家在哪里？', instruction: '选择：水里/陆地/树上' }
+          { type: 'find_match', question: '青蛙的家在哪里？', instruction: '选择：水里/陆地/树上' }
         ],
         isFree: false,
         status: 'draft'

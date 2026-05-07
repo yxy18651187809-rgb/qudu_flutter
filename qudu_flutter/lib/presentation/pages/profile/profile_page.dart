@@ -1,14 +1,17 @@
 /// 我的 — 个人中心页
 /// Tab 3 of HomeShell
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_radius.dart';
 import '../../../core/theme/app_typography.dart';
-import '../../../core/di/service_locator.dart';
 import '../../../data/models/child_model.dart';
+import '../../../core/di/service_locator.dart';
 import '../../../data/repositories/children_repository.dart';
 import '../../../core/services/storage_service.dart';
+import '../../../core/network/network_aware_mixin.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -17,7 +20,7 @@ class ProfilePage extends StatefulWidget {
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends State<ProfilePage> with NetworkAwareMixin {
   final ChildrenRepository _childrenRepository = ServiceLocator.instance.childrenRepository;
   List<ChildModel> _children = [];
   bool _isLoading = true;
@@ -25,7 +28,14 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
+    initNetworkAware(); // 初始化网络状态监听
     _loadChildren();
+  }
+
+  @override
+  void dispose() {
+    disposeNetworkAware(); // 取消网络状态订阅
+    super.dispose();
   }
 
   Future<void> _loadChildren() async {
@@ -84,6 +94,7 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              if (isOffline) buildOfflineBannerInline(),
               _buildProfileHeader(),
               const SizedBox(height: AppSpacing.lg),
               _buildChildSelector(),
@@ -91,6 +102,10 @@ class _ProfilePageState extends State<ProfilePage> {
               _buildLearningStats(),
               const SizedBox(height: AppSpacing.lg),
               _buildSettingsSection(),
+              const SizedBox(height: AppSpacing.lg),
+              _buildLearningReportSection(),
+              const SizedBox(height: AppSpacing.lg),
+              _buildMonitoringSection(),
               const SizedBox(height: AppSpacing.lg),
               _buildAboutSection(),
             ],
@@ -233,6 +248,89 @@ class _ProfilePageState extends State<ProfilePage> {
               _ProfileStatItem(value: 'L1', label: '当前级别', color: AppColors.secondary),
               _ProfileStatItem(value: '5', label: '学习天数', color: const Color(0xFF8B5CF6)),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLearningReportSection() {
+    if (_children.isEmpty) return const SizedBox.shrink();
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: AppRadius.largeBorder,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
+            child: Text('学习报告',
+                style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary)),
+          ),
+          _MenuRow(
+            icon: Icons.bar_chart_outlined,
+            title: '查看学习报告',
+            titleColor: AppColors.primary,
+            onTap: () {
+              if (_children.isNotEmpty) {
+                final child = _children.first;
+                final nameParam =
+                    child.name.isNotEmpty ? '&childName=${child.name}' : '';
+                context.go('/learning-report?childId=${child.id}$nameParam');
+              }
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMonitoringSection() {
+    if (_children.isEmpty) return const SizedBox.shrink();
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: AppRadius.largeBorder,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
+            child: Text('家长监控',
+                style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary)),
+          ),
+          _MenuRow(
+            icon: Icons.monitor_heart_outlined,
+            title: '监控概览',
+            titleColor: AppColors.primary,
+            onTap: () {
+              // TODO: 获取真实parentId（当前用户ID）
+              final parentId = 'me';
+              context.go('/parent-monitoring/$parentId');
+            },
           ),
         ],
       ),

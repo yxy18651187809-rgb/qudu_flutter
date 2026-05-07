@@ -6,6 +6,33 @@ const config = require('../config');
  * 封装微信开放平台API调用
  */
 
+// ========== Mock模式支持（MVP阶段） ==========
+function isMockMode() {
+  return config.wechat.appId === 'mock';
+}
+
+const MOCK_TOKEN_DATA = {
+  access_token: 'mock_access_token_' + Date.now(),
+  expires_in: 7200,
+  refresh_token: 'mock_refresh_token_' + Date.now(),
+  openid: 'mock_openid_' + Math.random().toString(36).substr(2, 9),
+  scope: 'snsapi_userinfo',
+  unionid: 'mock_unionid_' + Math.random().toString(36).substr(2, 9)
+};
+
+const MOCK_USER_INFO = {
+  openid: MOCK_TOKEN_DATA.openid,
+  nickname: '微信测试用户',
+  sex: 0,
+  province: '广东',
+  city: '深圳',
+  country: '中国',
+  headimgurl: '',
+  privilege: [],
+  unionid: MOCK_TOKEN_DATA.unionid
+};
+// ================================================
+
 const WECHAT_API = {
   ACCESS_TOKEN: 'https://api.weixin.qq.com/sns/oauth2/access_token',
   USER_INFO: 'https://api.weixin.qq.com/sns/userinfo',
@@ -19,6 +46,12 @@ const WECHAT_API = {
  * @returns {Promise<Object>} { access_token, expires_in, refresh_token, openid, scope, unionid }
  */
 async function getAccessToken(code) {
+  // MVP Mock模式：不调用真实微信API
+  if (isMockMode()) {
+    console.log('[WechatService] Mock模式：模拟获取access_token，code:', code);
+    return { ...MOCK_TOKEN_DATA, openid: MOCK_TOKEN_DATA.openid, access_token: MOCK_TOKEN_DATA.access_token };
+  }
+
   try {
     const res = await axios.get(WECHAT_API.ACCESS_TOKEN, {
       params: {
@@ -47,6 +80,12 @@ async function getAccessToken(code) {
  * @returns {Promise<Object>} { openid, nickname, sex, province, city, country, headimgurl, privilege, unionid }
  */
 async function getUserInfo(accessToken, openid) {
+  // MVP Mock模式
+  if (isMockMode()) {
+    console.log('[WechatService] Mock模式：模拟获取用户信息');
+    return MOCK_USER_INFO;
+  }
+
   try {
     const res = await axios.get(WECHAT_API.USER_INFO, {
       params: {
@@ -72,6 +111,18 @@ async function getUserInfo(accessToken, openid) {
  * @returns {Promise<Object>} { access_token, expires_in, refresh_token, openid, scope }
  */
 async function refreshAccessToken(refreshToken) {
+  // MVP Mock模式
+  if (isMockMode()) {
+    console.log('[WechatService] Mock模式：模拟刷新token');
+    return {
+      access_token: 'mock_access_token_refreshed_' + Date.now(),
+      expires_in: 7200,
+      refresh_token: 'mock_refresh_token_refreshed_' + Date.now(),
+      openid: MOCK_TOKEN_DATA.openid,
+      scope: 'snsapi_userinfo'
+    };
+  }
+
   try {
     const res = await axios.get(WECHAT_API.REFRESH_TOKEN, {
       params: {
@@ -99,6 +150,11 @@ async function refreshAccessToken(refreshToken) {
  * @returns {Promise<boolean>} 是否有效
  */
 async function verifyAccessToken(accessToken, openid) {
+  // MVP Mock模式
+  if (isMockMode()) {
+    return true;
+  }
+
   try {
     const res = await axios.get(WECHAT_API.VERIFY_TOKEN, {
       params: {

@@ -9,6 +9,9 @@ import '../../data/models/assessment_model.dart';
 import '../../presentation/pages/assessment/assessment_start_page.dart';
 import '../../presentation/pages/assessment/assessment_question_page.dart';
 import '../../presentation/pages/assessment/assessment_result_page.dart';
+import '../../presentation/pages/learning/learning_report_page.dart';
+import '../../presentation/pages/profile/parent_monitoring_page.dart';
+import '../../presentation/pages/profile/parent_monitoring_detail_page.dart';
 
 /// 路由路径常量
 class AppRoutes {
@@ -17,6 +20,8 @@ class AppRoutes {
   static const String children = '/children';
   static const String bookReader = '/book-reader/:bookId';
   static const String assessment = '/assessment/:assessmentId';
+  static const String monitoring = '/parent-monitoring/:parentId';
+  static const String monitoringDetail = '/parent-monitoring/:parentId/child/:childId';
 }
 
 /// 路由刷新监听器 — 监听登录状态变化自动跳转
@@ -141,6 +146,40 @@ GoRouter createRouter(AuthNotifier authNotifier) {
                   startedAt: DateTime.now(),
                 ),
             result: extra?['result'] as AssessmentResult?,
+          );
+        },
+      ),
+      // 学习报告页
+      GoRoute(
+        path: '/learning-report',
+        name: 'learningReport',
+        builder: (context, state) {
+          final childId = state.uri.queryParameters['childId'] ?? '';
+          final childName = state.uri.queryParameters['childName'];
+          return LearningReportPage(childId: childId, childName: childName);
+        },
+      ),
+      // 家长监控概览
+      GoRoute(
+        path: '/parent-monitoring/:parentId',
+        name: 'parentMonitoring',
+        builder: (context, state) {
+          final parentId = state.pathParameters['parentId'] ?? '';
+          return ParentMonitoringPage(parentId: parentId);
+        },
+      ),
+      // 家长监控-孩子详情
+      GoRoute(
+        path: '/parent-monitoring/:parentId/child/:childId',
+        name: 'parentMonitoringDetail',
+        builder: (context, state) {
+          final parentId = state.pathParameters['parentId'] ?? '';
+          final childId = state.pathParameters['childId'] ?? '';
+          final overview = state.extra as MonitoringChildOverview?;
+          return ParentMonitoringDetailPage(
+            parentId: parentId,
+            childId: childId,
+            overview: overview,
           );
         },
       ),

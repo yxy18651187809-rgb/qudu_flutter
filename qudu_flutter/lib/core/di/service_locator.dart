@@ -3,6 +3,8 @@ import '../services/token_storage_impl.dart';
 import '../../data/repositories/auth_repository.dart';
 import '../../data/repositories/children_repository.dart';
 import '../../data/repositories/learning_repository.dart';
+import '../../data/repositories/learning_report_repository.dart';
+import '../../data/repositories/parent_monitoring_repository.dart';
 // TODO(P1): 微信登录服务待修复后启用
 // import '../services/wechat_auth_service.dart';
 
@@ -21,6 +23,8 @@ class ServiceLocator {
   late final AuthRepository authRepository;
   late final ChildrenRepository childrenRepository;
   late final LearningRepository learningRepository;
+  late final LearningReportRepository learningReportRepository;
+  late final ParentMonitoringRepository parentMonitoringRepository;
   // TODO(P1): 微信登录服务待修复后启用
   // late final WechatAuthService wechatAuthService;
 
@@ -38,6 +42,8 @@ class ServiceLocator {
     authRepository = AuthRepository(apiClient: apiClient);
     childrenRepository = ChildrenRepository(apiClient: apiClient);
     learningRepository = LearningRepository(apiClient: apiClient);
+    learningReportRepository = LearningReportRepository(apiClient: apiClient);
+    parentMonitoringRepository = ParentMonitoringRepository(apiClient: apiClient);
     // TODO(P1): 微信登录服务待修复后启用
     // wechatAuthService = WechatAuthService();
   }
