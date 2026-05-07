@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
-    "seed": "node scripts/seed.js"
+    "seed": "node scripts/seed.js",
+    "seed:l2": "node scripts/seed_L2_books.js",
+    "test": "jest --forceExit --detectOpenHandles",
+    "test:integration": "jest tests/integration/ --forceExit --detectOpenHandles"
   },
   "dependencies": {
     "axios": "^1.16.0",
@@ -24,6 +27,13 @@
     "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "jest": "^30.3.0",
+    "nodemon": "^3.0.1",
+    "supertest": "^7.2.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testTimeout": 30000,
+    "testMatch": ["**/tests/**/*.test.js"]
   }
 }

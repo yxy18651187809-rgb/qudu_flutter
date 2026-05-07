@@ -1,7 +1,7 @@
 # 字趣阅读 - API 契约文档
 
-**版本**：v1.0  
-**日期**：2026-04-21  
+**版本**：v1.3  
+**日期**：2026-05-07  
 **作者**：后端负责人  
 **状态**：已交付，前端可按此开发
 
@@ -912,6 +912,7 @@ POST /assessments/start
 | type | string | 否 | initial(默认)/review/level_test |
 | targetLevel | number | 否 | 目标级别，默认取儿童当前级别 |
 | questionCount | number | 否 | 题目数量，默认20 |
+| bookId | string | 否 | 绘本ID（type=review时必填，v1.1新增） |
 
 **响应示例：**
 
@@ -946,6 +947,7 @@ POST /assessments/start
 - 如有进行中测评，直接返回已有测评
 - `questionType` 三种：recognize(看字选拼音)、pinyin_match(看拼音选字)、meaning_select(选意思)
 - 响应不包含 `correctAnswer`，防作弊
+- v1.3更新：`bookId` 为可选参数，`type=review` 时必须传入以指定绘本测评
 
 ---
 
@@ -993,7 +995,29 @@ POST /assessments/:id/submit
     ],
     "starsEarned": 10,
     "coinsEarned": 30,
-    "duration": 180
+    "duration": 180,
+    "questions": [
+      {
+        "characterId": "6800...",
+        "character": "人",
+        "questionType": "recognize",
+        "options": ["rén", "bā", "dà", "xiǎo"],
+        "correctAnswer": "rén",
+        "userAnswer": "rén",
+        "isCorrect": true,
+        "responseTime": 2300
+      },
+      {
+        "characterId": "6800...",
+        "character": "口",
+        "questionType": "pinyin_match",
+        "options": ["口", "大", "小", "人"],
+        "correctAnswer": "口",
+        "userAnswer": "大",
+        "isCorrect": false,
+        "responseTime": 1800
+      }
+    ]
   },
   "message": "success"
 }
@@ -1003,6 +1027,7 @@ POST /assessments/:id/submit
 - 提交后自动更新儿童级别、汉字掌握度（遗忘曲线）、学习记录
 - 识字量估算基于各级别正确率加权计算
 - 奖励：每题正确1星（最多10星），每题3币（最多30币）
+- **v1.3更新**：响应新增 `questions` 数组，包含每题的 `correctAnswer`、`userAnswer`、`isCorrect`，支持前端即时反馈展示
 
 ---
 
@@ -1168,3 +1193,148 @@ GET /learning/stats/:childId
 - reviewing: 复习中（掌握度40%-80%）
 - mastered: 已掌握（掌握度>80%且间隔≥6天）
 - dueReview: 今日待复习（下次复习时间已到）
+
+---
+
+## 九、TTS 朗读模块（v1.3新增）
+
+> 绘本页面朗读音频、汉字发音音频。Phase 1 使用预生成URL+逐字音频方案，Phase 2 可接入 TTS API（Azure/Google）实现实时合成。
+
+### 9.1 获取绘本页面朗读音频
+
+```
+GET /books/:id/tts
+```
+
+**路径参数：**
+
+| 字段 | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| id | string | 是 | 绘本ID（支持自定义bookId或MongoDB _id） |
+
+**查询参数：**
+
+| 字段 | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| page | number | 否 | 页码（正整数），不传则返回所有页面音频 |
+
+**响应示例（获取全部页面）：**
+
+```json
+{
+  "code": 0,
+  "data": {
+    "bookId": "6800...",
+    "title": "我的身体",
+    "totalPages": 10,
+    "pages": [
+      {
+        "pageNumber": 1,
+        "text": "我是小明。",
+        "audio": {
+          "preGenerated": "/audio/books/6800..._p1.mp3",
+          "charByChar": [
+            {
+              "character": "我",
+              "isNewWord": true,
+              "audioUrl": "/audio/我.mp3"
+            },
+            {
+              "character": "小",
+              "isNewWord": false,
+              "audioUrl": "/audio/小.mp3"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "message": "success"
+}
+```
+
+**响应示例（获取单页，带page参数）：**
+
+```json
+{
+  "code": 0,
+  "data": {
+    "pageNumber": 1,
+    "text": "我是小明。",
+    "audio": {
+      "preGenerated": "/audio/books/6800..._p1.mp3",
+      "charByChar": [
+        { "character": "我", "isNewWord": true, "audioUrl": "/audio/我.mp3" },
+        { "character": "小", "isNewWord": false, "audioUrl": "/audio/小.mp3" }
+      ]
+    }
+  },
+  "message": "success"
+}
+```
+
+**说明：**
+- 不需认证（使用 optionalAuth 中间件）
+- `preGenerated`: 预生成的整页朗读音频URL，优先使用
+- `charByChar`: 逐字音频列表，前端可逐字高亮播放；仅包含 wordAnnotations 中的字
+- 如果预生成音频不存在，前端可使用 `text` 字段调用本地 TTS 引擎
+
+---
+
+### 9.2 获取汉字发音音频
+
+```
+GET /tts/character/:char
+```
+
+**路径参数：**
+
+| 字段 | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| char | string | 是 | 单个汉字 |
+
+**响应示例：**
+
+```json
+{
+  "code": 0,
+  "data": {
+    "character": "春",
+    "pinyin": "chūn",
+    "audioUrl": "/audio/春.mp3"
+  },
+  "message": "success"
+}
+```
+
+**错误响应：**
+
+| 场景 | HTTP Status | code | message |
+|------|-------------|------|---------|
+| 传入多个字符或非汉字 | 400 | 40010 | 请传入单个汉字 |
+| 汉字不在数据库中 | 404 | 40401 | 汉字不存在 |
+
+---
+
+## 十、版本变更记录
+
+### v1.3 (2026-05-07)
+
+| 变更 | 模块 | 说明 |
+|------|------|------|
+| 🔴 7.2 submitAssessment 响应新增 questions 字段 | 测评 | 返回每题 correctAnswer/userAnswer/isCorrect，支持前端即时反馈 |
+| 🔴 7.1 startAssessment 请求新增 bookId 参数 | 测评 | type=review 时必填，指定绘本测评 |
+| 🟢 7.1 startAssessment 响应不含 correctAnswer | 测评 | 安全加固，防作弊 |
+| 🟢 第九章 TTS 朗读模块 | 朗读 | 新增绘本页面朗读、汉字发音两个接口 |
+| 🟢 L2 绘本支持 | 绘本 | level=2 绘本查询、L2字卡、L2种子数据 |
+
+### v1.2 (2026-04-30)
+
+| 变更 | 模块 | 说明 |
+|------|------|------|
+| 🔴 Assessment API v1.1 对齐 | 测评 | bookId字段、review测评、ASSESSMENT_CONFIG |
+| 🟢 questionGenerator.js | 测评 | 5级干扰项策略、绘本/级别出题、题型分布 |
+
+### v1.0 (2026-04-21)
+
+- 初始版本，8章完整覆盖
