@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Assessment = require('../models/Assessment');
 const Character = require('../models/Character');
 const Child = require('../models/Child');
@@ -41,9 +42,13 @@ exports.startAssessment = async (req, res) => {
       return error(res, 40011, '绘本测评必须传入 bookId', 400);
     }
 
-    // 校验 bookId 有效性
+    // 校验 bookId 有效性（支持自定义 bookId 或 _id）
     if (bookId) {
-      const bookExists = await Book.findById(bookId);
+      const orConditions = [{ bookId: bookId }];
+      if (mongoose.Types.ObjectId.isValid(bookId)) {
+        orConditions.push({ _id: bookId });
+      }
+      const bookExists = await Book.findOne({ $or: orConditions });
       if (!bookExists) {
         return error(res, 40412, '绘本不存在', 404);
       }
@@ -67,10 +72,8 @@ exports.startAssessment = async (req, res) => {
           character: q.character,
           questionType: q.questionType,
           options: q.options,
-          imageUrl: q.imageUrl || null,    // 新增：题目图片（meaning_select题型使用）
-          audioUrl: q.audioUrl || null,     // 新增：题目音频
-          // 开发环境返回 correctAnswer（方便测试），生产环境可关闭
-          correctAnswer: process.env.NODE_ENV === 'development' ? q.correctAnswer : null
+          imageUrl: q.imageUrl || null,
+          audioUrl: q.audioUrl || null
         })),
         startedAt: existingAssessment.startedAt
       });
@@ -132,10 +135,8 @@ exports.startAssessment = async (req, res) => {
         character: q.character,
         questionType: q.questionType,
         options: q.options,
-        imageUrl: q.imageUrl || null,    // 新增：题目图片（meaning_select题型使用）
-        audioUrl: q.audioUrl || null,     // 新增：题目音频
-        // 开发环境返回 correctAnswer（方便测试），生产环境可关闭
-        correctAnswer: process.env.NODE_ENV === 'development' ? q.correctAnswer : null
+        imageUrl: q.imageUrl || null,
+        audioUrl: q.audioUrl || null
       })),
       startedAt: assessment.startedAt
     });
@@ -320,7 +321,18 @@ exports.submitAssessment = async (req, res) => {
       levelResults,
       starsEarned,
       coinsEarned,
-      duration: duration || 0
+      duration: duration || 0,
+      // v1.1: 返回每题正确答案和结果，支持前端即时反馈
+      questions: assessment.questions.map(q => ({
+        characterId: q.characterId,
+        character: q.character,
+        questionType: q.questionType,
+        options: q.options,
+        correctAnswer: q.correctAnswer,
+        userAnswer: q.userAnswer,
+        isCorrect: q.isCorrect,
+        responseTime: q.responseTime
+      }))
     });
   } catch (err) {
     console.error('提交测评失败:', err);

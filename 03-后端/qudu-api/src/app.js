@@ -17,6 +17,7 @@ const assessmentRoutes = require('./routes/assessments');
 const learningRoutes = require('./routes/learning');
 const learningReportRoutes = require('./routes/learningReport');
 const parentMonitoringRoutes = require('./routes/parentMonitoring');
+const ttsRoutes = require('./routes/tts');
 const requestLogger = require('./middlewares/requestLogger');
 
 const app = express();
@@ -27,7 +28,7 @@ const swaggerSpec = swaggerJsdoc({
     openapi: '3.0.0',
     info: {
       title: '字趣阅读 API',
-      version: '1.2.0',
+      version: '1.3.0',
       description: '字趣阅读 - 5~12岁儿童AI识字阅读APP后端API文档\n\n## 认证方式\n所有需认证的接口请在Header中传入：`Authorization: Bearer <access_token>`\n\n## 错误码规范\n- 0: 成功\n- 40001-40099: 客户端参数错误\n- 40101-40199: 认证错误\n- 40301-40399: 权限错误\n- 40401: 接口不存在\n- 50001: 服务端内部错误',
       contact: {
         name: '字趣阅读后端团队'
@@ -113,6 +114,7 @@ app.use('/api/v1/assessments', assessmentRoutes);
 app.use('/api/v1/learning', learningRoutes);
 app.use('/api/v1/learning-report', learningReportRoutes);
 app.use('/api/v1/parent-monitoring', parentMonitoringRoutes);
+app.use('/api/v1/tts', ttsRoutes);
 
 // ===== 404 处理 =====
 app.use((req, res) => {

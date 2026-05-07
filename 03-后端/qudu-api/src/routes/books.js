@@ -171,6 +171,69 @@ router.get('/', bookController.getBooks);
 
 /**
  * @openapi
+ * /books/{id}/tts:
+ *   get:
+ *     tags: [绘本模块]
+ *     summary: 获取绘本朗读音频
+ *     description: |
+ *       返回绘本页面的朗读音频信息：
+ *       - 传 page 参数：返回该页音频（预生成URL + 逐字音频列表）
+ *       - 不传 page：返回整本所有页音频
+ *       - Phase 2 将接入实时 TTS 合成
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema: { type: string }
+ *         description: 绘本ID
+ *       - name: page
+ *         in: query
+ *         schema: { type: integer }
+ *         description: 页码（可选，不传返回全部）
+ *     responses:
+ *       200:
+ *         description: 成功
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code: { type: integer, example: 0 }
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     bookId: { type: string }
+ *                     title: { type: string, example: "我的身体" }
+ *                     totalPages: { type: integer, example: 10 }
+ *                     pages:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           pageNumber: { type: integer, example: 1 }
+ *                           text: { type: string, example: "我是小明。" }
+ *                           audio:
+ *                             type: object
+ *                             properties:
+ *                               preGenerated: { type: string, description: "预生成整页音频URL" }
+ *                               charByChar:
+ *                                 type: array
+ *                                 items:
+ *                                   type: object
+ *                                   properties:
+ *                                     character: { type: string, example: "我" }
+ *                                     isNewWord: { type: boolean }
+ *                                     audioUrl: { type: string }
+ *                 message: { type: string, example: "success" }
+ *       404:
+ *         description: 绘本不存在
+ */
+router.get('/:id/tts', optionalAuth, bookController.getBookTTS);
+
+/**
+ * @openapi
  * /books/{id}:
  *   get:
  *     tags: [绘本模块]

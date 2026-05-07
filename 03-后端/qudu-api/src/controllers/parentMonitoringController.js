@@ -297,35 +297,35 @@ async function updateThresholds(req, res) {
     // 更新阈值
     if (maxDailyStudyTime !== undefined) {
       if (maxDailyStudyTime < 0 || maxDailyStudyTime > 480) {
-        return error(res, 'INVALID_THRESHOLD', '每日最长学习时长必须在0-480分钟之间', 400);
+        return error(res, ErrorCodes.INVALID_PARAMS, '每日最长学习时长必须在0-480分钟之间', 400);
       }
       monitoring.thresholds.maxDailyStudyTime = maxDailyStudyTime;
     }
     
     if (minDailyStudyTime !== undefined) {
       if (minDailyStudyTime < 0 || minDailyStudyTime > 120) {
-        return error(res, 'INVALID_THRESHOLD', '每日最短学习时长必须在0-120分钟之间', 400);
+        return error(res, ErrorCodes.INVALID_PARAMS, '每日最短学习时长必须在0-120分钟之间', 400);
       }
       monitoring.thresholds.minDailyStudyTime = minDailyStudyTime;
     }
     
     if (minCharactersPerDay !== undefined) {
       if (minCharactersPerDay < 0 || minCharactersPerDay > 50) {
-        return error(res, 'INVALID_THRESHOLD', '每日最少识字数必须在0-50之间', 400);
+        return error(res, ErrorCodes.INVALID_PARAMS, '每日最少识字数必须在0-50之间', 400);
       }
       monitoring.thresholds.minCharactersPerDay = minCharactersPerDay;
     }
     
     if (minAccuracy !== undefined) {
       if (minAccuracy < 0 || minAccuracy > 100) {
-        return error(res, 'INVALID_THRESHOLD', '最低准确率必须在0-100之间', 400);
+        return error(res, ErrorCodes.INVALID_PARAMS, '最低准确率必须在0-100之间', 400);
       }
       monitoring.thresholds.minAccuracy = minAccuracy;
     }
     
     if (maxReviewDelayDays !== undefined) {
       if (maxReviewDelayDays < 0 || maxReviewDelayDays > 30) {
-        return error(res, 'INVALID_THRESHOLD', '最长复习延迟天数必须在0-30之间', 400);
+        return error(res, ErrorCodes.INVALID_PARAMS, '最长复习延迟天数必须在0-30之间', 400);
       }
       monitoring.thresholds.maxReviewDelayDays = maxReviewDelayDays;
     }
@@ -365,7 +365,7 @@ async function updateAlertSettings(req, res) {
     const monitorings = await ParentMonitoring.find({ parentId });
     
     if (monitorings.length === 0) {
-      return error(res, 'MONITORING_NOT_FOUND', '监控记录不存在', 404);
+      return error(res, ErrorCodes.CHILD_NOT_FOUND, '监控记录不存在', 404);
     }
     
     // 更新所有孩子的告警设置（统一设置）
@@ -384,7 +384,7 @@ async function updateAlertSettings(req, res) {
         const validMethods = ['push', 'sms', 'wechat'];
         for (const method of alertMethods) {
           if (!validMethods.includes(method)) {
-            return error(res, 'INVALID_ALERT_METHOD', `无效的告警方式: ${method}`, 400);
+            return error(res, ErrorCodes.INVALID_PARAMS, `无效的告警方式: ${method}`, 400);
           }
         }
         monitoring.alertSettings.alertMethods = alertMethods;

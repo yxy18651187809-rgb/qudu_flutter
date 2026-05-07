@@ -118,7 +118,7 @@ async function getLearningReportList(req, res) {
       return error(res, ErrorCodes.USER_NOT_FOUND, '用户不存在', 404);
     }
     
-    const children = await Child.find({ parentPhone: parent.phone });
+    const children = await Child.find({ userId: parent._id });
     const reportDate = date ? new Date(date) : new Date();
     reportDate.setHours(0, 0, 0, 0);
     

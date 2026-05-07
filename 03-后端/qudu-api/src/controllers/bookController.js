@@ -1,8 +1,10 @@
+const mongoose = require('mongoose');
 const Book = require('../models/Book');
 const BookPage = require('../models/BookPage');
 const Character = require('../models/Character');
 const Child = require('../models/Child');
 const { success, fail, paginate, error } = require('../utils/response');
+const ttsController = require('./ttsController');
 
 /**
  * 获取绘本列表
@@ -80,13 +82,18 @@ exports.getBookDetail = async (req, res) => {
     const { id } = req.params;
     const { childId } = req.query;
 
-    const book = await Book.findById(id).lean();
+    // 支持自定义 bookId 或 _id 查询
+    const orConditions = [{ bookId: id }];
+    if (mongoose.Types.ObjectId.isValid(id)) {
+      orConditions.push({ _id: id });
+    }
+    const book = await Book.findOne({ $or: orConditions }).lean();
     if (!book) {
       return error(res, 40401, '绘本不存在', 404);
     }
 
-    // 获取绘本页面
-    const pages = await BookPage.find({ bookId: id })
+    // 获取绘本页面（使用实际的 _id）
+    const pages = await BookPage.find({ bookId: book._id })
       .sort({ pageNumber: 1 })
       .lean();
 
@@ -107,9 +114,9 @@ exports.getBookDetail = async (req, res) => {
       }
     }
 
-        book.cover = book.cover || `/uploads/covers/${book._id}.png`;
+    book.cover = book.cover || `/uploads/covers/${book._id}.png`;
 
-success(res, book);
+    success(res, book);
   } catch (err) {
     console.error('获取绘本详情失败:', err);
     error(res, 50001, '获取绘本详情失败', 500);
@@ -285,3 +292,10 @@ exports.getThemes = async (req, res) => {
     error(res, 50001, '获取主题列表失败', 500);
   }
 };
+
+/**
+ * 获取绘本朗读音频
+ * GET /api/v1/books/:id/tts
+ * 委托给 ttsController.getBookTTS
+ */
+exports.getBookTTS = ttsController.getBookTTS;

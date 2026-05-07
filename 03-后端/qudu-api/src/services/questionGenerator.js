@@ -9,6 +9,7 @@
  * 配合 Assessment API v1.1 对齐测字题库设计
  */
 
+const mongoose = require('mongoose');
 const Character = require('../models/Character');
 const Book = require('../models/Book');
 
@@ -227,7 +228,6 @@ async function generateDistractors(correctChar, options = {}) {
   if (distractors.length < count) {
     const randomChars = await CharacterModel.find({
       level: correctChar.level || 1,
-      character: { $ne: correctCharStr },
       status: 'active',
       character: { $nin: [...allExclude, ...distractors] }
     }).limit(20).lean();
@@ -262,8 +262,12 @@ async function generateBookQuestions(bookId, options = {}) {
     BookModel = Book
   } = options;
 
-  // 1. 获取绘本数据
-  const book = await BookModel.findById(bookId).lean();
+  // 1. 获取绘本数据（支持自定义 bookId 或 _id）
+  const orConditions = [{ bookId: bookId }];
+  if (mongoose.Types.ObjectId.isValid(bookId)) {
+    orConditions.push({ _id: bookId });
+  }
+  const book = await BookModel.findOne({ $or: orConditions }).lean();
   if (!book) {
     throw new Error('绘本不存在');
   }
