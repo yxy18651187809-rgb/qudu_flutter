@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -5,6 +6,7 @@ import '../../../core/theme/app_radius.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../data/models/character_model.dart';
 import '../../../data/repositories/character_repository.dart';
+import '../../../core/network/network_aware_mixin.dart';
 
 /// 复习流程页面
 /// 功能：逐个显示复习字，用户标记"已掌握"/"还需练习"
@@ -22,7 +24,8 @@ class ReviewPage extends StatefulWidget {
   State<ReviewPage> createState() => _ReviewPageState();
 }
 
-class _ReviewPageState extends State<ReviewPage> {
+class _ReviewPageState extends State<ReviewPage>
+    with NetworkAwareMixin {
   late CharacterRepository _repository;
   late List<CharacterModel> _chars;
   int _currentIndex = 0;
@@ -31,8 +34,15 @@ class _ReviewPageState extends State<ReviewPage> {
   @override
   void initState() {
     super.initState();
+    initNetworkAware(); // 初始化网络状态监听
     _repository = CharacterRepository();
     _chars = List.from(widget.reviewCharacters);
+  }
+
+  @override
+  void dispose() {
+    disposeNetworkAware(); // 取消网络状态订阅
+    super.dispose();
   }
 
   @override
@@ -46,15 +56,25 @@ class _ReviewPageState extends State<ReviewPage> {
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: Text('复习（${_currentIndex + 1}/${_chars.length}'),
-        backgroundColor: Colors.white,
-        foregroundColor: AppColors.textPrimary,
-        elevation: 1,
-      ),
+      appBar: isOffline
+          ? buildOfflineAppBar(
+              child: AppBar(
+                title: Text('复习（${_currentIndex + 1}/${_chars.length}'),
+                backgroundColor: Colors.white,
+                foregroundColor: AppColors.textPrimary,
+                elevation: 1,
+              ),
+            )
+          : AppBar(
+              title: Text('复习（${_currentIndex + 1}/${_chars.length}'),
+              backgroundColor: Colors.white,
+              foregroundColor: AppColors.textPrimary,
+              elevation: 1,
+            ),
       body: SafeArea(
         child: Column(
           children: [
+            if (isOffline) buildOfflineBannerInline(),
             // 进度条
             LinearProgressIndicator(
               value: (_currentIndex + 1) / _chars.length,

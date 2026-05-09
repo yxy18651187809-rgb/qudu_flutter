@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -5,6 +6,7 @@ import '../../../core/theme/app_radius.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../data/models/assessment_model.dart';
 import '../../../data/repositories/assessment_repository.dart';
+import '../../../core/network/network_aware_mixin.dart';
 import 'assessment_question_page.dart';
 
 /// 测评首页
@@ -26,12 +28,25 @@ class AssessmentStartPage extends StatefulWidget {
   State<AssessmentStartPage> createState() => _AssessmentStartPageState();
 }
 
-class _AssessmentStartPageState extends State<AssessmentStartPage> {
+class _AssessmentStartPageState extends State<AssessmentStartPage>
+    with NetworkAwareMixin {
   final AssessmentRepository _repository = AssessmentRepository();
 
   int _selectedLevel = 1;
   int _questionCount = 20;
   bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    initNetworkAware(); // 初始化网络状态监听
+  }
+
+  @override
+  void dispose() {
+    disposeNetworkAware(); // 取消网络状态订阅
+    super.dispose();
+  }
 
   // 级别信息
   static final _levelInfo = [
@@ -46,15 +61,25 @@ class _AssessmentStartPageState extends State<AssessmentStartPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: const Text('识字测评'),
-        backgroundColor: AppColors.primary,
-        foregroundColor: Colors.white,
-        elevation: 0,
-      ),
+      appBar: isOffline
+          ? buildOfflineAppBar(
+              child: AppBar(
+                title: const Text('识字测评'),
+                backgroundColor: AppColors.primary,
+                foregroundColor: Colors.white,
+                elevation: 0,
+              ),
+            )
+          : AppBar(
+              title: const Text('识字测评'),
+              backgroundColor: AppColors.primary,
+              foregroundColor: Colors.white,
+              elevation: 0,
+            ),
       body: SafeArea(
         child: Column(
           children: [
+            if (isOffline) buildOfflineBannerInline(),
             _buildHeader(),
             Expanded(
               child: SingleChildScrollView(

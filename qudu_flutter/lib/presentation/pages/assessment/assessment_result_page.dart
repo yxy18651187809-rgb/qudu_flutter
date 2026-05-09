@@ -4,6 +4,7 @@ import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_radius.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../data/models/assessment_model.dart';
+import '../../../core/network/network_aware_mixin.dart';
 
 /// 测评结果页
 /// 功能：显示正确率、新字掌握情况、鼓励动画、奖励
@@ -22,7 +23,7 @@ class AssessmentResultPage extends StatefulWidget {
 }
 
 class _AssessmentResultPageState extends State<AssessmentResultPage>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, NetworkAwareMixin {
   late AnimationController _animationController;
   late Animation<double> _scaleAnimation;
   late Animation<double> _fadeAnimation;
@@ -30,6 +31,7 @@ class _AssessmentResultPageState extends State<AssessmentResultPage>
   @override
   void initState() {
     super.initState();
+    initNetworkAware(); // 初始化网络状态监听
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 1200),
       vsync: this,
@@ -54,6 +56,7 @@ class _AssessmentResultPageState extends State<AssessmentResultPage>
 
   @override
   void dispose() {
+    disposeNetworkAware(); // 取消网络状态订阅
     _animationController.dispose();
     super.dispose();
   }
@@ -70,6 +73,7 @@ class _AssessmentResultPageState extends State<AssessmentResultPage>
       body: SafeArea(
         child: Column(
           children: [
+            if (isOffline) buildOfflineBannerInline(),
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(AppSpacing.lg),

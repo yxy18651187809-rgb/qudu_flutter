@@ -15,9 +15,9 @@ const assessmentSchema = new mongoose.Schema({
     default: 'initial'
   },
   bookId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Book'
-    // 可选字段，type=review 时必须传入，标识绘本测评来源
+    type: String,
+    // 业务ID（如 L1_book_01），type=review 时必须传入，标识绘本测评来源
+    // 不再使用 ObjectId ref，因为 Book 使用自定义 bookId 字段
   },
   targetLevel: {
     type: Number,

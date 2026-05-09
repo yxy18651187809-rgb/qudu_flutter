@@ -1,6 +1,13 @@
 const mongoose = require('mongoose');
 
 const bookSchema = new mongoose.Schema({
+  // ========== 业务ID ==========
+  bookId: {
+    type: String,
+    unique: true,
+    sparse: true,
+    index: true
+  },
   // ========== 基础信息 ==========
   title: {
     type: String,

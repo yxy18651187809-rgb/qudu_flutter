@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import '../../../core/theme/app_colors.dart';
@@ -6,6 +7,7 @@ import '../../../core/theme/app_radius.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../data/models/assessment_model.dart';
 import '../../../data/repositories/assessment_repository.dart';
+import '../../../core/network/network_aware_mixin.dart';
 import 'assessment_result_page.dart';
 
 /// 答题页面
@@ -24,7 +26,8 @@ class AssessmentQuestionPage extends StatefulWidget {
   State<AssessmentQuestionPage> createState() => _AssessmentQuestionPageState();
 }
 
-class _AssessmentQuestionPageState extends State<AssessmentQuestionPage> {
+class _AssessmentQuestionPageState extends State<AssessmentQuestionPage>
+    with NetworkAwareMixin {
   late AssessmentModel _assessment;
   int _currentIndex = 0;
   bool _isAnswering = false;
@@ -36,12 +39,14 @@ class _AssessmentQuestionPageState extends State<AssessmentQuestionPage> {
   @override
   void initState() {
     super.initState();
+    initNetworkAware(); // 初始化网络状态监听
     _assessment = widget.assessment;
     _questionStartTime = DateTime.now();
   }
 
   @override
   void dispose() {
+    disposeNetworkAware(); // 取消网络状态订阅
     _audioPlayer.dispose(); // 释放资源
     super.dispose();
   }
@@ -56,6 +61,7 @@ class _AssessmentQuestionPageState extends State<AssessmentQuestionPage> {
       body: SafeArea(
         child: Column(
           children: [
+            if (isOffline) buildOfflineBannerInline(),
             _buildProgressBar(),
             Expanded(
               child: _buildQuestionContent(),
@@ -68,16 +74,29 @@ class _AssessmentQuestionPageState extends State<AssessmentQuestionPage> {
   }
 
   PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      title: Text('测评 ${_currentIndex + 1}/${_assessment.questions.length}'),
-      backgroundColor: Colors.white,
-      foregroundColor: AppColors.textPrimary,
-      elevation: 1,
-      leading: IconButton(
-        icon: const Icon(Icons.close),
-        onPressed: _confirmExit,
-      ),
-    );
+    return isOffline
+        ? buildOfflineAppBar(
+            child: AppBar(
+              title: Text('测评 ${_currentIndex + 1}/${_assessment.questions.length}'),
+              backgroundColor: Colors.white,
+              foregroundColor: AppColors.textPrimary,
+              elevation: 1,
+              leading: IconButton(
+                icon: const Icon(Icons.close),
+                onPressed: _confirmExit,
+              ),
+            ),
+          )
+        : AppBar(
+            title: Text('测评 ${_currentIndex + 1}/${_assessment.questions.length}'),
+            backgroundColor: Colors.white,
+            foregroundColor: AppColors.textPrimary,
+            elevation: 1,
+            leading: IconButton(
+              icon: const Icon(Icons.close),
+              onPressed: _confirmExit,
+            ),
+          );
   }
 
   Widget _buildProgressBar() {

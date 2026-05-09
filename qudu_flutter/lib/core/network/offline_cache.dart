@@ -4,7 +4,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// 离线缓存管理器
 class OfflineCache {
   static const String _cachePrefix = 'cache_';
-  static const Duration _defaultCacheDuration = Duration(hours: 24);
+
+  // 分级缓存时长
+  static const Duration kCacheDurationShort = Duration(hours: 1); // 实时数据（学习统计等）
+  static const Duration kCacheDurationMedium = Duration(hours: 24); // 用户信息等
+  static const Duration kCacheDurationLong = Duration(days: 7); // 静态数据（汉字、绘本等）
+
+  static const Duration _defaultCacheDuration = kCacheDurationMedium;
 
   static final OfflineCache _instance = OfflineCache._internal();
   factory OfflineCache() => _instance;

@@ -169,6 +169,12 @@ router.post('/:id/submit', assessmentController.submitAssessment);
  *       404:
  *         description: 测评不存在
  */
+
+// 明确处理 /start GET 请求（避免被 /:id 路由匹配）
+router.get('/start', (req, res) => {
+  res.status(405).json({ code: 40501, data: null, message: '请使用POST方法开始测评' });
+});
+
 router.get('/:id', assessmentController.getAssessmentResult);
 
 /**

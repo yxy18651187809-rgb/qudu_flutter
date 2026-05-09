@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
@@ -7,6 +8,7 @@ import '../../../core/theme/app_radius.dart';
 import '../../../core/di/service_locator.dart';
 import '../../../core/services/storage_service.dart';
 import '../../../data/models/child_model.dart';
+import '../../../core/network/network_aware_mixin.dart';
 
 /// 儿童档案管理页
 /// PRD 4.2: 创建/管理儿童档案，最多3个
@@ -18,7 +20,7 @@ class ChildrenPage extends StatefulWidget {
   State<ChildrenPage> createState() => _ChildrenPageState();
 }
 
-class _ChildrenPageState extends State<ChildrenPage> {
+class _ChildrenPageState extends State<ChildrenPage> with NetworkAwareMixin {
   final List<ChildModel> _children = [];
   bool _isLoading = true;
   bool _isCreating = false;
@@ -43,11 +45,13 @@ class _ChildrenPageState extends State<ChildrenPage> {
   @override
   void initState() {
     super.initState();
+    initNetworkAware(); // 初始化网络状态监听
     _loadChildren();
   }
 
   @override
   void dispose() {
+    disposeNetworkAware(); // 取消网络状态订阅
     _nameController.dispose();
     super.dispose();
   }
@@ -404,9 +408,11 @@ class _ChildrenPageState extends State<ChildrenPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.bg,
-      appBar: AppBar(
-        title: const Text('宝贝档案'),
-      ),
+      appBar: isOffline
+          ? buildOfflineAppBar(
+              child: AppBar(title: const Text('宝贝档案')),
+            )
+          : AppBar(title: const Text('宝贝档案')),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator(color: AppColors.primary))
           : _children.isEmpty

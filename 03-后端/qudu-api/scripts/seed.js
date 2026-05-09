@@ -122,6 +122,7 @@ async function seed() {
     const book1ReviewWords = ['一', '二', '三', '上', '下', '天'];
     
     const book1 = await Book.create({
+      bookId: 'L1_book_01',
       title: '我的身体',
       cover: '/uploads/covers/book_cover_01.png',
       description: '认识身体、学会爱护自己',
@@ -196,6 +197,7 @@ async function seed() {
     const book2ReviewWords = ['人', '口', '手', '大', '小', '我', '你', '心', '是', '的', '了', '会', '一', '二', '三'];
     
     const book2 = await Book.create({
+      bookId: 'L1_book_02',
       title: '早上好',
       cover: '/uploads/covers/book_cover_02.png',
       description: '早安时光，和绘本01的小明一起迎接新的一天',
@@ -262,6 +264,7 @@ async function seed() {
     const book3ReviewWords = ['我', '你', '大', '小', '的', '了', '去', '来'];
     
     const book3 = await Book.create({
+      bookId: 'L1_book_03',
       title: '小兔子找妈妈',
       cover: '/uploads/covers/book_cover_03.png',
       description: '小兔子白白找妈妈的故事，认识自然、感受母爱',
@@ -335,6 +338,7 @@ async function seed() {
     const book4ReviewWords = ['口', '手', '头', '日', '早', '天', '来', '去', '大', '小', '我', '是', '的', '了', '会'];
     
     const book4 = await Book.create({
+      bookId: 'L1_book_04',
       title: '一二三上学去',
       cover: '/uploads/covers/book_cover_04.png',
       description: '数字认知、学校期待、友谊',
@@ -401,6 +405,7 @@ async function seed() {
     const book5ReviewWords = ['人', '口', '手', '大', '小', '我', '你', '是', '的', '了', '一', '二', '三', '上', '好'];
     
     const book5 = await Book.create({
+      bookId: 'L1_book_05',
       title: '红红的太阳',
       cover: '/uploads/covers/book_cover_05.png',
       description: '颜色认知、自然观察、创造力',
@@ -460,6 +465,7 @@ async function seed() {
     const book6ReviewWords = ['人', '大', '小', '我', '你', '好', '的', '了', '一', '二', '三', '上', '下', '天'];
     
     const book6 = await Book.create({
+      bookId: 'L1_book_06',
       title: '好吃的果子',
       cover: '/uploads/covers/book_cover_06.png',
       description: '食物认知、水果名称、分享快乐',
@@ -519,8 +525,9 @@ async function seed() {
     const book7ReviewWords = ['人', '大', '小', '我', '你', '好', '的', '了', '是', '在', '有', '不', '上', '下', '来', '去'];
     
     const book7 = await Book.create({
+      bookId: 'L1_book_07',
       title: '家的小动物',
-      cover: '',
+      cover: '/uploads/covers/book_cover_07.png',
       description: '动物认知、特征观察、生活常识',
       level: 1,
       theme: '动物认知',
@@ -578,8 +585,9 @@ async function seed() {
     const book8ReviewWords = ['人', '大', '小', '我', '你', '好', '的', '了', '是', '在', '有', '不', '上', '下', '来', '去', '天', '风', '雨'];
     
     const book8 = await Book.create({
+      bookId: 'L1_book_08',
       title: '四季歌',
-      cover: '',
+      cover: '/uploads/covers/book_cover_08.png',
       description: '季节认知、自然变化、感受四季',
       level: 1,
       theme: '季节认知',
@@ -637,8 +645,9 @@ async function seed() {
     const book9ReviewWords = ['人', '大', '小', '我', '你', '好', '的', '了', '是', '在', '有', '不', '来', '去', '一', '二', '三', '上'];
     
     const book9 = await Book.create({
+      bookId: 'L1_book_09',
       title: '小明的家',
-      cover: '',
+      cover: '/uploads/covers/book_cover_09.png',
       description: '家庭成员、亲情表达、家居物品',
       level: 1,
       theme: '家庭成员',
@@ -696,8 +705,9 @@ async function seed() {
     const book10ReviewWords = ['人', '大', '小', '我', '你', '好', '的', '了', '是', '在', '有', '不', '来', '去', '一', '二', '三', '上', '看', '水'];
     
     const book10 = await Book.create({
+      bookId: 'L1_book_10',
       title: '去公园玩',
-      cover: '',
+      cover: '/uploads/covers/book_cover_10.png',
       description: '方向认知、户外探索、创意表达',
       level: 1,
       theme: '方向认知',

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -6,6 +7,9 @@ import '../../../core/theme/app_typography.dart';
 import '../../../core/services/storage_service.dart';
 import '../../../data/models/character_model.dart';
 import '../../../data/repositories/character_repository.dart';
+import '../../../core/network/network_ui_helper.dart';
+import '../../../core/network/network_interceptor.dart';
+import '../../../core/di/service_locator.dart';
 import 'review_page.dart';
 
 /// 识字首页
@@ -34,12 +38,28 @@ class _WordLearningPageState extends State<WordLearningPage> {
   String? _error;
   int _reviewCount = 0; // 今日待复习数
   String? _currentChildId;
+  bool _isOffline = false; // 网络状态
+  StreamSubscription<NetworkStatus>? _networkSubscription; // 网络状态订阅
 
   @override
   void initState() {
     super.initState();
     _selectedLevel = widget.initialLevel ?? 1;
+    // 监听网络状态
+    _networkSubscription = ServiceLocator.instance.apiClient.networkStatus.listen((status) {
+      if (mounted) {
+        setState(() {
+          _isOffline = status == NetworkStatus.offline;
+        });
+      }
+    });
     _initChildId();
+  }
+
+  @override
+  void dispose() {
+    _networkSubscription?.cancel();
+    super.dispose();
   }
 
   Future<void> _initChildId() async {
@@ -103,6 +123,7 @@ class _WordLearningPageState extends State<WordLearningPage> {
         child: Column(
           children: [
             _buildHeader(),
+            if (_isOffline) NetworkUIHelper.buildOfflineBanner(),
             _buildReviewBanner(),
             _buildLevelSelector(),
             Expanded(child: _buildContent()),

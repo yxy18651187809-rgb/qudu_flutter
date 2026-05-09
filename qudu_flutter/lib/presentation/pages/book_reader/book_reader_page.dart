@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -5,6 +6,8 @@ import '../../../core/theme/app_radius.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../data/models/assessment_model.dart';
 import '../../../data/repositories/book_reader_repository.dart';
+import '../../../core/network/network_interceptor.dart';
+import '../../../core/di/service_locator.dart';
 import '../assessment/assessment_start_page.dart';
 
 /// 绘本阅读器主页面
@@ -36,6 +39,8 @@ class _BookReaderPageState extends State<BookReaderPage>
   bool _isLoading = true;
   String? _errorMessage;
   bool _showControls = true;
+  bool _isOffline = false; // 网络状态
+  StreamSubscription<NetworkStatus>? _networkSubscription; // 网络状态订阅
 
   // 动画
   late PageController _pageController;
@@ -48,6 +53,14 @@ class _BookReaderPageState extends State<BookReaderPage>
   @override
   void initState() {
     super.initState();
+    // 监听网络状态
+    _networkSubscription = ServiceLocator.instance.apiClient.networkStatus.listen((status) {
+      if (mounted) {
+        setState(() {
+          _isOffline = status == NetworkStatus.offline;
+        });
+      }
+    });
     _pageController = PageController();
     _fadeController = AnimationController(
       duration: const Duration(milliseconds: 300),
@@ -63,6 +76,7 @@ class _BookReaderPageState extends State<BookReaderPage>
 
   @override
   void dispose() {
+    _networkSubscription?.cancel();
     _pageController.dispose();
     _fadeController.dispose();
     super.dispose();
@@ -417,6 +431,15 @@ class _BookReaderPageState extends State<BookReaderPage>
                       ),
                     ),
                   ),
+                  // 离线指示器
+                  if (_isOffline) ...[
+                    const SizedBox(width: 8),
+                    const Icon(
+                      Icons.wifi_off,
+                      color: Colors.orange,
+                      size: 18,
+                    ),
+                  ],
                 ],
               ),
             ),
@@ -527,6 +550,16 @@ class _ReaderPageView extends StatelessWidget {
     this.reviewWordSet = const {}, // P1-002
   });
 
+  /// 将相对URL转为完整URL
+  static String _resolveImageUrl(String url) {
+    if (url.startsWith('http')) return url;
+    const serverBase = String.fromEnvironment(
+      'API_SERVER',
+      defaultValue: 'http://localhost:3000',
+    );
+    return '$serverBase$url';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -568,10 +601,10 @@ class _ReaderPageView extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            // 插画占位图（插画师交付后替换）
+            // 插画图片（支持相对路径自动拼接服务器地址）
             if (page.image.isNotEmpty)
               Image.network(
-                page.image,
+                _resolveImageUrl(page.image),
                 fit: BoxFit.cover,
                 errorBuilder: (_, __, ___) => _buildIllustrationPlaceholder(),
               )
