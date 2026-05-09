@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <!-- 每日挑战图标 -->
+  <circle cx="24" cy="24" r="20" fill="#9C27B0" opacity="0.1"/>
+  <path d="M24 8l4 8h9l-7 6 3 9-8-5-8 5 3-9-7-6h9z" 
+        fill="#FF9800" opacity="0.8"/>
+  <circle cx="24" cy="24" r="6" fill="#9C27B0" opacity="0.6"/>
+  <text x="24" y="28" text-anchor="middle" 
+        font-family="Arial" font-size="8" font-weight="bold" fill="white">✓</text>
+</svg>

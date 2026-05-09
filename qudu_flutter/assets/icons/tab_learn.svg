@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 字趣阅读 - 识字图标（未选中） -->
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <!-- 书页左 -->
+  <path d="M4 4 C4 4 9 3 12 6 C15 3 20 4 20 4 V20 C20 20 15 19 12 22 C9 19 4 20 4 20 Z" stroke="#BDBDBD" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+  <!-- 书脊 -->
+  <line x1="12" y1="6" x2="12" y2="22" stroke="#BDBDBD" stroke-width="1.5"/>
+</svg>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 字趣阅读 - 首页图标（未选中） -->
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <!-- 房子轮廓 -->
+  <path d="M3 12 L12 3 L21 12" stroke="#BDBDBD" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="5" y="12" width="14" height="9" rx="1" stroke="#BDBDBD" stroke-width="2" fill="none"/>
+  <!-- 门 -->
+  <rect x="9.5" y="15" width="5" height="6" rx="0.5" fill="#BDBDBD"/>
+</svg>

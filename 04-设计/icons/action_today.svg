@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <!-- 今日识字图标 -->
+  <circle cx="24" cy="24" r="20" fill="#FF9800" opacity="0.1"/>
+  <rect x="14" y="10" width="20" height="28" rx="3" fill="#FF9800" opacity="0.8"/>
+  <text x="24" y="30" text-anchor="middle" 
+        font-family="Arial" font-size="14" font-weight="bold" fill="white">字</text>
+  <circle cx="24" cy="38" r="2" fill="#FF9800"/>
+</svg>

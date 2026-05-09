@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 趣趣 Qùqu - 默认微笑表情 -->
+<!-- 字趣阅读品牌IP形象 -->
+<!-- 设计来源：04-设计/IP形象规范_趣趣_v1.md -->
+<svg viewBox="0 0 160 210" xmlns="http://www.w3.org/2000/svg">
+  <!-- 身体节3（尾部） -->
+  <ellipse cx="80" cy="180" rx="22" ry="18" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 身体节2（中部） -->
+  <ellipse cx="80" cy="150" rx="28" ry="22" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 身体节1（头部后方） -->
+  <ellipse cx="80" cy="116" rx="32" ry="26" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 尾巴 -->
+  <path d="M80 195 Q90 208 80 218 Q70 208 80 195" fill="#A5C487"/>
+  <!-- 腹部高光（增加立体感） -->
+  <ellipse cx="80" cy="180" rx="12" ry="9" fill="#FFF8E1" opacity="0.85"/>
+  <ellipse cx="80" cy="150" rx="17" ry="13" fill="#FFF8E1" opacity="0.85"/>
+  <ellipse cx="80" cy="116" rx="20" ry="15" fill="#FFF8E1" opacity="0.85"/>
+  <!-- 手（左侧） -->
+  <circle cx="40" cy="112" r="11" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 手（右侧，持书） -->
+  <circle cx="120" cy="112" r="11" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 书 -->
+  <rect x="116" y="94" width="28" height="22" rx="4" fill="#FF8A65" stroke="#E64A19" stroke-width="1.5"/>
+  <line x1="130" y1="94" x2="130" y2="116" stroke="#E64A19" stroke-width="1.5"/>
+  <!-- 头部 -->
+  <ellipse cx="80" cy="68" rx="42" ry="38" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 头顶叶子 -->
+  <ellipse cx="80" cy="30" rx="13" ry="20" fill="#8BC34A" stroke="#689F38" stroke-width="1.5" transform="rotate(-8 80 30)"/>
+  <line x1="80" y1="36" x2="80" y2="50" stroke="#689F38" stroke-width="2"/>
+  <!-- 腮红（左侧） -->
+  <ellipse cx="48" cy="78" rx="12" ry="9" fill="#FFAB91" opacity="0.55"/>
+  <!-- 腮红（右侧） -->
+  <ellipse cx="112" cy="78" rx="12" ry="9" fill="#FFAB91" opacity="0.55"/>
+  <!-- 眼睛（左侧） -->
+  <circle cx="63" cy="62" r="14" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <circle cx="63" cy="63" r="9.5" fill="#212121"/>
+  <circle cx="67" cy="58" r="3" fill="white"/>
+  <!-- 眼睛（右侧） -->
+  <circle cx="97" cy="62" r="14" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <circle cx="97" cy="63" r="9.5" fill="#212121"/>
+  <circle cx="101" cy="58" r="3" fill="white"/>
+  <!-- 嘴巴（微笑） -->
+  <path d="M66 84 Q80 96 94 84" stroke="#795548" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+</svg>

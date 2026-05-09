@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 趣趣 Qùqu - 开心表情 -->
+<!-- 使用场景：完成任务、获得奖励、阅读完成 -->
+<svg viewBox="0 0 160 210" xmlns="http://www.w3.org/2000/svg">
+  <!-- 身体节3（尾部） -->
+  <ellipse cx="80" cy="180" rx="22" ry="18" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 身体节2（中部） -->
+  <ellipse cx="80" cy="150" rx="28" ry="22" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 身体节1（头部后方） -->
+  <ellipse cx="80" cy="116" rx="32" ry="26" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 尾巴（欢快摆动） -->
+  <path d="M80 195 Q95 205 85 218 Q70 210 80 195" fill="#A5C487"/>
+  <!-- 腹部高光 -->
+  <ellipse cx="80" cy="180" rx="12" ry="9" fill="#FFF8E1" opacity="0.85"/>
+  <ellipse cx="80" cy="150" rx="17" ry="13" fill="#FFF8E1" opacity="0.85"/>
+  <ellipse cx="80" cy="116" rx="20" ry="15" fill="#FFF8E1" opacity="0.85"/>
+  <!-- 手（左侧，挥手） -->
+  <circle cx="38" cy="108" r="11" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 手（右侧，持书） -->
+  <circle cx="122" cy="110" r="11" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 书 -->
+  <rect x="118" y="92" width="28" height="22" rx="4" fill="#FF8A65" stroke="#E64A19" stroke-width="1.5"/>
+  <line x1="132" y1="92" x2="132" y2="114" stroke="#E64A19" stroke-width="1.5"/>
+  <!-- 头部 -->
+  <ellipse cx="80" cy="68" rx="42" ry="38" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 头顶叶子（欢快摆动） -->
+  <ellipse cx="78" cy="28" rx="13" ry="20" fill="#8BC34A" stroke="#689F38" stroke-width="1.5" transform="rotate(-15 78 28)"/>
+  <line x1="78" y1="34" x2="78" y2="50" stroke="#689F38" stroke-width="2"/>
+  <!-- 腮红（略大，颜色略深） -->
+  <ellipse cx="46" cy="80" rx="14" ry="10" fill="#FFAB91" opacity="0.65"/>
+  <ellipse cx="114" cy="80" rx="14" ry="10" fill="#FFAB91" opacity="0.65"/>
+  <!-- 眼睛（弯成月牙形 ⌒⌒） -->
+  <path d="M50 60 Q63 48 76 60" stroke="#212121" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M84 60 Q97 48 110 60" stroke="#212121" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <!-- 高光（眼睛上方） -->
+  <circle cx="60" cy="52" r="3" fill="white"/>
+  <circle cx="104" cy="52" r="3" fill="white"/>
+  <!-- 嘴巴（张开大笑 D 形，可见小舌头） -->
+  <path d="M68 88 Q80 108 92 88 Q80 100 68 88 Z" fill="#795548"/>
+  <path d="M68 88 Q80 98 92 88 Q80 96 68 88 Z" fill="#FF6B6B"/>
+  <!-- 星星特效（开心时） -->
+  <g transform="translate(30, 20)">
+    <polygon points="8,0 10,6 16,6 11,10 13,16 8,12 3,16 5,10 0,6 6,6" fill="#FFD54F" opacity="0.8"/>
+  </g>
+  <g transform="translate(120, 15)">
+    <polygon points="6,0 7.5,4.5 12,4.5 8.5,7.5 10,12 6,9 2,12 3.5,7.5 0,4.5 4.5,4.5" fill="#FFD54F" opacity="0.7"/>
+  </g>
+</svg>

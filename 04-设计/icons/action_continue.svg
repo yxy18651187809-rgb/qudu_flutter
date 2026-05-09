@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <!-- 继续阅读图标 -->
+  <circle cx="24" cy="24" r="20" fill="#4CAF50" opacity="0.1"/>
+  <path d="M16 12h16c2 0 4 2 4 4v20l-6-4-6 4-6-4-6 4V16c0-2 2-4 4-4z" 
+        fill="#4CAF50" opacity="0.8"/>
+  <path d="M20 20h8M20 26h6" stroke="white" stroke-width="2" stroke-linecap="round"/>
+</svg>

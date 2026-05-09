@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 字趣阅读 - 书架图标（选中） -->
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <!-- 书架 -->
+  <rect x="3" y="3" width="18" height="18" rx="1" stroke="#8BC34A" stroke-width="1.5" fill="#C5E8A8"/>
+  <!-- 隔板 -->
+  <line x1="3" y1="9" x2="21" y2="9" stroke="#8BC34A" stroke-width="1.5"/>
+  <line x1="3" y1="15" x2="21" y2="15" stroke="#8BC34A" stroke-width="1.5"/>
+  <!-- 书脊装饰 -->
+  <rect x="5" y="4" width="2" height="5" rx="0.5" fill="#8BC34A"/>
+  <rect x="8" y="3.5" width="2" height="5.5" rx="0.5" fill="#8BC34A"/>
+  <rect x="14" y="4" width="2" height="5" rx="0.5" fill="#8BC34A"/>
+  <rect x="17" y="3.5" width="2" height="5.5" rx="0.5" fill="#8BC34A"/>
+</svg>

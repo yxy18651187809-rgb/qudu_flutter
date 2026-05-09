@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" width="300" height="200">
+  <!-- 空状态插画 - 无孩子档案 -->
+  <rect width="300" height="200" fill="#F5F5F5" rx="10"/>
+  
+  <!-- 趣趣IP形象（疑惑表情） -->
+  <ellipse cx="150" cy="100" rx="40" ry="50" fill="#4CAF50"/>
+  <circle cx="140" cy="85" r="6" fill="white"/>
+  <circle cx="160" cy="85" r="6" fill="white"/>
+  <circle cx="140" cy="85" r="3" fill="black"/>
+  <circle cx="160" cy="85" r="3" fill="black"/>
+  <ellipse cx="150" cy="100" rx="8" ry="5" fill="#388E3C"/>
+  <path d="M140 110c0-5 20-5 20 0" fill="none" stroke="black" stroke-width="2"/>
+  
+  <!-- 装饰问号 -->
+  <text x="100" y="80" font-family="Arial" font-size="24" fill="#FF9800" opacity="0.6">?</text>
+  <text x="200" y="90" font-family="Arial" font-size="20" fill="#2196F3" opacity="0.6">?</text>
+  <text x="90" y="130" font-family="Arial" font-size="18" fill="#9C27B0" opacity="0.6">?</text>
+  
+  <!-- 提示文字占位 -->
+  <rect x="75" y="160" width="150" height="20" rx="5" fill="white" opacity="0.8"/>
+</svg>

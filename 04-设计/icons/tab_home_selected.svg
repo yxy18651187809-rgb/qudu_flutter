@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <!-- 首页图标 - 选中状态 -->
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4CAF50;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#81C784;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <path d="M3 9.5L12 3l9 6.5V20a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 20V9.5z" 
+        fill="url(#grad1)" stroke="url(#grad1)" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M9 21V14h6v7" 
+        fill="url(#grad1)" stroke="url(#grad1)" stroke-width="1.5" stroke-linejoin="round"/>
+  <circle cx="12" cy="7" r="1.5" fill="white"/>
+</svg>

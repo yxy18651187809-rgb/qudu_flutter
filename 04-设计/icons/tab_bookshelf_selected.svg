@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <!-- 书架图标 - 选中状态 -->
+  <defs>
+    <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4CAF50;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#81C784;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect x="3" y="4" width="18" height="16" rx="1" 
+        fill="url(#grad3)" stroke="url(#grad3)" stroke-width="1.5"/>
+  <line x1="8" y1="4" x2="8" y2="20" stroke="white" stroke-width="1.5"/>
+  <line x1="16" y1="4" x2="16" y2="20" stroke="white" stroke-width="1.5"/>
+  <line x1="3" y1="9" x2="21" y2="9" stroke="white" stroke-width="1.5"/>
+  <line x1="3" y1="15" x2="21" y2="15" stroke="white" stroke-width="1.5"/>
+</svg>

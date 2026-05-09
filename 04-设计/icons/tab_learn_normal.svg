@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <!-- 识字图标 - 普通状态（汉字"字"的抽象表示） -->
+  <rect x="4" y="3" width="16" height="18" rx="2" 
+        fill="none" stroke="#757575" stroke-width="1.5"/>
+  <text x="12" y="16" text-anchor="middle" 
+        font-family="Arial" font-size="10" fill="#757575">字</text>
+</svg>

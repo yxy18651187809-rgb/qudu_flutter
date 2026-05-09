@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <!-- 我的图标 - 选中状态 -->
+  <defs>
+    <linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4CAF50;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#81C784;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <circle cx="12" cy="8" r="4" 
+          fill="url(#grad4)" stroke="url(#grad4)" stroke-width="1.5"/>
+  <path d="M4 21c0-4 3.6-7 8-7s8 3 8 7" 
+        fill="url(#grad4)" stroke="url(#grad4)" stroke-width="1.5" stroke-linecap="round"/>
+</svg>
