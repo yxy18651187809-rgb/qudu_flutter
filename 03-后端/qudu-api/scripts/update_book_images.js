@@ -49,12 +49,10 @@ async function updateBookImages() {
       }
 
       // 2. 更新BookPage图片路径
-      // P00=封面(对应pageNumber=0或1，取决于seed)
-      // seed.js中pageNumber从1开始，P00对应封面（不在BookPage中）
-      // P01-P10 对应 pageNumber 1-10
+      // 图片已放到 uploads/pages/ 目录，命名格式：XX_P0Y.png（不含book_前缀）
       let pagesUpdated = 0;
       for (let pageNum = 1; pageNum <= 10; pageNum++) {
-        const pageImage = `/uploads/books/book_${cfg.bookNum}_P${String(pageNum).padStart(2, '0')}.png`;
+        const pageImage = `/uploads/pages/${cfg.bookNum}_P${String(pageNum).padStart(2, '0')}.png`;
         const result = await BookPage.updateOne(
           { bookId: book._id, pageNumber: pageNum },
           { image: pageImage }
