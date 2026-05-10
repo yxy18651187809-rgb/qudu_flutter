@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  backend:
+    name: 后端 - 测试 & Lint
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 03-后端/qudu-api
+
+    services:
+      mongodb:
+        image: mongo:6
+        ports:
+          - 27017:27017
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: 03-后端/qudu-api/package-lock.json
+
+      - run: npm ci
+
+      - name: 单元测试
+        run: npm test -- tests/unit/
+        env:
+          MONGODB_URI: mongodb://localhost:27017/qudu_test
+          JWT_SECRET: test-secret
+          NODE_ENV: test
+
+  frontend:
+    name: 前端 - 分析 & 测试
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: qudu_flutter
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.19.6'
+          channel: 'stable'
+
+      - run: flutter pub get
+
+      - name: 静态分析
+        run: flutter analyze
+
+      - name: 单元测试
+        run: flutter test

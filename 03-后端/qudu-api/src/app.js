@@ -7,6 +7,7 @@ const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const path = require('path');
 const config = require('./config');
+const logger = require('./utils/logger');
 
 // 路由
 const authRoutes = require('./routes/auth');
@@ -130,7 +131,7 @@ app.use((err, req, res, next) => {
   // Mongoose 验证错误
   if (err.name === 'ValidationError') {
     const messages = Object.values(err.errors).map(e => e.message);
-    console.warn(`[Validation] ${req.method} ${req.originalUrl}: ${messages.join('; ')}`);
+    logger.warn(`[Validation] ${req.method} ${req.originalUrl}: ${messages.join('; ')}`);
     return res.status(400).json({
       code: 40010,
       data: null,
@@ -140,7 +141,7 @@ app.use((err, req, res, next) => {
   
   // Mongoose CastError（无效ID等）
   if (err.name === 'CastError') {
-    console.warn(`[CastError] ${req.method} ${req.originalUrl}: ${err.path}=${err.value}`);
+    logger.warn(`[CastError] ${req.method} ${req.originalUrl}: ${err.path}=${err.value}`);
     return res.status(400).json({
       code: 40010,
       data: null,
@@ -150,7 +151,7 @@ app.use((err, req, res, next) => {
   
   // JSON 解析错误
   if (err.type === 'entity.parse.failed') {
-    console.warn(`[ParseError] ${req.method} ${req.originalUrl}: 无效的JSON`);
+    logger.warn(`[ParseError] ${req.method} ${req.originalUrl}: 无效的JSON`);
     return res.status(400).json({
       code: 40010,
       data: null,
@@ -159,7 +160,7 @@ app.use((err, req, res, next) => {
   }
   
   // 未知错误
-  console.error(`[Global Error] ${req.method} ${req.originalUrl} requestId=${req.requestId || 'unknown'}`, err);
+  logger.error(`[Global Error] ${req.method} ${req.originalUrl} requestId=${req.requestId || 'unknown'}`, err);
   res.status(500).json({
     code: 50001,
     data: null,
@@ -172,18 +173,64 @@ async function startServer() {
   try {
     // 连接 MongoDB
     await mongoose.connect(config.mongodb.uri);
-    console.log(`[MongoDB] 已连接: ${config.mongodb.uri}`);
+    logger.info(`[MongoDB] 已连接: ${config.mongodb.uri}`);
     
-    // 启动服务
-    app.listen(config.port, () => {
-      console.log(`[Server] 字趣阅读API服务已启动`);
-      console.log(`[Server] 端口: ${config.port}`);
-      console.log(`[Server] 环境: ${config.sms.provider === 'mock' ? '开发(MOCK)' : '生产'}`);
-      console.log(`[Server] 健康检查: http://localhost:${config.port}/health`);
-      console.log(`[Server] API文档: http://localhost:${config.port}/api-docs`);
+    const server = app.listen(config.port, () => {
+      logger.info('[Server] 字趣阅读API服务已启动');
+      logger.info(`[Server] 端口: ${config.port}`);
+      logger.info(`[Server] 环境: ${config.sms.provider === 'mock' ? '开发(MOCK)' : '生产'}`);
+      logger.info(`[Server] 健康检查: http://localhost:${config.port}/health`);
+      logger.info(`[Server] API文档: http://localhost:${config.port}/api-docs`);
     });
+
+    // ===== 优雅关闭 =====
+    const gracefulShutdown = async (signal) => {
+      logger.info(`[Server] 收到 ${signal} 信号，开始优雅关闭...`);
+      
+      // 1. 停止接收新请求
+      server.close(() => {
+        logger.info('[Server] HTTP 服务已关闭');
+      });
+
+      // 2. 断开数据库连接
+      try {
+        await mongoose.disconnect();
+        logger.info('[MongoDB] 连接已关闭');
+      } catch (err) {
+        logger.error('[MongoDB] 关闭失败:', err.message);
+      }
+
+      // 3. 断开 Redis（如果已连接）
+      try {
+        const Redis = require('ioredis');
+        const redis = new Redis(config.redis.url, { lazyConnect: true });
+        try {
+          await redis.connect();
+          await redis.quit();
+          logger.info('[Redis] 连接已关闭');
+        } catch {
+          // Redis 未连接，跳过
+        }
+      } catch {
+        // Redis 模块加载失败，跳过
+      }
+
+      logger.info('[Server] 优雅关闭完成');
+      process.exit(0);
+    };
+
+    process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+    process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+    process.on('unhandledRejection', (reason) => {
+      logger.error('[Server] 未处理的Promise拒绝:', reason);
+    });
+    process.on('uncaughtException', (err) => {
+      logger.error('[Server] 未捕获的异常:', err);
+      gracefulShutdown('UNCAUGHT_EXCEPTION');
+    });
+
   } catch (err) {
-    console.error('[Server] 启动失败:', err);
+    logger.error('[Server] 启动失败:', err);
     process.exit(1);
   }
 }
