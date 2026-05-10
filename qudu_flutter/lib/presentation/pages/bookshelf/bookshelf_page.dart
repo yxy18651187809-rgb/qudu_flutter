@@ -216,21 +216,50 @@ class _BookshelfPageState extends State<BookshelfPage> {
     );
   }
 
-  /// 绘本网格（2列）
+  /// 绘本网格（响应式列数）
+  /// 手机 ≤600dp：2列  |  平板 600–900dp：3列  |  大屏 ≥900dp：4列
   Widget _buildBookGrid() {
-    return GridView.builder(
-      padding: const EdgeInsets.all(AppSpacing.md),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 0.72, // 宽:高 ≈ 1:1.4（绘本比例）
-        crossAxisSpacing: AppSpacing.md,
-        mainAxisSpacing: AppSpacing.md,
-      ),
-      itemCount: _books.length,
-      itemBuilder: (context, index) {
-        return _BookCard(
-          book: _books[index],
-          onTap: () => _onBookTap(_books[index]),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final width = constraints.maxWidth;
+        final breakpoint = MediaQuery.of(context).size.shortestSide;
+
+        int crossAxisCount;
+        double childAspectRatio;
+        double padding;
+
+        if (width >= 900) {
+          // 大平板 / 桌面：4列，卡片略宽
+          crossAxisCount = 4;
+          childAspectRatio = 0.75;
+          padding = AppSpacing.lg;
+        } else if (width >= 600) {
+          // 平板：3列
+          crossAxisCount = 3;
+          childAspectRatio = 0.72;
+          padding = AppSpacing.lg;
+        } else {
+          // 手机：2列
+          crossAxisCount = 2;
+          childAspectRatio = 0.72;
+          padding = AppSpacing.md;
+        }
+
+        return GridView.builder(
+          padding: EdgeInsets.all(padding),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: crossAxisCount,
+            childAspectRatio: childAspectRatio,
+            crossAxisSpacing: AppSpacing.md,
+            mainAxisSpacing: AppSpacing.md,
+          ),
+          itemCount: _books.length,
+          itemBuilder: (context, index) {
+            return _BookCard(
+              book: _books[index],
+              onTap: () => _onBookTap(_books[index]),
+            );
+          },
         );
       },
     );

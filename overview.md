@@ -1,123 +1,46 @@
-# 字趣阅读 Phase 1 收尾工作概览
+# 技术质量提升计划 — 执行完成报告
 
-> **完成时间**：2026-05-03 16:00
-> **执行人**：team-lead（前端负责人角色）
-> **工作模式**：Craft（直接执行）
+## 执行时间
+2026-05-10 21:37 ~ 21:50
 
----
+## P0 完成项（5/5 = 100%）
 
-## 一、完成工作摘要
+### 1. ✅ 后端单元测试（71 tests）
+| 文件 | 测试数 | 覆盖内容 |
+|------|--------|----------|
+| questionGenerator.test.js | 31 | stripTone + adjustDistribution + shuffleArray + buildQuestion + 配置常量 |
+| reviewAlgorithm.test.js | 40 | calculateNextReview + calculateStage + estimateWordCount + recommendLevel + addDays |
 
-### 1. 后端服务验证 ✅
-- 后端服务运行正常（PID 7834，端口3000）
-- 22个API接口全部可访问
-- MongoDB + Redis：Healthy
+### 2. ✅ 前端单元测试（23 tests）
+| 文件 | 测试数 | 覆盖内容 |
+|------|--------|----------|
+| child_model_test.dart | 10 | fromJson/空值/age/levelLabel/toCreateJson/toUpdateJson |
+| book_model_test.dart | 13 | fromJson/_id兼容/toJson/masteryProgress/levelLabel/lastReadAt |
 
-### 2. Flutter代码质量检查 ✅
-- `flutter analyze` 结果：**0 error**
-- 51 issues（全部是info + 1个warning）
-- 代码质量良好，无阻塞性问题
+### 3. ✅ 后端日志体系（winston）
+- `src/utils/logger.js`：结构化日志，error.log + combined.log，日志轮转
+- `src/app.js`：console → logger（warn/error/info）
 
-### 3. 前端核心代码审查 ✅
-发现4个关键Bug + 2个改进建议：
+### 4. ✅ CI 流水线（GitHub Actions）
+- `.github/workflows/ci.yml`：backend + frontend 两个 job
 
-| 优先级 | Bug | 文件 | 行号 |
-|--------|-----|------|------|
-| P0 | 封面图URL硬编码 | bookshelf_page.dart | 291 |
-| P0 | 统计字段映射错误 | home_page.dart | 31-34 |
-| P1 | 页码指示器逻辑错误 | book_reader_page.dart | 468 |
-| P1 | 活动数据硬编码 | home_page.dart | 341-360 |
-| P2 | 测评URL硬编码×3处 | assessment_question_page.dart | 263,343,649 |
+### 5. ✅ 工程规范
+- `.github/pull_request_template.md`：标准 PR 模板
+- `GIT_COMMIT_CONVENTION.md`：Git 提交规范 + Code Review 要求
 
-### 4. Bug修复 ✅（6项）
+## 技术健康度更新
 
-| 修复项 | 文件 | 说明 |
-|--------|------|------|
-| FIX-01 | bookshelf_page.dart:289 | 封面图URL改为智能判断（完整URL直接用，相对路径拼接） |
-| FIX-02 | home_page.dart:31-34 | 统计字段重新映射：累计识字=新学+已掌握，获得星星=totalStars |
-| FIX-03 | home_page.dart:323-366 | 最近动态改为基于weeklyTrend动态渲染，空状态友好提示 |
-| FIX-04 | book_reader_page.dart:468 | 页码>10时显示"当前页/总页"文字，≤10页显示圆点 |
-| FIX-05 | assessment_question_page.dart | 统一使用`_resolveUrl()`方法，3处硬编码全部修复 |
-| FIX-06 | assessmentController.js | 5/2已修复imageUrl/audioUrl字段返回 |
+| 指标 | 执行前 | 执行后 |
+|------|--------|--------|
+| 前端单元测试数 | 0 | 23 ✅ |
+| 后端单元测试数 | 0 | 71 ✅ |
+| CI 流水线 | 无 | 已配置 ✅ |
+| Code Review 模板 | 无 | PR模板就绪 ✅ |
+| Git 提交规范 | 弱 | 规范文档就绪 ✅ |
+| 生产日志 | console.log | winston ✅ |
 
-**验证结果**：`flutter analyze` 0 error ✅
-
-### 5. Phase 1 交付文档生成 ✅
-
-| 文档 | 状态 | 说明 |
-|------|------|------|
-| Phase1-功能清单与演示脚本.md | ✅ 已存在 | 24个功能点+15分钟演示脚本 |
-| Phase1-已知Issue清单.md | ✅ 新建 | P0=0个，P1=5个，P2=8个，已修复6个 |
-| TEAM_STATUS.md | ✅ 已更新 | 5/3冲刺收尾，Phase 1 100%完成 |
-
-### 6. 工作记忆更新 ✅
-- `/.workbuddy/memory/2026-05-03.md` 已追加今日工作日志
-
----
-
-## 二、Phase 1 交付状态
-
-| 维度 | 状态 | 说明 |
-|------|------|------|
-| **功能完成度** | 24/24 = 100% ✅ | 6大模块全部跑通 |
-| **代码质量** | 0 error ✅ | flutter analyze通过 |
-| **API全链路** | 22/22 通过 ✅ | 登录→建档→书架→阅读器→测评 |
-| **后端服务** | 健康 ✅ | MongoDB + Redis Up |
-| **交付文档** | 完整 ✅ | 功能清单+Issue清单+演示脚本 |
-
----
-
-## 三、关键决策
-
-1. **封面图URL处理**：改为智能判断，生产环境可用
-2. **首页统计字段映射**：根据后端真实API返回调整，数据显示更准确
-3. **最近动态改用真实数据**：基于weeklyTrend，用户体验提升
-4. **页码指示器优化**：>10页显示文字，避免UI异常
-5. **测评URL统一处理**：`_resolveUrl()`方法 + `String.fromEnvironment`
-
----
-
-## 四、遗留问题（非阻塞）
-
-| 级别 | 问题 | 负责人 | 计划 |
-|--------|------|--------|------|
-| P1 | 绘本03-10上色未完成 | 插画师 | P0任务，需优先完成 |
-| P1 | 复习功能未实现 | 前端负责人 | Phase 2 |
-| P1 | 音频资源大部分缺失 | 后端负责人 | Phase 2 |
-| P1 | 品牌视觉缺失 | 插画师 | 等资源交付后替换 |
-| P2 | 测评答案即时反馈缺失 | 后端+前端 | Phase 2 |
-| P2 | TabBar图标使用Material默认 | 插画师 | 等资源交付后替换 |
-
----
-
-## 五、下一步计划（Phase 2）
-
-| 优先级 | 任务 | 依赖 |
-|--------|------|------|
-| P0 | 绘本03-10上色完成 | 插画师 |
-| P1 | 复习功能实现 | 后端遗忘曲线API |
-| P1 | 品牌视觉替换 | 插画师资源交付 |
-| P2 | 微信支付接入 | 微信商户号 |
-| P2 | BLoC状态管理迁移 | 无 |
-| P2 | L2-L5绘本创作 | 教研员 |
-
----
-
-## 六、任务完成清单
-
-| 任务ID | 任务名称 | 状态 |
-|--------|----------|------|
-| #5 | 确认后端服务运行状态 | ✅ completed |
-| #6 | Flutter代码质量检查 | ✅ completed |
-| #7 | 前端核心功能代码审查 | ✅ completed |
-| #8 | 修复已发现的问题 | ✅ completed |
-| #9 | 生成Phase 1交付文档 | ✅ completed |
-| #10 | 更新工作记忆 | ✅ completed |
-
-**任务完成率：6/6 = 100%** ✅
-
----
-
-*概览生成时间：2026-05-03 16:00*  
-*工作模式：Craft（直接执行）*  
-*Phase 1 状态：✅ 可交付演示*
+## 待后续（P1 5月底前）
+- 前端：首页 BLoC 迁移（需前端负责人执行）
+- 后端：确认 winston 在实际启动中正常工作
+- 团队：按 PR 模板执行 Code Review
+- 运营：周会设立「技术质量」议题

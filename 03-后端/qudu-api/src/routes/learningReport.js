@@ -2,6 +2,36 @@ const express = require('express');
 const router = express.Router();
 const reportCtrl = require('../controllers/learningReportController');
 const authMiddleware = require('../middlewares/auth');
+const { validateObjectId } = require('../middlewares/validateObjectId');
+
+/**
+ * @openapi
+ * /learning-report/parent/{parentId}:
+ *   get:
+ *     tags: [学习报告]
+ *     summary: 获取学习报告列表（家长视角）
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: parentId
+ *         in: path
+ *         required: true
+ *         schema: { type: string }
+ *         description: 家长ID
+ *       - name: period
+ *         in: query
+ *         required: false
+ *         schema: { type: string, enum: [daily, weekly], default: daily }
+ *         description: 报告周期
+ *       - name: date
+ *         in: query
+ *         schema: { type: string, format: date }
+ *         description: 报告日期，默认今天
+ *     responses:
+ *       200: { description: 成功 }
+ *       403: { description: 无权访问 }
+ */
+router.get('/parent/:parentId', authMiddleware, reportCtrl.getLearningReportList);
 
 /**
  * @openapi
@@ -16,77 +46,25 @@ const authMiddleware = require('../middlewares/auth');
  *       - name: childId
  *         in: path
  *         required: true
- *         schema:
- *           type: string
+ *         schema: { type: string }
  *         description: 孩子ID
  *       - name: period
  *         in: query
  *         required: false
- *         schema:
- *           type: string
- *           enum: [daily, weekly, monthly]
- *           default: daily
- *         description: 报告周期
+ *         schema: { type: string, enum: [daily, weekly, monthly], default: daily }
  *       - name: date
  *         in: query
- *         required: false
- *         schema:
- *           type: string
- *           format: date
+ *         schema: { type: string, format: date }
  *         description: 报告日期（YYYY-MM-DD），默认今天
  *       - name: days
  *         in: query
- *         required: false
- *         schema:
- *           type: integer
- *           default: 7
+ *         schema: { type: integer, default: 7 }
  *         description: 趋势数据天数
  *     responses:
- *       200:
- *         description: 成功
- *       404:
- *         description: 孩子不存在或无权访问
+ *       200: { description: 成功 }
+ *       404: { description: 孩子不存在或无权访问 }
  */
-router.get('/:childId', authMiddleware, reportCtrl.getLearningReport);
-
-/**
- * @openapi
- * /learning-report/parent/{parentId}:
- *   get:
- *     tags: [学习报告]
- *     summary: 获取学习报告列表（家长视角）
- *     description: 获取某家长所有孩子的学习报告汇总
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - name: parentId
- *         in: path
- *         required: true
- *         schema:
- *           type: string
- *         description: 家长ID
- *       - name: period
- *         in: query
- *         required: false
- *         schema:
- *           type: string
- *           enum: [daily, weekly]
- *           default: daily
- *         description: 报告周期
- *       - name: date
- *         in: query
- *         required: false
- *         schema:
- *           type: string
- *           format: date
- *         description: 报告日期，默认今天
- *     responses:
- *       200:
- *         description: 成功
- *       403:
- *         description: 无权访问
- */
-router.get('/parent/:parentId', authMiddleware, reportCtrl.getLearningReportList);
+router.get('/:childId', authMiddleware, validateObjectId('childId'), reportCtrl.getLearningReport);
 
 /**
  * @openapi
@@ -94,39 +72,27 @@ router.get('/parent/:parentId', authMiddleware, reportCtrl.getLearningReportList
  *   post:
  *     tags: [学习报告]
  *     summary: 生成学习报告（手动触发）
- *     description: 手动触发生成指定日期的学习报告
  *     security:
  *       - bearerAuth: []
  *     parameters:
  *       - name: childId
  *         in: path
  *         required: true
- *         schema:
- *           type: string
+ *         schema: { type: string }
  *         description: 孩子ID
  *     requestBody:
- *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
  *             properties:
- *               date:
- *                 type: string
- *                 format: date
- *                 description: 报告日期
- *               period:
- *                 type: string
- *                 enum: [daily, weekly, monthly]
- *                 default: daily
- *                 description: 报告周期
+ *               date: { type: string, format: date }
+ *               period: { type: string, enum: [daily, weekly, monthly], default: daily }
  *     responses:
- *       200:
- *         description: 生成成功
- *       403:
- *         description: 无权操作
+ *       200: { description: 生成成功 }
+ *       403: { description: 无权操作 }
  */
-router.post('/:childId/generate', authMiddleware, reportCtrl.generateLearningReport);
+router.post('/:childId/generate', authMiddleware, validateObjectId('childId'), reportCtrl.generateLearningReport);
 
 /**
  * @openapi
@@ -134,29 +100,20 @@ router.post('/:childId/generate', authMiddleware, reportCtrl.generateLearningRep
  *   get:
  *     tags: [学习报告]
  *     summary: 获取识字量趋势（简化版）
- *     description: 仅获取识字量趋势数据（用于首页图表）
  *     security:
  *       - bearerAuth: []
  *     parameters:
  *       - name: childId
  *         in: path
  *         required: true
- *         schema:
- *           type: string
- *         description: 孩子ID
+ *         schema: { type: string }
  *       - name: days
  *         in: query
- *         required: false
- *         schema:
- *           type: integer
- *           default: 30
- *         description: 天数
+ *         schema: { type: integer, default: 30 }
  *     responses:
- *       200:
- *         description: 成功
- *       403:
- *         description: 无权访问
+ *       200: { description: 成功 }
+ *       403: { description: 无权访问 }
  */
-router.get('/:childId/characters-trend', authMiddleware, reportCtrl.getCharactersTrend);
+router.get('/:childId/characters-trend', authMiddleware, validateObjectId('childId'), reportCtrl.getCharactersTrend);
 
 module.exports = router;

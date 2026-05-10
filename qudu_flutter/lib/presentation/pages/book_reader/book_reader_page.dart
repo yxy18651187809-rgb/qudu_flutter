@@ -562,22 +562,39 @@ class _ReaderPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
+    final isTablet = size.shortestSide >= 600;
+    final isLandscape = size.width > size.height;
+
+    // 平板或横屏：左右分栏布局
+    final useHorizontal = isTablet || isLandscape;
+
     return Container(
       color: AppColors.background,
-      child: Column(
-        children: [
-          // --- 插画区（占60%）---
-          Expanded(
-            flex: 60,
-            child: _buildIllustration(),
-          ),
-          // --- 文字区（占40%）---
-          Expanded(
-            flex: 40,
-            child: _buildTextArea(),
-          ),
-        ],
-      ),
+      child: useHorizontal
+          ? Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // 插画区（左侧）
+                Expanded(
+                  flex: isLandscape && !isTablet ? 50 : 55,
+                  child: _buildIllustration(),
+                ),
+                // 文字区（右侧）
+                Expanded(
+                  flex: isLandscape && !isTablet ? 50 : 45,
+                  child: _buildTextArea(),
+                ),
+              ],
+            )
+          : Column(
+              children: [
+                // 插画区（上方）
+                Expanded(flex: 60, child: _buildIllustration()),
+                // 文字区（下方）
+                Expanded(flex: 40, child: _buildTextArea()),
+              ],
+            ),
     );
   }
 
