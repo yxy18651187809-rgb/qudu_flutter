@@ -22,13 +22,18 @@ async function updateBookImages() {
     await mongoose.connect(config.mongodb.uri);
     console.log('[UpdateImages] 已连接数据库');
 
-    // 绘本配置：bookId → 内页数量（P00-P10 = 11张）
+    // 绘本配置：bookId → 内页数量（P01-P10 = 10张）
     const bookConfigs = [
+      { bookId: 'L1_book_01', bookNum: '01', title: '我的身体' },
+      { bookId: 'L1_book_02', bookNum: '02', title: '早上好' },
+      { bookId: 'L1_book_03', bookNum: '03', title: '小兔子找妈妈' },
       { bookId: 'L1_book_04', bookNum: '04', title: '一二三上学去' },
       { bookId: 'L1_book_05', bookNum: '05', title: '红红的太阳' },
       { bookId: 'L1_book_06', bookNum: '06', title: '好吃的果子' },
       { bookId: 'L1_book_07', bookNum: '07', title: '家的小动物' },
       { bookId: 'L1_book_08', bookNum: '08', title: '四季歌' },
+      { bookId: 'L1_book_09', bookNum: '09', title: '小明的家' },
+      { bookId: 'L1_book_10', bookNum: '10', title: '去公园玩' },
     ];
 
     let totalUpdated = 0;

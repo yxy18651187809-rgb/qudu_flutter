@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<Error>
+	<Code>SignatureDoesNotMatch</Code>
+	<Message>The Signature you specified is invalid.</Message>
+	<StringToSign>sha1
+1778337212;1778340812
+fb425697f9e3ecedf4ca608db58f52ccc0a06200
+</StringToSign>
+	<FormatString>get
+/text_to_img_pro/1379431822/1379431822-1778337188-ff560fc7-4bb3-11f1-8b95-52540018a910-0/0
+
+host=aiart-1258344699.cos.ap-guangzhou.myqcloud.com
+</FormatString>
+	<Resource>/text_to_img_pro/1379431822/1379431822-1778337188-ff560fc7-4bb3-11f1-8b95-52540018a910-0/0</Resource>
+	<RequestId>NjlmZjQ1YzRfYjM1MmMwYl8xOTlmOF8zNjEwY2Q=</RequestId>
+	<TraceId>OGVmYzZiMmQzYjA2OWNhODk0NTRkMTBiOWVmMDAxODc0OWRkZjk0ZDM1NmI1M2E2MTRlY2MzZDhmNmI5MWI1OTQyYWVlY2QwZTk2MDVmZDQ3MmI2Y2I4ZmI5ZmM4ODFjNWUzMTJiNDQ5MjAyZTI4YmY3YzA0ODBkODE4ZjJmYmU=</TraceId>
+</Error>
+
