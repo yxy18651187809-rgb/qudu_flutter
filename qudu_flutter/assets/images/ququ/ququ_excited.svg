@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 趣趣 Qùqu - 欢呼表情 -->
+<!-- 使用场景：获得高分、庆祝升级、完美通关 -->
+<svg viewBox="0 0 160 210" xmlns="http://www.w3.org/2000/svg">
+  <!-- 身体节3（尾部） -->
+  <ellipse cx="80" cy="180" rx="22" ry="18" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 身体节2（中部） -->
+  <ellipse cx="80" cy="150" rx="28" ry="22" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 身体节1（头部后方） -->
+  <ellipse cx="80" cy="116" rx="32" ry="26" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 尾巴（欢快摆动幅度大） -->
+  <path d="M80 195 Q100 210 88 220 Q68 215 80 195" fill="#A5C487"/>
+  <!-- 腹部高光 -->
+  <ellipse cx="80" cy="180" rx="12" ry="9" fill="#FFF8E1" opacity="0.85"/>
+  <ellipse cx="80" cy="150" rx="17" ry="13" fill="#FFF8E1" opacity="0.85"/>
+  <ellipse cx="80" cy="116" rx="20" ry="15" fill="#FFF8E1" opacity="0.85"/>
+  <!-- 手（左侧，欢呼举起！） -->
+  <circle cx="28" cy="58" r="12" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <path d="M44 110 Q36 85 30 66" stroke="#A5C487" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- 手（右侧，欢呼举起！） -->
+  <circle cx="132" cy="55" r="12" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <path d="M116 108 Q124 82 130 63" stroke="#A5C487" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- 头部 -->
+  <ellipse cx="80" cy="68" rx="42" ry="38" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 头顶叶子（双叶子！兴奋竖起） -->
+  <ellipse cx="72" cy="26" rx="11" ry="18" fill="#8BC34A" stroke="#689F38" stroke-width="1.5" transform="rotate(-15 72 26)"/>
+  <ellipse cx="90" cy="24" rx="11" ry="18" fill="#8BC34A" stroke="#689F38" stroke-width="1.5" transform="rotate(12 90 24)"/>
+  <line x1="72" y1="34" x2="74" y2="50" stroke="#689F38" stroke-width="2"/>
+  <line x1="90" y1="32" x2="88" y2="50" stroke="#689F38" stroke-width="2"/>
+  <!-- 腮红（满脸通红，极度兴奋） -->
+  <ellipse cx="44" cy="80" rx="16" ry="11" fill="#FF7043" opacity="0.55"/>
+  <ellipse cx="116" cy="80" rx="16" ry="11" fill="#FF7043" opacity="0.55"/>
+  <!-- 眼睛（变成星星 ★ ★） -->
+  <g transform="translate(50, 52)">
+    <polygon points="13,0 16,9 26,9 18,15 21,25 13,19 5,25 8,15 0,9 10,9" fill="#FFD54F" stroke="#F9A825" stroke-width="1"/>
+    <circle cx="13" cy="13" r="3" fill="white" opacity="0.7"/>
+  </g>
+  <g transform="translate(86, 50)">
+    <polygon points="13,0 16,9 26,9 18,15 21,25 13,19 5,25 8,15 0,9 10,9" fill="#FFD54F" stroke="#F9A825" stroke-width="1"/>
+    <circle cx="13" cy="13" r="3" fill="white" opacity="0.7"/>
+  </g>
+  <!-- 嘴巴（张开大笑，比开心更大） -->
+  <path d="M62 86 Q80 112 98 86 Q80 104 62 86 Z" fill="#795548"/>
+  <path d="M62 86 Q80 104 98 86 Q80 98 62 86 Z" fill="#FF6B6B"/>
+  <!-- 嘴巴内小舌头 -->
+  <ellipse cx="80" cy="94" rx="6" ry="4" fill="#FF8A80"/>
+  <!-- 周围光芒/星星点缀 -->
+  <g transform="translate(10, 20)" opacity="0.6">
+    <polygon points="5,0 6.2,3.8 10,3.8 7,6.2 8,10 5,7.5 2,10 3,6.2 0,3.8 3.8,3.8" fill="#FFD54F"/>
+  </g>
+  <g transform="translate(136, 22)" opacity="0.5">
+    <polygon points="5,0 6.2,3.8 10,3.8 7,6.2 8,10 5,7.5 2,10 3,6.2 0,3.8 3.8,3.8" fill="#FFD54F"/>
+  </g>
+  <g transform="translate(18, 140)" opacity="0.4">
+    <polygon points="4,0 5,3 8,3 5.5,5 6.5,8 4,6 1.5,8 2.5,5 0,3 3,3" fill="#FFD54F"/>
+  </g>
+  <g transform="translate(130, 145)" opacity="0.4">
+    <polygon points="4,0 5,3 8,3 5.5,5 6.5,8 4,6 1.5,8 2.5,5 0,3 3,3" fill="#FFD54F"/>
+  </g>
+</svg>
