@@ -253,7 +253,7 @@ class _LearningReportPageState extends State<LearningReportPage>
             const SizedBox(height: AppSpacing.lg),
           ],
           // 复习状态
-          if (r != null) _buildReviewSection(r),
+          _buildReviewSection(r),
         ],
       ),
     );

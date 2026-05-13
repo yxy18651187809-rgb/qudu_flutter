@@ -26,7 +26,7 @@ class HomeState extends Equatable {
   int get totalWords => (stats?.mastery.newCount ?? 0) + (stats?.mastery.mastered ?? 0);
   int get totalBooks => stats?.overview.totalStars ?? 0;
   int get streakDays => stats?.overview.streakDays ?? 0;
-  List<DailyRecord> get weeklyTrend => stats?.weeklyTrend ?? [];
+  List<WeeklyTrendItem> get weeklyTrend => stats?.weeklyTrend ?? [];
 
   HomeState copyWith({
     List<ChildModel>? children,

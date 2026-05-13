@@ -222,7 +222,6 @@ class _BookshelfPageState extends State<BookshelfPage> {
     return LayoutBuilder(
       builder: (context, constraints) {
         final width = constraints.maxWidth;
-        final breakpoint = MediaQuery.of(context).size.shortestSide;
 
         int crossAxisCount;
         double childAspectRatio;
