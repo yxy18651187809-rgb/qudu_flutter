@@ -8,7 +8,11 @@ import '../models/book_model.dart';
 /// 绘本 Repository
 /// 所有方法使用真实后端API
 class BooksRepository {
-  ApiClient get _api => ServiceLocator.instance.apiClient;
+  final ApiClient? _injectedApi;
+
+  BooksRepository({ApiClient? apiClient}) : _injectedApi = apiClient;
+
+  ApiClient get _api => _injectedApi ?? ServiceLocator.instance.apiClient;
 
   /// 获取绘本列表（按级别筛选）
   /// GET /api/v1/books?level=1&childId=xxx
