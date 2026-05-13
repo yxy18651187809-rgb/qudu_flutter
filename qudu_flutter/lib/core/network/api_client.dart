@@ -18,7 +18,8 @@ class ApiClient {
   late final Dio _dio;
   final TokenStorage _tokenStorage;
   final String _baseUrl;
-  final NetworkInterceptor _networkInterceptor = NetworkInterceptor();
+  final bool _skipInterceptors;
+  NetworkInterceptor? _networkInterceptor;
   final OfflineCache _offlineCache = OfflineCache();
 
   // Token刷新回调
@@ -31,14 +32,18 @@ class ApiClient {
   final List<Future<void> Function()> _pendingRequests = [];
 
   // 网络状态
-  Stream<NetworkStatus> get networkStatus => _networkInterceptor.statusStream;
-  NetworkStatus get currentNetworkStatus => _networkInterceptor.currentStatus;
+  Stream<NetworkStatus> get networkStatus =>
+      _networkInterceptor?.statusStream ?? const Stream.empty();
+  NetworkStatus get currentNetworkStatus =>
+      _networkInterceptor?.currentStatus ?? NetworkStatus.online;
 
   ApiClient({
     required String baseUrl,
     required TokenStorage tokenStorage,
+    @visibleForTesting bool skipInterceptors = false,
   })  : _baseUrl = baseUrl,
-        _tokenStorage = tokenStorage {
+        _tokenStorage = tokenStorage,
+        _skipInterceptors = skipInterceptors {
     _dio = Dio(BaseOptions(
       baseUrl: _baseUrl,
       connectTimeout: const Duration(seconds: 10),
@@ -48,12 +53,17 @@ class ApiClient {
       },
     ));
 
-    _setupInterceptors();
+    if (!_skipInterceptors) {
+      _networkInterceptor = NetworkInterceptor();
+      _setupInterceptors();
+    }
   }
 
   void _setupInterceptors() {
     // 网络状态拦截器（放在最前面）
-    _dio.interceptors.add(_networkInterceptor);
+    if (_networkInterceptor != null) {
+      _dio.interceptors.add(_networkInterceptor!);
+    }
 
     // 请求拦截器：自动添加Token
     _dio.interceptors.add(InterceptorsWrapper(
@@ -171,7 +181,7 @@ class ApiClient {
     CancelToken? cancelToken,
   }) async {
     // 离线状态：尝试返回缓存数据
-    if (_networkInterceptor.currentStatus == NetworkStatus.offline) {
+    if (_networkInterceptor?.currentStatus == NetworkStatus.offline) {
       final cachedData = await _offlineCache.getCachedResponse(path);
       if (cachedData != null) {
         return ApiResponse<T>.fromJson(cachedData, fromJson);

@@ -1,135 +1,87 @@
 /// 首页 — 学习进度总览 + 快捷入口
 /// Tab 0 of HomeShell
-import 'dart:async';
+/// 已迁移至 BLoC 状态管理
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_radius.dart';
 import '../../../core/theme/app_typography.dart';
-import '../../../core/di/service_locator.dart';
 import '../../../data/models/child_model.dart';
 import '../../../data/models/learning_stats_model.dart';
-import '../../../data/repositories/children_repository.dart';
-import '../../../data/repositories/learning_repository.dart';
+import '../../bloc/home/home_bloc.dart';
+import '../../bloc/home/home_event.dart';
+import '../../bloc/home/home_state.dart';
 import 'home_shell.dart';
 import '../../../core/network/network_ui_helper.dart';
-import '../../../core/network/network_interceptor.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => HomeBloc()..add(const HomeLoadData()),
+      child: const _HomeView(),
+    );
+  }
 }
 
-class _HomePageState extends State<HomePage> {
-  final ChildrenRepository _childrenRepository = ServiceLocator.instance.childrenRepository;
-  final LearningRepository _learningRepository = ServiceLocator.instance.learningRepository;
-  List<ChildModel> _children = [];
-  LearningStatsModel? _stats;
-  bool _isLoading = true;
-  bool _isOffline = false;
-  StreamSubscription<NetworkStatus>? _networkSubscription;
-
-  /// 学习数据（从API获取）
-  int get _todayWords => _stats?.today.records ?? 0;
-  int get _totalWords => (_stats?.mastery.newCount ?? 0) + (_stats?.mastery.mastered ?? 0);
-  int get _totalBooks => _stats?.overview.totalStars ?? 0;
-  int get _streakDays => _stats?.overview.streakDays ?? 0;
-
-  @override
-  void initState() {
-    super.initState();
-    // 监听网络状态
-    _networkSubscription = ServiceLocator.instance.apiClient.networkStatus.listen((status) {
-      if (mounted) {
-        setState(() {
-          _isOffline = status == NetworkStatus.offline;
-        });
-      }
-    });
-    _loadData();
-  }
-
-  @override
-  void dispose() {
-    _networkSubscription?.cancel();
-    super.dispose();
-  }
-
-  Future<void> _loadData() async {
-    setState(() => _isLoading = true);
-    try {
-      final children = await _childrenRepository.getChildren();
-      if (mounted && children.isNotEmpty) {
-        final stats = await _learningRepository.getStats(children.first.id);
-        setState(() {
-          _children = children;
-          _stats = stats;
-          _isLoading = false;
-        });
-      } else {
-        setState(() {
-          _children = children;
-          _isLoading = false;
-        });
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() => _isLoading = false);
-      }
-    }
-  }
-
-  ChildModel? get _activeChild => _children.isNotEmpty ? _children.first : null;
+class _HomeView extends StatelessWidget {
+  const _HomeView();
 
   @override
   Widget build(BuildContext context) {
-    if (_isLoading && _stats == null) {
-      return const Center(
-        child: CircularProgressIndicator(color: AppColors.primary),
-      );
-    }
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: _loadData,
-          color: AppColors.primary,
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            padding: const EdgeInsets.all(AppSpacing.lg),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (_isOffline) NetworkUIHelper.buildOfflineBanner(),
-                _buildHeader(),
-                const SizedBox(height: AppSpacing.lg),
-                _buildStatsGrid(),
-                const SizedBox(height: AppSpacing.lg),
-                _buildQuickActions(),
-                const SizedBox(height: AppSpacing.lg),
-                _buildStreakSection(),
-                const SizedBox(height: AppSpacing.lg),
-                _buildRecentActivity(),
-                const SizedBox(height: AppSpacing.xl),
-              ],
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if (state.isLoading && state.stats == null) {
+          return const Center(
+            child: CircularProgressIndicator(color: AppColors.primary),
+          );
+        }
+        return Scaffold(
+          backgroundColor: AppColors.background,
+          body: SafeArea(
+            child: RefreshIndicator(
+              onRefresh: () async {
+                context.read<HomeBloc>().add(const HomeRefreshData());
+              },
+              color: AppColors.primary,
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: const EdgeInsets.all(AppSpacing.lg),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (state.isOffline) NetworkUIHelper.buildOfflineBanner(),
+                    _buildHeader(state),
+                    const SizedBox(height: AppSpacing.lg),
+                    _buildStatsGrid(state),
+                    const SizedBox(height: AppSpacing.lg),
+                    _buildQuickActions(context, state),
+                    const SizedBox(height: AppSpacing.lg),
+                    _buildStreakSection(state),
+                    const SizedBox(height: AppSpacing.lg),
+                    _buildRecentActivity(state),
+                    const SizedBox(height: AppSpacing.xl),
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
   /// 顶部问候区
-  Widget _buildHeader() {
-    final childName = _activeChild?.name ?? '小朋友';
+  Widget _buildHeader(HomeState state) {
+    final childName = state.activeChild?.name ?? '小朋友';
     final greeting = _getGreeting();
 
     return Row(
       children: [
-        // 趣趣IP头像（占位）
         Container(
           width: 48,
           height: 48,
@@ -161,7 +113,6 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        // 设置入口
         IconButton(
           onPressed: () {},
           icon: const Icon(Icons.notifications_outlined, color: AppColors.textSecondary),
@@ -171,7 +122,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// 学习统计网格（4个指标）
-  Widget _buildStatsGrid() {
+  Widget _buildStatsGrid(HomeState state) {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.md),
       decoration: BoxDecoration(
@@ -199,10 +150,10 @@ class _HomePageState extends State<HomePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _StatItem(value: '$_todayWords', label: '今日新字', color: AppColors.accent),
-              _StatItem(value: '$_totalWords', label: '累计识字', color: AppColors.primary),
-              _StatItem(value: '$_totalBooks', label: '获得星星', color: AppColors.secondary),
-              _StatItem(value: '$_streakDays', label: '连续学习', color: const Color(0xFF8B5CF6)),
+              _StatItem(value: '${state.todayWords}', label: '今日新字', color: AppColors.accent),
+              _StatItem(value: '${state.totalWords}', label: '累计识字', color: AppColors.primary),
+              _StatItem(value: '${state.totalBooks}', label: '获得星星', color: AppColors.secondary),
+              _StatItem(value: '${state.streakDays}', label: '连续学习', color: const Color(0xFF8B5CF6)),
             ],
           ),
         ],
@@ -211,7 +162,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// 快速操作区
-  Widget _buildQuickActions() {
+  Widget _buildQuickActions(BuildContext context, HomeState state) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -233,11 +184,10 @@ class _HomePageState extends State<HomePage> {
               child: _ActionCard(
                 icon: Icons.auto_stories_rounded,
                 label: '今日识字',
-                subtitle: '$_todayWords个新字',
+                subtitle: '${state.todayWords}个新字',
                 color: AppColors.accent,
                 onTap: () {
-                  // 跳转到识字Tab
-                  _switchToTab(1);
+                  _switchToTab(context, 1);
                 },
               ),
             ),
@@ -253,16 +203,14 @@ class _HomePageState extends State<HomePage> {
                 subtitle: '检验学习成果',
                 color: AppColors.secondary,
                 onTap: () {
-                  final childId = _activeChild?.id;
+                  final childId = state.activeChild?.id;
                   if (childId == null || childId.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('请先添加孩子档案')),
                     );
                     return;
                   }
-                  context.go(
-                    '/assessment/start?childId=$childId&type=initial',
-                  );
+                  context.go('/assessment/start?childId=$childId&type=initial');
                 },
               ),
             ),
@@ -271,7 +219,7 @@ class _HomePageState extends State<HomePage> {
               child: _ActionCard(
                 icon: Icons.star_rounded,
                 label: '每日挑战',
-                subtitle: '${_streakDays}天连胜',
+                subtitle: '${state.streakDays}天连胜',
                 color: const Color(0xFF8B5CF6),
                 onTap: () {},
               ),
@@ -283,7 +231,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// 连续学习打卡
-  Widget _buildStreakSection() {
+  Widget _buildStreakSection(HomeState state) {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.md),
       decoration: BoxDecoration(
@@ -304,14 +252,14 @@ class _HomePageState extends State<HomePage> {
             children: [
               const Icon(Icons.local_fire_department, size: 18, color: Colors.orange),
               const SizedBox(width: 6),
-              Text('连续学习 $_streakDays 天', style: AppTypography.bodySmall.copyWith(fontWeight: FontWeight.w600)),
+              Text('连续学习 ${state.streakDays} 天', style: AppTypography.bodySmall.copyWith(fontWeight: FontWeight.w600)),
             ],
           ),
           const SizedBox(height: AppSpacing.sm),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: List.generate(7, (index) {
-              final isChecked = index < _streakDays % 7;
+              final isChecked = index < state.streakDays % 7;
               return Column(
                 children: [
                   Container(
@@ -345,8 +293,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   /// 最近动态（基于weeklyTrend数据）
-  Widget _buildRecentActivity() {
-    final trend = _stats?.weeklyTrend ?? [];
+  Widget _buildRecentActivity(HomeState state) {
+    final trend = state.weeklyTrend;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -386,7 +334,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// 格式化日期为友好文本
   String _formatDate(String dateStr) {
     try {
       final date = DateTime.parse(dateStr);
@@ -411,15 +358,14 @@ class _HomePageState extends State<HomePage> {
     return '晚上好';
   }
 
-  /// 跳转到指定Tab
-  void _switchToTab(int index) {
+  void _switchToTab(BuildContext context, int index) {
     final homeShell = context.findAncestorStateOfType<HomeShellState>();
     homeShell?.switchToTab(index);
   }
 }
 
 // =============================================================================
-// 子组件
+// 子组件（无变化）
 // =============================================================================
 
 class _StatItem extends StatelessWidget {
