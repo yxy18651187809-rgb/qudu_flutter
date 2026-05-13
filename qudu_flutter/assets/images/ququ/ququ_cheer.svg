@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 趣趣 Qùqu - 鼓励表情 -->
+<!-- 使用场景：加油打气、倒计时结束、失败后重新开始 -->
+<svg viewBox="0 0 160 210" xmlns="http://www.w3.org/2000/svg">
+  <!-- 身体节3（尾部） -->
+  <ellipse cx="80" cy="180" rx="22" ry="18" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 身体节2（中部） -->
+  <ellipse cx="80" cy="150" rx="28" ry="22" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 身体节1（头部后方） -->
+  <ellipse cx="80" cy="116" rx="32" ry="26" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 尾巴（自信竖起） -->
+  <path d="M80 195 Q92 208 82 218 Q72 208 80 195" fill="#A5C487"/>
+  <!-- 腹部高光 -->
+  <ellipse cx="80" cy="180" rx="12" ry="9" fill="#FFF8E1" opacity="0.85"/>
+  <ellipse cx="80" cy="150" rx="17" ry="13" fill="#FFF8E1" opacity="0.85"/>
+  <ellipse cx="80" cy="116" rx="20" ry="15" fill="#FFF8E1" opacity="0.85"/>
+  <!-- 手（左侧，自然下垂） -->
+  <circle cx="40" cy="112" r="11" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 手（右侧，拳头举起！） -->
+  <circle cx="128" cy="68" r="12" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 拳头细节（手指线条） -->
+  <line x1="124" y1="60" x2="124" y2="72" stroke="#A5C487" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="128" y1="58" x2="128" y2="72" stroke="#A5C487" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="132" y1="60" x2="132" y2="72" stroke="#A5C487" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- 手臂连接（右侧举起） -->
+  <path d="M112 110 Q120 90 126 74" stroke="#A5C487" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- 书（放在左侧） -->
+  <rect x="22" y="96" width="28" height="22" rx="4" fill="#FF8A65" stroke="#E64A19" stroke-width="1.5"/>
+  <line x1="36" y1="96" x2="36" y2="118" stroke="#E64A19" stroke-width="1.5"/>
+  <!-- 头部 -->
+  <ellipse cx="80" cy="68" rx="42" ry="38" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 头顶叶子（竖起，有精神） -->
+  <ellipse cx="80" cy="28" rx="13" ry="20" fill="#8BC34A" stroke="#689F38" stroke-width="1.5"/>
+  <line x1="80" y1="34" x2="80" y2="50" stroke="#689F38" stroke-width="2"/>
+  <!-- 腮红（明显，表现热情） -->
+  <ellipse cx="46" cy="80" rx="14" ry="10" fill="#FFAB91" opacity="0.65"/>
+  <ellipse cx="114" cy="80" rx="14" ry="10" fill="#FFAB91" opacity="0.65"/>
+  <!-- 眼睛（炯炯有神，大睁） -->
+  <circle cx="63" cy="62" r="14" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <circle cx="63" cy="63" r="10" fill="#212121"/>
+  <circle cx="67" cy="58" r="3.5" fill="white"/>
+  <circle cx="60" cy="66" r="1.5" fill="white" opacity="0.5"/>
+  <!-- 眼睛（右侧，同样有神） -->
+  <circle cx="97" cy="62" r="14" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <circle cx="97" cy="63" r="10" fill="#212121"/>
+  <circle cx="101" cy="58" r="3.5" fill="white"/>
+  <circle cx="94" cy="66" r="1.5" fill="white" opacity="0.5"/>
+  <!-- 眉毛（自信上扬） -->
+  <path d="M48 48 Q55 42 68 46" stroke="#689F38" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M92 46 Q105 42 112 48" stroke="#689F38" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- 嘴巴（闭嘴自信微笑 U形） -->
+  <path d="M68 86 Q80 98 92 86" stroke="#795548" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- 加油小星星 -->
+  <g transform="translate(138, 48)">
+    <polygon points="6,0 7.5,4.5 12,4.5 8.5,7.5 10,12 6,9 2,12 3.5,7.5 0,4.5 4.5,4.5" fill="#FFD54F" opacity="0.8"/>
+  </g>
+</svg>
