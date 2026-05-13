@@ -1,7 +1,7 @@
 # 字趣阅读 · 团队进度看板
 
-> **更新时间**：2026-05-13 21:24
-> **更新人**：team-lead（L3教案第二批完成16/20）
+> **更新时间**：2026-05-13 21:30
+> **更新人**：后端负责人（auth中间件单元测试+颗粒度对齐）
 > **说明**：本文档为团队共享进度文件，所有成员更新进展后同步至此。
 >
 > **重大更正**：经实际文件核查（2026-05-10 21:45），此前记录的"绘本04-08 100%完成"不准确。实际情况：
@@ -103,9 +103,14 @@
 | Assessment API v1.1对齐 | ✅ 已完成 | 100% | bookId字段+review测评 |
 | TTS朗读API | ✅ 已完成 | 100% | /books/:id/tts + /tts/character/:char |
 | P1-02 测评即时反馈 | ✅ 已完成 | 100% | submitAssessment返回correctAnswer+isCorrect |
-| 后端服务运行 | ✅ 运行中 | 100% | localhost:3000 |
+| 后端服务运行 | ✅ 运行中 | 100% | PM2守护，localhost:3000 |
 | API测试验证 | ✅ 已完成 | 100% | 8个API全部通过 |
 | L1 301字MP3上传 | ✅ 已完成 | 100% | P1-001已解决（2026-05-09） |
+| PM2进程守护 | ✅ 已完成 | 100% | ecosystem.config.js，fork+300M+优雅关闭 |
+| 路由顺序修正 | ✅ 已完成 | 100% | /parent/:parentId 优先于 /:childId |
+| 优雅关闭机制 | ✅ 已完成 | 100% | SIGTERM/SIGINT → HTTP→MongoDB→Redis |
+| Winston日志体系 | ✅ 已完成 | 100% | logger.js+requestLogger.js+日志轮转 |
+| 后端单元测试 | ✅ 已完成 | 100% | 87/87通过（questionGen+reviewAlgo+auth） |
 
 ---
 
