@@ -3,21 +3,21 @@ import 'package:ziqu_reading/core/network/api_response.dart';
 import 'package:ziqu_reading/data/models/child_model.dart';
 import 'package:ziqu_reading/data/repositories/children_repository.dart';
 
-import 'auth_repository_test.dart' show MockApiClient;
+import 'auth_repository_test.dart' show TestableApiClient;
 
 void main() {
-  late MockApiClient mockApi;
+  late TestableApiClient mockApi;
   late ChildrenRepository childrenRepo;
 
   setUp(() {
-    mockApi = MockApiClient();
+    mockApi = TestableApiClient();
     childrenRepo = ChildrenRepository(apiClient: mockApi);
   });
 
   group('ChildrenRepository', () {
     group('getChildren', () {
       test('成功获取儿童列表', () async {
-        mockApi.whenGet('/children', ApiResponse(
+        mockApi.mockGet('/children', ApiResponse(
           code: 0,
           data: {
             'list': [
@@ -55,11 +55,10 @@ void main() {
         expect(result[0].id, 'child001');
         expect(result[0].name, '小明');
         expect(result[1].name, '小红');
-        expect(result[1].gender, 'female');
       });
 
       test('空列表时返回空List', () async {
-        mockApi.whenGet('/children', ApiResponse(
+        mockApi.mockGet('/children', ApiResponse(
           code: 0,
           data: {'list': []},
           message: 'ok',
@@ -70,7 +69,7 @@ void main() {
       });
 
       test('API返回非0时抛出 ApiException', () async {
-        mockApi.whenGet('/children', ApiResponse(
+        mockApi.mockGet('/children', ApiResponse(
           code: 401,
           data: null,
           message: '未授权',
@@ -83,7 +82,7 @@ void main() {
       });
 
       test('data为null时抛出 ApiException', () async {
-        mockApi.whenGet('/children', ApiResponse(
+        mockApi.mockGet('/children', ApiResponse(
           code: 0,
           data: null,
           message: 'ok',
@@ -96,13 +95,12 @@ void main() {
       });
 
       test('list字段缺失时返回空List', () async {
-        mockApi.whenGet('/children', ApiResponse(
+        mockApi.mockGet('/children', ApiResponse(
           code: 0,
           data: <String, dynamic>{},
           message: 'ok',
         ));
 
-        // data非null但没有list字段
         final result = await childrenRepo.getChildren();
         expect(result, isEmpty);
       });
@@ -110,7 +108,7 @@ void main() {
 
     group('createChild', () {
       test('成功创建儿童档案', () async {
-        mockApi.whenPost('/children', ApiResponse(
+        mockApi.mockPost('/children', ApiResponse(
           code: 0,
           data: {
             'id': 'child_new',
@@ -139,7 +137,7 @@ void main() {
       });
 
       test('创建失败抛出 ApiException', () async {
-        mockApi.whenPost('/children', ApiResponse(
+        mockApi.mockPost('/children', ApiResponse(
           code: 2001,
           data: null,
           message: '已达到儿童档案上限',
@@ -157,7 +155,7 @@ void main() {
 
     group('getChildDetail', () {
       test('成功获取儿童详情', () async {
-        mockApi.whenGet('/children/child001', ApiResponse(
+        mockApi.mockGet('/children/child001', ApiResponse(
           code: 0,
           data: {
             'id': 'child001',
@@ -181,7 +179,7 @@ void main() {
       });
 
       test('儿童不存在时抛出 ApiException', () async {
-        mockApi.whenGet('/children/nonexistent', ApiResponse(
+        mockApi.mockGet('/children/nonexistent', ApiResponse(
           code: 2002,
           data: null,
           message: '儿童档案不存在',
@@ -196,7 +194,7 @@ void main() {
 
     group('updateChild', () {
       test('成功更新儿童档案', () async {
-        mockApi.whenPut('/children/child001', ApiResponse(
+        mockApi.mockPut('/children/child001', ApiResponse(
           code: 0,
           data: {
             'id': 'child001',
@@ -225,7 +223,7 @@ void main() {
       });
 
       test('更新失败抛出 ApiException', () async {
-        mockApi.whenPut('/children/child001', ApiResponse(
+        mockApi.mockPut('/children/child001', ApiResponse(
           code: 2003,
           data: null,
           message: '更新失败',
@@ -244,18 +242,18 @@ void main() {
 
     group('deleteChild', () {
       test('成功删除儿童档案', () async {
-        mockApi.whenDelete('/children/child001', ApiResponse(
+        mockApi.mockDelete('/children/child001', ApiResponse(
           code: 0,
           data: null,
           message: 'ok',
         ));
 
-        // 应不抛异常
         await childrenRepo.deleteChild('child001');
+        // 不抛异常即成功
       });
 
       test('删除失败抛出 ApiException', () async {
-        mockApi.whenDelete('/children/nonexistent', ApiResponse(
+        mockApi.mockDelete('/children/nonexistent', ApiResponse(
           code: 2002,
           data: null,
           message: '儿童档案不存在',

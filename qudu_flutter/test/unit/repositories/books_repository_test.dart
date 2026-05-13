@@ -2,21 +2,21 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ziqu_reading/core/network/api_response.dart';
 import 'package:ziqu_reading/data/repositories/books_repository.dart';
 
-import 'auth_repository_test.dart' show MockApiClient;
+import 'auth_repository_test.dart' show TestableApiClient;
 
 void main() {
-  late MockApiClient mockApi;
+  late TestableApiClient mockApi;
   late BooksRepository booksRepo;
 
   setUp(() {
-    mockApi = MockApiClient();
+    mockApi = TestableApiClient();
     booksRepo = BooksRepository(apiClient: mockApi);
   });
 
   group('BooksRepository', () {
     group('getBooks', () {
       test('成功获取绘本列表', () async {
-        mockApi.whenGet('/books', ApiResponse(
+        mockApi.mockGet('/books', ApiResponse(
           code: 0,
           data: {
             'list': [
@@ -51,7 +51,7 @@ void main() {
       });
 
       test('空列表返回空List', () async {
-        mockApi.whenGet('/books', ApiResponse(
+        mockApi.mockGet('/books', ApiResponse(
           code: 0,
           data: {'list': []},
           message: 'ok',
@@ -62,7 +62,7 @@ void main() {
       });
 
       test('API失败抛出 ApiException', () async {
-        mockApi.whenGet('/books', ApiResponse(
+        mockApi.mockGet('/books', ApiResponse(
           code: 500,
           data: null,
           message: '服务器错误',
@@ -77,7 +77,7 @@ void main() {
 
     group('getBookDetail', () {
       test('成功获取绘本详情', () async {
-        mockApi.whenGet('/books/L1_book_01', ApiResponse(
+        mockApi.mockGet('/books/L1_book_01', ApiResponse(
           code: 0,
           data: {
             'id': 'L1_book_01',
@@ -100,7 +100,7 @@ void main() {
       });
 
       test('绘本不存在返回null', () async {
-        mockApi.whenGet('/books/nonexistent', ApiResponse(
+        mockApi.mockGet('/books/nonexistent', ApiResponse(
           code: 404,
           data: null,
           message: '绘本不存在',
@@ -111,7 +111,7 @@ void main() {
       });
 
       test('带childId参数获取绘本详情', () async {
-        mockApi.whenGet('/books/L1_book_01', ApiResponse(
+        mockApi.mockGet('/books/L1_book_01', ApiResponse(
           code: 0,
           data: {
             'id': 'L1_book_01',
@@ -136,7 +136,7 @@ void main() {
 
     group('getRecommendedBooks', () {
       test('成功获取推荐绘本列表', () async {
-        mockApi.whenGet('/books/recommended', ApiResponse(
+        mockApi.mockGet('/books/recommended', ApiResponse(
           code: 0,
           data: {
             'list': [
@@ -159,7 +159,7 @@ void main() {
       });
 
       test('无推荐返回空List', () async {
-        mockApi.whenGet('/books/recommended', ApiResponse(
+        mockApi.mockGet('/books/recommended', ApiResponse(
           code: 0,
           data: null,
           message: 'ok',
@@ -172,7 +172,7 @@ void main() {
 
     group('getFreeBooks', () {
       test('成功获取免费绘本', () async {
-        mockApi.whenGet('/books/free', ApiResponse(
+        mockApi.mockGet('/books/free', ApiResponse(
           code: 0,
           data: {
             'list': [
@@ -194,7 +194,7 @@ void main() {
       });
 
       test('无免费绘本返回空List', () async {
-        mockApi.whenGet('/books/free', ApiResponse(
+        mockApi.mockGet('/books/free', ApiResponse(
           code: 0,
           data: {'list': []},
           message: 'ok',
@@ -207,7 +207,7 @@ void main() {
 
     group('getThemes', () {
       test('成功获取主题列表', () async {
-        mockApi.whenGet('/books/themes', ApiResponse(
+        mockApi.mockGet('/books/themes', ApiResponse(
           code: 0,
           data: {
             'list': ['自然与动物', '生活与社交', '认知与启蒙'],
@@ -222,7 +222,7 @@ void main() {
       });
 
       test('无主题返回空List', () async {
-        mockApi.whenGet('/books/themes', ApiResponse(
+        mockApi.mockGet('/books/themes', ApiResponse(
           code: 500,
           data: null,
           message: '服务器错误',
