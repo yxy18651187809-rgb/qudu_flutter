@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 趣趣 Qùqu - 惊讶表情 -->
+<!-- 使用场景：发现新字、互动反馈、遇到惊喜 -->
+<svg viewBox="0 0 160 210" xmlns="http://www.w3.org/2000/svg">
+  <!-- 身体节3 -->
+  <ellipse cx="80" cy="184" rx="22" ry="18" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 身体节2 -->
+  <ellipse cx="80" cy="154" rx="28" ry="22" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 身体节1（后仰） -->
+  <ellipse cx="80" cy="120" rx="32" ry="26" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 尾巴（竖起） -->
+  <path d="M80 199 Q70 180 80 170" stroke="#A5C487" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- 腹部高光 -->
+  <ellipse cx="80" cy="184" rx="12" ry="9" fill="#FFF8E1" opacity="0.85"/>
+  <ellipse cx="80" cy="154" rx="17" ry="13" fill="#FFF8E1" opacity="0.85"/>
+  <ellipse cx="80" cy="120" rx="20" ry="15" fill="#FFF8E1" opacity="0.85"/>
+  <!-- 手（双手举起，惊讶状） -->
+  <circle cx="36" cy="98" r="11" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <circle cx="124" cy="98" r="11" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 书（掉落状，旋转） -->
+  <rect x="108" y="120" width="28" height="22" rx="4" fill="#FF8A65" stroke="#E64A19" stroke-width="1.5" transform="rotate(30,122,131)"/>
+  <line x1="136" y1="120" x2="136" y2="142" stroke="#E64A19" stroke-width="1.5" transform="rotate(30,122,131)"/>
+  <!-- 头部（后仰） -->
+  <ellipse cx="80" cy="64" rx="42" ry="38" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 头顶叶子（竖起，旋转+15度） -->
+  <ellipse cx="80" cy="26" rx="13" ry="20" fill="#8BC34A" stroke="#689F38" stroke-width="1.5" transform="rotate(15,80,26)"/>
+  <line x1="80" y1="34" x2="80" y2="48" stroke="#689F38" stroke-width="2" transform="rotate(15,80,34)"/>
+  <!-- 腮红（略小，位置略高） -->
+  <ellipse cx="50" cy="74" rx="10" ry="8" fill="#FFAB91" opacity="0.5"/>
+  <ellipse cx="110" cy="74" rx="10" ry="8" fill="#FFAB91" opacity="0.5"/>
+  <!-- 眼睛（睁大，瞳孔缩小） -->
+  <circle cx="63" cy="58" r="16" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <circle cx="63" cy="59" r="6" fill="#212121"/>
+  <circle cx="67" cy="54" r="4" fill="white"/>
+  <circle cx="97" cy="58" r="16" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <circle cx="97" cy="59" r="6" fill="#212121"/>
+  <circle cx="101" cy="54" r="4" fill="white"/>
+  <!-- 眉毛（高高扬起） -->
+  <path d="M45 42 Q54 30 63 42" stroke="#689F38" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M97 42 Q106 30 115 42" stroke="#689F38" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- 嘴巴（O形） -->
+  <ellipse cx="80" cy="90" rx="10" ry="12" fill="#795548"/>
+  <ellipse cx="80" cy="87" rx="7" ry="9" fill="#FF6B6B"/>
+  <!-- 感叹号（弹出） -->
+  <text x="140" y="30" font-size="24" font-weight="bold" fill="#FF7043" font-family="Arial">!</text>
+  <text x="145" y="50" font-size="20" font-weight="bold" fill="#FF7043" opacity="0.6" font-family="Arial">!</text>
+</svg>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 趣趣 Qùqu - 思考表情 -->
+<!-- 使用场景：识字学习中、引导思考、测评时 -->
+<svg viewBox="0 0 160 210" xmlns="http://www.w3.org/2000/svg">
+  <!-- 身体节3 -->
+  <ellipse cx="80" cy="180" rx="22" ry="18" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 身体节2 -->
+  <ellipse cx="80" cy="150" rx="28" ry="22" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 身体节1 -->
+  <ellipse cx="80" cy="116" rx="32" ry="26" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 尾巴 -->
+  <path d="M80 195 Q90 208 80 218 Q70 208 80 195" fill="#A5C487"/>
+  <!-- 腹部高光 -->
+  <ellipse cx="80" cy="180" rx="12" ry="9" fill="#FFF8E1" opacity="0.85"/>
+  <ellipse cx="80" cy="150" rx="17" ry="13" fill="#FFF8E1" opacity="0.85"/>
+  <ellipse cx="80" cy="116" rx="20" ry="15" fill="#FFF8E1" opacity="0.85"/>
+  <!-- 手（左侧，托腮思考） -->
+  <circle cx="38" cy="108" r="11" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 手（右侧） -->
+  <circle cx="122" cy="112" r="11" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 书（放在一边，思考时不看书记） -->
+  <rect x="118" y="94" width="28" height="22" rx="4" fill="#FF8A65" stroke="#E64A19" stroke-width="1.5" opacity="0.6"/>
+  <line x1="132" y1="94" x2="132" y2="116" stroke="#E64A19" stroke-width="1.5"/>
+  <!-- 头部 -->
+  <ellipse cx="80" cy="68" rx="42" ry="38" fill="#C5E1A5" stroke="#A5C487" stroke-width="2"/>
+  <!-- 头顶叶子（微微摆动） -->
+  <ellipse cx="82" cy="30" rx="13" ry="20" fill="#8BC34A" stroke="#689F38" stroke-width="1.5" transform="rotate(8 82 30)"/>
+  <line x1="82" y1="36" x2="82" y2="50" stroke="#689F38" stroke-width="2"/>
+  <!-- 腮红 -->
+  <ellipse cx="48" cy="78" rx="12" ry="9" fill="#FFAB91" opacity="0.55"/>
+  <ellipse cx="112" cy="78" rx="12" ry="9" fill="#FFAB91" opacity="0.55"/>
+  <!-- 眼睛（半睁，高光在下方，思考状） -->
+  <circle cx="63" cy="65" r="14" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <circle cx="63" cy="67" r="9.5" fill="#212121"/>
+  <circle cx="66" cy="70" r="3" fill="white" opacity="0.7"/>
+  <!-- 右眼：一边上扬，一边下垂（不对称，思考状） -->
+  <circle cx="97" cy="65" r="14" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+  <circle cx="97" cy="67" r="9.5" fill="#212121"/>
+  <circle cx="100" cy="70" r="3" fill="white" opacity="0.7"/>
+  <!-- 眉毛（不对称，一边上扬一边平） -->
+  <path d="M48 50 Q55 44 63 48" stroke="#689F38" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M97 48 Q105 44 112 50" stroke="#689F38" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- 嘴巴（抿嘴，呈一字形） -->
+  <line x1="68" y1="90" x2="92" y2="90" stroke="#795548" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- 思考气泡 -->
+  <circle cx="130" cy="30" r="6" fill="#8BC34A" opacity="0.6"/>
+  <circle cx="140" cy="18" r="9" fill="#8BC34A" opacity="0.4"/>
+  <circle cx="150" cy="8" r="12" fill="#8BC34A" opacity="0.2"/>
+</svg>
