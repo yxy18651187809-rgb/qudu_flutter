@@ -55,7 +55,7 @@ exports.getBookTTS = async (req, res) => {
     // 构建音频响应
     const audioPages = await Promise.all(pages.map(async (p) => {
       // 1. 预生成音频URL（如果存在）
-      const preGeneratedUrl = `/audio/books/${book._id}_p${p.pageNumber}.mp3`;
+      const preGeneratedUrl = `/audio/books/${book.bookId}_p${p.pageNumber}.mp3`;
 
       // 2. 逐字音频URL列表（用于前端逐字播放）
       const charAudios = [];

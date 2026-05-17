@@ -37,6 +37,9 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 
+# Debug symbols (from --split-debug-info, MUST backup before deleting)
+debug-symbols/
+
 # Android Studio will place build artifacts here
 /android/app/debug
 /android/app/profile

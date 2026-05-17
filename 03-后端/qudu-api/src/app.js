@@ -21,8 +21,12 @@ const learningReportRoutes = require('./routes/learningReport');
 const parentMonitoringRoutes = require('./routes/parentMonitoring');
 const ttsRoutes = require('./routes/tts');
 const requestLogger = require('./middlewares/requestLogger');
+const { validateConfig } = require('./middlewares/configValidator');
 
 const app = express();
+
+// ===== 信任反向代理（Nginx/ALB 后获取真实 IP） =====
+app.set('trust proxy', 1);
 
 // ===== Swagger 文档配置 =====
 const swaggerSpec = swaggerJsdoc({
@@ -149,21 +153,32 @@ app.get('/health', (req, res) => {
 
 // ===== API 路由 =====
 
-// 认证接口严格速率限制（登录/注册/短信）
+// ===== 认证接口严格速率限制 =====
 const authRateLimiter = rateLimit({
   windowMs: config.security.rateLimit.auth.windowMs,
   max: config.security.rateLimit.auth.max,
   message: { code: 42902, data: null, message: config.security.rateLimit.auth.message },
   standardHeaders: true,
   legacyHeaders: false,
+  standardizeClientIP: true,
   keyGenerator: (req) => {
     // 按 IP + 手机号/账号 组合限制
     return req.ip + ':' + (req.body?.phone || req.body?.username || 'unknown');
   }
 });
 
+// ===== TTS 接口速率限制（防止音频生成滥用） =====
+const ttsRateLimiter = rateLimit({
+  windowMs: config.security.rateLimit.tts.windowMs,
+  max: config.security.rateLimit.tts.max,
+  message: { code: 42904, data: null, message: config.security.rateLimit.tts.message },
+  standardHeaders: true,
+  legacyHeaders: false
+});
+
 app.use('/api/v1/auth', authRateLimiter, authRoutes);
 app.use('/api/v1/user', authRateLimiter, authRoutes);  // profile 复用 auth 路由
+// 短信验证码接口使用最严格限制（挂载在 auth 路由内部通过中间件实现）
 app.use('/api/v1/children', childRoutes);
 app.use('/api/v1/books', bookRoutes);
 app.use('/api/v1/characters', characterRoutes);
@@ -171,7 +186,7 @@ app.use('/api/v1/assessments', assessmentRoutes);
 app.use('/api/v1/learning', learningRoutes);
 app.use('/api/v1/learning-report', learningReportRoutes);
 app.use('/api/v1/parent-monitoring', parentMonitoringRoutes);
-app.use('/api/v1/tts', ttsRoutes);
+app.use('/api/v1/tts', ttsRateLimiter, ttsRoutes);
 
 // ===== 404 处理 =====
 app.use((req, res) => {
@@ -227,6 +242,9 @@ app.use((err, req, res, next) => {
 // ===== 数据库连接与启动 =====
 async function startServer() {
   try {
+    // 启动前配置校验（生产环境不安全配置将拒绝启动）
+    validateConfig(config);
+
     // 连接 MongoDB
     await mongoose.connect(config.mongodb.uri);
     logger.info(`[MongoDB] 已连接: ${config.mongodb.uri}`);

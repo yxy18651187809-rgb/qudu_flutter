@@ -32,27 +32,33 @@ module.exports = {
   // 安全配置
   security: {
     // CORS 白名单（生产环境配置）
-    corsOrigins: process.env.CORS_ORIGINS 
-      ? process.env.CORS_ORIGINS.split(',') 
+    corsOrigins: process.env.CORS_ORIGINS
+      ? process.env.CORS_ORIGINS.split(',')
       : ['http://localhost:3000', 'http://localhost:8080'],
-    // 速率限制（每 15 分钟窗口）
+    // 速率限制
     rateLimit: {
-      // 默认限制
+      // 默认限制（全局）
       default: {
         windowMs: 15 * 60 * 1000,  // 15 分钟
         max: 100  // 最多 100 请求/窗口
       },
-      // 认证接口（登录/注册/短信）更严格
+      // 认证接口（登录/注册）更严格
       auth: {
         windowMs: 15 * 60 * 1000,
         max: 10,  // 最多 10 次/窗口
         message: '请求过于频繁，请 15 分钟后再试'
       },
-      // 短信验证码专项限制
+      // 短信验证码专项限制（最严格）
       sms: {
         windowMs: 60 * 1000,  // 1 分钟
         max: 2,  // 最多 2 次/分钟
         message: '短信发送过于频繁'
+      },
+      // TTS 音频生成限制（防滥用）
+      tts: {
+        windowMs: 60 * 1000,  // 1 分钟
+        max: 30,  // 最多 30 次/分钟
+        message: '音频请求过于频繁，请稍后再试'
       }
     }
   }

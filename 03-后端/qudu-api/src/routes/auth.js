@@ -1,7 +1,23 @@
 const express = require('express');
 const router = express.Router();
+const rateLimit = require('express-rate-limit');
+const config = require('../config');
 const authCtrl = require('../controllers/authController');
 const authMiddleware = require('../middlewares/auth');
+
+// ===== 短信验证码专项速率限制 =====
+const smsRateLimiter = rateLimit({
+  windowMs: config.security.rateLimit.sms.windowMs,
+  max: config.security.rateLimit.sms.max,
+  message: { code: 42903, data: null, message: config.security.rateLimit.sms.message },
+  standardHeaders: true,
+  legacyHeaders: false,
+  standardizeClientIP: true,
+  keyGenerator: (req) => {
+    // 按 IP + 手机号组合限制，防止同一手机号轰炸
+    return req.ip + ':' + (req.body?.phone || 'unknown');
+  }
+});
 
 // ===== 公开接口（无需认证） =====
 
@@ -42,7 +58,7 @@ const authMiddleware = require('../middlewares/auth');
  *       400:
  *         description: 手机号格式错误
  */
-router.post('/sms/send', authCtrl.sendSmsCode);
+router.post('/sms/send', smsRateLimiter, authCtrl.sendSmsCode);
 
 /**
  * @openapi

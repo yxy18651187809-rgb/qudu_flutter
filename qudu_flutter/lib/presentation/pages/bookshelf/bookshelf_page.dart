@@ -1,35 +1,33 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_radius.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../data/models/book_model.dart';
-import '../../../data/repositories/books_repository.dart';
-import '../../../core/di/service_locator.dart';
 import '../../../core/network/network_ui_helper.dart';
-import '../../../core/network/network_interceptor.dart';
+import '../../bloc/bookshelf/bookshelf_bloc.dart';
+import '../../bloc/bookshelf/bookshelf_event.dart';
+import '../../bloc/bookshelf/bookshelf_state.dart';
 
 /// 绘本书架页
 /// Tab 2 — 显示当前级别绘本列表，支持按级别筛选
 /// TODO: 插画师设计稿到位后替换 UI 样式
-class BookshelfPage extends StatefulWidget {
+class BookshelfPage extends StatelessWidget {
   const BookshelfPage({super.key});
 
   @override
-  State<BookshelfPage> createState() => _BookshelfPageState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => BookshelfBloc()..add(const BookshelfLoadData()),
+      child: const _BookshelfView(),
+    );
+  }
 }
 
-class _BookshelfPageState extends State<BookshelfPage> {
-  final BooksRepository _repository = BooksRepository();
-
-  List<BookModel> _books = [];
-  List<BookModel> _recommendedBooks = [];
-  bool _isLoading = true;
-  String _selectedLevel = 'L1'; // 默认显示 L1
-  bool _isOffline = false;
-  StreamSubscription<NetworkStatus>? _networkSubscription;
+class _BookshelfView extends StatelessWidget {
+  const _BookshelfView();
 
   /// 级别选项（从 L1 到 L5）
   static const List<String> _levels = ['L1', 'L2', 'L3', 'L4', 'L5'];
@@ -43,59 +41,8 @@ class _BookshelfPageState extends State<BookshelfPage> {
     'L5': '🏔️ 挑战',
   };
 
-  @override
-  void initState() {
-    super.initState();
-    // 监听网络状态
-    _networkSubscription = ServiceLocator.instance.apiClient.networkStatus.listen((status) {
-      if (mounted) {
-        setState(() {
-          _isOffline = status == NetworkStatus.offline;
-        });
-      }
-    });
-    _loadBooks();
-  }
-
-  @override
-  void dispose() {
-    _networkSubscription?.cancel();
-    super.dispose();
-  }
-
-  /// 加载绘本列表
-  /// GET /api/v1/books?level=L1
-  Future<void> _loadBooks() async {
-    setState(() => _isLoading = true);
-    try {
-      final books = await _repository.getBooks(level: _selectedLevel);
-      final recommended = await _repository.getRecommendedBooks();
-      if (mounted) {
-        setState(() {
-          _books = books;
-          _recommendedBooks = recommended;
-          _isLoading = false;
-        });
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() => _isLoading = false);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('加载失败：$e'), backgroundColor: AppColors.error),
-        );
-      }
-    }
-  }
-
-  /// 切换级别筛选
-  void _onLevelChanged(String level) {
-    if (level == _selectedLevel) return;
-    setState(() => _selectedLevel = level);
-    _loadBooks();
-  }
-
   /// 点击绘本卡片 — 跳转阅读器
-  void _onBookTap(BookModel book) {
+  void _onBookTap(BuildContext context, BookModel book) {
     context.push('/book-reader/${book.id}');
   }
 
@@ -105,40 +52,56 @@ class _BookshelfPageState extends State<BookshelfPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: Column(
-          children: [
-            if (_isOffline) NetworkUIHelper.buildOfflineBanner(),
-            // --- 顶部标题 + 推荐 Banner ---
-            _buildHeader(),
+    return BlocListener<BookshelfBloc, BookshelfState>(
+      listenWhen: (previous, current) => previous.errorMessage != current.errorMessage,
+      listener: (context, state) {
+        if (state.errorMessage != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('加载失败：${state.errorMessage}'), backgroundColor: AppColors.error),
+          );
+        }
+      },
+      child: BlocBuilder<BookshelfBloc, BookshelfState>(
+        builder: (context, state) {
+          return Scaffold(
+            backgroundColor: AppColors.background,
+            body: SafeArea(
+              child: Column(
+                children: [
+                  if (state.isOffline) NetworkUIHelper.buildOfflineBanner(),
+                  // --- 顶部标题 + 推荐 Banner ---
+                  _buildHeader(state),
 
-            // --- 级别筛选器 ---
-            _buildLevelFilter(),
+                  // --- 级别筛选器 ---
+                  _buildLevelFilter(state),
 
-            // --- 绘本网格 ---
-            Expanded(
-              child: _isLoading
-                  ? const Center(
-                      child: CircularProgressIndicator(color: AppColors.primary),
-                    )
-                  : _books.isEmpty
-                      ? _buildEmptyState()
-                      : RefreshIndicator(
-                          onRefresh: _loadBooks,
-                          color: AppColors.primary,
-                          child: _buildBookGrid(),
-                        ),
+                  // --- 绘本网格 ---
+                  Expanded(
+                    child: state.isLoading
+                        ? const Center(
+                            child: CircularProgressIndicator(color: AppColors.primary),
+                          )
+                        : state.books.isEmpty
+                            ? _buildEmptyState(state)
+                            : RefreshIndicator(
+                                onRefresh: () async {
+                                  context.read<BookshelfBloc>().add(const BookshelfRefreshData());
+                                },
+                                color: AppColors.primary,
+                                child: _buildBookGrid(state),
+                              ),
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
 
   /// 顶部标题区
-  Widget _buildHeader() {
+  Widget _buildHeader(BookshelfState state) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(
         AppSpacing.lg,
@@ -152,8 +115,8 @@ class _BookshelfPageState extends State<BookshelfPage> {
           Text('📚 我的书架', style: AppTypography.h2),
           const SizedBox(height: AppSpacing.xs),
           Text(
-            _recommendedBooks.isNotEmpty
-                ? '为你推荐 ${_recommendedBooks.map((b) => '《${b.title}》').join('、')}'
+            state.recommendedBooks.isNotEmpty
+                ? '为你推荐 ${state.recommendedBooks.map((b) => '《${b.title}》').join('、')}'
                 : '选择级别，开始阅读',
             style: AppTypography.caption,
             maxLines: 1,
@@ -165,7 +128,7 @@ class _BookshelfPageState extends State<BookshelfPage> {
   }
 
   /// 级别筛选器（横向滚动）
-  Widget _buildLevelFilter() {
+  Widget _buildLevelFilter(BookshelfState state) {
     return SizedBox(
       height: 44,
       child: ListView.separated(
@@ -175,9 +138,9 @@ class _BookshelfPageState extends State<BookshelfPage> {
         separatorBuilder: (_, __) => const SizedBox(width: AppSpacing.sm),
         itemBuilder: (context, index) {
           final level = _levels[index];
-          final isSelected = level == _selectedLevel;
+          final isSelected = level == state.selectedLevel;
           return GestureDetector(
-            onTap: () => _onLevelChanged(level),
+            onTap: () => context.read<BookshelfBloc>().add(BookshelfLevelChanged(level)),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               padding: const EdgeInsets.symmetric(
@@ -218,7 +181,7 @@ class _BookshelfPageState extends State<BookshelfPage> {
 
   /// 绘本网格（响应式列数）
   /// 手机 ≤600dp：2列  |  平板 600–900dp：3列  |  大屏 ≥900dp：4列
-  Widget _buildBookGrid() {
+  Widget _buildBookGrid(BookshelfState state) {
     return LayoutBuilder(
       builder: (context, constraints) {
         final width = constraints.maxWidth;
@@ -252,11 +215,11 @@ class _BookshelfPageState extends State<BookshelfPage> {
             crossAxisSpacing: AppSpacing.md,
             mainAxisSpacing: AppSpacing.md,
           ),
-          itemCount: _books.length,
+          itemCount: state.books.length,
           itemBuilder: (context, index) {
             return _BookCard(
-              book: _books[index],
-              onTap: () => _onBookTap(_books[index]),
+              book: state.books[index],
+              onTap: () => _onBookTap(context, state.books[index]),
             );
           },
         );
@@ -265,7 +228,7 @@ class _BookshelfPageState extends State<BookshelfPage> {
   }
 
   /// 空状态
-  Widget _buildEmptyState() {
+  Widget _buildEmptyState(BookshelfState state) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(AppSpacing.xl),
@@ -282,7 +245,7 @@ class _BookshelfPageState extends State<BookshelfPage> {
               child: const Icon(Icons.menu_book_rounded, size: 56, color: AppColors.secondary),
             ),
             const SizedBox(height: AppSpacing.lg),
-            Text('暂无 $_selectedLevel 级别绘本', style: AppTypography.h3),
+            Text('暂无 ${state.selectedLevel} 级别绘本', style: AppTypography.h3),
             const SizedBox(height: AppSpacing.sm),
             Text(
               '敬请期待更多绘本上线~',

@@ -21,17 +21,13 @@ beforeAll(async () => {
   
   app = require('../../src/app.js');
   
-  // 等待mongoose连接
-  await new Promise(resolve => {
-    const check = () => {
-      if (mongoose.connection.readyState === 1) resolve();
-      else setTimeout(check, 100);
-    };
-    check();
-  });
+  // 主动连接 MongoDB（app.js 不再自动启动服务器，需自行连接）
+  const config = require('../../src/config');
+  if (mongoose.connection.readyState !== 1) {
+    await mongoose.connect(config.mongodb.uri);
+  }
   
   // 获取测试用户token（mock SMS模式下直接登录）
-  const config = require('../../src/config');
   if (config.sms.provider === 'mock') {
     // 发送验证码
     await request(app)

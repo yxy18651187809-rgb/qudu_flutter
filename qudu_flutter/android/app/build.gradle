@@ -30,11 +30,41 @@ android {
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        // 正式发布签名配置 — 需要创建 keystore 后取消注释
+        // 生成 keystore:
+        //   keytool -genkey -v -keystore ~/qudu-release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias qudu
+        // 然后在 ~/.gradle/gradle.properties 中添加:
+        //   QUDU_STORE_FILE=/path/to/qudu-release-key.jks
+        //   QUDU_STORE_PASSWORD=your_store_password
+        //   QUDU_KEY_ALIAS=qudu
+        //   QUDU_KEY_PASSWORD=your_key_password
+        release {
+            if (System.getenv("QUDU_STORE_FILE") != null) {
+                storeFile file(System.getenv("QUDU_STORE_FILE"))
+                storePassword System.getenv("QUDU_STORE_PASSWORD")
+                keyAlias System.getenv("QUDU_KEY_ALIAS")
+                keyPassword System.getenv("QUDU_KEY_PASSWORD")
+            } else if (project.hasProperty('QUDU_STORE_FILE')) {
+                storeFile file(project.property('QUDU_STORE_FILE'))
+                storePassword project.property('QUDU_STORE_PASSWORD')
+                keyAlias project.property('QUDU_KEY_ALIAS')
+                keyPassword project.property('QUDU_KEY_PASSWORD')
+            }
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.debug
+            // 优先使用正式签名，未配置时回退 debug 签名
+            signingConfig = signingConfigs.release.storeFile != null
+                ? signingConfigs.release
+                : signingConfigs.debug
+
+            // 启用代码缩减（R8）— 配合 Flutter --obfuscate
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }
