@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const rateLimit = require('express-rate-limit');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const path = require('path');
@@ -85,8 +86,47 @@ app.get('/api-docs.json', (req, res) => {
 });
 
 // ===== 中间件 =====
+
+// 1. 安全 headers (helmet)
 app.use(helmet());
-app.use(cors());
+
+// 2. CORS 严格配置
+app.use(cors({
+  origin: function(origin, callback) {
+    // 允许没有 origin 的请求（如 Postman、curl）
+    if (!origin) return callback(null, true);
+    
+    const allowedOrigins = config.security.corsOrigins;
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      logger.warn(`[CORS] 拒绝来源: ${origin}`);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+}));
+
+// 3. 全局速率限制
+app.use(rateLimit({
+  windowMs: config.security.rateLimit.default.windowMs,
+  max: config.security.rateLimit.default.max,
+  message: { code: 42901, data: null, message: '请求过于频繁，请稍后再试' },
+  standardHeaders: true,
+  legacyHeaders: false,
+  handler: (req, res) => {
+    logger.warn(`[RateLimit] IP=${req.ip} ${req.method} ${req.originalUrl}`);
+    res.status(429).json({
+      code: 42901,
+      data: null,
+      message: '请求过于频繁，请稍后再试'
+    });
+  }
+}));
+
+// 4. 请求日志
 app.use(morgan('dev'));
 app.use(requestLogger);  // 自定义请求日志（响应时间、慢请求告警）
 app.use(express.json({ limit: '10mb' }));
@@ -94,6 +134,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // ===== 静态文件服务 =====
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
+app.use('/audio', express.static(path.join(__dirname, '..', 'uploads', 'audio')));
+app.use('/audio/books', express.static(path.join(__dirname, '..', 'uploads', 'audio', 'books')));
 
 // ===== 健康检查 =====
 app.get('/health', (req, res) => {
@@ -106,8 +148,22 @@ app.get('/health', (req, res) => {
 });
 
 // ===== API 路由 =====
-app.use('/api/v1/auth', authRoutes);
-app.use('/api/v1/user', authRoutes);  // profile 复用 auth 路由
+
+// 认证接口严格速率限制（登录/注册/短信）
+const authRateLimiter = rateLimit({
+  windowMs: config.security.rateLimit.auth.windowMs,
+  max: config.security.rateLimit.auth.max,
+  message: { code: 42902, data: null, message: config.security.rateLimit.auth.message },
+  standardHeaders: true,
+  legacyHeaders: false,
+  keyGenerator: (req) => {
+    // 按 IP + 手机号/账号 组合限制
+    return req.ip + ':' + (req.body?.phone || req.body?.username || 'unknown');
+  }
+});
+
+app.use('/api/v1/auth', authRateLimiter, authRoutes);
+app.use('/api/v1/user', authRateLimiter, authRoutes);  // profile 复用 auth 路由
 app.use('/api/v1/children', childRoutes);
 app.use('/api/v1/books', bookRoutes);
 app.use('/api/v1/characters', characterRoutes);
@@ -235,6 +291,9 @@ async function startServer() {
   }
 }
 
-startServer();
+// 仅直接执行时启动服务器，被 require 时不自动启动（支持测试）
+if (require.main === module) {
+  startServer();
+}
 
 module.exports = app;
