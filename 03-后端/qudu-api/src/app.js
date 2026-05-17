@@ -160,10 +160,10 @@ const authRateLimiter = rateLimit({
   message: { code: 42902, data: null, message: config.security.rateLimit.auth.message },
   standardHeaders: true,
   legacyHeaders: false,
-  standardizeClientIP: true,
   keyGenerator: (req) => {
-    // 按 IP + 手机号/账号 组合限制
-    return req.ip + ':' + (req.body?.phone || req.body?.username || 'unknown');
+    // 标准化 IPv6 映射地址（::ffff:127.0.0.1 → 127.0.0.1）
+    const ip = (req.ip || '').replace(/^::ffff:/, '');
+    return ip + ':' + (req.body?.phone || req.body?.username || 'unknown');
   }
 });
 
