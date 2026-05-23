@@ -12,10 +12,10 @@ const smsRateLimiter = rateLimit({
   message: { code: 42903, data: null, message: config.security.rateLimit.sms.message },
   standardHeaders: true,
   legacyHeaders: false,
-  standardizeClientIP: true,
   keyGenerator: (req) => {
-    // 按 IP + 手机号组合限制，防止同一手机号轰炸
-    return req.ip + ':' + (req.body?.phone || 'unknown');
+    // 标准化 IPv6 映射地址
+    const ip = (req.ip || '').replace(/^::ffff:/, '');
+    return ip + ':' + (req.body?.phone || 'unknown');
   }
 });
 

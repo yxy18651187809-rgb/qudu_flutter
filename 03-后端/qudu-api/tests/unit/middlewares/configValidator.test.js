@@ -46,12 +46,12 @@ describe('configValidator', () => {
 
     test('MONGODB_URI 指向 localhost 应抛出错误', () => {
       const config = { ...safeConfig, mongodb: { uri: 'mongodb://localhost:27017/qudu' } };
-      expect(() => validateProductionConfig(config)).toThrow('localhost');
+      expect(() => validateProductionConfig(config)).toThrow('本地地址');
     });
 
     test('MONGODB_URI 指向 127.0.0.1 应抛出错误', () => {
       const config = { ...safeConfig, mongodb: { uri: 'mongodb://127.0.0.1:27017/qudu' } };
-      expect(() => validateProductionConfig(config)).toThrow('127.0.0.1');
+      expect(() => validateProductionConfig(config)).toThrow('本地地址');
     });
 
     test('SMS 为 mock 模式应产生警告', () => {
