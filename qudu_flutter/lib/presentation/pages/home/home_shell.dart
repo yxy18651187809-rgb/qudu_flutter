@@ -105,8 +105,18 @@ class HomeShellState extends State<HomeShell>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
+      body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 200),
+        switchInCurve: Curves.easeOut,
+        switchOutCurve: Curves.easeIn,
+        transitionBuilder: (child, animation) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+        child: KeyedSubtree(
+          key: ValueKey(_currentIndex),
         children: [
           // Tab 0: 首页 ✅ 真实页面已接入
           const HomePage(),
@@ -117,6 +127,7 @@ class HomeShellState extends State<HomeShell>
           // Tab 3: 我的 ✅ 真实页面已接入
           const ProfilePage(),
         ],
+        ),
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -150,9 +161,11 @@ class HomeShellState extends State<HomeShell>
   }
 
   Widget _buildTabItem(_TabItem tab, bool isSelected, int index) {
-    return GestureDetector(
+    return InkWell(
       onTap: () => setState(() => _currentIndex = index),
-      behavior: HitTestBehavior.opaque,
+      borderRadius: BorderRadius.circular(AppRadius.small),
+      splashColor: AppColors.primary.withOpacity(0.2),
+      highlightColor: AppColors.primary.withOpacity(0.1),
       child: Container(
         padding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.md,
