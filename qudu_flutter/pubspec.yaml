@@ -65,6 +65,9 @@ dependencies:
   # SVG 渲染（品牌图标/趣趣IP）
   flutter_svg: ^2.0.10
 
+  # 字体（站酷快乐体 — 圆润活泼，免费商用）
+  google_fonts: ^6.3.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class AppColors {
   // 品牌主色板
   static const Color primary = Color(0xFF8BC34A);       // 春绿 - 主按钮、导航高亮、进度条
-  static const Color primaryLight = Color(0xFFC5E1A5);  // 浅色背景、hover态（趣趣身体色）
+  static const Color primaryLight = Color(0xFFC5E8A8);  // 浅色背景、hover态（趣趣身体色）— 修正#C5E1A5→#C5E8A8与设计规范一致
   static const Color primaryDark = Color(0xFF689F38);    // 深色强调、按下态
   static const Color secondary = Color(0xFFFFAB91);      // 暖粉 - 辅色卡片、趣趣腮红
   static const Color accent = Color(0xFFFFD54F);         // 阳光黄 - 新字高亮背景、徽章
@@ -19,7 +19,7 @@ class AppColors {
   // 文字色
   static const Color textPrimary = Color(0xFF424242);     // 深灰 - 正文文字
   static const Color textSecondary = Color(0xFF757575);   // 次要文字
-  static const Color textHint = Color(0xFFBDBDBD);        // 占位符、hint文字
+  static const Color textHint = Color(0xFF8C8C8C);        // 占位符、hint文字（对比度≥3.5:1）
 
   // 状态色
   static const Color success = Color(0xFF81C784);
@@ -36,7 +36,7 @@ class AppColors {
   static const Color newWordText = Color(0xFFFF7043);     // 橙红
 
   // 趣趣IP配色
-  static const Color ipBody = Color(0xFFC5E1A5);         // 淡黄绿（同 primaryLight）
+  static const Color ipBody = Color(0xFFC5E8A8);         // 淡黄绿（同 primaryLight）— 修正#C5E1A5→#C5E8A8
   static const Color ipBelly = Color(0xFFFFF8E1);        // 乳白
   static const Color ipBlush = Color(0xFFFFAB91);        // 粉红腮红（同 secondary）
   static const Color ipLeaf = Color(0xFF8BC34A);         // 春绿叶子（同 primary）

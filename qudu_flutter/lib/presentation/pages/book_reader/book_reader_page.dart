@@ -619,10 +619,12 @@ class _ReaderPageView extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             // 插画图片（支持相对路径自动拼接服务器地址）
+            // BoxFit.contain：统一 800×1000 (4:5竖版) 尺寸策略
+            // 过渡期兼容 1:1/4:3 旧图，完整显示不裁剪；统一4:5后零留白
             if (page.image.isNotEmpty)
               Image.network(
                 _resolveImageUrl(page.image),
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
                 errorBuilder: (_, __, ___) => _buildIllustrationPlaceholder(),
               )
             else

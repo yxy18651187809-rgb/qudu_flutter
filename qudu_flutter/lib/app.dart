@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'core/theme/app_theme.dart';
 import 'core/router/app_router.dart';
 
@@ -34,7 +35,12 @@ class _ZiquAppState extends State<ZiquApp> {
     return MaterialApp.router(
       title: '字趣阅读',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
+      theme: AppTheme.lightTheme.copyWith(
+        // 站酷快乐体：圆润活泼，免费商用，契合5-12岁儿童审美
+        textTheme: GoogleFonts.zcoolKuaiLeTextTheme(
+          AppTheme.lightTheme.textTheme,
+        ),
+      ),
       routerConfig: _router,
     );
   }

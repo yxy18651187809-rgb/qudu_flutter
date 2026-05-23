@@ -1,46 +1,61 @@
-# 技术质量提升计划 — 执行完成报告
+# 前端负责人 · 颗粒度对齐 & 视觉修复
 
-## 执行时间
-2026-05-10 21:37 ~ 21:50
+> 日期：2026-05-19 21:40 | 角色：前端负责人
 
-## P0 完成项（5/5 = 100%）
+## 完成内容
 
-### 1. ✅ 后端单元测试（71 tests）
-| 文件 | 测试数 | 覆盖内容 |
-|------|--------|----------|
-| questionGenerator.test.js | 31 | stripTone + adjustDistribution + shuffleArray + buildQuestion + 配置常量 |
-| reviewAlgorithm.test.js | 40 | calculateNextReview + calculateStage + estimateWordCount + recommendLevel + addDays |
+### 1. 视觉修复（P0）
 
-### 2. ✅ 前端单元测试（23 tests）
-| 文件 | 测试数 | 覆盖内容 |
-|------|--------|----------|
-| child_model_test.dart | 10 | fromJson/空值/age/levelLabel/toCreateJson/toUpdateJson |
-| book_model_test.dart | 13 | fromJson/_id兼容/toJson/masteryProgress/levelLabel/lastReadAt |
+| 修复项 | 修改前 | 修改后 | 文件 |
+|--------|--------|--------|------|
+| primaryLight色值 | `#C5E1A5` | `#C5E8A8` | `app_colors.dart` |
+| ipBody色值 | `#C5E1A5` | `#C5E8A8` | `app_colors.dart` |
+| 站酷快乐体 | 未集成 | `google_fonts ^6.3.0` | `pubspec.yaml` + `app.dart` |
 
-### 3. ✅ 后端日志体系（winston）
-- `src/utils/logger.js`：结构化日志，error.log + combined.log，日志轮转
-- `src/app.js`：console → logger（warn/error/info）
+验证：`flutter analyze` 0 error ✅ / `flutter test` 68/68 ✅
 
-### 4. ✅ CI 流水线（GitHub Actions）
-- `.github/workflows/ci.yml`：backend + frontend 两个 job
+### 2. 项目组联系手册更新（前端章节）
 
-### 5. ✅ 工程规范
-- `.github/pull_request_template.md`：标准 PR 模板
-- `GIT_COMMIT_CONVENTION.md`：Git 提交规范 + Code Review 要求
+从v2.6全面更新至v3.0，关键变更：
 
-## 技术健康度更新
+| 变更项 | 旧值 | 新值 |
+|--------|------|------|
+| 视觉反馈状态 | 3项待处理 | 全部清零 ✅ |
+| 完成项数量 | #69-75（7项） | #69-81（13项，+6项5/17-5/19） |
+| 测试计数 | 60/60 | 68/68 |
+| BLoC迁移进度 | Tab0试点完成 | Tab0+Tab2完成（2/4） |
+| 代码混淆 | 未提及 | ✅ build_release.sh + R8 + ProGuard |
+| 插画对齐-07/08 P00 | 临时方案 | ✅ 独立封面已生成 |
+| 插画对齐-内页尺寸 | 待确认 | ✅ 800×1000(4:5)已决策 |
+| 本周计划-Tab2 BLoC | 🟡 P1 | ✅ 已完成，改为Tab1+Tab3 |
 
-| 指标 | 执行前 | 执行后 |
-|------|--------|--------|
-| 前端单元测试数 | 0 | 23 ✅ |
-| 后端单元测试数 | 0 | 71 ✅ |
-| CI 流水线 | 无 | 已配置 ✅ |
-| Code Review 模板 | 无 | PR模板就绪 ✅ |
-| Git 提交规范 | 弱 | 规范文档就绪 ✅ |
-| 生产日志 | console.log | winston ✅ |
+### 3. 前端当前完整状态
 
-## 待后续（P1 5月底前）
-- 前端：首页 BLoC 迁移（需前端负责人执行）
-- 后端：确认 winston 在实际启动中正常工作
-- 团队：按 PR 模板执行 Code Review
-- 运营：周会设立「技术质量」议题
+```
+Phase 1:        24/24 = 100% ✅
+Phase 1.1 UI:   5页面全部完成，待联调
+单元测试:       68/68 ✅
+代码质量:       flutter analyze 0 error ✅
+BLoC迁移:       2/4（Tab0 ✅ + Tab2 ✅）
+代码混淆:       ✅ build_release.sh + R8 + ProGuard
+视觉偏差:       ✅ 全部清零（primaryLight + 字体 + 尺寸策略）
+```
+
+### 4. 本周前端计划（5/19-5/24）
+
+| 优先级 | 任务 | 依赖 |
+|--------|------|------|
+| 🔴 P0 | Phase 1.1 学习报告+家长监控联调 | 后端服务运行中 |
+| 🟡 P1 | BLoC迁移 Tab1识字+Tab3我的 | 无 |
+| 🟡 P1 | Code Review后端PR | 后端提交PR |
+| 🟡 P1 | L2绘本数据接入 | 教研文案+插画 |
+| 🟢 P2 | 前端性能优化 | 无 |
+
+### 5. 跨角色对齐摘要
+
+| 对齐对象 | 关键对齐项 | 状态 |
+|----------|-----------|------|
+| 插画师 | 内页/封面尺寸 800×1000 | ✅ 已对齐 |
+| 插画师 | 命名规范 + 路径规范 | ✅ 已对齐 |
+| 后端 | 7个API端点 ↔ 前端Repository | ✅ 已对接 |
+| 教研 | L2文案+题库 等待教研产出 | 🔶 等待 |
