@@ -12,6 +12,9 @@ import '../../../core/theme/app_typography.dart';
 import '../../../core/di/service_locator.dart';
 import '../../../data/models/parent_monitoring_model.dart';
 import '../../../data/repositories/parent_monitoring_repository.dart';
+import '../../widgets/shimmer_loading.dart';
+import '../../widgets/empty_state_widget.dart';
+import '../../widgets/error_retry_widget.dart';
 
 class ParentMonitoringPage extends StatefulWidget {
   final String parentId;
@@ -29,6 +32,7 @@ class _ParentMonitoringPageState extends State<ParentMonitoringPage> {
       ServiceLocator.instance.parentMonitoringRepository;
   MonitoringOverview? _overview;
   bool _isLoading = true;
+  String? _errorMessage;
 
   @override
   void initState() {
@@ -37,7 +41,10 @@ class _ParentMonitoringPageState extends State<ParentMonitoringPage> {
   }
 
   Future<void> _loadOverview() async {
-    setState(() => _isLoading = true);
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
     try {
       final overview = await _repository.getOverview(parentId: widget.parentId);
       if (mounted) {
@@ -48,10 +55,10 @@ class _ParentMonitoringPageState extends State<ParentMonitoringPage> {
       }
     } catch (e) {
       if (mounted) {
-        setState(() => _isLoading = false);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('加载失败：$e')),
-        );
+        setState(() {
+          _errorMessage = e.toString().replaceFirst('Exception: ', '');
+          _isLoading = false;
+        });
       }
     }
   }
@@ -76,17 +83,20 @@ class _ParentMonitoringPageState extends State<ParentMonitoringPage> {
         ],
       ),
       body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : _overview == null
-              ? const Center(child: Text('暂无数据'))
+          ? const ShimmerList(itemCount: 4)
+          : _errorMessage != null
+              ? ErrorRetryWidget(
+                  message: _errorMessage,
+                  onRetry: _loadOverview,
+                )
               : _buildOverview(),
     );
   }
 
   Widget _buildOverview() {
-    final children = _overview!.children;
+    final children = _overview?.children ?? [];
     if (children.isEmpty) {
-      return const Center(child: Text('暂未添加孩子'));
+      return const EmptyStateWidget.children();
     }
     return RefreshIndicator(
       onRefresh: _loadOverview,
