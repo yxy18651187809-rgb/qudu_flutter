@@ -10,6 +10,10 @@ import '../../../core/network/network_ui_helper.dart';
 import '../../bloc/bookshelf/bookshelf_bloc.dart';
 import '../../bloc/bookshelf/bookshelf_event.dart';
 import '../../bloc/bookshelf/bookshelf_state.dart';
+import '../../widgets/shimmer_loading.dart';
+import '../../widgets/empty_state_widget.dart';
+import '../../widgets/error_retry_widget.dart';
+import '../home/home_shell.dart';
 
 /// 绘本书架页
 /// Tab 2 — 显示当前级别绘本列表，支持按级别筛选
@@ -77,19 +81,7 @@ class _BookshelfView extends StatelessWidget {
 
                   // --- 绘本网格 ---
                   Expanded(
-                    child: state.isLoading
-                        ? const Center(
-                            child: CircularProgressIndicator(color: AppColors.primary),
-                          )
-                        : state.books.isEmpty
-                            ? _buildEmptyState(state)
-                            : RefreshIndicator(
-                                onRefresh: () async {
-                                  context.read<BookshelfBloc>().add(const BookshelfRefreshData());
-                                },
-                                color: AppColors.primary,
-                                child: _buildBookGrid(state),
-                              ),
+                    child: _buildBody(context, state),
                   ),
                 ],
               ),
@@ -227,33 +219,32 @@ class _BookshelfView extends StatelessWidget {
     );
   }
 
-  /// 空状态
-  Widget _buildEmptyState(BookshelfState state) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(AppSpacing.xl),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(
-                color: AppColors.secondary.withOpacity(0.2),
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(Icons.menu_book_rounded, size: 56, color: AppColors.secondary),
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            Text('暂无 ${state.selectedLevel} 级别绘本', style: AppTypography.h3),
-            const SizedBox(height: AppSpacing.sm),
-            Text(
-              '敬请期待更多绘本上线~',
-              style: AppTypography.bodySmall.copyWith(color: AppColors.textSecondary),
-            ),
-          ],
-        ),
-      ),
+  /// 内容区：加载态 → 错误态 → 空态 → 列表
+  Widget _buildBody(BuildContext context, BookshelfState state) {
+    if (state.isLoading) {
+      return const ShimmerList(itemCount: 6);
+    }
+    if (state.errorMessage != null && state.books.isEmpty) {
+      return ErrorRetryWidget(
+        message: state.errorMessage,
+        onRetry: () => context.read<BookshelfBloc>().add(const BookshelfRefreshData()),
+      );
+    }
+    if (state.books.isEmpty) {
+      return EmptyStateWidget.books(
+        onAction: () {
+          // 切换到识字Tab
+          final homeShell = context.findAncestorStateOfType<HomeShellState>();
+          homeShell?.switchToTab(1);
+        },
+      );
+    }
+    return RefreshIndicator(
+      onRefresh: () async {
+        context.read<BookshelfBloc>().add(const BookshelfRefreshData());
+      },
+      color: AppColors.primary,
+      child: _buildBookGrid(state),
     );
   }
 }

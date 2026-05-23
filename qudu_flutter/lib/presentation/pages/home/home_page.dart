@@ -13,6 +13,8 @@ import '../../bloc/home/home_event.dart';
 import '../../bloc/home/home_state.dart';
 import 'home_shell.dart';
 import '../../../core/network/network_ui_helper.dart';
+import '../../widgets/shimmer_loading.dart';
+import '../../widgets/empty_state_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -34,8 +36,23 @@ class _HomeView extends StatelessWidget {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         if (state.isLoading && state.stats == null) {
-          return const Center(
-            child: CircularProgressIndicator(color: AppColors.primary),
+          return const Scaffold(
+            backgroundColor: AppColors.background,
+            body: SafeArea(
+              child: ShimmerCard(childCount: 4),
+            ),
+          );
+        }
+
+        // 无活跃孩子时展示空状态
+        if (state.activeChild == null && !state.isLoading) {
+          return Scaffold(
+            backgroundColor: AppColors.background,
+            body: SafeArea(
+              child: EmptyStateWidget.children(
+                onAction: () => context.push('/children'),
+              ),
+            ),
           );
         }
         return Scaffold(
