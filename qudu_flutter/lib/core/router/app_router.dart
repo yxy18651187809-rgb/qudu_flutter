@@ -13,6 +13,7 @@ import '../../presentation/pages/assessment/assessment_result_page.dart';
 import '../../presentation/pages/learning/learning_report_page.dart';
 import '../../presentation/pages/profile/parent_monitoring_page.dart';
 import '../../presentation/pages/profile/parent_monitoring_detail_page.dart';
+import 'page_transitions.dart';
 
 /// 路由路径常量
 class AppRoutes {
@@ -82,105 +83,121 @@ GoRouter createRouter(AuthNotifier authNotifier) {
         name: 'home',
         builder: (context, state) => const HomeShell(),
       ),
-      // 儿童档案管理页
+      // 儿童档案管理页 — slideUp 过渡
       GoRoute(
         path: AppRoutes.children,
         name: 'children',
-        builder: (context, state) => const ChildrenPage(),
+        pageBuilder: (context, state) {
+          return PageTransitions.slideUp(const ChildrenPage());
+        },
       ),
-      // 绘本阅读器
+      // 绘本阅读器 — slideRight 过渡
       GoRoute(
         path: '/book-reader/:bookId',
         name: 'bookReader',
-        builder: (context, state) {
+        pageBuilder: (context, state) {
           final bookId = state.pathParameters['bookId'] ?? '';
           final childId = state.uri.queryParameters['childId'];
-          return BookReaderPage(bookId: bookId, childId: childId);
+          return PageTransitions.slideRight(
+            BookReaderPage(bookId: bookId, childId: childId),
+          );
         },
       ),
-      // 测评首页
+      // 测评首页 — slideRight 过渡
       GoRoute(
         path: '/assessment/start',
         name: 'assessmentStart',
-        builder: (context, state) {
+        pageBuilder: (context, state) {
           final childId = state.uri.queryParameters['childId'] ?? '';
           final typeParam = state.uri.queryParameters['type'] ?? 'initial';
           final type = AssessmentType.values.firstWhere(
             (e) => e.apiValue == typeParam,
             orElse: () => AssessmentType.initial,
           );
-          return AssessmentStartPage(childId: childId, assessmentType: type);
+          return PageTransitions.slideRight(
+            AssessmentStartPage(childId: childId, assessmentType: type),
+          );
         },
       ),
-      // 答题页面
+      // 答题页面 — slideRight 过渡
       GoRoute(
         path: '/assessment/question',
         name: 'assessmentQuestion',
-        builder: (context, state) {
+        pageBuilder: (context, state) {
           final childId = state.uri.queryParameters['childId'] ?? '';
           final assessment = state.extra as AssessmentModel?;
-          return AssessmentQuestionPage(
-            childId: childId,
-            assessment: assessment ?? AssessmentModel(
-              assessmentId: '',
-              type: AssessmentType.initial,
-              status: AssessmentStatus.inProgress,
-              questions: [],
-              startedAt: DateTime.now(),
+          return PageTransitions.slideRight(
+            AssessmentQuestionPage(
+              childId: childId,
+              assessment: assessment ?? AssessmentModel(
+                assessmentId: '',
+                type: AssessmentType.initial,
+                status: AssessmentStatus.inProgress,
+                questions: [],
+                startedAt: DateTime.now(),
+              ),
             ),
           );
         },
       ),
-      // 结果页面
+      // 结果页面 — scale 弹出过渡
       GoRoute(
         path: '/assessment/result',
         name: 'assessmentResult',
-        builder: (context, state) {
+        pageBuilder: (context, state) {
           final extra = state.extra as Map<String, dynamic>?;
-          return AssessmentResultPage(
-            assessment: extra?['assessment'] as AssessmentModel? ??
-                AssessmentModel(
-                  assessmentId: '',
-                  type: AssessmentType.initial,
-                  status: AssessmentStatus.completed,
-                  questions: [],
-                  startedAt: DateTime.now(),
-                ),
-            result: extra?['result'] as AssessmentResult?,
+          return PageTransitions.scale(
+            AssessmentResultPage(
+              assessment: extra?['assessment'] as AssessmentModel? ??
+                  AssessmentModel(
+                    assessmentId: '',
+                    type: AssessmentType.initial,
+                    status: AssessmentStatus.completed,
+                    questions: [],
+                    startedAt: DateTime.now(),
+                  ),
+              result: extra?['result'] as AssessmentResult?,
+            ),
           );
         },
       ),
-      // 学习报告页
+      // 学习报告页 — slideUp 过渡
       GoRoute(
         path: '/learning-report',
         name: 'learningReport',
-        builder: (context, state) {
+        pageBuilder: (context, state) {
           final childId = state.uri.queryParameters['childId'] ?? '';
           final childName = state.uri.queryParameters['childName'];
-          return LearningReportPage(childId: childId, childName: childName);
+          return PageTransitions.slideUp(
+            LearningReportPage(childId: childId, childName: childName),
+          );
         },
       ),
-      // 家长监控概览
+      // 家长监控概览 — slideRight 过渡
       GoRoute(
         path: '/parent-monitoring/:parentId',
         name: 'parentMonitoring',
-        builder: (context, state) {
+        pageBuilder: (context, state) {
           final parentId = state.pathParameters['parentId'] ?? '';
-          return ParentMonitoringPage(parentId: parentId);
+          return PageTransitions.slideRight(
+            ParentMonitoringPage(parentId: parentId),
+          );
         },
       ),
-      // 家长监控-孩子详情
+      // 家长监控-孩子详情 — slideRight 过渡
       GoRoute(
         path: '/parent-monitoring/:parentId/child/:childId',
         name: 'parentMonitoringDetail',
-        builder: (context, state) {
+        pageBuilder: (context, state) {
           final parentId = state.pathParameters['parentId'] ?? '';
           final childId = state.pathParameters['childId'] ?? '';
           final overview = state.extra as MonitoringChildOverview?;
-          return ParentMonitoringDetailPage(
-            parentId: parentId,
-            childId: childId,
-            overview: overview,
+          return PageTransitions.slideRight(
+            ParentMonitoringDetailPage(
+              parentId: parentId,
+              childId: childId,
+              overview: overview,
+            ),
           );
         },
       ),

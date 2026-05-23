@@ -150,7 +150,18 @@ def parse_lesson(filepath):
 
 def get_level_style(level):
     """返回不同级别的风格配置"""
-    if level == 'L4':
+    if level == 'L3':
+        return {
+            'level_name': 'L3发展级',
+            'style': 'Q版可爱+丰富色彩，角色圆润亲切，场景饱满但不复杂，适合7-8岁',
+            'line': '柔和线条2.5-3px，保持可爱感同时有一定细节',
+            'colors': '色彩丰富鲜艳但不过于低幼，暖色调为主，根据主题灵活调整',
+            'size': '800×1000px（4:5竖版）',
+            'format': 'PNG（透明背景）+ JPG预览',
+            'annotation': '半透明暖黄色气泡标注',
+            'dpi': '150dpi'
+        }
+    elif level == 'L4':
         return {
             'level_name': 'L4提升级',
             'style': '中国风+现代融合，场景更丰富，角色表现力更强',
@@ -510,55 +521,46 @@ def generate_full_doc(lessons, level):
     return '\n'.join(lines)
 
 
+# ============================================================
+# 主流程
+# ============================================================
+
+def process_level(level, file_pattern, output_name_pattern):
+    """处理单个级别的教案，生成插画需求单"""
+    files = sorted(glob.glob(os.path.join(CONTENT_DIR, file_pattern)))
+    print(f"找到 {level} 教案: {len(files)} 个")
+
+    lessons = []
+    for f in files:
+        lesson = parse_lesson(f)
+        if lesson:
+            lessons.append(lesson)
+            print(f"  解析成功: {lesson['id']}《{lesson['title']}》- {len(lesson['chars'])}字, {lesson['page_count']}页")
+        else:
+            print(f"  解析失败: {f}")
+
+    if lessons:
+        doc = generate_full_doc(lessons, level)
+        first_num = get_id_num(lessons[0]['id'])
+        last_num = get_id_num(lessons[-1]['id'])
+        output = os.path.join(OUTPUT_DIR, output_name_pattern.format(first=first_num, last=last_num))
+        with open(output, 'w', encoding='utf-8') as f:
+            f.write(doc)
+        print(f"\n✅ {level}文档已生成: {output}")
+        print(f"   总计 {len(lessons)} 篇, {len(doc)} 字符")
+        return output
+    return None
+
+
 def main():
-    # 收集L4文件
-    l4_files = sorted(glob.glob(os.path.join(CONTENT_DIR, 'L4-*.md')))
-    l5_files = sorted(glob.glob(os.path.join(CONTENT_DIR, 'L5-*.md')))
+    # 处理L3 (045-064) — 使用通配模式，实际只有20个文件
+    l3_output = process_level('L3', 'L3-0[4-6][0-9]_*.md', '插画需求单_L3_第{first}-{last}篇.md')
 
-    print(f"找到 L4 教案: {len(l4_files)} 个")
-    print(f"找到 L5 教案: {len(l5_files)} 个")
+    # 处理L4 (065-084)
+    l4_output = process_level('L4', 'L4-*.md', '插画需求单_L4_第{first}-{last}篇.md')
 
-    # 解析L4
-    l4_lessons = []
-    for f in l4_files:
-        lesson = parse_lesson(f)
-        if lesson:
-            l4_lessons.append(lesson)
-            print(f"  解析成功: {lesson['id']}《{lesson['title']}》- {len(lesson['chars'])}字, {lesson['page_count']}页")
-        else:
-            print(f"  解析失败: {f}")
-
-    # 解析L5
-    l5_lessons = []
-    for f in l5_files:
-        lesson = parse_lesson(f)
-        if lesson:
-            l5_lessons.append(lesson)
-            print(f"  解析成功: {lesson['id']}《{lesson['title']}》- {len(lesson['chars'])}字, {lesson['page_count']}页")
-        else:
-            print(f"  解析失败: {f}")
-
-    # 生成L4文档
-    if l4_lessons:
-        l4_doc = generate_full_doc(l4_lessons, 'L4')
-        first_num = get_id_num(l4_lessons[0]['id'])
-        last_num = get_id_num(l4_lessons[-1]['id'])
-        l4_output = os.path.join(OUTPUT_DIR, f'插画需求单_L4_第{first_num}-{last_num}篇.md')
-        with open(l4_output, 'w', encoding='utf-8') as f:
-            f.write(l4_doc)
-        print(f"\n✅ L4文档已生成: {l4_output}")
-        print(f"   总计 {len(l4_lessons)} 篇, {len(l4_doc)} 字符")
-
-    # 生成L5文档
-    if l5_lessons:
-        l5_doc = generate_full_doc(l5_lessons, 'L5')
-        first_num = get_id_num(l5_lessons[0]['id'])
-        last_num = get_id_num(l5_lessons[-1]['id'])
-        l5_output = os.path.join(OUTPUT_DIR, f'插画需求单_L5_第{first_num}-{last_num}篇.md')
-        with open(l5_output, 'w', encoding='utf-8') as f:
-            f.write(l5_doc)
-        print(f"\n✅ L5文档已生成: {l5_output}")
-        print(f"   总计 {len(l5_lessons)} 篇, {len(l5_doc)} 字符")
+    # 处理L5 (085-104)
+    l5_output = process_level('L5', 'L5-*.md', '插画需求单_L5_第{first}-{last}篇.md')
 
 
 if __name__ == '__main__':

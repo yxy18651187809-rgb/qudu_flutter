@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'core/theme/app_theme.dart';
 import 'core/router/app_router.dart';
+import 'presentation/widgets/error_retry_widget.dart';
 
 class ZiquApp extends StatefulWidget {
   const ZiquApp({super.key});
@@ -22,6 +23,16 @@ class _ZiquAppState extends State<ZiquApp> {
     _router = createRouter(_authNotifier);
     // 启动时检查登录状态
     _authNotifier.checkAuth();
+    // 全局 ErrorWidget 边界：Flutter 渲染异常时展示友好界面
+    ErrorWidget.builder = (details) {
+      return Material(
+        child: ErrorRetryWidget(
+          message: '页面出了点小问题',
+          icon: const Icon(Icons.broken_image_outlined, size: 56, color: Color(0xFFBDBDBD)),
+          onRetry: null,
+        ),
+      );
+    };
   }
 
   @override

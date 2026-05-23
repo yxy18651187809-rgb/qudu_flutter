@@ -11,6 +11,9 @@ import '../../../core/theme/app_typography.dart';
 import '../../../data/models/learning_report_model.dart';
 import '../../../data/repositories/learning_report_repository.dart';
 import '../../../core/network/network_aware_mixin.dart';
+import '../../widgets/shimmer_loading.dart';
+import '../../widgets/error_retry_widget.dart';
+import '../../widgets/empty_state_widget.dart';
 
 class LearningReportPage extends StatefulWidget {
   final String childId;
@@ -97,11 +100,14 @@ class _LearningReportPageState extends State<LearningReportPage>
           _buildPeriodToggle(),
           Expanded(
             child: _isLoading
-                ? Center(child: CircularProgressIndicator(color: AppColors.primary))
+                ? const ShimmerCard(childCount: 4)
                 : _error != null
-                    ? _buildError()
+                    ? ErrorRetryWidget(
+                        message: _error,
+                        onRetry: _loadReport,
+                      )
                     : _report == null
-                        ? const Center(child: Text('暂无数据'))
+                        ? const EmptyStateWidget.reports()
                         : _buildReportContent(),
           ),
         ],
@@ -156,26 +162,6 @@ class _LearningReportPageState extends State<LearningReportPage>
             ),
           );
         }).toList(),
-      ),
-    );
-  }
-
-  Widget _buildError() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.error_outline, size: 48, color: AppColors.textHint),
-          const SizedBox(height: AppSpacing.md),
-          Text(_error!,
-              style: TextStyle(color: AppColors.textSecondary),
-              textAlign: TextAlign.center),
-          const SizedBox(height: AppSpacing.md),
-          ElevatedButton(
-            onPressed: _loadReport,
-            child: const Text('重试'),
-          ),
-        ],
       ),
     );
   }
