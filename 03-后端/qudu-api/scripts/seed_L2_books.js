@@ -34,14 +34,14 @@ async function seedL2() {
     console.log('[Seed-L2] MongoDB 已连接');
 
     // ===== 1. 导入L2汉字 =====
-    const jsonPath = path.join(__dirname, '../../01-内容/L2完整字_后端导入.json');
+    const jsonPath = path.join(__dirname, '../../../01-内容/L2完整字_后端导入.json');
 
     if (fs.existsSync(jsonPath)) {
       await Character.deleteMany({ level: 2 });
       console.log('[Seed-L2] 已清理 L2 Character 数据');
 
       const rawData = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
-      const characters = rawData.map(item => ({
+      const characterDocs = rawData.map(item => ({
         character: item.character,
         unicode: item.unicode || generateUnicode(item.character),
         pinyin: item.pinyin,
@@ -60,8 +60,21 @@ async function seedL2() {
         status: 'active'
       }));
 
-      await Character.insertMany(characters);
-      console.log(`[Seed-L2] 已导入 ${characters.length} 个L2汉字`);
+      // 逐条插入，跳过已存在的字符（同一字符可能已从L1导入）
+      let inserted = 0, skipped = 0;
+      for (const doc of characterDocs) {
+        try {
+          await Character.create(doc);
+          inserted++;
+        } catch (err) {
+          if (err.code === 11000) {
+            skipped++;
+          } else {
+            console.error(`[Seed-L2] 插入失败 "${doc.character}":`, err.message);
+          }
+        }
+      }
+      console.log(`[Seed-L2] 已导入 ${inserted} 个L2汉字, ${skipped} 个重复(跳过)`);
     } else {
       console.log(`[Seed-L2] ⚠️ 未找到L2字表: ${jsonPath}`);
     }

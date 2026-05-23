@@ -1,35 +1,15 @@
 {
-  "level": "L4",
-  "totalChars": 518,
-  "uniqueChars": 283,
-  "duplicateChars": 235,
+  "level": "L3",
+  "totalChars": 495,
+  "uniqueChars": 380,
+  "duplicateChars": 115,
   "characters": [
     {
-      "character": "下",
-      "pinyin": "xià",
+      "character": "与",
+      "pinyin": "yǔ",
       "isCore": true,
       "stories": [
-        "083"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "专",
-      "pinyin": "zhuān",
-      "isCore": true,
-      "stories": [
-        "078"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "丛",
-      "pinyin": "cóng",
-      "isCore": true,
-      "stories": [
-        "074"
+        "047"
       ],
       "note": "",
       "isReview": false
@@ -39,196 +19,149 @@
       "pinyin": "sī",
       "isCore": true,
       "stories": [
-        "084"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "中",
-      "pinyin": "zhōng",
-      "isCore": true,
-      "stories": [
-        "078"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "久",
-      "pinyin": "jiǔ",
-      "isCore": true,
-      "stories": [
-        "076",
-        "083"
+        "064"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "之",
-      "pinyin": "zhī",
+      "character": "丢",
+      "pinyin": "diū",
       "isCore": true,
       "stories": [
-        "084"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "乡",
-      "pinyin": "xiāng",
-      "isCore": true,
-      "stories": [
-        "071",
-        "074"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "书",
-      "pinyin": "shū",
-      "isCore": true,
-      "stories": [
-        "073",
-        "079"
+        "045"
       ],
       "note": "",
       "isReview": true
+    },
+    {
+      "character": "两",
+      "pinyin": "liǎng",
+      "isCore": true,
+      "stories": [
+        "051"
+      ],
+      "note": "",
+      "isReview": true
+    },
+    {
+      "character": "丽",
+      "pinyin": "lì",
+      "isCore": true,
+      "stories": [
+        "048"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "举",
+      "pinyin": "jǔ",
+      "isCore": true,
+      "stories": [
+        "047",
+        "058"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "习",
+      "pinyin": "xí",
+      "isCore": true,
+      "stories": [
+        "049"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "乳",
+      "pinyin": "rǔ",
+      "isCore": true,
+      "stories": [
+        "051"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "争",
+      "pinyin": "zhēng",
+      "isCore": true,
+      "stories": [
+        "055"
+      ],
+      "note": "",
+      "isReview": false
     },
     {
       "character": "互",
       "pinyin": "hù",
       "isCore": true,
       "stories": [
-        "082"
+        "047"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "交",
-      "pinyin": "jiāo",
+      "character": "亮",
+      "pinyin": "liàng",
       "isCore": true,
       "stories": [
-        "084"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "产",
-      "pinyin": "chǎn",
-      "isCore": true,
-      "stories": [
-        "066",
-        "071"
-      ],
-      "note": "复习字",
-      "isReview": false
-    },
-    {
-      "character": "亲",
-      "pinyin": "qīn",
-      "isCore": true,
-      "stories": [
-        "065"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "人",
-      "pinyin": "rén",
-      "isCore": true,
-      "stories": [
-        "070"
+        "056"
       ],
       "note": "",
       "isReview": true
-    },
-    {
-      "character": "代",
-      "pinyin": "dài",
-      "isCore": true,
-      "stories": [
-        "084"
-      ],
-      "note": "",
-      "isReview": false
     },
     {
       "character": "价",
       "pinyin": "jià",
       "isCore": true,
       "stories": [
-        "083"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "伏",
-      "pinyin": "fú",
-      "isCore": true,
-      "stories": [
-        "074"
+        "048"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "伐",
-      "pinyin": "fá",
+      "character": "任",
+      "pinyin": "rèn",
       "isCore": true,
       "stories": [
-        "069"
+        "062"
       ],
       "note": "",
       "isReview": false
-    },
-    {
-      "character": "众",
-      "pinyin": "zhòng",
-      "isCore": true,
-      "stories": [
-        "070",
-        "080"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "会",
-      "pinyin": "huì",
-      "isCore": true,
-      "stories": [
-        "067",
-        "076",
-        "083"
-      ],
-      "note": "",
-      "isReview": true
     },
     {
       "character": "传",
       "pinyin": "chuán",
       "isCore": true,
       "stories": [
-        "065",
-        "079",
-        "084"
+        "064"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
-      "character": "住",
-      "pinyin": "zhù",
+      "character": "伤",
+      "pinyin": "shāng",
       "isCore": true,
       "stories": [
-        "070"
+        "058"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "伸",
+      "pinyin": "shēn",
+      "isCore": true,
+      "stories": [
+        "048",
+        "061"
       ],
       "note": "",
       "isReview": false
@@ -238,50 +171,48 @@
       "pinyin": "tǐ",
       "isCore": true,
       "stories": [
-        "070"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "佳",
-      "pinyin": "jiā",
-      "isCore": true,
-      "stories": [
-        "065"
+        "047",
+        "058"
       ],
       "note": "",
       "isReview": false
+    },
+    {
+      "character": "余",
+      "pinyin": "yú",
+      "isCore": true,
+      "stories": [
+        "055"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "佩",
+      "pinyin": "pèi",
+      "isCore": true,
+      "stories": [
+        "060"
+      ],
+      "note": "",
+      "isReview": true
     },
     {
       "character": "依",
       "pinyin": "yī",
       "isCore": true,
       "stories": [
-        "083"
+        "049"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
       "character": "俗",
       "pinyin": "sú",
       "isCore": true,
       "stories": [
-        "065",
-        "071"
-      ],
-      "note": "复习字",
-      "isReview": true
-    },
-    {
-      "character": "保",
-      "pinyin": "bǎo",
-      "isCore": true,
-      "stories": [
-        "069",
-        "073",
-        "077"
+        "060"
       ],
       "note": "",
       "isReview": false
@@ -291,28 +222,17 @@
       "pinyin": "xìn",
       "isCore": true,
       "stories": [
-        "074"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "修",
-      "pinyin": "xiū",
-      "isCore": true,
-      "stories": [
-        "076"
+        "063"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "借",
-      "pinyin": "jiè",
+      "character": "倒",
+      "pinyin": "dào",
       "isCore": true,
       "stories": [
-        "073",
-        "082"
+        "053"
       ],
       "note": "",
       "isReview": false
@@ -322,58 +242,39 @@
       "pinyin": "zhí",
       "isCore": true,
       "stories": [
-        "083"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "倾",
-      "pinyin": "qīng",
-      "isCore": true,
-      "stories": [
-        "075",
-        "076"
+        "047",
+        "048"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "假",
-      "pinyin": "jiǎ",
+      "character": "停",
+      "pinyin": "tíng",
       "isCore": true,
       "stories": [
-        "074"
+        "063"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
+    },
+    {
+      "character": "健",
+      "pinyin": "jiàn",
+      "isCore": true,
+      "stories": [
+        "052"
+      ],
+      "note": "",
+      "isReview": false
     },
     {
       "character": "傲",
       "pinyin": "ào",
       "isCore": true,
       "stories": [
-        "079"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "像",
-      "pinyin": "xiàng",
-      "isCore": true,
-      "stories": [
-        "070"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "兄",
-      "pinyin": "xiōng",
-      "isCore": true,
-      "stories": [
-        "065"
+        "048",
+        "058"
       ],
       "note": "",
       "isReview": false
@@ -383,57 +284,28 @@
       "pinyin": "guāng",
       "isCore": true,
       "stories": [
-        "083"
+        "059"
       ],
       "note": "",
       "isReview": true
-    },
-    {
-      "character": "克",
-      "pinyin": "kè",
-      "isCore": true,
-      "stories": [
-        "078"
-      ],
-      "note": "",
-      "isReview": false
     },
     {
       "character": "兔",
       "pinyin": "tù",
       "isCore": true,
       "stories": [
-        "069"
+        "045",
+        "063"
       ],
       "note": "",
       "isReview": true
-    },
-    {
-      "character": "入",
-      "pinyin": "rù",
-      "isCore": true,
-      "stories": [
-        "077"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "全",
-      "pinyin": "quán",
-      "isCore": true,
-      "stories": [
-        "070"
-      ],
-      "note": "",
-      "isReview": false
     },
     {
       "character": "关",
       "pinyin": "guān",
       "isCore": true,
       "stories": [
-        "082"
+        "057"
       ],
       "note": "",
       "isReview": true
@@ -443,17 +315,7 @@
       "pinyin": "yǎng",
       "isCore": true,
       "stories": [
-        "072"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "内",
-      "pinyin": "nèi",
-      "isCore": true,
-      "stories": [
-        "081"
+        "052"
       ],
       "note": "",
       "isReview": false
@@ -463,17 +325,37 @@
       "pinyin": "zài",
       "isCore": true,
       "stories": [
-        "068"
+        "045"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
       "character": "军",
       "pinyin": "jūn",
       "isCore": true,
       "stories": [
-        "074"
+        "055"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "冠",
+      "pinyin": "guàn",
+      "isCore": true,
+      "stories": [
+        "055"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "冰",
+      "pinyin": "bīng",
+      "isCore": true,
+      "stories": [
+        "061"
       ],
       "note": "",
       "isReview": true
@@ -483,19 +365,7 @@
       "pinyin": "chōng",
       "isCore": true,
       "stories": [
-        "067",
-        "076",
-        "081"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "决",
-      "pinyin": "jué",
-      "isCore": true,
-      "stories": [
-        "068"
+        "063"
       ],
       "note": "",
       "isReview": false
@@ -505,88 +375,48 @@
       "pinyin": "lěng",
       "isCore": true,
       "stories": [
-        "076"
+        "046",
+        "050"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "净",
-      "pinyin": "jìng",
+      "character": "凝",
+      "pinyin": "níng",
       "isCore": true,
       "stories": [
-        "069",
-        "072"
+        "046"
       ],
       "note": "",
       "isReview": false
-    },
-    {
-      "character": "准",
-      "pinyin": "zhǔn",
-      "isCore": true,
-      "stories": [
-        "078"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "出",
-      "pinyin": "chū",
-      "isCore": true,
-      "stories": [
-        "081"
-      ],
-      "note": "",
-      "isReview": true
     },
     {
       "character": "击",
       "pinyin": "jī",
       "isCore": true,
       "stories": [
-        "074"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "分",
-      "pinyin": "fēn",
-      "isCore": true,
-      "stories": [
-        "073"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "划",
-      "pinyin": "huà",
-      "isCore": true,
-      "stories": [
-        "068"
+        "054"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "则",
-      "pinyin": "zé",
+      "character": "切",
+      "pinyin": "qiē",
       "isCore": true,
       "stories": [
-        "073"
+        "052"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "创",
-      "pinyin": "chuàng",
+      "character": "刚",
+      "pinyin": "gāng",
       "isCore": true,
       "stories": [
-        "068"
+        "061"
       ],
       "note": "",
       "isReview": false
@@ -596,29 +426,28 @@
       "pinyin": "cì",
       "isCore": true,
       "stories": [
-        "067"
+        "064"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
+    },
+    {
+      "character": "剧",
+      "pinyin": "jù",
+      "isCore": true,
+      "stories": [
+        "047"
+      ],
+      "note": "",
+      "isReview": false
     },
     {
       "character": "力",
       "pinyin": "lì",
       "isCore": true,
       "stories": [
-        "066",
-        "075",
-        "081"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "办",
-      "pinyin": "bàn",
-      "isCore": true,
-      "stories": [
-        "073"
+        "057",
+        "058"
       ],
       "note": "",
       "isReview": false
@@ -628,30 +457,17 @@
       "pinyin": "gōng",
       "isCore": true,
       "stories": [
-        "077"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "加",
-      "pinyin": "jiā",
-      "isCore": true,
-      "stories": [
-        "067"
+        "062"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "动",
-      "pinyin": "dòng",
+      "character": "务",
+      "pinyin": "wù",
       "isCore": true,
       "stories": [
-        "067",
-        "078",
-        "081",
-        "082"
+        "062"
       ],
       "note": "",
       "isReview": false
@@ -661,41 +477,58 @@
       "pinyin": "zhù",
       "isCore": true,
       "stories": [
-        "067",
-        "082"
+        "057"
       ],
       "note": "",
       "isReview": true
+    },
+    {
+      "character": "努",
+      "pinyin": "nǔ",
+      "isCore": true,
+      "stories": [
+        "062"
+      ],
+      "note": "",
+      "isReview": false
     },
     {
       "character": "励",
       "pinyin": "lì",
       "isCore": true,
       "stories": [
-        "065",
-        "068",
-        "078"
+        "047"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
+    },
+    {
+      "character": "劳",
+      "pinyin": "láo",
+      "isCore": true,
+      "stories": [
+        "045"
+      ],
+      "note": "",
+      "isReview": false
     },
     {
       "character": "勇",
       "pinyin": "yǒng",
       "isCore": true,
       "stories": [
-        "074",
-        "078"
+        "049",
+        "057"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "勺",
-      "pinyin": "sháo",
+      "character": "勤",
+      "pinyin": "qín",
       "isCore": true,
       "stories": [
-        "065"
+        "045"
       ],
       "note": "",
       "isReview": false
@@ -705,19 +538,7 @@
       "pinyin": "huà",
       "isCore": true,
       "stories": [
-        "072",
-        "079"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "区",
-      "pinyin": "qū",
-      "isCore": true,
-      "stories": [
-        "071",
-        "082"
+        "061"
       ],
       "note": "",
       "isReview": false
@@ -727,58 +548,67 @@
       "pinyin": "yī",
       "isCore": true,
       "stories": [
-        "070"
+        "062"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "升",
+      "pinyin": "shēng",
+      "isCore": true,
+      "stories": [
+        "046"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "午",
+      "pinyin": "wǔ",
+      "isCore": true,
+      "stories": [
+        "060"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "卡",
-      "pinyin": "kǎ",
+      "character": "卜",
+      "pinyin": "bo",
       "isCore": true,
       "stories": [
-        "073"
+        "052"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "厅",
-      "pinyin": "tīng",
+      "character": "卫",
+      "pinyin": "wèi",
       "isCore": true,
       "stories": [
-        "065"
+        "056"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "历",
-      "pinyin": "lì",
+      "character": "危",
+      "pinyin": "wēi",
       "isCore": true,
       "stories": [
-        "084"
+        "050"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "压",
-      "pinyin": "yā",
+      "character": "原",
+      "pinyin": "yuán",
       "isCore": true,
       "stories": [
-        "066",
-        "081"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "去",
-      "pinyin": "qù",
-      "isCore": true,
-      "stories": [
-        "083"
+        "060"
       ],
       "note": "",
       "isReview": true
@@ -788,30 +618,39 @@
       "pinyin": "cān",
       "isCore": true,
       "stories": [
-        "067"
+        "047"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
       "character": "友",
       "pinyin": "yǒu",
       "isCore": true,
       "stories": [
-        "067",
-        "084"
+        "057"
       ],
       "note": "",
       "isReview": true
+    },
+    {
+      "character": "反",
+      "pinyin": "fǎn",
+      "isCore": true,
+      "stories": [
+        "055",
+        "059"
+      ],
+      "note": "",
+      "isReview": false
     },
     {
       "character": "发",
       "pinyin": "fā",
       "isCore": true,
       "stories": [
-        "068",
-        "077",
-        "081"
+        "046",
+        "054"
       ],
       "note": "",
       "isReview": true
@@ -821,49 +660,19 @@
       "pinyin": "biàn",
       "isCore": true,
       "stories": [
-        "068",
-        "077",
-        "079"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "口",
-      "pinyin": "kǒu",
-      "isCore": true,
-      "stories": [
-        "072"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "古",
-      "pinyin": "gǔ",
-      "isCore": true,
-      "stories": [
-        "084"
+        "046",
+        "061"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "台",
-      "pinyin": "tái",
+      "character": "叭",
+      "pinyin": "bā",
       "isCore": true,
       "stories": [
-        "078"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "史",
-      "pinyin": "shǐ",
-      "isCore": true,
-      "stories": [
-        "084"
+        "054",
+        "064"
       ],
       "note": "",
       "isReview": false
@@ -873,18 +682,27 @@
       "pinyin": "yè",
       "isCore": true,
       "stories": [
-        "069"
+        "060"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
-      "character": "叹",
-      "pinyin": "tàn",
+      "character": "号",
+      "pinyin": "hào",
       "isCore": true,
       "stories": [
-        "079",
-        "080"
+        "054"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "司",
+      "pinyin": "sī",
+      "isCore": true,
+      "stories": [
+        "050"
       ],
       "note": "",
       "isReview": false
@@ -894,121 +712,110 @@
       "pinyin": "hé",
       "isCore": true,
       "stories": [
-        "068"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "吐",
-      "pinyin": "tǔ",
-      "isCore": true,
-      "stories": [
-        "069"
+        "054"
       ],
       "note": "",
       "isReview": false
-    },
-    {
-      "character": "含",
-      "pinyin": "hán",
-      "isCore": true,
-      "stories": [
-        "077"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "听",
-      "pinyin": "tīng",
-      "isCore": true,
-      "stories": [
-        "076"
-      ],
-      "note": "",
-      "isReview": true
     },
     {
       "character": "吸",
       "pinyin": "xī",
       "isCore": true,
       "stories": [
-        "069",
-        "072",
-        "078"
+        "048",
+        "064"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "员",
+      "pinyin": "yuán",
+      "isCore": true,
+      "stories": [
+        "062"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "味",
+      "pinyin": "wèi",
+      "isCore": true,
+      "stories": [
+        "060"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "咸",
+      "pinyin": "xián",
+      "isCore": true,
+      "stories": [
+        "053",
+        "060"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "哗",
+      "pinyin": "huā",
+      "isCore": true,
+      "stories": [
+        "050"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "哺",
+      "pinyin": "bǔ",
+      "isCore": true,
+      "stories": [
+        "051"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "唱",
+      "pinyin": "chàng",
+      "isCore": true,
+      "stories": [
+        "062"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "告",
-      "pinyin": "gào",
+      "character": "喂",
+      "pinyin": "wèi",
       "isCore": true,
       "stories": [
-        "074"
+        "049"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "呼",
-      "pinyin": "hū",
+      "character": "善",
+      "pinyin": "shàn",
       "isCore": true,
       "stories": [
-        "067",
-        "069",
-        "078"
+        "057"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "和",
-      "pinyin": "hé",
+      "character": "喇",
+      "pinyin": "lǎ",
       "isCore": true,
       "stories": [
-        "076"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "咽",
-      "pinyin": "yàn",
-      "isCore": true,
-      "stories": [
-        "072"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "响",
-      "pinyin": "xiǎng",
-      "isCore": true,
-      "stories": [
-        "084"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "啃",
-      "pinyin": "kěn",
-      "isCore": true,
-      "stories": [
-        "069"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "商",
-      "pinyin": "shāng",
-      "isCore": true,
-      "stories": [
-        "084"
+        "054",
+        "064"
       ],
       "note": "",
       "isReview": false
@@ -1018,80 +825,88 @@
       "pinyin": "hǎn",
       "isCore": true,
       "stories": [
-        "067"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "喷",
-      "pinyin": "pēn",
-      "isCore": true,
-      "stories": [
-        "081"
+        "050"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "嚼",
-      "pinyin": "jiáo",
+      "character": "喝",
+      "pinyin": "hē",
       "isCore": true,
       "stories": [
-        "072"
+        "063"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "回",
-      "pinyin": "huí",
+      "character": "嘴",
+      "pinyin": "zuǐ",
       "isCore": true,
       "stories": [
-        "071"
+        "049"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
+    },
+    {
+      "character": "器",
+      "pinyin": "qì",
+      "isCore": true,
+      "stories": [
+        "054"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "囊",
+      "pinyin": "náng",
+      "isCore": true,
+      "stories": [
+        "060"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "团",
+      "pinyin": "tuán",
+      "isCore": true,
+      "stories": [
+        "047",
+        "058"
+      ],
+      "note": "",
+      "isReview": false
     },
     {
       "character": "园",
       "pinyin": "yuán",
       "isCore": true,
       "stories": [
-        "071"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "囱",
-      "pinyin": "chuāng",
-      "isCore": true,
-      "stories": [
-        "071"
+        "051"
       ],
       "note": "",
       "isReview": false
+    },
+    {
+      "character": "困",
+      "pinyin": "kùn",
+      "isCore": true,
+      "stories": [
+        "057"
+      ],
+      "note": "",
+      "isReview": true
     },
     {
       "character": "围",
       "pinyin": "wéi",
       "isCore": true,
       "stories": [
-        "070",
-        "075",
-        "080"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "固",
-      "pinyin": "gù",
-      "isCore": true,
-      "stories": [
-        "075",
-        "076"
+        "056"
       ],
       "note": "",
       "isReview": false
@@ -1101,165 +916,99 @@
       "pinyin": "tú",
       "isCore": true,
       "stories": [
-        "073",
-        "079"
+        "056"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "圈",
-      "pinyin": "quān",
+      "character": "圆",
+      "pinyin": "yuán",
       "isCore": true,
       "stories": [
-        "069"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "地",
-      "pinyin": "dì",
-      "isCore": true,
-      "stories": [
-        "081"
+        "056"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "场",
-      "pinyin": "chǎng",
+      "character": "土",
+      "pinyin": "tǔ",
       "isCore": true,
       "stories": [
-        "067"
+        "064"
       ],
       "note": "",
-      "isReview": false
-    },
-    {
-      "character": "均",
-      "pinyin": "jūn",
-      "isCore": true,
-      "stories": [
-        "066"
-      ],
-      "note": "",
-      "isReview": false
+      "isReview": true
     },
     {
       "character": "块",
       "pinyin": "kuài",
       "isCore": true,
       "stories": [
-        "081"
+        "050"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
+    },
+    {
+      "character": "坚",
+      "pinyin": "jiān",
+      "isCore": true,
+      "stories": [
+        "048",
+        "057"
+      ],
+      "note": "",
+      "isReview": false
     },
     {
       "character": "埋",
       "pinyin": "mái",
       "isCore": true,
       "stories": [
-        "074"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "城",
-      "pinyin": "chéng",
-      "isCore": true,
-      "stories": [
-        "070",
-        "071",
-        "084"
+        "048"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "境",
-      "pinyin": "jìng",
+      "character": "堵",
+      "pinyin": "dǔ",
       "isCore": true,
       "stories": [
-        "066",
-        "077"
+        "058"
       ],
       "note": "",
       "isReview": false
-    },
-    {
-      "character": "墙",
-      "pinyin": "qiáng",
-      "isCore": true,
-      "stories": [
-        "070"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "墨",
-      "pinyin": "mò",
-      "isCore": true,
-      "stories": [
-        "079"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "壁",
-      "pinyin": "bì",
-      "isCore": true,
-      "stories": [
-        "070",
-        "080",
-        "084"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "声",
-      "pinyin": "shēng",
-      "isCore": true,
-      "stories": [
-        "067",
-        "078"
-      ],
-      "note": "",
-      "isReview": true
     },
     {
       "character": "壳",
       "pinyin": "ké",
       "isCore": true,
       "stories": [
-        "066",
-        "081"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "处",
-      "pinyin": "chǔ",
-      "isCore": true,
-      "stories": [
-        "082"
+        "048",
+        "053"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "备",
-      "pinyin": "bèi",
+      "character": "壶",
+      "pinyin": "hú",
       "isCore": true,
       "stories": [
-        "078"
+        "055"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "复",
+      "pinyin": "fù",
+      "isCore": true,
+      "stories": [
+        "046"
       ],
       "note": "",
       "isReview": false
@@ -1269,150 +1018,138 @@
       "pinyin": "yè",
       "isCore": true,
       "stories": [
-        "074"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "大",
-      "pinyin": "dà",
-      "isCore": true,
-      "stories": [
-        "081"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "太",
-      "pinyin": "tài",
-      "isCore": true,
-      "stories": [
-        "075"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "夫",
-      "pinyin": "fū",
-      "isCore": true,
-      "stories": [
-        "083"
+        "056"
       ],
       "note": "",
       "isReview": false
+    },
+    {
+      "character": "够",
+      "pinyin": "gòu",
+      "isCore": true,
+      "stories": [
+        "055"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "天",
+      "pinyin": "tiān",
+      "isCore": true,
+      "stories": [
+        "062"
+      ],
+      "note": "",
+      "isReview": true
     },
     {
       "character": "失",
       "pinyin": "shī",
       "isCore": true,
       "stories": [
-        "070"
+        "055",
+        "059"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
-      "character": "夸",
-      "pinyin": "kuā",
+      "character": "夺",
+      "pinyin": "duó",
       "isCore": true,
       "stories": [
-        "065"
+        "055"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
       "character": "奇",
       "pinyin": "qí",
       "isCore": true,
       "stories": [
-        "080"
+        "059"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "奏",
+      "pinyin": "zòu",
+      "isCore": true,
+      "stories": [
+        "054"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "始",
+      "pinyin": "shǐ",
+      "isCore": true,
+      "stories": [
+        "046"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "嫩",
+      "pinyin": "nèn",
+      "isCore": true,
+      "stories": [
+        "048"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "季",
+      "pinyin": "jì",
+      "isCore": true,
+      "stories": [
+        "061"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "奖",
-      "pinyin": "jiǎng",
+      "character": "孵",
+      "pinyin": "fū",
       "isCore": true,
       "stories": [
-        "065",
-        "067",
-        "068"
+        "049"
       ],
       "note": "",
       "isReview": false
-    },
-    {
-      "character": "妙",
-      "pinyin": "miào",
-      "isCore": true,
-      "stories": [
-        "080"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "威",
-      "pinyin": "wēi",
-      "isCore": true,
-      "stories": [
-        "067"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "存",
-      "pinyin": "cún",
-      "isCore": true,
-      "stories": [
-        "075"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "学",
-      "pinyin": "xué",
-      "isCore": true,
-      "stories": [
-        "077"
-      ],
-      "note": "",
-      "isReview": true
     },
     {
       "character": "宇",
       "pinyin": "yǔ",
       "isCore": true,
       "stories": [
-        "075"
+        "056"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
-      "character": "安",
-      "pinyin": "ān",
+      "character": "守",
+      "pinyin": "shǒu",
       "isCore": true,
       "stories": [
-        "073"
+        "045"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
-      "character": "完",
-      "pinyin": "wán",
+      "character": "宋",
+      "pinyin": "sòng",
       "isCore": true,
       "stories": [
-        "070",
-        "080"
+        "045"
       ],
       "note": "",
       "isReview": false
@@ -1422,28 +1159,27 @@
       "pinyin": "zhòu",
       "isCore": true,
       "stories": [
-        "075"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "宜",
-      "pinyin": "yí",
-      "isCore": true,
-      "stories": [
-        "075"
+        "056"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "宝",
-      "pinyin": "bǎo",
+      "character": "定",
+      "pinyin": "dìng",
       "isCore": true,
       "stories": [
-        "079",
-        "084"
+        "050"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "实",
+      "pinyin": "shí",
+      "isCore": true,
+      "stories": [
+        "064"
       ],
       "note": "",
       "isReview": false
@@ -1453,9 +1189,7 @@
       "pinyin": "jiā",
       "isCore": true,
       "stories": [
-        "068",
-        "080",
-        "082"
+        "062"
       ],
       "note": "",
       "isReview": true
@@ -1465,131 +1199,59 @@
       "pinyin": "mì",
       "isCore": true,
       "stories": [
-        "074",
-        "077"
+        "049"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "射",
+      "pinyin": "shè",
+      "isCore": true,
+      "stories": [
+        "059"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "少",
+      "pinyin": "shǎo",
+      "isCore": true,
+      "stories": [
+        "055"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "富",
-      "pinyin": "fù",
+      "character": "尝",
+      "pinyin": "cháng",
       "isCore": true,
       "stories": [
-        "083"
+        "053"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "寺",
-      "pinyin": "sì",
+      "character": "屈",
+      "pinyin": "qū",
       "isCore": true,
       "stories": [
-        "080"
+        "060"
       ],
       "note": "",
-      "isReview": false
+      "isReview": true
     },
     {
-      "character": "寿",
-      "pinyin": "shòu",
+      "character": "展",
+      "pinyin": "zhǎn",
       "isCore": true,
       "stories": [
-        "065"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "尊",
-      "pinyin": "zūn",
-      "isCore": true,
-      "stories": [
-        "076"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "尿",
-      "pinyin": "niào",
-      "isCore": true,
-      "stories": [
-        "072"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "局",
-      "pinyin": "jú",
-      "isCore": true,
-      "stories": [
-        "070"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "层",
-      "pinyin": "céng",
-      "isCore": true,
-      "stories": [
-        "081",
-        "082"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "居",
-      "pinyin": "jū",
-      "isCore": true,
-      "stories": [
-        "071",
-        "082"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "屋",
-      "pinyin": "wū",
-      "isCore": true,
-      "stories": [
-        "071"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "岗",
-      "pinyin": "gǎng",
-      "isCore": true,
-      "stories": [
-        "074"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "岩",
-      "pinyin": "yán",
-      "isCore": true,
-      "stories": [
-        "081"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "岸",
-      "pinyin": "àn",
-      "isCore": true,
-      "stories": [
-        "071",
-        "083"
+        "048",
+        "049",
+        "061"
       ],
       "note": "",
       "isReview": false
@@ -1599,28 +1261,77 @@
       "pinyin": "cháo",
       "isCore": true,
       "stories": [
-        "069"
+        "049"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
+    },
+    {
+      "character": "巧",
+      "pinyin": "qiǎo",
+      "isCore": true,
+      "stories": [
+        "055"
+      ],
+      "note": "",
+      "isReview": false
     },
     {
       "character": "巨",
       "pinyin": "jù",
       "isCore": true,
       "stories": [
-        "081"
+        "058"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "己",
+      "pinyin": "jǐ",
+      "isCore": true,
+      "stories": [
+        "053"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "师",
+      "pinyin": "shī",
+      "isCore": true,
+      "stories": [
+        "062"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "市",
-      "pinyin": "shì",
+      "character": "希",
+      "pinyin": "xī",
       "isCore": true,
       "stories": [
-        "070",
-        "084"
+        "045"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "帮",
+      "pinyin": "bāng",
+      "isCore": true,
+      "stories": [
+        "047"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "幕",
+      "pinyin": "mù",
+      "isCore": true,
+      "stories": [
+        "047"
       ],
       "note": "",
       "isReview": false
@@ -1630,7 +1341,7 @@
       "pinyin": "gàn",
       "isCore": true,
       "stories": [
-        "072"
+        "053"
       ],
       "note": "",
       "isReview": true
@@ -1640,141 +1351,97 @@
       "pinyin": "píng",
       "isCore": true,
       "stories": [
-        "066"
+        "057"
       ],
       "note": "",
-      "isReview": true
-    },
-    {
-      "character": "年",
-      "pinyin": "nián",
-      "isCore": true,
-      "stories": [
-        "069"
-      ],
-      "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
       "character": "庄",
       "pinyin": "zhuāng",
       "isCore": true,
       "stories": [
-        "071"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "库",
-      "pinyin": "kù",
-      "isCore": true,
-      "stories": [
-        "079"
+        "045"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "底",
-      "pinyin": "dǐ",
+      "character": "序",
+      "pinyin": "xù",
       "isCore": true,
       "stories": [
-        "066"
+        "061"
       ],
       "note": "",
       "isReview": false
-    },
-    {
-      "character": "废",
-      "pinyin": "fèi",
-      "isCore": true,
-      "stories": [
-        "072"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "度",
-      "pinyin": "dù",
-      "isCore": true,
-      "stories": [
-        "066",
-        "075",
-        "076",
-        "080",
-        "081"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "座",
-      "pinyin": "zuò",
-      "isCore": true,
-      "stories": [
-        "065"
-      ],
-      "note": "",
-      "isReview": true
     },
     {
       "character": "庭",
       "pinyin": "tíng",
       "isCore": true,
       "stories": [
-        "065"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "引",
-      "pinyin": "yǐn",
-      "isCore": true,
-      "stories": [
-        "075"
+        "050"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "弟",
-      "pinyin": "dì",
+      "character": "康",
+      "pinyin": "kāng",
       "isCore": true,
       "stories": [
-        "065"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "张",
-      "pinyin": "zhāng",
-      "isCore": true,
-      "stories": [
-        "078"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "弹",
-      "pinyin": "dàn",
-      "isCore": true,
-      "stories": [
-        "074"
+        "052"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "录",
-      "pinyin": "lù",
+      "character": "开",
+      "pinyin": "kāi",
       "isCore": true,
       "stories": [
-        "073"
+        "064"
+      ],
+      "note": "",
+      "isReview": true
+    },
+    {
+      "character": "弓",
+      "pinyin": "gōng",
+      "isCore": true,
+      "stories": [
+        "054"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "弦",
+      "pinyin": "xián",
+      "isCore": true,
+      "stories": [
+        "054"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "弯",
+      "pinyin": "wān",
+      "isCore": true,
+      "stories": [
+        "056"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "强",
+      "pinyin": "qiáng",
+      "isCore": true,
+      "stories": [
+        "057"
       ],
       "note": "",
       "isReview": false
@@ -1784,37 +1451,80 @@
       "pinyin": "xíng",
       "isCore": true,
       "stories": [
-        "079"
+        "059"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
+    },
+    {
+      "character": "彩",
+      "pinyin": "cǎi",
+      "isCore": true,
+      "stories": [
+        "054"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "影",
+      "pinyin": "yǐng",
+      "isCore": true,
+      "stories": [
+        "059"
+      ],
+      "note": "",
+      "isReview": false
     },
     {
       "character": "征",
       "pinyin": "zhēng",
       "isCore": true,
       "stories": [
-        "075"
+        "051"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
+    },
+    {
+      "character": "待",
+      "pinyin": "dài",
+      "isCore": true,
+      "stories": [
+        "045"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "律",
+      "pinyin": "lǜ",
+      "isCore": true,
+      "stories": [
+        "054",
+        "061"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "循",
+      "pinyin": "xún",
+      "isCore": true,
+      "stories": [
+        "046",
+        "061"
+      ],
+      "note": "",
+      "isReview": false
     },
     {
       "character": "微",
       "pinyin": "wēi",
       "isCore": true,
       "stories": [
-        "082"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "德",
-      "pinyin": "dé",
-      "isCore": true,
-      "stories": [
-        "065"
+        "057",
+        "058"
       ],
       "note": "",
       "isReview": false
@@ -1824,111 +1534,68 @@
       "pinyin": "xīn",
       "isCore": true,
       "stories": [
-        "076",
-        "078"
+        "057"
       ],
       "note": "",
       "isReview": true
-    },
-    {
-      "character": "忘",
-      "pinyin": "wàng",
-      "isCore": true,
-      "stories": [
-        "078"
-      ],
-      "note": "",
-      "isReview": false
     },
     {
       "character": "念",
       "pinyin": "niàn",
       "isCore": true,
       "stories": [
-        "071"
+        "060"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "态",
-      "pinyin": "tài",
+      "character": "忽",
+      "pinyin": "hū",
       "isCore": true,
       "stories": [
-        "066",
-        "076",
-        "080"
+        "058"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "思",
-      "pinyin": "sī",
+      "character": "怕",
+      "pinyin": "pà",
       "isCore": true,
       "stories": [
-        "068"
+        "062"
+      ],
+      "note": "",
+      "isReview": true
+    },
+    {
+      "character": "急",
+      "pinyin": "jí",
+      "isCore": true,
+      "stories": [
+        "050",
+        "063"
+      ],
+      "note": "",
+      "isReview": true
+    },
+    {
+      "character": "怪",
+      "pinyin": "guài",
+      "isCore": true,
+      "stories": [
+        "059"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "怯",
-      "pinyin": "qiè",
-      "isCore": true,
-      "stories": [
-        "078"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "恐",
-      "pinyin": "kǒng",
-      "isCore": true,
-      "stories": [
-        "073"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "恒",
-      "pinyin": "héng",
-      "isCore": true,
-      "stories": [
-        "075"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "恭",
-      "pinyin": "gōng",
-      "isCore": true,
-      "stories": [
-        "065"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "惊",
-      "pinyin": "jīng",
-      "isCore": true,
-      "stories": [
-        "077",
-        "080"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "惜",
+      "character": "息",
       "pinyin": "xī",
       "isCore": true,
       "stories": [
-        "076"
+        "059"
       ],
       "note": "",
       "isReview": false
@@ -1938,143 +1605,139 @@
       "pinyin": "xiǎng",
       "isCore": true,
       "stories": [
-        "071"
+        "062"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "意",
-      "pinyin": "yì",
+      "character": "慌",
+      "pinyin": "huāng",
       "isCore": true,
       "stories": [
-        "068"
+        "050"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "感",
-      "pinyin": "gǎn",
+      "character": "慢",
+      "pinyin": "màn",
       "isCore": true,
       "stories": [
-        "079"
+        "063"
       ],
       "note": "",
-      "isReview": false
+      "isReview": true
     },
     {
       "character": "慧",
       "pinyin": "huì",
       "isCore": true,
       "stories": [
-        "079",
-        "083"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "懂",
-      "pinyin": "dǒng",
-      "isCore": true,
-      "stories": [
-        "065"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "戈",
-      "pinyin": "gē",
-      "isCore": true,
-      "stories": [
-        "084"
+        "050",
+        "058"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "成",
-      "pinyin": "chéng",
+      "character": "懒",
+      "pinyin": "lǎn",
       "isCore": true,
       "stories": [
-        "076",
-        "080"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "战",
-      "pinyin": "zhàn",
-      "isCore": true,
-      "stories": [
-        "074",
-        "078"
+        "045"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "手",
-      "pinyin": "shǒu",
+      "character": "戴",
+      "pinyin": "dài",
       "isCore": true,
       "stories": [
-        "071"
+        "060"
       ],
       "note": "",
       "isReview": true
+    },
+    {
+      "character": "扑",
+      "pinyin": "pū",
+      "isCore": true,
+      "stories": [
+        "050"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "扔",
+      "pinyin": "rēng",
+      "isCore": true,
+      "stories": [
+        "045"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "扫",
+      "pinyin": "sǎo",
+      "isCore": true,
+      "stories": [
+        "047"
+      ],
+      "note": "",
+      "isReview": false
     },
     {
       "character": "承",
       "pinyin": "chéng",
       "isCore": true,
       "stories": [
-        "079"
+        "063"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
+    },
+    {
+      "character": "抢",
+      "pinyin": "qiǎng",
+      "isCore": true,
+      "stories": [
+        "055"
+      ],
+      "note": "",
+      "isReview": false
     },
     {
       "character": "护",
       "pinyin": "hù",
       "isCore": true,
       "stories": [
-        "069",
-        "073",
-        "077"
+        "062"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "报",
+      "character": "抱",
       "pinyin": "bào",
       "isCore": true,
       "stories": [
-        "074",
-        "081"
+        "050",
+        "057"
       ],
       "note": "",
-      "isReview": false
+      "isReview": true
     },
     {
-      "character": "拜",
-      "pinyin": "bài",
+      "character": "拦",
+      "pinyin": "lán",
       "isCore": true,
       "stories": [
-        "065"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "择",
-      "pinyin": "zé",
-      "isCore": true,
-      "stories": [
-        "083"
+        "058"
       ],
       "note": "",
       "isReview": false
@@ -2084,38 +1747,78 @@
       "pinyin": "chí",
       "isCore": true,
       "stories": [
-        "073"
+        "048",
+        "063"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "指",
+      "pinyin": "zhǐ",
+      "isCore": true,
+      "stories": [
+        "054"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "挑",
-      "pinyin": "tiǎo",
+      "character": "按",
+      "pinyin": "àn",
       "isCore": true,
       "stories": [
-        "078"
+        "053"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "掌",
-      "pinyin": "zhǎng",
+      "character": "挡",
+      "pinyin": "dǎng",
       "isCore": true,
       "stories": [
-        "078"
+        "059"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "排",
-      "pinyin": "pái",
+      "character": "挥",
+      "pinyin": "huī",
       "isCore": true,
       "stories": [
-        "069",
-        "072"
+        "054"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "挺",
+      "pinyin": "tǐng",
+      "isCore": true,
+      "stories": [
+        "048"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "捡",
+      "pinyin": "jiǎn",
+      "isCore": true,
+      "stories": [
+        "045"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "掉",
+      "pinyin": "diào",
+      "isCore": true,
+      "stories": [
+        "050"
       ],
       "note": "",
       "isReview": false
@@ -2125,47 +1828,38 @@
       "pinyin": "tàn",
       "isCore": true,
       "stories": [
-        "075"
+        "061"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "推",
+      "pinyin": "tuī",
+      "isCore": true,
+      "stories": [
+        "057"
       ],
       "note": "",
       "isReview": true
-    },
-    {
-      "character": "掷",
-      "pinyin": "zhì",
-      "isCore": true,
-      "stories": [
-        "067"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "揭",
-      "pinyin": "jiē",
-      "isCore": true,
-      "stories": [
-        "077"
-      ],
-      "note": "",
-      "isReview": false
     },
     {
       "character": "搬",
       "pinyin": "bān",
       "isCore": true,
       "stories": [
-        "082"
+        "050",
+        "058"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
-      "character": "摸",
-      "pinyin": "mō",
+      "character": "摘",
+      "pinyin": "zhāi",
       "isCore": true,
       "stories": [
-        "070"
+        "052"
       ],
       "note": "",
       "isReview": false
@@ -2175,69 +1869,38 @@
       "pinyin": "zhuàng",
       "isCore": true,
       "stories": [
-        "081"
+        "045"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
       "character": "播",
       "pinyin": "bō",
       "isCore": true,
       "stories": [
-        "084"
+        "064"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
+    },
+    {
+      "character": "擦",
+      "pinyin": "cā",
+      "isCore": true,
+      "stories": [
+        "047"
+      ],
+      "note": "",
+      "isReview": false
     },
     {
       "character": "收",
       "pinyin": "shōu",
       "isCore": true,
       "stories": [
-        "072"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "改",
-      "pinyin": "gǎi",
-      "isCore": true,
-      "stories": [
-        "068",
-        "077"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "放",
-      "pinyin": "fàng",
-      "isCore": true,
-      "stories": [
-        "069",
-        "078"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "故",
-      "pinyin": "gù",
-      "isCore": true,
-      "stories": [
-        "080"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "敌",
-      "pinyin": "dí",
-      "isCore": true,
-      "stories": [
-        "074"
+        "048",
+        "064"
       ],
       "note": "",
       "isReview": false
@@ -2247,129 +1910,98 @@
       "pinyin": "jiù",
       "isCore": true,
       "stories": [
-        "069"
+        "050"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
       "character": "教",
-      "pinyin": "jiāo",
+      "pinyin": "jiào",
       "isCore": true,
       "stories": [
-        "083"
+        "062"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
       "character": "敢",
       "pinyin": "gǎn",
       "isCore": true,
       "stories": [
-        "074",
-        "078"
+        "049",
+        "057"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "敬",
-      "pinyin": "jìng",
+      "character": "数",
+      "pinyin": "shǔ",
       "isCore": true,
       "stories": [
-        "065"
+        "056"
       ],
       "note": "",
-      "isReview": false
+      "isReview": true
     },
     {
       "character": "敲",
       "pinyin": "qiāo",
       "isCore": true,
       "stories": [
-        "082"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "整",
-      "pinyin": "zhěng",
-      "isCore": true,
-      "stories": [
-        "070"
+        "053"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "文",
-      "pinyin": "wén",
+      "character": "斑",
+      "pinyin": "bān",
       "isCore": true,
       "stories": [
-        "079",
-        "084"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "斗",
-      "pinyin": "dòu",
-      "isCore": true,
-      "stories": [
-        "074"
+        "051"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "料",
-      "pinyin": "liào",
+      "character": "施",
+      "pinyin": "shī",
       "isCore": true,
       "stories": [
-        "077"
+        "052"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "斜",
-      "pinyin": "xié",
+      "character": "旅",
+      "pinyin": "lǚ",
       "isCore": true,
       "stories": [
-        "075"
+        "046"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "新",
-      "pinyin": "xīn",
+      "character": "旋",
+      "pinyin": "xuán",
       "isCore": true,
       "stories": [
-        "068"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "族",
-      "pinyin": "zú",
-      "isCore": true,
-      "stories": [
-        "074"
+        "054"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "旗",
-      "pinyin": "qí",
+      "character": "昆",
+      "pinyin": "kūn",
       "isCore": true,
       "stories": [
-        "067"
+        "051"
       ],
       "note": "",
       "isReview": false
@@ -2379,28 +2011,18 @@
       "pinyin": "míng",
       "isCore": true,
       "stories": [
-        "068",
-        "070"
+        "045",
+        "059"
       ],
       "note": "",
       "isReview": true
-    },
-    {
-      "character": "易",
-      "pinyin": "yì",
-      "isCore": true,
-      "stories": [
-        "084"
-      ],
-      "note": "",
-      "isReview": false
     },
     {
       "character": "星",
       "pinyin": "xīng",
       "isCore": true,
       "stories": [
-        "075"
+        "056"
       ],
       "note": "",
       "isReview": true
@@ -2410,89 +2032,82 @@
       "pinyin": "zhì",
       "isCore": true,
       "stories": [
-        "079",
-        "083"
+        "050",
+        "058"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
       "character": "暖",
       "pinyin": "nuǎn",
       "isCore": true,
       "stories": [
-        "082"
+        "047",
+        "057",
+        "061"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "服",
-      "pinyin": "fú",
+      "character": "暗",
+      "pinyin": "àn",
       "isCore": true,
       "stories": [
-        "078"
+        "048",
+        "059"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "暴",
+      "pinyin": "bào",
+      "isCore": true,
+      "stories": [
+        "048"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "月",
+      "pinyin": "yuè",
+      "isCore": true,
+      "stories": [
+        "056"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "木",
-      "pinyin": "mù",
+      "character": "望",
+      "pinyin": "wàng",
       "isCore": true,
       "stories": [
-        "069"
+        "045"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "朵",
+      "pinyin": "duǒ",
+      "isCore": true,
+      "stories": [
+        "046",
+        "048"
       ],
       "note": "",
       "isReview": true
-    },
-    {
-      "character": "本",
-      "pinyin": "běn",
-      "isCore": true,
-      "stories": [
-        "075"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "术",
-      "pinyin": "shù",
-      "isCore": true,
-      "stories": [
-        "079"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "村",
-      "pinyin": "cūn",
-      "isCore": true,
-      "stories": [
-        "071"
-      ],
-      "note": "",
-      "isReview": false
     },
     {
       "character": "松",
       "pinyin": "sōng",
       "isCore": true,
       "stories": [
-        "069",
-        "078"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "板",
-      "pinyin": "bǎn",
-      "isCore": true,
-      "stories": [
-        "081"
+        "052"
       ],
       "note": "",
       "isReview": false
@@ -2502,18 +2117,18 @@
       "pinyin": "jí",
       "isCore": true,
       "stories": [
-        "081"
+        "047"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
-      "character": "林",
-      "pinyin": "lín",
+      "character": "果",
+      "pinyin": "guǒ",
       "isCore": true,
       "stories": [
-        "069",
-        "074"
+        "061",
+        "064"
       ],
       "note": "",
       "isReview": true
@@ -2523,97 +2138,47 @@
       "pinyin": "zhī",
       "isCore": true,
       "stories": [
-        "069"
+        "049"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "枪",
-      "pinyin": "qiāng",
+      "character": "枣",
+      "pinyin": "zǎo",
       "isCore": true,
       "stories": [
-        "074"
+        "060"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "架",
-      "pinyin": "jià",
+      "character": "枯",
+      "pinyin": "kū",
       "isCore": true,
       "stories": [
-        "073"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "查",
-      "pinyin": "chá",
-      "isCore": true,
-      "stories": [
-        "073"
+        "061"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "柱",
-      "pinyin": "zhù",
+      "character": "栖",
+      "pinyin": "qī",
       "isCore": true,
       "stories": [
-        "070"
+        "051"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "标",
-      "pinyin": "biāo",
+      "character": "株",
+      "pinyin": "zhū",
       "isCore": true,
       "stories": [
-        "083"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "栋",
-      "pinyin": "dòng",
-      "isCore": true,
-      "stories": [
-        "082"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "树",
-      "pinyin": "shù",
-      "isCore": true,
-      "stories": [
-        "069"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "样",
-      "pinyin": "yàng",
-      "isCore": true,
-      "stories": [
-        "065"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "核",
-      "pinyin": "hé",
-      "isCore": true,
-      "stories": [
-        "075"
+        "045"
       ],
       "note": "",
       "isReview": false
@@ -2623,7 +2188,7 @@
       "pinyin": "gēn",
       "isCore": true,
       "stories": [
-        "069"
+        "064"
       ],
       "note": "",
       "isReview": true
@@ -2633,38 +2198,17 @@
       "pinyin": "qiáo",
       "isCore": true,
       "stories": [
-        "071",
-        "076"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "梨",
-      "pinyin": "lí",
-      "isCore": true,
-      "stories": [
-        "065"
+        "058"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "梯",
-      "pinyin": "tī",
+      "character": "梦",
+      "pinyin": "mèng",
       "isCore": true,
       "stories": [
-        "082"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "棒",
-      "pinyin": "bàng",
-      "isCore": true,
-      "stories": [
-        "067"
+        "062"
       ],
       "note": "",
       "isReview": false
@@ -2674,27 +2218,37 @@
       "pinyin": "sēn",
       "isCore": true,
       "stories": [
-        "069"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "楼",
-      "pinyin": "lóu",
-      "isCore": true,
-      "stories": [
-        "082"
+        "054"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "榜",
-      "pinyin": "bǎng",
+      "character": "椅",
+      "pinyin": "yǐ",
       "isCore": true,
       "stories": [
-        "065"
+        "057"
+      ],
+      "note": "",
+      "isReview": true
+    },
+    {
+      "character": "椒",
+      "pinyin": "jiāo",
+      "isCore": true,
+      "stories": [
+        "052"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "模",
+      "pinyin": "mó",
+      "isCore": true,
+      "stories": [
+        "059"
       ],
       "note": "",
       "isReview": false
@@ -2704,17 +2258,37 @@
       "pinyin": "cì",
       "isCore": true,
       "stories": [
-        "065"
+        "045"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "歌",
+      "pinyin": "gē",
+      "isCore": true,
+      "stories": [
+        "062"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "欢",
-      "pinyin": "huān",
+      "character": "止",
+      "pinyin": "zhǐ",
       "isCore": true,
       "stories": [
-        "067"
+        "055"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "此",
+      "pinyin": "cǐ",
+      "isCore": true,
+      "stories": [
+        "055"
       ],
       "note": "",
       "isReview": false
@@ -2724,148 +2298,158 @@
       "pinyin": "bù",
       "isCore": true,
       "stories": [
-        "076"
+        "063"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
       "character": "死",
       "pinyin": "sǐ",
       "isCore": true,
       "stories": [
-        "083"
+        "045"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "殊",
-      "pinyin": "shū",
+      "character": "比",
+      "pinyin": "bǐ",
       "isCore": true,
       "stories": [
-        "077"
+        "055"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "民",
-      "pinyin": "mín",
+      "character": "气",
+      "pinyin": "qì",
       "isCore": true,
       "stories": [
-        "074"
+        "058"
       ],
       "note": "",
-      "isReview": false
-    },
-    {
-      "character": "氧",
-      "pinyin": "yǎng",
-      "isCore": true,
-      "stories": [
-        "066",
-        "069"
-      ],
-      "note": "",
-      "isReview": false
+      "isReview": true
     },
     {
       "character": "永",
       "pinyin": "yǒng",
       "isCore": true,
       "stories": [
-        "076"
+        "046"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
+    },
+    {
+      "character": "汁",
+      "pinyin": "zhī",
+      "isCore": true,
+      "stories": [
+        "064"
+      ],
+      "note": "",
+      "isReview": false
     },
     {
       "character": "求",
       "pinyin": "qiú",
       "isCore": true,
       "stories": [
-        "080"
+        "062"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
-      "character": "汉",
+      "character": "汇",
+      "pinyin": "huì",
+      "isCore": true,
+      "stories": [
+        "046"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "汗",
       "pinyin": "hàn",
       "isCore": true,
       "stories": [
-        "079"
+        "061"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "沟",
-      "pinyin": "gōu",
+      "character": "江",
+      "pinyin": "jiāng",
       "isCore": true,
       "stories": [
-        "076"
+        "046"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "河",
-      "pinyin": "hé",
+      "character": "汽",
+      "pinyin": "qì",
       "isCore": true,
       "stories": [
-        "071"
+        "046"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
+    },
+    {
+      "character": "沉",
+      "pinyin": "chén",
+      "isCore": true,
+      "stories": [
+        "061"
+      ],
+      "note": "",
+      "isReview": false
     },
     {
       "character": "油",
       "pinyin": "yóu",
       "isCore": true,
       "stories": [
-        "067"
+        "053"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "治",
+      "pinyin": "zhì",
+      "isCore": true,
+      "stories": [
+        "062"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "泥",
+      "pinyin": "ní",
+      "isCore": true,
+      "stories": [
+        "049",
+        "064"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "泄",
-      "pinyin": "xiè",
+      "character": "注",
+      "pinyin": "zhù",
       "isCore": true,
       "stories": [
-        "072"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "法",
-      "pinyin": "fǎ",
-      "isCore": true,
-      "stories": [
-        "079"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "泪",
-      "pinyin": "lèi",
-      "isCore": true,
-      "stories": [
-        "078"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "泳",
-      "pinyin": "yǒng",
-      "isCore": true,
-      "stories": [
-        "066"
+        "056"
       ],
       "note": "",
       "isReview": false
@@ -2875,110 +2459,108 @@
       "pinyin": "yáng",
       "isCore": true,
       "stories": [
-        "066"
+        "046"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "洗",
+      "pinyin": "xǐ",
+      "isCore": true,
+      "stories": [
+        "052"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "洲",
-      "pinyin": "zhōu",
+      "character": "洞",
+      "pinyin": "dòng",
       "isCore": true,
       "stories": [
-        "066"
+        "058"
       ],
       "note": "",
-      "isReview": false
+      "isReview": true
     },
     {
       "character": "活",
       "pinyin": "huó",
       "isCore": true,
       "stories": [
-        "080",
-        "082",
-        "083"
+        "045"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
       "character": "流",
       "pinyin": "liú",
       "isCore": true,
       "stories": [
-        "084"
+        "046",
+        "050"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "海",
+      "pinyin": "hǎi",
+      "isCore": true,
+      "stories": [
+        "046"
       ],
       "note": "",
       "isReview": true
-    },
-    {
-      "character": "浅",
-      "pinyin": "qiǎn",
-      "isCore": true,
-      "stories": [
-        "066"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "浆",
-      "pinyin": "jiāng",
-      "isCore": true,
-      "stories": [
-        "081"
-      ],
-      "note": "",
-      "isReview": false
     },
     {
       "character": "消",
       "pinyin": "xiāo",
       "isCore": true,
       "stories": [
-        "072"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "液",
-      "pinyin": "yè",
-      "isCore": true,
-      "stories": [
-        "072"
+        "059"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "深",
-      "pinyin": "shēn",
+      "character": "润",
+      "pinyin": "rùn",
       "isCore": true,
       "stories": [
-        "066"
+        "048"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "渔",
-      "pinyin": "yú",
+      "character": "淘",
+      "pinyin": "táo",
       "isCore": true,
       "stories": [
-        "066",
-        "083"
+        "053"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "渣",
-      "pinyin": "zhā",
+      "character": "淡",
+      "pinyin": "dàn",
       "isCore": true,
       "stories": [
-        "072"
+        "053"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "添",
+      "pinyin": "tiān",
+      "isCore": true,
+      "stories": [
+        "055"
       ],
       "note": "",
       "isReview": false
@@ -2988,19 +2570,67 @@
       "pinyin": "wēn",
       "isCore": true,
       "stories": [
-        "075",
-        "081",
-        "082"
+        "057"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "游",
-      "pinyin": "yóu",
+      "character": "湖",
+      "pinyin": "hú",
       "isCore": true,
       "stories": [
-        "074"
+        "046"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "湿",
+      "pinyin": "shī",
+      "isCore": true,
+      "stories": [
+        "048"
+      ],
+      "note": "",
+      "isReview": true
+    },
+    {
+      "character": "源",
+      "pinyin": "yuán",
+      "isCore": true,
+      "stories": [
+        "059"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "溪",
+      "pinyin": "xī",
+      "isCore": true,
+      "stories": [
+        "046"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "满",
+      "pinyin": "mǎn",
+      "isCore": true,
+      "stories": [
+        "056"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "滴",
+      "pinyin": "dī",
+      "isCore": true,
+      "stories": [
+        "046"
       ],
       "note": "",
       "isReview": true
@@ -3010,109 +2640,58 @@
       "pinyin": "yǎn",
       "isCore": true,
       "stories": [
-        "079"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "潜",
-      "pinyin": "qián",
-      "isCore": true,
-      "stories": [
-        "066"
+        "047",
+        "062"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "激",
-      "pinyin": "jī",
+      "character": "灯",
+      "pinyin": "dēng",
       "isCore": true,
       "stories": [
-        "078"
+        "059"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "火",
-      "pinyin": "huǒ",
+      "character": "炎",
+      "pinyin": "yán",
       "isCore": true,
       "stories": [
-        "081"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "灭",
-      "pinyin": "miè",
-      "isCore": true,
-      "stories": [
-        "073"
+        "061"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "灰",
-      "pinyin": "huī",
+      "character": "炒",
+      "pinyin": "chǎo",
       "isCore": true,
       "stories": [
-        "081"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "灾",
-      "pinyin": "zāi",
-      "isCore": true,
-      "stories": [
-        "081"
+        "052"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "炮",
-      "pinyin": "pào",
+      "character": "烈",
+      "pinyin": "liè",
       "isCore": true,
       "stories": [
-        "074"
+        "048"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "炸",
-      "pinyin": "zhà",
+      "character": "烛",
+      "pinyin": "zhú",
       "isCore": true,
       "stories": [
-        "081"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "点",
-      "pinyin": "diǎn",
-      "isCore": true,
-      "stories": [
-        "067",
-        "080"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "烟",
-      "pinyin": "yān",
-      "isCore": true,
-      "stories": [
-        "071",
-        "081"
+        "059"
       ],
       "note": "",
       "isReview": false
@@ -3122,7 +2701,7 @@
       "pinyin": "rè",
       "isCore": true,
       "stories": [
-        "071"
+        "061"
       ],
       "note": "",
       "isReview": true
@@ -3132,27 +2711,47 @@
       "pinyin": "rán",
       "isCore": true,
       "stories": [
-        "080"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "熔",
-      "pinyin": "róng",
-      "isCore": true,
-      "stories": [
-        "081"
+        "058"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "爆",
-      "pinyin": "bào",
+      "character": "煎",
+      "pinyin": "jiān",
       "isCore": true,
       "stories": [
-        "081"
+        "053"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "照",
+      "pinyin": "zhào",
+      "isCore": true,
+      "stories": [
+        "059"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "煮",
+      "pinyin": "zhǔ",
+      "isCore": true,
+      "stories": [
+        "053"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "熟",
+      "pinyin": "shú",
+      "isCore": true,
+      "stories": [
+        "061"
       ],
       "note": "",
       "isReview": false
@@ -3162,84 +2761,60 @@
       "pinyin": "pá",
       "isCore": true,
       "stories": [
-        "077"
+        "050",
+        "051"
       ],
       "note": "",
       "isReview": true
-    },
-    {
-      "character": "爱",
-      "pinyin": "ài",
-      "isCore": true,
-      "stories": [
-        "065"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "牌",
-      "pinyin": "pái",
-      "isCore": true,
-      "stories": [
-        "067"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "物",
-      "pinyin": "wù",
-      "isCore": true,
-      "stories": [
-        "066",
-        "072",
-        "077",
-        "084"
-      ],
-      "note": "",
-      "isReview": false
     },
     {
       "character": "特",
       "pinyin": "tè",
       "isCore": true,
       "stories": [
-        "071",
-        "075",
-        "077"
+        "051",
+        "057"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
+    },
+    {
+      "character": "状",
+      "pinyin": "zhuàng",
+      "isCore": true,
+      "stories": [
+        "059"
+      ],
+      "note": "",
+      "isReview": false
     },
     {
       "character": "独",
       "pinyin": "dú",
       "isCore": true,
       "stories": [
-        "068",
-        "083"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "猎",
-      "pinyin": "liè",
-      "isCore": true,
-      "stories": [
-        "077"
+        "049",
+        "054"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "猛",
-      "pinyin": "měng",
+      "character": "狮",
+      "pinyin": "shī",
       "isCore": true,
       "stories": [
-        "067",
-        "080"
+        "051"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "猜",
+      "pinyin": "cāi",
+      "isCore": true,
+      "stories": [
+        "059"
       ],
       "note": "",
       "isReview": false
@@ -3249,81 +2824,88 @@
       "pinyin": "huán",
       "isCore": true,
       "stories": [
-        "066",
-        "075",
-        "077"
+        "046"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "玻",
+      "pinyin": "bō",
+      "isCore": true,
+      "stories": [
+        "047"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "班",
+      "pinyin": "bān",
+      "isCore": true,
+      "stories": [
+        "047"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "现",
-      "pinyin": "xiàn",
+      "character": "琴",
+      "pinyin": "qín",
       "isCore": true,
       "stories": [
-        "077"
+        "054"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "珊",
-      "pinyin": "shān",
+      "character": "璃",
+      "pinyin": "lí",
       "isCore": true,
       "stories": [
-        "066"
+        "047"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "珍",
-      "pinyin": "zhēn",
+      "character": "瓜",
+      "pinyin": "guā",
       "isCore": true,
       "stories": [
-        "076"
+        "052"
+      ],
+      "note": "",
+      "isReview": true
+    },
+    {
+      "character": "瓣",
+      "pinyin": "bàn",
+      "isCore": true,
+      "stories": [
+        "048",
+        "064"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "球",
-      "pinyin": "qiú",
+      "character": "甜",
+      "pinyin": "tián",
       "isCore": true,
       "stories": [
-        "067",
-        "075"
+        "060"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "理",
-      "pinyin": "lǐ",
+      "character": "用",
+      "pinyin": "yòng",
       "isCore": true,
       "stories": [
-        "073"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "瑚",
-      "pinyin": "hú",
-      "isCore": true,
-      "stories": [
-        "066"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "生",
-      "pinyin": "shēng",
-      "isCore": true,
-      "stories": [
-        "066",
-        "075"
+        "055"
       ],
       "note": "",
       "isReview": true
@@ -3333,27 +2915,17 @@
       "pinyin": "tián",
       "isCore": true,
       "stories": [
-        "071"
+        "045"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "甲",
-      "pinyin": "jiǎ",
+      "character": "由",
+      "pinyin": "yóu",
       "isCore": true,
       "stories": [
-        "079"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "电",
-      "pinyin": "diàn",
-      "isCore": true,
-      "stories": [
-        "082"
+        "049"
       ],
       "note": "",
       "isReview": false
@@ -3363,48 +2935,58 @@
       "pinyin": "huà",
       "isCore": true,
       "stories": [
-        "079",
-        "080"
+        "055",
+        "062"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "登",
-      "pinyin": "dēng",
+      "character": "番",
+      "pinyin": "fān",
       "isCore": true,
       "stories": [
-        "078"
+        "052"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "的",
-      "pinyin": "de",
+      "character": "病",
+      "pinyin": "bìng",
       "isCore": true,
       "stories": [
-        "080"
+        "062"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "皮",
-      "pinyin": "pí",
+      "character": "痛",
+      "pinyin": "tòng",
       "isCore": true,
       "stories": [
-        "069"
+        "058"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "益",
-      "pinyin": "yì",
+      "character": "盐",
+      "pinyin": "yán",
       "isCore": true,
       "stories": [
-        "080"
+        "053"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "盖",
+      "pinyin": "gài",
+      "isCore": true,
+      "stories": [
+        "061"
       ],
       "note": "",
       "isReview": false
@@ -3414,58 +2996,38 @@
       "pinyin": "pán",
       "isCore": true,
       "stories": [
-        "065"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "目",
-      "pinyin": "mù",
-      "isCore": true,
-      "stories": [
-        "073",
-        "083"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "盲",
-      "pinyin": "máng",
-      "isCore": true,
-      "stories": [
-        "070"
+        "052"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "相",
-      "pinyin": "xiāng",
+      "character": "盛",
+      "pinyin": "shèng",
       "isCore": true,
       "stories": [
-        "082"
+        "048",
+        "053"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
-      "character": "真",
-      "pinyin": "zhēn",
+      "character": "眨",
+      "pinyin": "zhǎ",
       "isCore": true,
       "stories": [
-        "080"
+        "056"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
       "character": "眼",
       "pinyin": "yǎn",
       "isCore": true,
       "stories": [
-        "083"
+        "056"
       ],
       "note": "",
       "isReview": true
@@ -3475,58 +3037,37 @@
       "pinyin": "jīng",
       "isCore": true,
       "stories": [
-        "070",
-        "080"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "睦",
-      "pinyin": "mù",
-      "isCore": true,
-      "stories": [
-        "082"
+        "056"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "知",
-      "pinyin": "zhī",
+      "character": "睡",
+      "pinyin": "shuì",
       "isCore": true,
       "stories": [
-        "073"
+        "063"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "砍",
-      "pinyin": "kǎn",
+      "character": "石",
+      "pinyin": "shí",
       "isCore": true,
       "stories": [
-        "069"
+        "050"
       ],
       "note": "",
-      "isReview": false
+      "isReview": true
     },
     {
       "character": "研",
       "pinyin": "yán",
       "isCore": true,
       "stories": [
-        "077"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "砚",
-      "pinyin": "yàn",
-      "isCore": true,
-      "stories": [
-        "079"
+        "062"
       ],
       "note": "",
       "isReview": false
@@ -3536,77 +3077,37 @@
       "pinyin": "pò",
       "isCore": true,
       "stories": [
-        "080"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "碎",
-      "pinyin": "suì",
-      "isCore": true,
-      "stories": [
-        "072"
+        "048"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "碟",
-      "pinyin": "dié",
+      "character": "砸",
+      "pinyin": "zá",
       "isCore": true,
       "stories": [
-        "065"
+        "050"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "碰",
-      "pinyin": "pèng",
+      "character": "碗",
+      "pinyin": "wǎn",
       "isCore": true,
       "stories": [
-        "081"
+        "053"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "碳",
-      "pinyin": "tàn",
+      "character": "票",
+      "pinyin": "piào",
       "isCore": true,
       "stories": [
-        "069"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "礁",
-      "pinyin": "jiāo",
-      "isCore": true,
-      "stories": [
-        "066"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "社",
-      "pinyin": "shè",
-      "isCore": true,
-      "stories": [
-        "082"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "神",
-      "pinyin": "shén",
-      "isCore": true,
-      "stories": [
-        "080"
+        "047"
       ],
       "note": "",
       "isReview": false
@@ -3616,7 +3117,19 @@
       "pinyin": "lí",
       "isCore": true,
       "stories": [
-        "067"
+        "049",
+        "056"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "种",
+      "pinyin": "zhǒng",
+      "isCore": true,
+      "stories": [
+        "048",
+        "064"
       ],
       "note": "",
       "isReview": true
@@ -3626,37 +3139,47 @@
       "pinyin": "kē",
       "isCore": true,
       "stories": [
-        "077"
+        "062"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
       "character": "秘",
       "pinyin": "mì",
       "isCore": true,
       "stories": [
-        "077"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "积",
-      "pinyin": "jī",
-      "isCore": true,
-      "stories": [
-        "075"
+        "049"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "稻",
-      "pinyin": "dào",
+      "character": "称",
+      "pinyin": "chēng",
       "isCore": true,
       "stories": [
-        "071"
+        "050"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "稳",
+      "pinyin": "wěn",
+      "isCore": true,
+      "stories": [
+        "063"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "稼",
+      "pinyin": "jià",
+      "isCore": true,
+      "stories": [
+        "045"
       ],
       "note": "",
       "isReview": false
@@ -3666,57 +3189,48 @@
       "pinyin": "jiū",
       "isCore": true,
       "stories": [
-        "077"
+        "062"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "空",
+      "pinyin": "kōng",
+      "isCore": true,
+      "stories": [
+        "056"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "穷",
-      "pinyin": "qióng",
+      "character": "竞",
+      "pinyin": "jìng",
       "isCore": true,
       "stories": [
-        "083"
+        "047"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "突",
-      "pinyin": "tū",
+      "character": "端",
+      "pinyin": "duān",
       "isCore": true,
       "stories": [
-        "076"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "立",
-      "pinyin": "lì",
-      "isCore": true,
-      "stories": [
-        "083"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "站",
-      "pinyin": "zhàn",
-      "isCore": true,
-      "stories": [
-        "074"
+        "055",
+        "060"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "竿",
-      "pinyin": "gān",
+      "character": "竹",
+      "pinyin": "zhú",
       "isCore": true,
       "stories": [
-        "083"
+        "060"
       ],
       "note": "",
       "isReview": false
@@ -3726,111 +3240,159 @@
       "pinyin": "xiào",
       "isCore": true,
       "stories": [
-        "082"
+        "045",
+        "057"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "笔",
-      "pinyin": "bǐ",
+      "character": "笛",
+      "pinyin": "dí",
       "isCore": true,
       "stories": [
-        "079"
+        "054"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "笨",
+      "pinyin": "bèn",
+      "isCore": true,
+      "stories": [
+        "045"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "等",
+      "pinyin": "děng",
+      "isCore": true,
+      "stories": [
+        "057"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "筑",
+      "pinyin": "zhù",
+      "isCore": true,
+      "stories": [
+        "049"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "筷",
+      "pinyin": "kuài",
+      "isCore": true,
+      "stories": [
+        "053"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "簧",
+      "pinyin": "huáng",
+      "isCore": true,
+      "stories": [
+        "054"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "米",
+      "pinyin": "mǐ",
+      "isCore": true,
+      "stories": [
+        "053",
+        "060"
       ],
       "note": "",
       "isReview": true
-    },
-    {
-      "character": "简",
-      "pinyin": "jiǎn",
-      "isCore": true,
-      "stories": [
-        "079"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "管",
-      "pinyin": "guǎn",
-      "isCore": true,
-      "stories": [
-        "072",
-        "073"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "籍",
-      "pinyin": "jí",
-      "isCore": true,
-      "stories": [
-        "073"
-      ],
-      "note": "",
-      "isReview": false
     },
     {
       "character": "类",
       "pinyin": "lèi",
       "isCore": true,
       "stories": [
-        "073"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "粗",
-      "pinyin": "cū",
-      "isCore": true,
-      "stories": [
-        "070"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "粪",
-      "pinyin": "fèn",
-      "isCore": true,
-      "stories": [
-        "072"
+        "051"
       ],
       "note": "",
       "isReview": false
+    },
+    {
+      "character": "粉",
+      "pinyin": "fěn",
+      "isCore": true,
+      "stories": [
+        "064"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "粽",
+      "pinyin": "zòng",
+      "isCore": true,
+      "stories": [
+        "060"
+      ],
+      "note": "",
+      "isReview": true
     },
     {
       "character": "精",
       "pinyin": "jīng",
       "isCore": true,
       "stories": [
-        "080"
+        "054"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
+    },
+    {
+      "character": "糊",
+      "pinyin": "hú",
+      "isCore": true,
+      "stories": [
+        "059"
+      ],
+      "note": "",
+      "isReview": false
     },
     {
       "character": "糕",
       "pinyin": "gāo",
       "isCore": true,
       "stories": [
-        "065"
+        "063"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
-      "character": "系",
-      "pinyin": "xì",
+      "character": "糟",
+      "pinyin": "zāo",
       "isCore": true,
       "stories": [
-        "066",
-        "072",
-        "075",
-        "082"
+        "063"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "糯",
+      "pinyin": "nuò",
+      "isCore": true,
+      "stories": [
+        "060"
       ],
       "note": "",
       "isReview": false
@@ -3840,48 +3402,109 @@
       "pinyin": "suǒ",
       "isCore": true,
       "stories": [
-        "073"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "紧",
-      "pinyin": "jǐn",
-      "isCore": true,
-      "stories": [
-        "078"
+        "059"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "纸",
-      "pinyin": "zhǐ",
+      "character": "级",
+      "pinyin": "jí",
       "isCore": true,
       "stories": [
-        "079"
+        "047"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
+    },
+    {
+      "character": "纪",
+      "pinyin": "jì",
+      "isCore": true,
+      "stories": [
+        "060"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "线",
+      "pinyin": "xiàn",
+      "isCore": true,
+      "stories": [
+        "063"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "练",
+      "pinyin": "liàn",
+      "isCore": true,
+      "stories": [
+        "049"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "组",
+      "pinyin": "zǔ",
+      "isCore": true,
+      "stories": [
+        "056"
+      ],
+      "note": "",
+      "isReview": false
     },
     {
       "character": "细",
       "pinyin": "xì",
       "isCore": true,
       "stories": [
-        "070",
-        "077"
+        "058"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
       "character": "终",
       "pinyin": "zhōng",
       "isCore": true,
       "stories": [
-        "067"
+        "046",
+        "063"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "绑",
+      "pinyin": "bǎng",
+      "isCore": true,
+      "stories": [
+        "060"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "绒",
+      "pinyin": "róng",
+      "isCore": true,
+      "stories": [
+        "049"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "结",
+      "pinyin": "jié",
+      "isCore": true,
+      "stories": [
+        "047",
+        "058"
       ],
       "note": "",
       "isReview": true
@@ -3891,30 +3514,7 @@
       "pinyin": "rào",
       "isCore": true,
       "stories": [
-        "075"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "绝",
-      "pinyin": "jué",
-      "isCore": true,
-      "stories": [
-        "073"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "统",
-      "pinyin": "tǒng",
-      "isCore": true,
-      "stories": [
-        "065",
-        "066",
-        "072",
-        "079"
+        "056"
       ],
       "note": "",
       "isReview": false
@@ -3924,37 +3524,27 @@
       "pinyin": "shéng",
       "isCore": true,
       "stories": [
-        "070"
+        "060"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "绸",
-      "pinyin": "chóu",
+      "character": "缸",
+      "pinyin": "gāng",
       "isCore": true,
       "stories": [
-        "084"
+        "050"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "缝",
-      "pinyin": "fèng",
+      "character": "网",
+      "pinyin": "wǎng",
       "isCore": true,
       "stories": [
-        "081"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "缺",
-      "pinyin": "quē",
-      "isCore": true,
-      "stories": [
-        "080"
+        "051"
       ],
       "note": "",
       "isReview": false
@@ -3964,19 +3554,69 @@
       "pinyin": "měi",
       "isCore": true,
       "stories": [
-        "065",
-        "079"
+        "048"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "群",
+      "pinyin": "qún",
+      "isCore": true,
+      "stories": [
+        "050"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "羽",
+      "pinyin": "yǔ",
+      "isCore": true,
+      "stories": [
+        "049",
+        "051"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "翅",
+      "pinyin": "chì",
+      "isCore": true,
+      "stories": [
+        "049"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "翻",
+      "pinyin": "fān",
+      "isCore": true,
+      "stories": [
+        "053",
+        "058"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "老",
+      "pinyin": "lǎo",
+      "isCore": true,
+      "stories": [
+        "062"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "考",
-      "pinyin": "kǎo",
+      "character": "而",
+      "pinyin": "ér",
       "isCore": true,
       "stories": [
-        "068",
-        "076"
+        "055"
       ],
       "note": "",
       "isReview": false
@@ -3986,57 +3626,68 @@
       "pinyin": "nài",
       "isCore": true,
       "stories": [
-        "076"
+        "048"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
+    },
+    {
+      "character": "耕",
+      "pinyin": "gēng",
+      "isCore": true,
+      "stories": [
+        "045"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "聚",
+      "pinyin": "jù",
+      "isCore": true,
+      "stories": [
+        "046"
+      ],
+      "note": "",
+      "isReview": false
     },
     {
       "character": "聪",
       "pinyin": "cōng",
       "isCore": true,
       "stories": [
-        "073"
+        "045"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "肉",
+      "pinyin": "ròu",
+      "isCore": true,
+      "stories": [
+        "045",
+        "060"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "肠",
-      "pinyin": "cháng",
+      "character": "肥",
+      "pinyin": "féi",
       "isCore": true,
       "stories": [
-        "072"
+        "052"
       ],
       "note": "",
-      "isReview": false
+      "isReview": true
     },
     {
-      "character": "胃",
-      "pinyin": "wèi",
+      "character": "育",
+      "pinyin": "yù",
       "isCore": true,
       "stories": [
-        "072"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "胆",
-      "pinyin": "dǎn",
-      "isCore": true,
-      "stories": [
-        "078"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "胞",
-      "pinyin": "bāo",
-      "isCore": true,
-      "stories": [
-        "077"
+        "064"
       ],
       "note": "",
       "isReview": false
@@ -4046,17 +3697,47 @@
       "pinyin": "néng",
       "isCore": true,
       "stories": [
-        "077"
+        "053"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "腔",
-      "pinyin": "qiāng",
+      "character": "脑",
+      "pinyin": "nǎo",
       "isCore": true,
       "stories": [
-        "072"
+        "058"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "脚",
+      "pinyin": "jiǎo",
+      "isCore": true,
+      "stories": [
+        "057"
+      ],
+      "note": "",
+      "isReview": true
+    },
+    {
+      "character": "腿",
+      "pinyin": "tuǐ",
+      "isCore": true,
+      "stories": [
+        "057"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "膀",
+      "pinyin": "bǎng",
+      "isCore": true,
+      "stories": [
+        "049"
       ],
       "note": "",
       "isReview": false
@@ -4066,7 +3747,18 @@
       "pinyin": "zì",
       "isCore": true,
       "stories": [
-        "075"
+        "049",
+        "053"
+      ],
+      "note": "",
+      "isReview": true
+    },
+    {
+      "character": "舟",
+      "pinyin": "zhōu",
+      "isCore": true,
+      "stories": [
+        "060"
       ],
       "note": "",
       "isReview": true
@@ -4076,28 +3768,17 @@
       "pinyin": "háng",
       "isCore": true,
       "stories": [
-        "075"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "色",
-      "pinyin": "sè",
-      "isCore": true,
-      "stories": [
-        "077"
+        "062"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "艺",
-      "pinyin": "yì",
+      "character": "良",
+      "pinyin": "liáng",
       "isCore": true,
       "stories": [
-        "071",
-        "079"
+        "057"
       ],
       "note": "",
       "isReview": false
@@ -4107,38 +3788,67 @@
       "pinyin": "jié",
       "isCore": true,
       "stories": [
-        "071",
-        "078"
+        "054"
       ],
-      "note": "复习字",
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "花",
+      "pinyin": "huā",
+      "isCore": true,
+      "stories": [
+        "064"
+      ],
+      "note": "",
       "isReview": true
     },
     {
-      "character": "英",
-      "pinyin": "yīng",
+      "character": "芳",
+      "pinyin": "fāng",
       "isCore": true,
       "stories": [
-        "074"
+        "064"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "范",
-      "pinyin": "fàn",
+      "character": "芽",
+      "pinyin": "yá",
       "isCore": true,
       "stories": [
-        "079"
+        "048"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "获",
-      "pinyin": "huò",
+      "character": "苏",
+      "pinyin": "sū",
       "isCore": true,
       "stories": [
-        "068"
+        "061"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "茄",
+      "pinyin": "qié",
+      "isCore": true,
+      "stories": [
+        "052"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "茎",
+      "pinyin": "jīng",
+      "isCore": true,
+      "stories": [
+        "064"
       ],
       "note": "",
       "isReview": false
@@ -4148,67 +3858,231 @@
       "pinyin": "cài",
       "isCore": true,
       "stories": [
-        "071"
+        "052"
       ],
       "note": "",
       "isReview": true
+    },
+    {
+      "character": "萝",
+      "pinyin": "luó",
+      "isCore": true,
+      "stories": [
+        "052"
+      ],
+      "note": "",
+      "isReview": false
     },
     {
       "character": "营",
       "pinyin": "yíng",
       "isCore": true,
       "stories": [
-        "072"
+        "052"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "落",
+      "pinyin": "luò",
+      "isCore": true,
+      "stories": [
+        "046",
+        "061"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "葱",
+      "pinyin": "cōng",
+      "isCore": true,
+      "stories": [
+        "052"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "蒜",
+      "pinyin": "suàn",
+      "isCore": true,
+      "stories": [
+        "052"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "蒸",
+      "pinyin": "zhēng",
+      "isCore": true,
+      "stories": [
+        "046"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "蔬",
+      "pinyin": "shū",
+      "isCore": true,
+      "stories": [
+        "052"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "蕊",
+      "pinyin": "ruǐ",
+      "isCore": true,
+      "stories": [
+        "064"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "藏",
+      "pinyin": "cáng",
+      "isCore": true,
+      "stories": [
+        "050",
+        "064"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "虎",
+      "pinyin": "hǔ",
+      "isCore": true,
+      "stories": [
+        "051"
       ],
       "note": "",
       "isReview": true
-    },
-    {
-      "character": "藻",
-      "pinyin": "zǎo",
-      "isCore": true,
-      "stories": [
-        "066"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "虑",
-      "pinyin": "lǜ",
-      "isCore": true,
-      "stories": [
-        "076"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "虚",
-      "pinyin": "xū",
-      "isCore": true,
-      "stories": [
-        "065"
-      ],
-      "note": "",
-      "isReview": false
     },
     {
       "character": "虫",
       "pinyin": "chóng",
       "isCore": true,
       "stories": [
-        "077"
+        "049"
       ],
       "note": "",
       "isReview": true
+    },
+    {
+      "character": "蚁",
+      "pinyin": "yǐ",
+      "isCore": true,
+      "stories": [
+        "058"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "蚂",
+      "pinyin": "mà",
+      "isCore": true,
+      "stories": [
+        "058"
+      ],
+      "note": "",
+      "isReview": false
     },
     {
       "character": "蛇",
       "pinyin": "shé",
       "isCore": true,
       "stories": [
-        "070"
+        "051",
+        "055"
+      ],
+      "note": "",
+      "isReview": true
+    },
+    {
+      "character": "蛋",
+      "pinyin": "dàn",
+      "isCore": true,
+      "stories": [
+        "049",
+        "053"
+      ],
+      "note": "",
+      "isReview": true
+    },
+    {
+      "character": "蛛",
+      "pinyin": "zhū",
+      "isCore": true,
+      "stories": [
+        "051"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "蜂",
+      "pinyin": "fēng",
+      "isCore": true,
+      "stories": [
+        "064"
+      ],
+      "note": "",
+      "isReview": true
+    },
+    {
+      "character": "蜘",
+      "pinyin": "zhī",
+      "isCore": true,
+      "stories": [
+        "051"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "蜜",
+      "pinyin": "mì",
+      "isCore": true,
+      "stories": [
+        "064"
+      ],
+      "note": "",
+      "isReview": true
+    },
+    {
+      "character": "蜡",
+      "pinyin": "là",
+      "isCore": true,
+      "stories": [
+        "059"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "蝴",
+      "pinyin": "hú",
+      "isCore": true,
+      "stories": [
+        "061"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "蝶",
+      "pinyin": "dié",
+      "isCore": true,
+      "stories": [
+        "061"
       ],
       "note": "",
       "isReview": true
@@ -4218,79 +4092,27 @@
       "pinyin": "róng",
       "isCore": true,
       "stories": [
-        "065",
-        "077"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "螺",
-      "pinyin": "luó",
-      "isCore": true,
-      "stories": [
-        "066"
+        "061"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "血",
-      "pinyin": "xuè",
+      "character": "衔",
+      "pinyin": "xián",
       "isCore": true,
       "stories": [
-        "072"
+        "049"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "行",
-      "pinyin": "xíng",
+      "character": "袋",
+      "pinyin": "dài",
       "isCore": true,
       "stories": [
-        "075"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "街",
-      "pinyin": "jiē",
-      "isCore": true,
-      "stories": [
-        "070",
-        "071"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "衡",
-      "pinyin": "héng",
-      "isCore": true,
-      "stories": [
-        "066"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "补",
-      "pinyin": "bǔ",
-      "isCore": true,
-      "stories": [
-        "076"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "表",
-      "pinyin": "biǎo",
-      "isCore": true,
-      "stories": [
-        "075"
+        "051"
       ],
       "note": "",
       "isReview": false
@@ -4300,29 +4122,7 @@
       "pinyin": "liè",
       "isCore": true,
       "stories": [
-        "081"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "装",
-      "pinyin": "zhuāng",
-      "isCore": true,
-      "stories": [
-        "068",
-        "074"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "观",
-      "pinyin": "guān",
-      "isCore": true,
-      "stories": [
-        "070",
-        "080"
+        "050"
       ],
       "note": "",
       "isReview": false
@@ -4332,243 +4132,162 @@
       "pinyin": "guī",
       "isCore": true,
       "stories": [
-        "073",
-        "079"
+        "061"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "视",
+      "pinyin": "shì",
+      "isCore": true,
+      "stories": [
+        "056"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "觉",
+      "pinyin": "jiào",
+      "isCore": true,
+      "stories": [
+        "063"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "解",
-      "pinyin": "jiě",
+      "character": "角",
+      "pinyin": "jué",
       "isCore": true,
       "stories": [
-        "068",
-        "076"
+        "047",
+        "052"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "计",
-      "pinyin": "jì",
+      "character": "言",
+      "pinyin": "yán",
       "isCore": true,
       "stories": [
-        "068"
+        "063"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "让",
-      "pinyin": "ràng",
+      "character": "认",
+      "pinyin": "rèn",
       "isCore": true,
       "stories": [
-        "065",
-        "076"
+        "063"
       ],
       "note": "",
       "isReview": true
-    },
-    {
-      "character": "记",
-      "pinyin": "jì",
-      "isCore": true,
-      "stories": [
-        "069"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "讶",
-      "pinyin": "yà",
-      "isCore": true,
-      "stories": [
-        "077"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "论",
-      "pinyin": "lùn",
-      "isCore": true,
-      "stories": [
-        "070"
-      ],
-      "note": "",
-      "isReview": false
     },
     {
       "character": "证",
       "pinyin": "zhèng",
       "isCore": true,
       "stories": [
-        "070"
+        "059"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "话",
+      "pinyin": "huà",
+      "isCore": true,
+      "stories": [
+        "045"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "诺",
+      "pinyin": "nuò",
+      "isCore": true,
+      "stories": [
+        "063"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "调",
+      "pinyin": "diào",
+      "isCore": true,
+      "stories": [
+        "054"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "谢",
+      "pinyin": "xiè",
+      "isCore": true,
+      "stories": [
+        "050",
+        "064"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "豆",
+      "pinyin": "dòu",
+      "isCore": true,
+      "stories": [
+        "052",
+        "060"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "识",
-      "pinyin": "shí",
+      "character": "负",
+      "pinyin": "fù",
       "isCore": true,
       "stories": [
-        "073"
+        "047"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "词",
-      "pinyin": "cí",
+      "character": "责",
+      "pinyin": "zé",
       "isCore": true,
       "stories": [
-        "078"
+        "047",
+        "062"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "试",
-      "pinyin": "shì",
+      "character": "败",
+      "pinyin": "bài",
       "isCore": true,
       "stories": [
-        "068"
+        "055",
+        "063"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "语",
-      "pinyin": "yǔ",
+      "character": "赏",
+      "pinyin": "shǎng",
       "isCore": true,
       "stories": [
-        "080"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "误",
-      "pinyin": "wù",
-      "isCore": true,
-      "stories": [
-        "068",
-        "076"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "说",
-      "pinyin": "shuō",
-      "isCore": true,
-      "stories": [
-        "070"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "读",
-      "pinyin": "dú",
-      "isCore": true,
-      "stories": [
-        "073"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "谊",
-      "pinyin": "yì",
-      "isCore": true,
-      "stories": [
-        "076",
-        "084"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "谐",
-      "pinyin": "xié",
-      "isCore": true,
-      "stories": [
-        "076"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "谦",
-      "pinyin": "qiān",
-      "isCore": true,
-      "stories": [
-        "065"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "豚",
-      "pinyin": "tún",
-      "isCore": true,
-      "stories": [
-        "066"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "象",
-      "pinyin": "xiàng",
-      "isCore": true,
-      "stories": [
-        "070",
-        "079"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "贝",
-      "pinyin": "bèi",
-      "isCore": true,
-      "stories": [
-        "066"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "货",
-      "pinyin": "huò",
-      "isCore": true,
-      "stories": [
-        "084"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "贵",
-      "pinyin": "guì",
-      "isCore": true,
-      "stories": [
-        "084"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "贸",
-      "pinyin": "mào",
-      "isCore": true,
-      "stories": [
-        "084"
+        "055"
       ],
       "note": "",
       "isReview": false
@@ -4578,38 +4297,80 @@
       "pinyin": "lài",
       "isCore": true,
       "stories": [
-        "083"
+        "049",
+        "063"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
       "character": "赛",
       "pinyin": "sài",
       "isCore": true,
       "stories": [
-        "067"
+        "055"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "跃",
-      "pinyin": "yuè",
+      "character": "赞",
+      "pinyin": "zàn",
       "isCore": true,
       "stories": [
-        "080"
+        "050"
+      ],
+      "note": "",
+      "isReview": true
+    },
+    {
+      "character": "赢",
+      "pinyin": "yíng",
+      "isCore": true,
+      "stories": [
+        "063"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "跑",
-      "pinyin": "pǎo",
+      "character": "超",
+      "pinyin": "chāo",
       "isCore": true,
       "stories": [
-        "067",
-        "074"
+        "063"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "越",
+      "pinyin": "yuè",
+      "isCore": true,
+      "stories": [
+        "046",
+        "058"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "趣",
+      "pinyin": "qù",
+      "isCore": true,
+      "stories": [
+        "051",
+        "059"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "足",
+      "pinyin": "zú",
+      "isCore": true,
+      "stories": [
+        "055"
       ],
       "note": "",
       "isReview": true
@@ -4619,39 +4380,17 @@
       "pinyin": "jù",
       "isCore": true,
       "stories": [
-        "067"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "路",
-      "pinyin": "lù",
-      "isCore": true,
-      "stories": [
-        "071",
-        "084"
+        "056"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "跳",
-      "pinyin": "tiào",
+      "character": "躲",
+      "pinyin": "duǒ",
       "isCore": true,
       "stories": [
-        "067",
-        "074"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "轨",
-      "pinyin": "guǐ",
-      "isCore": true,
-      "stories": [
-        "075"
+        "050"
       ],
       "note": "",
       "isReview": false
@@ -4661,27 +4400,27 @@
       "pinyin": "zhuǎn",
       "isCore": true,
       "stories": [
-        "075"
+        "056"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
       "character": "轮",
       "pinyin": "lún",
       "isCore": true,
       "stories": [
-        "069"
+        "057"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
-      "character": "轴",
-      "pinyin": "zhóu",
+      "character": "软",
+      "pinyin": "ruǎn",
       "isCore": true,
       "stories": [
-        "075"
+        "049"
       ],
       "note": "",
       "isReview": false
@@ -4691,51 +4430,37 @@
       "pinyin": "shū",
       "isCore": true,
       "stories": [
-        "072",
-        "084"
+        "063"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
+    },
+    {
+      "character": "辛",
+      "pinyin": "xīn",
+      "isCore": true,
+      "stories": [
+        "052"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "辣",
+      "pinyin": "là",
+      "isCore": true,
+      "stories": [
+        "052"
+      ],
+      "note": "",
+      "isReview": false
     },
     {
       "character": "运",
       "pinyin": "yùn",
       "isCore": true,
       "stories": [
-        "067",
-        "081",
-        "084"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "返",
-      "pinyin": "fǎn",
-      "isCore": true,
-      "stories": [
-        "071"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "还",
-      "pinyin": "huán",
-      "isCore": true,
-      "stories": [
-        "073",
-        "082"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "进",
-      "pinyin": "jìn",
-      "isCore": true,
-      "stories": [
-        "068"
+        "058"
       ],
       "note": "",
       "isReview": false
@@ -4745,18 +4470,27 @@
       "pinyin": "yuǎn",
       "isCore": true,
       "stories": [
-        "083"
+        "046"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "送",
-      "pinyin": "sòng",
+      "character": "连",
+      "pinyin": "lián",
       "isCore": true,
       "stories": [
-        "072",
-        "074"
+        "056"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "追",
+      "pinyin": "zhuī",
+      "isCore": true,
+      "stories": [
+        "062"
       ],
       "note": "",
       "isReview": false
@@ -4766,17 +4500,7 @@
       "pinyin": "shì",
       "isCore": true,
       "stories": [
-        "075"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "逃",
-      "pinyin": "táo",
-      "isCore": true,
-      "stories": [
-        "074"
+        "055"
       ],
       "note": "",
       "isReview": false
@@ -4786,244 +4510,248 @@
       "pinyin": "xuǎn",
       "isCore": true,
       "stories": [
-        "083"
+        "047"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "透",
+      "pinyin": "tòu",
+      "isCore": true,
+      "stories": [
+        "059"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "速",
+      "pinyin": "sù",
+      "isCore": true,
+      "stories": [
+        "055"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "遇",
+      "pinyin": "yù",
+      "isCore": true,
+      "stories": [
+        "046"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "遥",
+      "pinyin": "yáo",
+      "isCore": true,
+      "stories": [
+        "056"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "酒",
+      "pinyin": "jiǔ",
+      "isCore": true,
+      "stories": [
+        "055"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "醒",
+      "pinyin": "xǐng",
+      "isCore": true,
+      "stories": [
+        "061"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "通",
-      "pinyin": "tōng",
+      "character": "采",
+      "pinyin": "cǎi",
       "isCore": true,
       "stories": [
-        "076"
+        "063"
       ],
       "note": "",
       "isReview": false
-    },
-    {
-      "character": "造",
-      "pinyin": "zào",
-      "isCore": true,
-      "stories": [
-        "068"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "道",
-      "pinyin": "dào",
-      "isCore": true,
-      "stories": [
-        "071",
-        "072",
-        "075"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "邻",
-      "pinyin": "lín",
-      "isCore": true,
-      "stories": [
-        "071",
-        "082"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "部",
-      "pinyin": "bù",
-      "isCore": true,
-      "stories": [
-        "081"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "配",
-      "pinyin": "pèi",
-      "isCore": true,
-      "stories": [
-        "068"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "酸",
-      "pinyin": "suān",
-      "isCore": true,
-      "stories": [
-        "072"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "释",
-      "pinyin": "shì",
-      "isCore": true,
-      "stories": [
-        "076"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "里",
-      "pinyin": "lǐ",
-      "isCore": true,
-      "stories": [
-        "082"
-      ],
-      "note": "",
-      "isReview": true
     },
     {
       "character": "重",
       "pinyin": "zhòng",
       "isCore": true,
       "stories": [
-        "076"
+        "046"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
-      "character": "野",
-      "pinyin": "yě",
+      "character": "量",
+      "pinyin": "liàng",
       "isCore": true,
       "stories": [
-        "069",
-        "071"
+        "057"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
+    },
+    {
+      "character": "钮",
+      "pinyin": "niǔ",
+      "isCore": true,
+      "stories": [
+        "053"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "钻",
+      "pinyin": "zuān",
+      "isCore": true,
+      "stories": [
+        "048"
+      ],
+      "note": "",
+      "isReview": false
     },
     {
       "character": "铃",
       "pinyin": "líng",
       "isCore": true,
       "stories": [
-        "084"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "链",
-      "pinyin": "liàn",
-      "isCore": true,
-      "stories": [
-        "066"
+        "054"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "错",
-      "pinyin": "cuò",
+      "character": "铛",
+      "pinyin": "dāng",
       "isCore": true,
       "stories": [
-        "068"
+        "054"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
+    },
+    {
+      "character": "铲",
+      "pinyin": "chǎn",
+      "isCore": true,
+      "stories": [
+        "053"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "银",
+      "pinyin": "yín",
+      "isCore": true,
+      "stories": [
+        "056"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "铺",
+      "pinyin": "pū",
+      "isCore": true,
+      "stories": [
+        "049"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "锅",
+      "pinyin": "guō",
+      "isCore": true,
+      "stories": [
+        "052",
+        "053"
+      ],
+      "note": "",
+      "isReview": false
     },
     {
       "character": "镇",
       "pinyin": "zhèn",
       "isCore": true,
       "stories": [
-        "071"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "长",
-      "pinyin": "zhǎng",
-      "isCore": true,
-      "stories": [
-        "076",
-        "083"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "门",
-      "pinyin": "mén",
-      "isCore": true,
-      "stories": [
-        "082"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "闹",
-      "pinyin": "nào",
-      "isCore": true,
-      "stories": [
-        "071"
+        "050"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "阅",
-      "pinyin": "yuè",
+      "character": "镜",
+      "pinyin": "jìng",
       "isCore": true,
       "stories": [
-        "073"
+        "059"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "队",
-      "pinyin": "duì",
+      "character": "闪",
+      "pinyin": "shǎn",
       "isCore": true,
       "stories": [
-        "067",
-        "074",
-        "084"
+        "056"
       ],
       "note": "",
-      "isReview": false
+      "isReview": true
     },
     {
       "character": "阳",
       "pinyin": "yáng",
       "isCore": true,
       "stories": [
-        "075"
+        "064"
       ],
       "note": "",
       "isReview": true
+    },
+    {
+      "character": "阴",
+      "pinyin": "yīn",
+      "isCore": true,
+      "stories": [
+        "059"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "降",
+      "pinyin": "jiàng",
+      "isCore": true,
+      "stories": [
+        "061"
+      ],
+      "note": "",
+      "isReview": false
     },
     {
       "character": "院",
       "pinyin": "yuàn",
       "isCore": true,
       "stories": [
-        "070"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "险",
-      "pinyin": "xiǎn",
-      "isCore": true,
-      "stories": [
-        "075"
+        "050"
       ],
       "note": "",
       "isReview": false
@@ -5033,18 +4761,7 @@
       "pinyin": "nán",
       "isCore": true,
       "stories": [
-        "068",
-        "081"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "雄",
-      "pinyin": "xióng",
-      "isCore": true,
-      "stories": [
-        "074"
+        "057"
       ],
       "note": "",
       "isReview": false
@@ -5054,89 +4771,79 @@
       "pinyin": "jí",
       "isCore": true,
       "stories": [
-        "078"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "霸",
-      "pinyin": "bà",
-      "isCore": true,
-      "stories": [
-        "073"
+        "046",
+        "047"
       ],
       "note": "",
       "isReview": false
+    },
+    {
+      "character": "雏",
+      "pinyin": "chú",
+      "isCore": true,
+      "stories": [
+        "049"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "雪",
+      "pinyin": "xuě",
+      "isCore": true,
+      "stories": [
+        "061"
+      ],
+      "note": "",
+      "isReview": true
     },
     {
       "character": "静",
       "pinyin": "jìng",
       "isCore": true,
       "stories": [
-        "073",
-        "076"
+        "050"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
       "character": "靠",
       "pinyin": "kào",
       "isCore": true,
       "stories": [
-        "083"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "面",
-      "pinyin": "miàn",
-      "isCore": true,
-      "stories": [
-        "070",
-        "075"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "顶",
-      "pinyin": "dǐng",
-      "isCore": true,
-      "stories": [
-        "071"
+        "045"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "预",
-      "pinyin": "yù",
+      "character": "颈",
+      "pinyin": "jǐng",
       "isCore": true,
       "stories": [
-        "081"
+        "051"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "题",
-      "pinyin": "tí",
+      "character": "颗",
+      "pinyin": "kē",
       "isCore": true,
       "stories": [
-        "068"
+        "056"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "颜",
-      "pinyin": "yán",
+      "character": "飘",
+      "pinyin": "piāo",
       "isCore": true,
       "stories": [
-        "077"
+        "046",
+        "061"
       ],
       "note": "",
       "isReview": false
@@ -5146,17 +4853,17 @@
       "pinyin": "fēi",
       "isCore": true,
       "stories": [
-        "080"
+        "062"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "食",
-      "pinyin": "shí",
+      "character": "饭",
+      "pinyin": "fàn",
       "isCore": true,
       "stories": [
-        "072"
+        "053"
       ],
       "note": "",
       "isReview": true
@@ -5166,159 +4873,152 @@
       "pinyin": "è",
       "isCore": true,
       "stories": [
-        "083"
+        "045"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "香",
+      "pinyin": "xiāng",
+      "isCore": true,
+      "stories": [
+        "053",
+        "060",
+        "064"
       ],
       "note": "",
       "isReview": true
-    },
-    {
-      "character": "馆",
-      "pinyin": "guǎn",
-      "isCore": true,
-      "stories": [
-        "073"
-      ],
-      "note": "",
-      "isReview": false
-    },
-    {
-      "character": "驼",
-      "pinyin": "tuó",
-      "isCore": true,
-      "stories": [
-        "084"
-      ],
-      "note": "",
-      "isReview": false
     },
     {
       "character": "骄",
       "pinyin": "jiāo",
       "isCore": true,
       "stories": [
-        "079"
+        "048",
+        "058"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
       "character": "验",
       "pinyin": "yàn",
       "isCore": true,
       "stories": [
-        "070"
+        "059"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
-      "character": "骨",
-      "pinyin": "gǔ",
+      "character": "鲜",
+      "pinyin": "xiān",
       "isCore": true,
       "stories": [
-        "079"
+        "052"
       ],
       "note": "",
-      "isReview": true
-    },
-    {
-      "character": "高",
-      "pinyin": "gāo",
-      "isCore": true,
-      "stories": [
-        "081"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "鱼",
-      "pinyin": "yú",
-      "isCore": true,
-      "stories": [
-        "083"
-      ],
-      "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
       "character": "鲨",
       "pinyin": "shā",
       "isCore": true,
       "stories": [
-        "066"
+        "051"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
       "character": "鲸",
       "pinyin": "jīng",
       "isCore": true,
       "stories": [
-        "066"
-      ],
-      "note": "",
-      "isReview": true
-    },
-    {
-      "character": "鳐",
-      "pinyin": "yáo",
-      "isCore": true,
-      "stories": [
-        "066"
+        "051"
       ],
       "note": "",
       "isReview": false
     },
     {
-      "character": "鸟",
-      "pinyin": "niǎo",
+      "character": "鳄",
+      "pinyin": "è",
       "isCore": true,
       "stories": [
-        "069"
+        "051"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "鳞",
+      "pinyin": "lín",
+      "isCore": true,
+      "stories": [
+        "051"
+      ],
+      "note": "",
+      "isReview": false
+    },
+    {
+      "character": "鹿",
+      "pinyin": "lù",
+      "isCore": true,
+      "stories": [
+        "051"
       ],
       "note": "",
       "isReview": true
     },
     {
-      "character": "麦",
-      "pinyin": "mài",
+      "character": "黄",
+      "pinyin": "huáng",
       "isCore": true,
       "stories": [
-        "071"
+        "052",
+        "061"
       ],
       "note": "",
-      "isReview": false
+      "isReview": true
+    },
+    {
+      "character": "黑",
+      "pinyin": "hēi",
+      "isCore": true,
+      "stories": [
+        "056"
+      ],
+      "note": "",
+      "isReview": true
     },
     {
       "character": "鼓",
       "pinyin": "gǔ",
       "isCore": true,
       "stories": [
-        "078"
+        "047",
+        "060"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
       "character": "鼠",
       "pinyin": "shǔ",
       "isCore": true,
       "stories": [
-        "069"
+        "051"
       ],
       "note": "",
-      "isReview": true
+      "isReview": false
     },
     {
       "character": "龙",
       "pinyin": "lóng",
       "isCore": true,
       "stories": [
-        "073",
-        "077",
-        "080"
+        "060"
       ],
       "note": "",
       "isReview": true
@@ -5328,7 +5028,8 @@
       "pinyin": "guī",
       "isCore": true,
       "stories": [
-        "066"
+        "051",
+        "063"
       ],
       "note": "",
       "isReview": true
