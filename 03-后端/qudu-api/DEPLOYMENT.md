@@ -172,34 +172,56 @@ pm2 stop qudu-api   # 停止
 - [ ] 日志已接入收集系统
 - [ ] 健康检查已配置监控告警
 
-### 5.4 Nginx 配置参考
+### 5.4 Nginx 配置
 
-```nginx
-server {
-    listen 443 ssl http2;
-    server_name api.ziqu.com;
+完整生产配置见：`nginx/production.conf`
 
-    ssl_certificate /etc/ssl/ziqu.com.pem;
-    ssl_certificate_key /etc/ssl/ziqu.com.key;
+关键配置说明：
+- API 反向代理至 `127.0.0.1:3001`（upstream qudu_api）
+- 静态资源 `/uploads/` → `/opt/qudu-api/uploads/`（7天缓存）
+- 音频资源 `/audio/` → `/opt/qudu-api/uploads/audio/`（7天缓存 + 断点续传）
+- Swagger `/api-docs` 仅内网访问
+- 健康检查 `/api/v1/ping` 不记日志
+- Gzip 压缩已启用
 
-    location / {
-        proxy_pass http://127.0.0.1:3000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
+### 5.5 SSL 证书方案
 
-    # Swagger文档仅限内网访问
-    location /api-docs {
-        allow 10.0.0.0/8;
-        allow 172.16.0.0/12;
-        allow 192.168.0.0/16;
-        deny all;
-        proxy_pass http://127.0.0.1:3000;
-    }
-}
+| 方案 | 费用 | 有效期 | 自动续期 | 适用 |
+|------|------|--------|----------|------|
+| **Let's Encrypt** | 免费 | 90天 | ✅ certbot | 推荐首选 |
+| **阿里云免费SSL** | 免费 | 1年 | ❌ 手动 | 自有域名在阿里云 |
+| **腾讯云免费SSL** | 免费 | 1年 | ❌ 手动 | 自有域名在腾讯云 |
+| **TrustAsia/其他** | ¥500-5000/年 | 1年 | ❌ | 需要OV/EV证书时 |
+
+**推荐方案：Let's Encrypt + certbot 自动续期**
+
+```bash
+# 安装 certbot（macOS）
+brew install certbot
+
+# 获取证书（HTTP验证方式，需域名已解析到服务器）
+sudo certbot certonly --webroot -w /var/www/certbot \
+  -d api.ziqu.com -d ziqu.com
+
+# 证书路径（自动生成）
+# 证书: /etc/letsencrypt/live/api.ziqu.com/fullchain.pem
+# 私钥: /etc/letsencrypt/live/api.ziqu.com/privkey.pem
+
+# 测试自动续期（每90天自动检查）
+sudo certbot renew --dry-run
 ```
+
+**部署步骤：**
+1. 购买域名（如 ziqu.com）并完成ICP备案（中国大陆服务器必须）
+2. 域名 DNS 解析到服务器IP
+3. 安装 Let's Encrypt 证书
+4. 部署 `nginx/production.conf` 到 `/opt/homebrew/etc/nginx/servers/`
+5. `nginx -t && brew services restart nginx`
+
+**⚠️ 中国大陆特殊要求：**
+- 服务器需完成ICP备案（约20个工作日）
+- 小程序 API 域名需在微信后台配置白名单
+- 建议使用 CDN（阿里云CDN/腾讯云CDN）加速静态资源
 
 ## 六、数据库管理
 
