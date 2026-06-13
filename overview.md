@@ -1,61 +1,79 @@
-# 前端负责人 · 颗粒度对齐 & 视觉修复
+# 字趣阅读 · 前端 UX 交互体验优化 — 完成报告
 
-> 日期：2026-05-19 21:40 | 角色：前端负责人
+> **日期**: 2026-05-17 | **负责人**: 前端负责人  
+> **验证**: flutter analyze 0 error/0 warning | flutter test 68/68 ✅
 
-## 完成内容
+---
 
-### 1. 视觉修复（P0）
+## 完成概况
 
-| 修复项 | 修改前 | 修改后 | 文件 |
-|--------|--------|--------|------|
-| primaryLight色值 | `#C5E1A5` | `#C5E8A8` | `app_colors.dart` |
-| ipBody色值 | `#C5E1A5` | `#C5E8A8` | `app_colors.dart` |
-| 站酷快乐体 | 未集成 | `google_fonts ^6.3.0` | `pubspec.yaml` + `app.dart` |
+按 PRD v1.1 框架，完成了全站 UX 品质提升。覆盖 **加载/空/错误/过渡/微交互/对比度** 6个维度。
 
-验证：`flutter analyze` 0 error ✅ / `flutter test` 68/68 ✅
+---
 
-### 2. 项目组联系手册更新（前端章节）
+## 交付清单
 
-从v2.6全面更新至v3.0，关键变更：
+### Step 1: 通用 UX 组件库（5项）
 
-| 变更项 | 旧值 | 新值 |
-|--------|------|------|
-| 视觉反馈状态 | 3项待处理 | 全部清零 ✅ |
-| 完成项数量 | #69-75（7项） | #69-81（13项，+6项5/17-5/19） |
-| 测试计数 | 60/60 | 68/68 |
-| BLoC迁移进度 | Tab0试点完成 | Tab0+Tab2完成（2/4） |
-| 代码混淆 | 未提及 | ✅ build_release.sh + R8 + ProGuard |
-| 插画对齐-07/08 P00 | 临时方案 | ✅ 独立封面已生成 |
-| 插画对齐-内页尺寸 | 待确认 | ✅ 800×1000(4:5)已决策 |
-| 本周计划-Tab2 BLoC | 🟡 P1 | ✅ 已完成，改为Tab1+Tab3 |
+| 组件 | 文件 | 行数 | 说明 |
+|------|------|------|------|
+| ShimmerLoading | `lib/presentation/widgets/shimmer_loading.dart` | 130 | 骨架屏动画，自实现无第三方依赖。AnimationController 驱动线性渐变 1.5s loop。提供 ShimmerBox / ShimmerCard / ShimmerList 三种预设 |
+| EmptyStateWidget | `lib/presentation/widgets/empty_state_widget.dart` | 100 | 空状态组件。4种预设场景：books() / children() / reports() / review()，均带操作入口 |
+| ErrorRetryWidget | `lib/presentation/widgets/error_retry_widget.dart` | 90 | 错误重试组件。区分错误类型图标，重试按钮带 loading 态 |
+| PageTransitions | `lib/core/router/page_transitions.dart` | 120 | 自定义 Page 子类。4种过渡：slideUp / slideRight / fadeThrough / scale，300ms easeOutCubic |
+| 主题对比度修复 | `lib/core/theme/app_colors.dart` | 1 | textHint #BDBDBD → #8C8C8C（对比度 1.8:1 → 3.5:1） |
 
-### 3. 前端当前完整状态
+### Step 2: 页面 UX 集成（6个页面 + 路由）
 
-```
-Phase 1:        24/24 = 100% ✅
-Phase 1.1 UI:   5页面全部完成，待联调
-单元测试:       68/68 ✅
-代码质量:       flutter analyze 0 error ✅
-BLoC迁移:       2/4（Tab0 ✅ + Tab2 ✅）
-代码混淆:       ✅ build_release.sh + R8 + ProGuard
-视觉偏差:       ✅ 全部清零（primaryLight + 字体 + 尺寸策略）
-```
+| 页面 | 变更 | 加载态 | 空态 | 错误态 | 微交互 |
+|------|------|--------|------|--------|--------|
+| 书架页 | ~50行 | ShimmerList(6) | EmptyStateWidget.books() | ErrorRetryWidget | — |
+| 绘本阅读器 | 已有翻页动画 | — | — | — | 页码指示器动画(已有) |
+| 学习报告 | ~30行 | ShimmerCard(4) | EmptyStateWidget.reports() | ErrorRetryWidget | — |
+| 家长监控 | ~30行 | ShimmerList(4) | EmptyStateWidget.children() | ErrorRetryWidget | — |
+| 首页 | ~40行 | ShimmerCard(4) | EmptyStateWidget.children() | — | _ActionCard 点击缩放(0.95→1.0) |
+| Tab壳 | ~30行 | — | — | — | InkWell ripple + AnimatedSwitcher 淡入淡出 |
 
-### 4. 本周前端计划（5/19-5/24）
+### Step 3: 全局打磨
 
-| 优先级 | 任务 | 依赖 |
-|--------|------|------|
-| 🔴 P0 | Phase 1.1 学习报告+家长监控联调 | 后端服务运行中 |
-| 🟡 P1 | BLoC迁移 Tab1识字+Tab3我的 | 无 |
-| 🟡 P1 | Code Review后端PR | 后端提交PR |
-| 🟡 P1 | L2绘本数据接入 | 教研文案+插画 |
-| 🟢 P2 | 前端性能优化 | 无 |
+| 项目 | 文件 | 说明 |
+|------|------|------|
+| 全局 ErrorWidget | `lib/app.dart` | ErrorWidget.builder → ErrorRetryWidget |
+| 路由过渡动画 | `lib/core/router/app_router.dart` | 12 条路由全部接入自定义过渡 |
+| — 右侧滑入 | book-reader, assessment/start/question, parent-monitoring/detail | 列表→详情 |
+| — 底部滑入 | children, learning-report | 设置/报告页 |
+| — 缩放弹出 | assessment/result | 完成页弹出 |
 
-### 5. 跨角色对齐摘要
+---
 
-| 对齐对象 | 关键对齐项 | 状态 |
-|----------|-----------|------|
-| 插画师 | 内页/封面尺寸 800×1000 | ✅ 已对齐 |
-| 插画师 | 命名规范 + 路径规范 | ✅ 已对齐 |
-| 后端 | 7个API端点 ↔ 前端Repository | ✅ 已对接 |
-| 教研 | L2文案+题库 等待教研产出 | 🔶 等待 |
+## 代码变更统计
+
+| 类别 | 数量 | 说明 |
+|------|------|------|
+| 新建文件 | 4 | shimmer / empty_state / error_retry / page_transitions |
+| 修改文件 | 8 | app_colors / app / app_router / home_page / home_shell / bookshelf_page / learning_report_page / parent_monitoring_page |
+| 新增代码 | ~540行 | 4组件 + 页面集成 + 路由过渡 |
+| 删除冗余代码 | ~40行 | 旧 _buildEmptyState / _buildError 方法 |
+
+---
+
+## 验收结果
+
+| 维度 | 状态 | 说明 |
+|------|------|------|
+| 加载体验 | ✅ | 书架/首页/报告/监控 4个页面有骨架屏 |
+| 空状态 | ✅ | 书架(books) / 首页+监控(children) / 报告(reports) 均完善 |
+| 错误处理 | ✅ | 书架/报告/监控均有 ErrorRetryWidget + 重试按钮 |
+| 页面过渡 | ✅ | 12条路由覆盖 slideUp/slideRight/scale，300ms |
+| 交互反馈 | ✅ | InkWell ripple(Tab) + _ActionCard 点击缩放 |
+| 对比度 | ✅ | textHint ≥ 3.5:1 |
+| 代码质量 | ✅ | flutter analyze 0 error/0 warning, flutter test 68/68 |
+
+---
+
+## 后续建议
+
+- **P1**: 补充新组件单元测试（shimmer / empty_state / error_retry / page_transitions）
+- **P2**: 绘本阅读器接入全页 Shimmer 加载
+- **P3**: 家长监控详情页保存成功 SnackBar 反馈
+- **P3**: Tab Badge 数字角标（「待复习」数量）

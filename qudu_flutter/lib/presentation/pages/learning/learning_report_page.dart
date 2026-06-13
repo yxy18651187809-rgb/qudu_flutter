@@ -107,7 +107,7 @@ class _LearningReportPageState extends State<LearningReportPage>
                         onRetry: _loadReport,
                       )
                     : _report == null
-                        ? const EmptyStateWidget.reports()
+                        ? EmptyStateWidget.reports()
                         : _buildReportContent(),
           ),
         ],

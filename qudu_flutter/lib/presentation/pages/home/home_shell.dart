@@ -33,6 +33,22 @@ class HomeShellState extends State<HomeShell>
     setState(() => _currentIndex = index);
   }
 
+  /// 构建当前Tab页面（用于 AnimatedSwitcher 过渡）
+  Widget _buildCurrentTab() {
+    switch (_currentIndex) {
+      case 0:
+        return const HomePage();
+      case 1:
+        return const WordLearningPage();
+      case 2:
+        return const BookshelfPage();
+      case 3:
+        return const ProfilePage();
+      default:
+        return const HomePage();
+    }
+  }
+
   /// 4个Tab页面
   static const List<_TabItem> _tabs = [
     _TabItem(
@@ -115,19 +131,7 @@ class HomeShellState extends State<HomeShell>
             child: child,
           );
         },
-        child: KeyedSubtree(
-          key: ValueKey(_currentIndex),
-        children: [
-          // Tab 0: 首页 ✅ 真实页面已接入
-          const HomePage(),
-          // Tab 1: 识字首页 ✅ 真实页面已接入
-          const WordLearningPage(),
-          // Tab 2: 书架 ✅ 真实页面已接入（等插画师封面图素材替换图标placeholder）
-          const BookshelfPage(),
-          // Tab 3: 我的 ✅ 真实页面已接入
-          const ProfilePage(),
-        ],
-        ),
+        child: _buildCurrentTab(),
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(

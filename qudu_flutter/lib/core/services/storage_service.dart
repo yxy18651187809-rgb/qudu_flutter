@@ -61,6 +61,20 @@ class StorageService {
     await _storage.delete(key: _keyExpiresAt);
   }
 
+  // ==================== 隐私同意 ====================
+
+  static const _keyPrivacyConsent = 'privacy_consent';
+
+  /// 保存隐私政策同意状态
+  static Future<void> setPrivacyConsent(bool agreed) =>
+      _storage.write(key: _keyPrivacyConsent, value: agreed ? 'true' : 'false');
+
+  /// 检查是否已同意隐私政策
+  static Future<bool> hasPrivacyConsent() async {
+    final value = await _storage.read(key: _keyPrivacyConsent);
+    return value == 'true';
+  }
+
   // ==================== 用户信息 ====================
 
   static const _keyUserId = 'user_id';
@@ -87,5 +101,6 @@ class StorageService {
     await clearTokens();
     await _storage.delete(key: _keyUserId);
     await _storage.delete(key: _keyCurrentChildId);
+    // 注意：不清除隐私同意状态，用户重新安装应用前只需同意一次
   }
 }

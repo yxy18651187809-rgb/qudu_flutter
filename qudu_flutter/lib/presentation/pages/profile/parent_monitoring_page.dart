@@ -96,7 +96,7 @@ class _ParentMonitoringPageState extends State<ParentMonitoringPage> {
   Widget _buildOverview() {
     final children = _overview?.children ?? [];
     if (children.isEmpty) {
-      return const EmptyStateWidget.children();
+      return EmptyStateWidget.children();
     }
     return RefreshIndicator(
       onRefresh: _loadOverview,

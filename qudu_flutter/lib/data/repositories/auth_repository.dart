@@ -65,4 +65,16 @@ class AuthRepository {
     }
     return UserModel.fromJson(response.data!);
   }
+
+  /// 注销账号
+  /// DELETE /api/v1/auth/account
+  /// 注意：后端需实现此接口，前端按此规格对接
+  Future<void> deleteAccount() async {
+    final response = await _apiClient.delete<Map<String, dynamic>>(
+      '/auth/account',
+    );
+    if (!response.isSuccess) {
+      throw ApiException(code: response.code, message: response.message);
+    }
+  }
 }

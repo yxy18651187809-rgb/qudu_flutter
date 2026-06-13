@@ -23,13 +23,19 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> with NetworkAwareMixin {
   final ChildrenRepository _childrenRepository = ServiceLocator.instance.childrenRepository;
   List<ChildModel> _children = [];
+  String? _parentId;
   bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
     initNetworkAware(); // 初始化网络状态监听
-    _loadChildren();
+    _loadInitData();
+  }
+
+  Future<void> _loadInitData() async {
+    _parentId = await StorageService.getUserId();
+    await _loadChildren();
   }
 
   @override
@@ -75,6 +81,74 @@ class _ProfilePageState extends State<ProfilePage> with NetworkAwareMixin {
       await StorageService.clearTokens();
       if (mounted) {
         Navigator.of(context).pushReplacementNamed('login');
+      }
+    }
+  }
+
+  /// 注销账号
+  /// 需要二次确认，调用 DELETE /api/v1/auth/account
+  Future<void> _deleteAccount() async {
+    // 第一次确认
+    final step1 = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('注销账号'),
+        content: const Text(
+          '注销账号后，您的所有数据将被永久删除，包括：\n\n'
+          '• 账号信息与登录凭证\n'
+          '• 儿童档案与学习记录\n'
+          '• 学习报告与统计数据\n'
+          '• 绘本阅读进度\n\n'
+          '此操作不可撤销，确定要继续吗？',
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('取消')),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text('继续注销', style: TextStyle(color: AppColors.error)),
+          ),
+        ],
+      ),
+    );
+
+    if (step1 != true || !mounted) return;
+
+    // 第二次确认（输入"注销"二字）
+    final step2 = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => _DeleteAccountConfirmDialog(),
+    );
+
+    if (step2 != true || !mounted) return;
+
+    // 显示加载中
+    if (!mounted) return;
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => const Center(child: CircularProgressIndicator()),
+    );
+
+    try {
+      await ServiceLocator.instance.authRepository.deleteAccount();
+      // 清除本地所有数据
+      await StorageService.clearAll();
+      if (mounted) {
+        Navigator.of(context).pop(); // 关闭loading
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('账号已注销')),
+        );
+        Navigator.of(context).pushReplacementNamed('login');
+      }
+    } catch (e) {
+      if (mounted) {
+        Navigator.of(context).pop(); // 关闭loading
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('注销失败：${e.toString().replaceFirst("Exception: ", "")}'),
+            backgroundColor: AppColors.error,
+          ),
+        );
       }
     }
   }
@@ -327,9 +401,10 @@ class _ProfilePageState extends State<ProfilePage> with NetworkAwareMixin {
             title: '监控概览',
             titleColor: AppColors.primary,
             onTap: () {
-              // TODO: 获取真实parentId（当前用户ID）
-              final parentId = 'me';
-              context.go('/parent-monitoring/$parentId');
+              final parentId = _parentId ?? '';
+              if (parentId.isNotEmpty) {
+                context.go('/parent-monitoring/$parentId');
+              }
             },
           ),
         ],
@@ -416,6 +491,13 @@ class _ProfilePageState extends State<ProfilePage> with NetworkAwareMixin {
           _MenuRow(icon: Icons.privacy_tip_outlined, title: '隐私政策', onTap: () {}),
           const Divider(height: 1, indent: 56),
           _MenuRow(icon: Icons.logout, title: '退出登录', titleColor: AppColors.error, onTap: _logout),
+          const Divider(height: 1, indent: 56),
+          _MenuRow(
+            icon: Icons.delete_forever_outlined,
+            title: '注销账号',
+            titleColor: const Color(0xFFE53935),
+            onTap: _deleteAccount,
+          ),
         ],
       ),
     );
@@ -515,6 +597,74 @@ class _MenuRow extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// 注销账号二次确认对话框
+/// 要求用户输入"注销"以确认
+class _DeleteAccountConfirmDialog extends StatefulWidget {
+  @override
+  State<_DeleteAccountConfirmDialog> createState() =>
+      _DeleteAccountConfirmDialogState();
+}
+
+class _DeleteAccountConfirmDialogState
+    extends State<_DeleteAccountConfirmDialog> {
+  final _controller = TextEditingController();
+  bool _confirmed = false;
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('最终确认'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            '请在下方输入"注销"以确认删除账号：',
+            style: TextStyle(fontSize: 14),
+          ),
+          const SizedBox(height: 12),
+          TextField(
+            controller: _controller,
+            autofocus: true,
+            decoration: InputDecoration(
+              hintText: '请输入"注销"',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 10,
+              ),
+            ),
+            onChanged: (value) {
+              setState(() {
+                _confirmed = value.trim() == '注销';
+              });
+            },
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context, false),
+          child: const Text('取消'),
+        ),
+        TextButton(
+          onPressed: _confirmed ? () => Navigator.pop(context, true) : null,
+          child: const Text('确认注销',
+              style: TextStyle(color: AppColors.error)),
+        ),
+      ],
     );
   }
 }
