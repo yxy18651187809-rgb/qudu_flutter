@@ -130,15 +130,20 @@ class _ProfilePageState extends State<ProfilePage> with NetworkAwareMixin {
     );
 
     try {
-      await ServiceLocator.instance.authRepository.deleteAccount();
-      // 清除本地所有数据
+      final summary = await ServiceLocator.instance.authRepository.deleteAccount();
+      // 清除本地所有数据（Token + userId + currentChildId）
+      // 注意：JWT 仍合法有效，但 /auth/refresh 会因 user 不存在而 401
       await StorageService.clearAll();
       if (mounted) {
         Navigator.of(context).pop(); // 关闭loading
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('账号已注销')),
+          SnackBar(content: Text(summary)),
         );
-        Navigator.of(context).pushReplacementNamed('login');
+        // 短暂展示 summary 后再跳转
+        await Future.delayed(const Duration(seconds: 2));
+        if (mounted) {
+          Navigator.of(context).pushReplacementNamed('login');
+        }
       }
     } catch (e) {
       if (mounted) {

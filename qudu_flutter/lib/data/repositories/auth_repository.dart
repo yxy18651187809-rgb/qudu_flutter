@@ -68,13 +68,18 @@ class AuthRepository {
 
   /// 注销账号
   /// DELETE /api/v1/auth/account
-  /// 注意：后端需实现此接口，前端按此规格对接
-  Future<void> deleteAccount() async {
+  /// 返回服务端摘要信息（summary），用于UI展示
+  ///
+  /// 对接要点：
+  /// - 成功后 JWT Token 仍有效（无状态），但 /auth/refresh 会因 user 不存在而 401
+  /// - 前端必须在成功后立即清除本地 Token 并跳转登录页
+  Future<String> deleteAccount() async {
     final response = await _apiClient.delete<Map<String, dynamic>>(
       '/auth/account',
     );
-    if (!response.isSuccess) {
+    if (!response.isSuccess || response.data == null) {
       throw ApiException(code: response.code, message: response.message);
     }
+    return response.data!['summary'] as String? ?? '账号已注销';
   }
 }
