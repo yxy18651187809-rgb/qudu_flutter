@@ -1,79 +1,64 @@
-# 字趣阅读 · 前端 UX 交互体验优化 — 完成报告
+# BLoC 扩展 Tab1/Tab3 + 微信登录端到端测试 — 完成报告
 
-> **日期**: 2026-05-17 | **负责人**: 前端负责人  
-> **验证**: flutter analyze 0 error/0 warning | flutter test 68/68 ✅
-
----
-
-## 完成概况
-
-按 PRD v1.1 框架，完成了全站 UX 品质提升。覆盖 **加载/空/错误/过渡/微交互/对比度** 6个维度。
+**日期**: 2026-06-14 | **状态**: ✅ 完成
 
 ---
 
-## 交付清单
+## 完成内容
 
-### Step 1: 通用 UX 组件库（5项）
+### 1. Tab1（识字页）BLoC 迁移
+- 新建 `word_learning_bloc.dart` / `word_learning_event.dart` / `word_learning_state.dart`
+- `word_learning_page.dart` 从 StatefulWidget（745行）重构为 StatelessWidget + BlocProvider
+- 状态管理：selectedLevel / characters / isLoading / isOffline / errorMessage / currentChildId / reviewCount
+- 支持 `initialLevel` 和 `initialChildId` 构造函数注入（便于测试）
+- 10 个单元测试全通过
 
-| 组件 | 文件 | 行数 | 说明 |
-|------|------|------|------|
-| ShimmerLoading | `lib/presentation/widgets/shimmer_loading.dart` | 130 | 骨架屏动画，自实现无第三方依赖。AnimationController 驱动线性渐变 1.5s loop。提供 ShimmerBox / ShimmerCard / ShimmerList 三种预设 |
-| EmptyStateWidget | `lib/presentation/widgets/empty_state_widget.dart` | 100 | 空状态组件。4种预设场景：books() / children() / reports() / review()，均带操作入口 |
-| ErrorRetryWidget | `lib/presentation/widgets/error_retry_widget.dart` | 90 | 错误重试组件。区分错误类型图标，重试按钮带 loading 态 |
-| PageTransitions | `lib/core/router/page_transitions.dart` | 120 | 自定义 Page 子类。4种过渡：slideUp / slideRight / fadeThrough / scale，300ms easeOutCubic |
-| 主题对比度修复 | `lib/core/theme/app_colors.dart` | 1 | textHint #BDBDBD → #8C8C8C（对比度 1.8:1 → 3.5:1） |
+### 2. Tab3（个人中心）BLoC 迁移
+- 新建 `profile_bloc.dart` / `profile_event.dart` / `profile_state.dart`
+- `profile_page.dart` 从 StatefulWidget（676行）重构为 StatelessWidget + BlocProvider
+- 状态管理：children / parentId / isLoading / isOffline / errorMessage
+- 支持 `parentId` 构造函数注入（绕过 StorageService 平台通道，便于测试）
+- 7 个单元测试全通过
 
-### Step 2: 页面 UX 集成（6个页面 + 路由）
+### 3. 微信登录端到端单元测试
+- 新建 `wechat_login_test.dart`（11 个测试）
+- 覆盖：WechatLoginResult 模型 / LoginResponse 模型 / UserModel 模型 / AuthRepository.wechatLogin / 完整 SMS→Login 流程
+- 复用 `TestableApiClient` mock 模式
 
-| 页面 | 变更 | 加载态 | 空态 | 错误态 | 微交互 |
-|------|------|--------|------|--------|--------|
-| 书架页 | ~50行 | ShimmerList(6) | EmptyStateWidget.books() | ErrorRetryWidget | — |
-| 绘本阅读器 | 已有翻页动画 | — | — | — | 页码指示器动画(已有) |
-| 学习报告 | ~30行 | ShimmerCard(4) | EmptyStateWidget.reports() | ErrorRetryWidget | — |
-| 家长监控 | ~30行 | ShimmerList(4) | EmptyStateWidget.children() | ErrorRetryWidget | — |
-| 首页 | ~40行 | ShimmerCard(4) | EmptyStateWidget.children() | — | _ActionCard 点击缩放(0.95→1.0) |
-| Tab壳 | ~30行 | — | — | — | InkWell ripple + AnimatedSwitcher 淡入淡出 |
-
-### Step 3: 全局打磨
-
-| 项目 | 文件 | 说明 |
-|------|------|------|
-| 全局 ErrorWidget | `lib/app.dart` | ErrorWidget.builder → ErrorRetryWidget |
-| 路由过渡动画 | `lib/core/router/app_router.dart` | 12 条路由全部接入自定义过渡 |
-| — 右侧滑入 | book-reader, assessment/start/question, parent-monitoring/detail | 列表→详情 |
-| — 底部滑入 | children, learning-report | 设置/报告页 |
-| — 缩放弹出 | assessment/result | 完成页弹出 |
+### 4. Repository 依赖注入改造
+- `character_repository.dart`：从硬编码 `ServiceLocator.instance.apiClient` 改为构造函数注入 `ApiClient`（可选参数，向后兼容）
 
 ---
 
-## 代码变更统计
+## 测试覆盖
 
-| 类别 | 数量 | 说明 |
-|------|------|------|
-| 新建文件 | 4 | shimmer / empty_state / error_retry / page_transitions |
-| 修改文件 | 8 | app_colors / app / app_router / home_page / home_shell / bookshelf_page / learning_report_page / parent_monitoring_page |
-| 新增代码 | ~540行 | 4组件 + 页面集成 + 路由过渡 |
-| 删除冗余代码 | ~40行 | 旧 _buildEmptyState / _buildError 方法 |
-
----
-
-## 验收结果
-
-| 维度 | 状态 | 说明 |
-|------|------|------|
-| 加载体验 | ✅ | 书架/首页/报告/监控 4个页面有骨架屏 |
-| 空状态 | ✅ | 书架(books) / 首页+监控(children) / 报告(reports) 均完善 |
-| 错误处理 | ✅ | 书架/报告/监控均有 ErrorRetryWidget + 重试按钮 |
-| 页面过渡 | ✅ | 12条路由覆盖 slideUp/slideRight/scale，300ms |
-| 交互反馈 | ✅ | InkWell ripple(Tab) + _ActionCard 点击缩放 |
-| 对比度 | ✅ | textHint ≥ 3.5:1 |
-| 代码质量 | ✅ | flutter analyze 0 error/0 warning, flutter test 68/68 |
+| 文件 | 测试数 | 状态 |
+|------|--------|------|
+| `word_learning_bloc_test.dart` | 10 | ✅ |
+| `profile_bloc_test.dart` | 7 | ✅ |
+| `wechat_login_test.dart` | 11 | ✅ |
+| `bookshelf_bloc_test.dart` | 8 | ✅ |
+| Home/Books/Children/Auth repos | 36 | ✅ |
+| Model tests | 24 | ✅ |
+| Widget smoke | 1 | ✅ |
+| **总计** | **97** | **✅ 全通过** |
 
 ---
 
-## 后续建议
+## 代码质量
 
-- **P1**: 补充新组件单元测试（shimmer / empty_state / error_retry / page_transitions）
-- **P2**: 绘本阅读器接入全页 Shimmer 加载
-- **P3**: 家长监控详情页保存成功 SnackBar 反馈
-- **P3**: Tab Badge 数字角标（「待复习」数量）
+- `flutter analyze`：0 errors，0 warnings，110 info（lint hints）
+- `flutter test`：97/97 passed
+
+---
+
+## 技术决策
+
+1. **ProfileBloc parentId 注入**：BLoC 构造函数新增 `String? parentId` 参数，测试环境直接传入避免 `FlutterSecureStorage` 平台通道依赖
+2. **BLoC 模式一致性**：所有 4 个 Tab BLoC 统一使用三文件结构（bloc/event/state）、Equatable states、copyWith 模式、网络状态订阅
+
+## 下一步
+
+- Git commit 本次变更
+- Phase 1.1 联调（前后端对接）
+- Tab1/Tab3 页面 UI 验证
