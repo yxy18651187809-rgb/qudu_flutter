@@ -8,7 +8,12 @@ import '../models/character_model.dart';
 /// 汉字 Repository
 /// 所有方法使用真实后端API
 class CharacterRepository {
-  ApiClient get _api => ServiceLocator.instance.apiClient;
+  final ApiClient _apiClient;
+
+  CharacterRepository({ApiClient? apiClient})
+      : _apiClient = apiClient ?? ServiceLocator.instance.apiClient;
+
+  ApiClient get _api => _apiClient;
 
   /// 获取某级别的汉字列表
   /// GET /api/v1/characters?level=1&childId=xxx

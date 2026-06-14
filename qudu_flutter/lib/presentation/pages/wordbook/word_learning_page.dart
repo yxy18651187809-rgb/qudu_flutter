@@ -1,21 +1,21 @@
-import 'dart:async';
+/// 识字首页（Tab1）— BLoC 重构版
+/// 功能：级别选择 + 字卡列表 + 今日复习提醒
+/// API: GET /characters, GET /learning/stats/:childId
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_radius.dart';
 import '../../../core/theme/app_typography.dart';
-import '../../../core/services/storage_service.dart';
 import '../../../data/models/character_model.dart';
 import '../../../data/repositories/character_repository.dart';
 import '../../../core/network/network_ui_helper.dart';
-import '../../../core/network/network_interceptor.dart';
-import '../../../core/di/service_locator.dart';
+import '../../bloc/word_learning/word_learning_bloc.dart';
+import '../../bloc/word_learning/word_learning_event.dart';
+import '../../bloc/word_learning/word_learning_state.dart';
 import 'review_page.dart';
 
-/// 识字首页
-/// 功能：级别选择 + 字卡列表 + 今日复习提醒
-/// API: GET /characters（列表）, GET /learning/stats/:childId（统计）
-class WordLearningPage extends StatefulWidget {
+class WordLearningPage extends StatelessWidget {
   final int? initialLevel;
   final String? childId;
 
@@ -26,115 +26,44 @@ class WordLearningPage extends StatefulWidget {
   });
 
   @override
-  State<WordLearningPage> createState() => _WordLearningPageState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => WordLearningBloc(
+        initialLevel: initialLevel,
+        initialChildId: childId,
+      )..add(const WordLearningLoadData()),
+      child: const _WordLearningView(),
+    );
+  }
 }
 
-class _WordLearningPageState extends State<WordLearningPage> {
-  final CharacterRepository _repository = CharacterRepository();
-
-  int _selectedLevel = 1; // 默认 L1
-  List<CharacterModel> _characters = [];
-  bool _isLoading = true;
-  String? _error;
-  int _reviewCount = 0; // 今日待复习数
-  String? _currentChildId;
-  bool _isOffline = false; // 网络状态
-  StreamSubscription<NetworkStatus>? _networkSubscription; // 网络状态订阅
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedLevel = widget.initialLevel ?? 1;
-    // 监听网络状态
-    _networkSubscription = ServiceLocator.instance.apiClient.networkStatus.listen((status) {
-      if (mounted) {
-        setState(() {
-          _isOffline = status == NetworkStatus.offline;
-        });
-      }
-    });
-    _initChildId();
-  }
-
-  @override
-  void dispose() {
-    _networkSubscription?.cancel();
-    super.dispose();
-  }
-
-  Future<void> _initChildId() async {
-    // 优先用传入的childId，否则从本地存储获取
-    final childId = widget.childId ?? await StorageService.getCurrentChildId();
-    if (mounted) {
-      setState(() => _currentChildId = childId);
-      _loadCharacters();
-    }
-  }
-
-  Future<void> _loadCharacters() async {
-    setState(() {
-      _isLoading = true;
-      _error = null;
-    });
-
-    try {
-      // 并行加载：汉字列表 + 学习统计
-      final results = await Future.wait([
-        _repository.getCharactersByLevel(
-          _selectedLevel,
-          childId: _currentChildId,
-        ),
-        _currentChildId != null
-            ? _repository.getLearningStats(_currentChildId!)
-            : Future.value(null),
-      ]);
-
-      final chars = results[0] as List<CharacterModel>;
-      final stats = results[1] as LearningStats?;
-
-      if (mounted) {
-        setState(() {
-          _characters = chars;
-          _reviewCount = stats?.dueReview ?? 0;
-          _isLoading = false;
-        });
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() {
-          _error = e.toString();
-          _isLoading = false;
-        });
-      }
-    }
-  }
-
-  void _onLevelChanged(int level) {
-    if (level == _selectedLevel) return;
-    setState(() => _selectedLevel = level);
-    _loadCharacters();
-  }
+class _WordLearningView extends StatelessWidget {
+  const _WordLearningView();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: Column(
-          children: [
-            _buildHeader(),
-            if (_isOffline) NetworkUIHelper.buildOfflineBanner(),
-            _buildReviewBanner(),
-            _buildLevelSelector(),
-            Expanded(child: _buildContent()),
-          ],
-        ),
-      ),
+    return BlocBuilder<WordLearningBloc, WordLearningState>(
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: AppColors.background,
+          body: SafeArea(
+            child: Column(
+              children: [
+                _buildHeader(state),
+                if (state.isOffline) NetworkUIHelper.buildOfflineBanner(),
+                _buildReviewBanner(context, state),
+                _buildLevelSelector(context, state),
+                Expanded(child: _buildContent(context, state)),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
   /// 顶部标题栏
-  Widget _buildHeader() {
+  Widget _buildHeader(WordLearningState state) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(
         AppSpacing.md,
@@ -191,7 +120,7 @@ class _WordLearningPageState extends State<WordLearningPage> {
                 ),
                 const SizedBox(width: 2),
                 Text(
-                  '$_reviewCount 待复习',
+                  '${state.reviewCount} 待复习',
                   style: AppTypography.caption.copyWith(
                     color: AppColors.warning,
                     fontWeight: FontWeight.w600,
@@ -206,31 +135,14 @@ class _WordLearningPageState extends State<WordLearningPage> {
   }
 
   /// 今日复习提醒Banner
-  Widget _buildReviewBanner() {
-    if (_reviewCount == 0) return const SizedBox.shrink();
+  Widget _buildReviewBanner(
+      BuildContext context, WordLearningState state) {
+    if (state.reviewCount == 0) return const SizedBox.shrink();
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
       child: GestureDetector(
-        onTap: _reviewCount > 0
-            ? () async {
-                // 获取待复习汉字，跳转复习流程
-                final reviewChars = await _repository.getReviewQueue(
-                  _currentChildId!,
-                );
-                if (mounted && reviewChars.isNotEmpty) {
-                  await Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ReviewPage(
-                        childId: _currentChildId!,
-                        reviewCharacters: reviewChars,
-                      ),
-                    ),
-                  );
-                  _loadCharacters(); // 复习完成，刷新列表
-                }
-              }
-            : null,
+        onTap: () => _startReview(context, state),
         child: Container(
           width: double.infinity,
           padding: const EdgeInsets.all(AppSpacing.md),
@@ -277,7 +189,7 @@ class _WordLearningPageState extends State<WordLearningPage> {
                       ),
                     ),
                     Text(
-                      '$_reviewCount 个汉字需要复习，巩固记忆更牢固',
+                      '${state.reviewCount} 个汉字需要复习，巩固记忆更牢固',
                       style: AppTypography.caption.copyWith(
                         color: Colors.white.withOpacity(0.9),
                       ),
@@ -297,8 +209,30 @@ class _WordLearningPageState extends State<WordLearningPage> {
     );
   }
 
+  Future<void> _startReview(
+      BuildContext context, WordLearningState state) async {
+    if (state.currentChildId == null) return;
+    final repo = CharacterRepository();
+    final reviewChars = await repo.getReviewQueue(state.currentChildId!);
+    if (!context.mounted) return;
+    if (reviewChars.isNotEmpty) {
+      await Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => ReviewPage(
+            childId: state.currentChildId!,
+            reviewCharacters: reviewChars,
+          ),
+        ),
+      );
+      // 复习完成，刷新列表
+      if (context.mounted) {
+        context.read<WordLearningBloc>().add(const WordLearningRefreshData());
+      }
+    }
+  }
+
   /// 级别选择器（L1-L5 横向滚动）
-  Widget _buildLevelSelector() {
+  Widget _buildLevelSelector(BuildContext context, WordLearningState state) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
       child: SizedBox(
@@ -307,12 +241,12 @@ class _WordLearningPageState extends State<WordLearningPage> {
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
           itemCount: 5,
-          itemBuilder: (context, index) {
+          itemBuilder: (ctx, index) {
             final level = index + 1;
-            final isSelected = level == _selectedLevel;
+            final isSelected = level == state.selectedLevel;
             return Padding(
               padding: const EdgeInsets.only(right: AppSpacing.sm),
-              child: _buildLevelChip(level, isSelected),
+              child: _buildLevelChip(context, level, isSelected),
             );
           },
         ),
@@ -320,10 +254,12 @@ class _WordLearningPageState extends State<WordLearningPage> {
     );
   }
 
-  Widget _buildLevelChip(int level, bool isSelected) {
+  Widget _buildLevelChip(
+      BuildContext context, int level, bool isSelected) {
     final color = _levelColor(level);
     return GestureDetector(
-      onTap: () => _onLevelChanged(level),
+      onTap: () =>
+          context.read<WordLearningBloc>().add(WordLearningLevelChanged(level)),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         width: 72,
@@ -397,31 +333,15 @@ class _WordLearningPageState extends State<WordLearningPage> {
     );
   }
 
-  Color _levelColor(int level) {
-    const colors = [
-      AppColors.primary,      // L1 春绿
-      Color(0xFF81C784),      // L2 浅绿
-      AppColors.accent,       // L3 阳光黄
-      AppColors.secondary,    // L4 暖粉
-      AppColors.warning,      // L5 橙红
-    ];
-    return colors[(level - 1) % colors.length];
-  }
-
-  String _levelLabel(int level) {
-    const labels = ['启蒙古', '基础', '进阶', '提高', '熟练'];
-    return labels[(level - 1) % labels.length];
-  }
-
-  /// 主内容区：字卡网格
-  Widget _buildContent() {
-    if (_isLoading) {
+  /// 主内容区：loading / error / empty / 字卡网格
+  Widget _buildContent(BuildContext context, WordLearningState state) {
+    if (state.isLoading && state.characters.isEmpty) {
       return const Center(
         child: CircularProgressIndicator(color: AppColors.primary),
       );
     }
 
-    if (_error != null) {
+    if (state.errorMessage != null && state.characters.isEmpty) {
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -431,7 +351,9 @@ class _WordLearningPageState extends State<WordLearningPage> {
             Text('加载失败', style: AppTypography.body),
             const SizedBox(height: AppSpacing.sm),
             TextButton(
-              onPressed: _loadCharacters,
+              onPressed: () => context
+                  .read<WordLearningBloc>()
+                  .add(const WordLearningRefreshData()),
               child: const Text('重新加载'),
             ),
           ],
@@ -439,7 +361,7 @@ class _WordLearningPageState extends State<WordLearningPage> {
       );
     }
 
-    if (_characters.isEmpty) {
+    if (state.characters.isEmpty) {
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -465,7 +387,7 @@ class _WordLearningPageState extends State<WordLearningPage> {
           child: Row(
             children: [
               Text(
-                'L$_selectedLevel ${_levelLabel(_selectedLevel)}字表',
+                '${state.levelLabel} ${_levelLabel(state.selectedLevel)}字表',
                 style: AppTypography.h3,
               ),
               const SizedBox(width: AppSpacing.xs),
@@ -475,13 +397,13 @@ class _WordLearningPageState extends State<WordLearningPage> {
                   vertical: 2,
                 ),
                 decoration: BoxDecoration(
-                  color: _levelColor(_selectedLevel).withOpacity(0.1),
+                  color: _levelColor(state.selectedLevel).withOpacity(0.1),
                   borderRadius: BorderRadius.circular(AppRadius.small),
                 ),
                 child: Text(
-                  '${_characters.length}字',
+                  '${state.characterCount}字',
                   style: AppTypography.caption.copyWith(
-                    color: _levelColor(_selectedLevel),
+                    color: _levelColor(state.selectedLevel),
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -506,9 +428,9 @@ class _WordLearningPageState extends State<WordLearningPage> {
               crossAxisSpacing: AppSpacing.sm,
               childAspectRatio: 0.85,
             ),
-            itemCount: _characters.length,
-            itemBuilder: (context, index) {
-              return _buildCharCard(_characters[index]);
+            itemCount: state.characters.length,
+            itemBuilder: (ctx, index) {
+              return _buildCharCard(ctx, state.characters[index]);
             },
           ),
         ),
@@ -517,9 +439,9 @@ class _WordLearningPageState extends State<WordLearningPage> {
   }
 
   /// 单个汉字卡片
-  Widget _buildCharCard(CharacterModel char) {
+  Widget _buildCharCard(BuildContext context, CharacterModel char) {
     return GestureDetector(
-      onTap: () => _showCharDetail(char),
+      onTap: () => _showCharDetail(context, char),
       child: Container(
         decoration: BoxDecoration(
           color: AppColors.surface,
@@ -614,12 +536,12 @@ class _WordLearningPageState extends State<WordLearningPage> {
     }
   }
 
-  /// 汉字详情弹窗（示例）
-  void _showCharDetail(CharacterModel char) {
+  /// 汉字详情弹窗
+  void _showCharDetail(BuildContext context, CharacterModel char) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (context) => Container(
+      builder: (ctx) => Container(
         decoration: const BoxDecoration(
           color: AppColors.surface,
           borderRadius: BorderRadius.vertical(
@@ -698,13 +620,18 @@ class _WordLearningPageState extends State<WordLearningPage> {
               ),
             ],
             const SizedBox(height: AppSpacing.lg),
-            // 学习按钮
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pop(context);
-                  _showToast('学习功能开发中...');
+                  Navigator.pop(ctx);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('学习功能开发中...'),
+                      duration: Duration(seconds: 1),
+                      behavior: SnackBarBehavior.floating,
+                    ),
+                  );
                 },
                 child: Text(char.isNew ? '开始学习' : '继续学习'),
               ),
@@ -732,14 +659,22 @@ class _WordLearningPageState extends State<WordLearningPage> {
       ),
     );
   }
+}
 
-  void _showToast(String msg) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(msg),
-        duration: const Duration(seconds: 1),
-        behavior: SnackBarBehavior.floating,
-      ),
-    );
-  }
+// === 工具函数 ===
+
+Color _levelColor(int level) {
+  const colors = [
+    AppColors.primary, // L1 春绿
+    Color(0xFF81C784), // L2 浅绿
+    AppColors.accent, // L3 阳光黄
+    AppColors.secondary, // L4 暖粉
+    AppColors.warning, // L5 橙红
+  ];
+  return colors[(level - 1) % colors.length];
+}
+
+String _levelLabel(int level) {
+  const labels = ['启蒙古', '基础', '进阶', '提高', '熟练'];
+  return labels[(level - 1) % labels.length];
 }
