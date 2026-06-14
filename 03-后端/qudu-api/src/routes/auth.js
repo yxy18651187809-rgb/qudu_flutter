@@ -12,6 +12,7 @@ const smsRateLimiter = rateLimit({
   message: { code: 42903, data: null, message: config.security.rateLimit.sms.message },
   standardHeaders: true,
   legacyHeaders: false,
+  validate: false, // 开发环境禁用 IPv6 校验
   keyGenerator: (req) => {
     // 标准化 IPv6 映射地址
     const ip = (req.ip || '').replace(/^::ffff:/, '');

@@ -160,6 +160,7 @@ const authRateLimiter = rateLimit({
   message: { code: 42902, data: null, message: config.security.rateLimit.auth.message },
   standardHeaders: true,
   legacyHeaders: false,
+  validate: false, // 开发环境禁用 IPv6 校验
   keyGenerator: (req) => {
     // 标准化 IPv6 映射地址（::ffff:127.0.0.1 → 127.0.0.1）
     const ip = (req.ip || '').replace(/^::ffff:/, '');
