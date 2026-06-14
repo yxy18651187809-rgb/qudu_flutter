@@ -34,10 +34,10 @@ npm run dev
 ```
 
 启动成功后：
-- API服务：http://localhost:3000
-- 健康检查：http://localhost:3000/health
-- Swagger文档：http://localhost:3000/api-docs
-- Swagger JSON：http://localhost:3000/api-docs.json
+- API服务：http://localhost:3001
+- 健康检查：http://localhost:3001/api/v1/ping
+- Swagger文档：http://localhost:3001/api-docs
+- Swagger JSON：http://localhost:3001/api-docs.json
 
 ### 2.2 手动安装（无Docker）
 
@@ -120,7 +120,7 @@ REDIS_URL=redis://localhost:6379
 
 | 变量 | 必填 | 默认值 | 说明 |
 |------|------|--------|------|
-| PORT | 否 | 3000 | 服务端口 |
+| PORT | 否 | 3001 | 服务端口 |
 | MONGODB_URI | 是 | mongodb://localhost:27017/qudu | MongoDB连接串 |
 | REDIS_URL | 是 | redis://localhost:6379 | Redis连接URL |
 | JWT_SECRET | 是 | dev-secret-change-in-production | JWT签名密钥，生产环境必须修改 |
@@ -308,21 +308,22 @@ mongosh "mongodb://qudu:qudu_dev_2026@localhost:27017/qudu?authSource=admin"
 ### Q: 如何验证API是否正常？
 ```bash
 # 健康检查
-curl http://localhost:3000/health
+curl http://localhost:3001/health
 
 # 发送验证码
-curl -X POST http://localhost:3000/api/v1/auth/sms/send \
+curl -X POST http://localhost:3001/api/v1/auth/sms/send \
   -H "Content-Type: application/json" \
   -d '{"phone":"13800138000"}'
 
 # 登录
-curl -X POST http://localhost:3000/api/v1/auth/login \
+curl -X POST http://localhost:3001/api/v1/auth/login \
   -H "Content-Type: application/json" \
   -d '{"phone":"13800138000","code":"123456"}'
 ```
 
 ---
 
-*文档版本：v1.0*  
+*文档版本：v1.1*  
 *创建日期：2026-04-21*  
+*最后更新：2026-06-13（端口3000→3001，新增SSL证书方案+Nginx生产配置）*  
 *维护者：后端负责人*
