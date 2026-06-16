@@ -11,8 +11,17 @@ exports.getCharacters = async (req, res) => {
     const { level, grade, page = 1, pageSize = 100 } = req.query;
     const filter = {};
 
-    if (level) filter.level = parseInt(level);
-    if (grade) filter.grade = parseInt(grade);
+    if (level) {
+      // 支持两种格式：level=1 或 level=L1（自动提取数字部分）
+      const levelNum = typeof level === 'string' && level.startsWith('L') ? level.substring(1) : level;
+      const parsed = parseInt(levelNum);
+      if (!isNaN(parsed)) filter.level = parsed;
+    }
+    if (grade) {
+      const gradeNum = typeof grade === 'string' && grade.startsWith('G') ? grade.substring(1) : grade;
+      const parsed = parseInt(gradeNum);
+      if (!isNaN(parsed)) filter.grade = parsed;
+    }
 
     const skip = (parseInt(page) - 1) * parseInt(pageSize);
     const [list, total] = await Promise.all([
