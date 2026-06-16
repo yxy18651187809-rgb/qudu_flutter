@@ -4,6 +4,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_radius.dart';
 import '../../../core/theme/app_typography.dart';
+import '../../../core/utils/image_url_resolver.dart';
 import '../../../data/models/assessment_model.dart';
 import '../../../data/repositories/book_reader_repository.dart';
 import '../../../core/network/network_interceptor.dart';
@@ -18,11 +19,14 @@ class BookReaderPage extends StatefulWidget {
   final String bookId;
   /// 儿童ID（用于记录进度）
   final String? childId;
+  /// 可选注入 Repository（用于测试）
+  final BookReaderRepository? repository;
 
   const BookReaderPage({
     super.key,
     required this.bookId,
     this.childId,
+    this.repository,
   });
 
   @override
@@ -31,7 +35,7 @@ class BookReaderPage extends StatefulWidget {
 
 class _BookReaderPageState extends State<BookReaderPage>
     with SingleTickerProviderStateMixin {
-  final BookReaderRepository _repository = BookReaderRepository();
+  late final BookReaderRepository _repository;
 
   // 状态
   BookDetailModel? _bookDetail;
@@ -53,14 +57,20 @@ class _BookReaderPageState extends State<BookReaderPage>
   @override
   void initState() {
     super.initState();
-    // 监听网络状态
-    _networkSubscription = ServiceLocator.instance.apiClient.networkStatus.listen((status) {
-      if (mounted) {
-        setState(() {
-          _isOffline = status == NetworkStatus.offline;
-        });
-      }
-    });
+    // 初始化 Repository（支持注入，便于测试）
+    _repository = widget.repository ?? BookReaderRepository();
+    // 监听网络状态（测试环境可能未初始化 ServiceLocator，静默跳过）
+    try {
+      _networkSubscription = ServiceLocator.instance.apiClient.networkStatus.listen((status) {
+        if (mounted) {
+          setState(() {
+            _isOffline = status == NetworkStatus.offline;
+          });
+        }
+      });
+    } catch (_) {
+      // ServiceLocator 未初始化（单元测试等场景）
+    }
     _pageController = PageController();
     _fadeController = AnimationController(
       duration: const Duration(milliseconds: 300),
@@ -299,16 +309,26 @@ class _BookReaderPageState extends State<BookReaderPage>
 
         // --- 顶部控制栏 ---
         if (_showControls)
-          FadeTransition(
-            opacity: _fadeAnimation,
-            child: _buildTopBar(pages.length),
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: FadeTransition(
+              opacity: _fadeAnimation,
+              child: _buildTopBar(pages.length),
+            ),
           ),
 
         // --- 底部导航栏 ---
         if (_showControls)
-          FadeTransition(
-            opacity: _fadeAnimation,
-            child: _buildBottomBar(pages.length, isLastPage),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: FadeTransition(
+              opacity: _fadeAnimation,
+              child: _buildBottomBar(pages.length, isLastPage),
+            ),
           ),
 
         // --- 左右翻页按钮 ---
@@ -370,14 +390,10 @@ class _BookReaderPageState extends State<BookReaderPage>
     );
   }
 
-  /// 顶部栏
+  /// 顶部栏内容（不含 Positioned，由调用方负责定位）
   Widget _buildTopBar(int totalPages) {
     final progress = (_currentPageIndex + 1) / totalPages;
-    return Positioned(
-      top: 0,
-      left: 0,
-      right: 0,
-      child: Container(
+    return Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -454,17 +470,12 @@ class _BookReaderPageState extends State<BookReaderPage>
             ),
           ],
         ),
-      ),
-    );
+      );
   }
 
-  /// 底部导航栏
+  /// 底部导航栏内容（不含 Positioned，由调用方负责定位）
   Widget _buildBottomBar(int totalPages, bool isLastPage) {
-    return Positioned(
-      bottom: 0,
-      left: 0,
-      right: 0,
-      child: Container(
+    return Container(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -529,7 +540,6 @@ class _BookReaderPageState extends State<BookReaderPage>
             ),
           ],
         ),
-      ),
     );
   }
 }
@@ -549,16 +559,6 @@ class _ReaderPageView extends StatelessWidget {
     required this.isLastPage,
     this.reviewWordSet = const {}, // P1-002
   });
-
-  /// 将相对URL转为完整URL
-  static String _resolveImageUrl(String url) {
-    if (url.startsWith('http')) return url;
-    const serverBase = String.fromEnvironment(
-      'API_SERVER',
-      defaultValue: 'http://localhost:3000',
-    );
-    return '$serverBase$url';
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -623,7 +623,7 @@ class _ReaderPageView extends StatelessWidget {
             // 过渡期兼容 1:1/4:3 旧图，完整显示不裁剪；统一4:5后零留白
             if (page.image.isNotEmpty)
               Image.network(
-                _resolveImageUrl(page.image),
+                ImageUrlResolver.resolve(page.image),
                 fit: BoxFit.contain,
                 errorBuilder: (_, __, ___) => _buildIllustrationPlaceholder(),
               )

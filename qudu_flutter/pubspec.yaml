@@ -82,6 +82,9 @@ dev_dependencies:
   # BLoC 测试
   bloc_test: ^9.1.0
 
+  # Widget 测试：mock network images
+  network_image_mock: ^2.1.1
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
