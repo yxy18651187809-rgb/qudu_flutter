@@ -1,7 +1,7 @@
 # 字趣阅读 - API 契约文档
 
-**版本**：v1.3  
-**日期**：2026-05-07  
+**版本**：v1.4  
+**日期**：2026-06-14  
 **作者**：后端负责人  
 **状态**：已交付，前端可按此开发
 
@@ -329,6 +329,47 @@ Authorization: Bearer <accessToken>
   },
   "message": "success"
 }
+```
+
+---
+
+### 2.6 账号注销
+
+```
+DELETE /api/v1/auth/account
+Authorization: Bearer <accessToken>
+```
+
+**Response 200:**
+
+```json
+{
+  "code": 0,
+  "data": {
+    "deletedAt": "2026-06-14T12:00:00.000Z",
+    "summary": {
+      "wordMastery": 45,
+      "learningRecords": 120,
+      "learningReports": 30,
+      "assessments": 5,
+      "children": 2,
+      "parentMonitoring": 2
+    }
+  },
+  "message": "账号已注销"
+}
+```
+
+**说明：**
+- **操作不可逆**，删除用户及其所有关联数据
+- 关联数据包括：儿童档案、学习记录、测评记录、识字掌握度、学习报告、家长监控设置
+- 短信验证码缓存同步清除
+- 前端应在用户确认后调用此接口，成功后跳转到登录页
+
+**Error 401:**
+
+```json
+{ "code": 40101, "data": null, "message": "访问令牌已过期" }
 ```
 
 ---

@@ -1,5 +1,10 @@
 const User = require('../models/User');
 const Child = require('../models/Child');
+const WordMastery = require('../models/WordMastery');
+const LearningRecord = require('../models/LearningRecord');
+const LearningReport = require('../models/LearningReport');
+const Assessment = require('../models/Assessment');
+const ParentMonitoring = require('../models/ParentMonitoring');
 const { generateTokenPair, verifyToken, getAccessTokenExpiresIn } = require('../utils/token');
 const { success, created, error, ErrorCodes } = require('../utils/response');
 const config = require('../config');
@@ -334,11 +339,82 @@ async function wechatLogin(req, res) {
   }
 }
 
+/**
+ * 账号注销
+ * DELETE /api/v1/auth/account
+ * 需认证，删除用户及其所有关联数据
+ */
+async function deleteAccount(req, res) {
+  try {
+    const userId = req.userId;
+    
+    // 1. 查找用户
+    const user = await User.findById(userId);
+    if (!user) {
+      return error(res, ErrorCodes.USER_NOT_FOUND, '用户不存在', 404);
+    }
+    
+    // 2. 查找该用户的所有活跃儿童
+    const children = await Child.find({ userId, status: 'active' });
+    const childIds = children.map(c => c._id);
+    
+    // 3. 批量删除每个孩子的关联数据
+    const deleteResults = {};
+    
+    if (childIds.length > 0) {
+      // WordMastery（识字掌握度）
+      const wordMasteryResult = await WordMastery.deleteMany({ childId: { $in: childIds } });
+      deleteResults.wordMastery = wordMasteryResult.deletedCount;
+      
+      // LearningRecord（学习记录）
+      const learningRecordResult = await LearningRecord.deleteMany({ childId: { $in: childIds } });
+      deleteResults.learningRecords = learningRecordResult.deletedCount;
+      
+      // LearningReport（学习报告）
+      const learningReportResult = await LearningReport.deleteMany({ childId: { $in: childIds } });
+      deleteResults.learningReports = learningReportResult.deletedCount;
+      
+      // Assessment（测评记录）
+      const assessmentResult = await Assessment.deleteMany({ childId: { $in: childIds } });
+      deleteResults.assessments = assessmentResult.deletedCount;
+      
+      // 删除儿童档案
+      const childResult = await Child.deleteMany({ userId, status: 'active' });
+      deleteResults.children = childResult.deletedCount;
+    }
+    
+    // 4. 删除 ParentMonitoring（家长监控设置）
+    const monitoringResult = await ParentMonitoring.deleteMany({ parentId: userId });
+    deleteResults.parentMonitoring = monitoringResult.deletedCount;
+    
+    // 5. 清除该用户手机号的短信验证码缓存
+    if (user.phone) {
+      smsCodeStore.delete(user.phone);
+    }
+    
+    // 6. 删除用户
+    await User.findByIdAndDelete(userId);
+    
+    const totalDeleted = Object.values(deleteResults).reduce((sum, v) => sum + v, 0);
+    console.log(`[Account] 账号注销完成: userId=${userId}, phone=${user.maskedPhone || 'N/A'}, 删除${totalDeleted}条关联记录`, deleteResults);
+    
+    return success(res, {
+      deletedAt: new Date().toISOString(),
+      summary: deleteResults
+    }, '账号已注销');
+    
+  } catch (err) {
+    console.error('[Account] 账号注销失败:', err);
+    return error(res, ErrorCodes.INTERNAL_ERROR, '账号注销失败', 500);
+  }
+}
+
 module.exports = {
   sendSmsCode,
   login,
   refreshToken,
   getProfile,
   updateProfile,
-  wechatLogin
+  wechatLogin,
+  deleteAccount
 };

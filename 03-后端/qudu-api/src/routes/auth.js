@@ -261,4 +261,45 @@ router.get('/profile', authMiddleware, authCtrl.getProfile);
  */
 router.put('/profile', authMiddleware, authCtrl.updateProfile);
 
+/**
+ * @openapi
+ * /auth/account:
+ *   delete:
+ *     tags: [认证模块]
+ *     summary: 账号注销
+ *     description: 永久删除当前用户账号及其所有关联数据（儿童档案、学习记录、测评、报告、监控设置等）。操作不可逆。
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: 账号注销成功
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 code: { type: integer, example: 0 }
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     deletedAt: { type: string, example: "2026-06-14T12:00:00.000Z" }
+ *                     summary:
+ *                       type: object
+ *                       properties:
+ *                         wordMastery: { type: integer, example: 45 }
+ *                         learningRecords: { type: integer, example: 120 }
+ *                         learningReports: { type: integer, example: 30 }
+ *                         assessments: { type: integer, example: 5 }
+ *                         children: { type: integer, example: 2 }
+ *                         parentMonitoring: { type: integer, example: 2 }
+ *                 message: { type: string, example: "账号已注销" }
+ *       401:
+ *         description: 未认证
+ *       404:
+ *         description: 用户不存在
+ *       500:
+ *         description: 服务器错误
+ */
+router.delete('/account', authMiddleware, authCtrl.deleteAccount);
+
 module.exports = router;

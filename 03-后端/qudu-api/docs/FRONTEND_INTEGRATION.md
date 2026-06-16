@@ -119,6 +119,38 @@ parentId 从 Step 2 登录响应 `user.parentId` 获取。
 | POST | `/api/v1/auth/wechat-login` | 微信登录 |
 | GET | `/api/v1/auth/profile` | 获取用户信息（需Auth） |
 | PUT | `/api/v1/auth/profile` | 更新用户信息（需Auth） |
+| DELETE | `/api/v1/auth/account` | **账号注销**（需Auth，操作不可逆） |
+
+### 账号注销（🆕 6/14新增）
+```
+DELETE /api/v1/auth/account
+Authorization: Bearer <accessToken>
+```
+**Response 200:**
+```json
+{
+  "code": 0,
+  "data": {
+    "deletedAt": "2026-06-14T12:23:55.999Z",
+    "summary": {
+      "wordMastery": 0,
+      "learningRecords": 0,
+      "learningReports": 0,
+      "assessments": 0,
+      "children": 1,
+      "parentMonitoring": 0
+    }
+  },
+  "message": "账号已注销"
+}
+```
+**行为说明：**
+- 级联删除：User → 所有Children → 每条Child的WordMastery/LearningRecord/LearningReport/Assessment → ParentMonitoring
+- SMS验证码缓存同步清除
+- **操作不可逆**，前端应在用户二次确认后调用
+- 注销成功后：清除本地Token → 跳转登录页
+- ⚠️ 注销后accessToken仍短暂有效（JWT无状态），但/api/auth/refresh会因user不存在返回401
+- 重新使用同一手机号注册 → 视为全新用户
 
 ---
 
@@ -191,8 +223,12 @@ curl -s "$BASE/books" | grep -o '"total":[0-9]*'
 
 echo -e "\n=== 5. 音频检查 ==="
 curl -sI http://localhost:3001/audio/books/L1_book_01_p1.mp3 | head -3
+
+echo -e "\n=== 6. 账号注销测试（需要先登录获取Token） ==="
+curl -s -X DELETE "$BASE/auth/account" -H "Authorization: Bearer $TOKEN"
+# 预期: {"code":0,"data":{"deletedAt":"...","summary":{...}},"message":"账号已注销"}
 ```
 
 ---
 
-*文档版本：v1.0 | 创建日期：2026-06-14*
+*文档版本：v1.1 | 更新日期：2026-06-14（新增账号注销接口）*
