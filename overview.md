@@ -1,64 +1,90 @@
-# BLoC 扩展 Tab1/Tab3 + 微信登录端到端测试 — 完成报告
+# 绘本阅读器 本地环境验证 完成报告
 
-**日期**: 2026-06-14 | **状态**: ✅ 完成
-
----
-
-## 完成内容
-
-### 1. Tab1（识字页）BLoC 迁移
-- 新建 `word_learning_bloc.dart` / `word_learning_event.dart` / `word_learning_state.dart`
-- `word_learning_page.dart` 从 StatefulWidget（745行）重构为 StatelessWidget + BlocProvider
-- 状态管理：selectedLevel / characters / isLoading / isOffline / errorMessage / currentChildId / reviewCount
-- 支持 `initialLevel` 和 `initialChildId` 构造函数注入（便于测试）
-- 10 个单元测试全通过
-
-### 2. Tab3（个人中心）BLoC 迁移
-- 新建 `profile_bloc.dart` / `profile_event.dart` / `profile_state.dart`
-- `profile_page.dart` 从 StatefulWidget（676行）重构为 StatelessWidget + BlocProvider
-- 状态管理：children / parentId / isLoading / isOffline / errorMessage
-- 支持 `parentId` 构造函数注入（绕过 StorageService 平台通道，便于测试）
-- 7 个单元测试全通过
-
-### 3. 微信登录端到端单元测试
-- 新建 `wechat_login_test.dart`（11 个测试）
-- 覆盖：WechatLoginResult 模型 / LoginResponse 模型 / UserModel 模型 / AuthRepository.wechatLogin / 完整 SMS→Login 流程
-- 复用 `TestableApiClient` mock 模式
-
-### 4. Repository 依赖注入改造
-- `character_repository.dart`：从硬编码 `ServiceLocator.instance.apiClient` 改为构造函数注入 `ApiClient`（可选参数，向后兼容）
+**日期**: 2026-06-16 | **提交**: `f5315ea` (5 files, +471/-41)
 
 ---
 
-## 测试覆盖
+## 环境启动 ✅
 
-| 文件 | 测试数 | 状态 |
-|------|--------|------|
-| `word_learning_bloc_test.dart` | 10 | ✅ |
-| `profile_bloc_test.dart` | 7 | ✅ |
-| `wechat_login_test.dart` | 11 | ✅ |
-| `bookshelf_bloc_test.dart` | 8 | ✅ |
-| Home/Books/Children/Auth repos | 36 | ✅ |
-| Model tests | 24 | ✅ |
-| Widget smoke | 1 | ✅ |
-| **总计** | **97** | **✅ 全通过** |
-
----
-
-## 代码质量
-
-- `flutter analyze`：0 errors，0 warnings，110 info（lint hints）
-- `flutter test`：97/97 passed
+| 组件 | 状态 | 详情 |
+|------|:---:|------|
+| 后端 qudu-api | ✅ | PID 59639, port 3001, Node.js |
+| MongoDB | ✅ | localhost:27017, qudu DB |
+| `GET /books/L1_book_01` | ✅ | 10页完整数据(text+pinyin+image+wordAnnotations) |
+| 静态图片 | ✅ | `/uploads/pages/01_P01.png` → 200 OK |
+| Flutter Web | ✅ | `http://localhost:8080` Chrome |
+| flutter analyze | ✅ | 0 error, 0 warning |
+| flutter test | ✅ | All tests passed |
 
 ---
 
-## 技术决策
+## 代码变更
 
-1. **ProfileBloc parentId 注入**：BLoC 构造函数新增 `String? parentId` 参数，测试环境直接传入避免 `FlutterSecureStorage` 平台通道依赖
-2. **BLoC 模式一致性**：所有 4 个 Tab BLoC 统一使用三文件结构（bloc/event/state）、Equatable states、copyWith 模式、网络状态订阅
+### 1. Repository 注入 (`book_reader_page.dart`)
+```dart
+// ✅ 支持测试注入
+const BookReaderPage({
+  required this.bookId,
+  this.childId,
+  this.repository,   // 新增：可选注入
+});
+```
 
-## 下一步
+### 2. 工具类提取 (`lib/core/utils/image_url_resolver.dart`)
+```dart
+// ✅ 公开可用
+class ImageUrlResolver {
+  static String resolve(String url) { ... }
+}
+```
+- 修复变量名: `API_SERVER` → `API_BASE_URL`
+- 修复默认端口: `3000` → `3001`
 
-- Git commit 本次变更
-- Phase 1.1 联调（前后端对接）
-- Tab1/Tab3 页面 UI 验证
+### 3. 🐛 Bug 修复: Positioned + FadeTransition 崩溃
+
+**根因**: `_buildTopBar` / `_buildBottomBar` 返回 `Positioned(...)`，被 `FadeTransition` 包裹。Flutter 不允许 `Positioned`（Stack子控件）被非Stack控件包裹。
+
+**修复**: Positioned 移到 FadeTransition 外层
+```dart
+// ❌ 崩溃
+FadeTransition(opacity: _, child: _buildTopBar())  // _buildTopBar 返回 Positioned
+// ✅ 正确
+Positioned(top: 0, left: 0, right: 0, child: FadeTransition(opacity: _, child: _buildTopBarContainer()))
+```
+
+### 4. 安全初始化: 网络监听 try-catch
+```dart
+try {
+  _networkSubscription = ServiceLocator.instance.apiClient.networkStatus.listen(...);
+} catch (_) {
+  // ServiceLocator 未初始化（测试环境）
+}
+```
+
+---
+
+## Widget 测试 (9 tests)
+
+| 测试 | 覆盖内容 | 结果 |
+|------|---------|:---:|
+| URL解析-相对路径 | `ImageUrlResolver.resolve()` 拼接服务器地址 | ✅ |
+| URL解析-完整URL | 不修改 `https://` 开头URL | ✅ |
+| 模型序列化 | `BookDetailModel.fromJson()` | ✅ |
+| 加载状态 | `CircularProgressIndicator` 显示 | ✅ |
+| 错误状态 | 异常 → 错误提示 + 重试按钮 | ✅ |
+| 正常渲染 | 书名、页码(1/3)、正文 | ✅ |
+| PageView翻页 | 左滑切换 1→2→3 | ✅ |
+| 空状态 | pages为空 → "暂无绘本内容" | ✅ |
+| 完成按钮 | 末页 → "完成阅读"按钮显示 | ✅ |
+
+---
+
+## 后续行动
+
+| 优先级 | 事项 |
+|:---:|---|
+| 🔴 | L4-065~070 页数超标对齐（22-23 → 15张）|
+| 🔴 | `seed_L1_11_20.js` 编写（文案已有，可先行入库）|
+| 🟡 | Phase 1.1 端到端联调（学习报告+家长监控）|
+| 🟡 | L3/L4/L5 插画前端接入 |
+| 🟢 | 全项目 Git 315文件提交 |
